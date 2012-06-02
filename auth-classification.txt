@@ -3,7 +3,8 @@
 
 NETWORK WORKING GROUP                                        N. Williams
 Internet-Draft                                              Cryptonector
-Expires: December 3, 2012                                   June 1, 2012
+Intended status: Informational                              June 2, 2012
+Expires: December 4, 2012
 
 
  A Proposals for Classification and Analysis of HTTPbis Authentication
@@ -30,7 +31,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 3, 2012.
+   This Internet-Draft will expire on December 4, 2012.
 
 Copyright Notice
 
@@ -51,8 +52,7 @@ Copyright Notice
 
 
 
-
-Williams                Expires December 3, 2012                [Page 1]
+Williams                Expires December 4, 2012                [Page 1]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -63,36 +63,36 @@ Table of Contents
    1.1.    Conventions used in this document  . . . . . . . . . . . .  3
    1.2.    Scope  . . . . . . . . . . . . . . . . . . . . . . . . . .  3
    1.3.    Glossary . . . . . . . . . . . . . . . . . . . . . . . . .  3
-   2.      Background . . . . . . . . . . . . . . . . . . . . . . . .  7
-   2.1.    Threat Models  . . . . . . . . . . . . . . . . . . . . . .  8
-   2.2.    On Trust . . . . . . . . . . . . . . . . . . . . . . . . .  8
-   2.3.    On Mutual Authentication and URI Schemes . . . . . . . . .  9
-   2.4.    On Authentication Mechanism Message Counts . . . . . . . .  9
+   2.      Background . . . . . . . . . . . . . . . . . . . . . . . .  8
+   2.1.    Threat Models  . . . . . . . . . . . . . . . . . . . . . .  9
+   2.2.    On Trust . . . . . . . . . . . . . . . . . . . . . . . . .  9
+   2.3.    On Mutual Authentication and URI Schemes . . . . . . . . . 10
+   2.4.    On Authentication Mechanism Message Counts . . . . . . . . 10
    2.5.    On Channel Binding and One-Message Authentication
-           Mechanisms . . . . . . . . . . . . . . . . . . . . . . . .  9
-   2.6.    Logon Sessions . . . . . . . . . . . . . . . . . . . . . . 10
-   2.7.    Web Cookies, a Form of Bearer Tokens . . . . . . . . . . . 10
-   2.8.    User Interface Issues  . . . . . . . . . . . . . . . . . . 10
-   3.      Classification Axes  . . . . . . . . . . . . . . . . . . . 11
-   3.1.    Dependence on TLS Server PKI . . . . . . . . . . . . . . . 12
-   3.2.    Bearer Tokens vs. Proof of Possession  . . . . . . . . . . 12
-   3.3.    Layer at which Authentication Protocol Operates  . . . . . 12
+           Mechanisms . . . . . . . . . . . . . . . . . . . . . . . . 11
+   2.6.    Logon Sessions . . . . . . . . . . . . . . . . . . . . . . 12
+   2.7.    Web Cookies, a Form of Bearer Tokens . . . . . . . . . . . 12
+   2.8.    User Interface Issues  . . . . . . . . . . . . . . . . . . 12
+   3.      Classification Axes  . . . . . . . . . . . . . . . . . . . 13
+   3.1.    Dependence on TLS Server PKI . . . . . . . . . . . . . . . 14
+   3.2.    Bearer Tokens vs. Proof of Possession  . . . . . . . . . . 14
+   3.3.    Layer at which Authentication Protocol Operates  . . . . . 14
    3.3.1.  HTTP- vs. Application-Layer Authentication in the
-           Network Stack  . . . . . . . . . . . . . . . . . . . . . . 14
+           Network Stack  . . . . . . . . . . . . . . . . . . . . . . 16
    3.3.2.  HTTP- vs. Application-Layer Authentication in the API
-           Stack  . . . . . . . . . . . . . . . . . . . . . . . . . . 18
-   3.3.3.  Choice of Layer  . . . . . . . . . . . . . . . . . . . . . 18
-   3.3.4.  User Authentication in the TLS Layer . . . . . . . . . . . 19
-   3.4.    Party Responsible for Infrastructure Messaging . . . . . . 20
-   3.5.    Number of Messages . . . . . . . . . . . . . . . . . . . . 21
-   3.6.    Trust Establishment  . . . . . . . . . . . . . . . . . . . 23
-   3.7.    Threat Modeling  . . . . . . . . . . . . . . . . . . . . . 25
-   3.8.    Explicit versus Implisit Session Management  . . . . . . . 25
-   3.9.    In-Band versus Out-of-Band Authentication  . . . . . . . . 25
-   4.      Analysis of Some Possible Authentication Proposals . . . . 26
-   5.      Author's Recommendations . . . . . . . . . . . . . . . . . 27
-   6.      References . . . . . . . . . . . . . . . . . . . . . . . . 28
-           Author's Address . . . . . . . . . . . . . . . . . . . . . 30
+           Stack  . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+   3.3.3.  Choice of Layer  . . . . . . . . . . . . . . . . . . . . . 20
+   3.3.4.  User Authentication in the TLS Layer . . . . . . . . . . . 21
+   3.4.    Party Responsible for Infrastructure Messaging . . . . . . 22
+   3.5.    Number of Messages . . . . . . . . . . . . . . . . . . . . 23
+   3.6.    Trust Establishment  . . . . . . . . . . . . . . . . . . . 25
+   3.7.    Threat Modeling  . . . . . . . . . . . . . . . . . . . . . 27
+   3.8.    Explicit versus Implicit Session Management  . . . . . . . 27
+   3.9.    In-Band versus Out-of-Band Authentication  . . . . . . . . 27
+   4.      Analysis of Some Possible Authentication Proposals . . . . 28
+   5.      Author's Recommendations . . . . . . . . . . . . . . . . . 29
+   6.      References . . . . . . . . . . . . . . . . . . . . . . . . 31
+           Author's Address . . . . . . . . . . . . . . . . . . . . . 33
 
 
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Williams                Expires December 3, 2012                [Page 2]
+Williams                Expires December 4, 2012                [Page 2]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -154,20 +154,24 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 1.3.  Glossary
 
-   This section defines terms as they are used in this document.
+   This section defines terms as they are used in _this_ document.
+   Readers are strongly encouraged to read this section before reading
+   any subsequent section.
+
+
+
+
+
+
+
+Williams                Expires December 4, 2012                [Page 3]
+
+Internet-Draft         HTTPbis Auth Classification             June 2012
+
 
    API  Application Programming Interface.  These are interfaces between
       an application and a feature that is abstracted into a "library" -
       a service provided by the platform's operating system.
-
-
-
-
-
-Williams                Expires December 3, 2012                [Page 3]
-
-Internet-Draft         HTTPbis Auth Classification             June 2012
-
 
    API Layer  A complex Internet application might require a large
       number of APIs, such as, for example, one for every network layer.
@@ -181,7 +185,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    Authentication  The process of establishing the veracity or origin of
       some statement (e.g., of an entity's identity), usually by proxy
-      (e.g., with keypairs to an asymmetric key cryptographic system
+      (e.g., with key-pairs to an asymmetric key cryptographic system
       "speaking for" the authenticated entities).  In this document, and
       unless otherwise stated, "authentication" will refer to
       authentication of identity of entities such as "users", "hosts",
@@ -213,17 +217,15 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       The purpose of channel binding[[RFC5056]] is to "bind" a secure
       channel (at one layer in the network stack) into an authentication
       protocol running at a higher layer in the stack, thereby ensuring
-      that the channel is end-to-end and "speaks for" its end-points.
 
 
 
-
-
-
-Williams                Expires December 3, 2012                [Page 4]
+Williams                Expires December 4, 2012                [Page 4]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
+
+      that the channel is end-to-end and "speaks for" its end-points.
 
    Confidentiality protection  Cryptographic encryption of data.
       Confidentiality protection is/must always be used with integrity
@@ -274,9 +276,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-
-
-Williams                Expires December 3, 2012                [Page 5]
+Williams                Expires December 4, 2012                [Page 5]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -286,9 +286,13 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       trust via trusted third parties known as Certificate Authorities
       (CAs).
 
+   Relying Party  An entity that authenticates another.  For example, in
+      PKI the entity that validates another's certificate as part of the
+      process of authenticating that other entity, is a relying party.
+
    SCRAM  Salted Challenge Response Authentication Mechanism
       (SCRAM)[[RFC5802]], a SASL[[RFC4422]] and GSS mechanism based on
-      password-derived pre-shared keys and challeng/response.  SCRAM is
+      password-derived pre-shared keys and challenge/response.  SCRAM is
       intended as the successor to SASL's DIGEST-MD5, and possibly to
       HTTP's DIGEST-MD5.
 
@@ -305,6 +309,52 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       _service_ rather than the host server.  For HTTP applications a
       service may be a collection of resources available on one (or
       more) ports on a given server.
+
+   Trust (in authentication)  This word, "trust", is a terrible word: it
+      means too many things to too many people.  But it's also a very
+      convenient word when everyone understands the meaning to be
+      accorded to it in any given context.  For the time being this
+      document will use this word, "trust", as follows: to trust an
+      entity is to accept as fact assertions -relating to other
+      entities- made by the trusted entity.  Alternative phrasing: to
+      trust an entity is to rely on it to make assertions relating to
+      other entities the truth of which cannot otherwise be ascertained.
+      For example, in a PKI a relying party relies on the certification
+      authorities (and related infrastructure) to make statements of
+      facts of the form "the public key <key> belongs to <subject name>"
+      (details elided).  We only use "trust" in connection to "trusted
+      third parties" - when an authenticated entity makes assertions
+      about itself we do not speak of trusting them to do so.
+
+
+
+
+
+
+
+Williams                Expires December 4, 2012                [Page 6]
+
+Internet-Draft         HTTPbis Auth Classification             June 2012
+
+
+   Trust (in user interfaces)  One of the many alternative meanings of
+      "trust", and the only alternative one used in this document,
+      relates to user interfaces, namely: a trusted user interface is
+      one that the user can somehow ascertain that it is presented by
+      the operating system or browser platform and _not_ by some
+      possibly malicious peer.
+
+   Trust Path  Continuing with the horrible word "trust", we use "trust
+      path" to the note the list of trusted third parties involved in
+      authenticating an entity to a relying party.  This list is
+      ordered, though it could conceivably be set of lists when multiple
+      trust paths are possible.
+
+   Trusted Third Party  An entity that can be relied up -by those
+      relying parties that trust it- to make assertions relating to
+      other entities, typically assertions about how to authenticate
+      those entities and/or of facts relevant to authorization at the
+      relying party.
 
    [[anchor1: Fill out!  Add some entries for OAuth, Kerberos, Basic,
    DIGEST-MD5, EAP, GSS, SASL, ...]]
@@ -332,7 +382,13 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012                [Page 6]
+
+
+
+
+
+
+Williams                Expires December 4, 2012                [Page 7]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -347,7 +403,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    The most common user authentication methods used in web applications
    today include:
 
-   o  Username and password POSTed to the serverfrom an HTML form.
+   o  Username and password POSTed to the server from an HTML form.
       Usually the URL to post to is an HTTPS URL.  Not as often the URL
       of the HTML page containing the form is also an HTTPS URL.
 
@@ -388,13 +444,15 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012                [Page 7]
+Williams                Expires December 4, 2012                [Page 8]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
          enough information by which to identify, and thence
          authenticate, a service.  New URI schemes may be required.
+
+   o  User credentials are too easy to "phish".
 
    o  OTP and out-of-band methods do not protect against MITMs, and thus
       depend on the integrity of TLS and the TLS server PKI.
@@ -439,16 +497,16 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    with... another system with similar transitive trust issues may not
    be a useful proposal.  On the other hand, it seems impossible to
    avoid transitive trust when scaling to Internet scale.  Understanding
-   this may help, for example, give impetus to improvements to the TLS
-   server PKI, or it may guide replacements, understand scalability, and
 
 
 
-Williams                Expires December 3, 2012                [Page 8]
+Williams                Expires December 4, 2012                [Page 9]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
+   this may help, for example, give impetus to improvements to the TLS
+   server PKI, or it may guide replacements, understand scalability, and
    so on.]]
 
 2.3.  On Mutual Authentication and URI Schemes
@@ -469,7 +527,39 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    HTTP server; additional message exchanges may be required involving
    trusted third parties.
 
+   The number of authentication messages that must be exchanged for a
+   given authentication mechanism is important.  The API of at least one
+   important credential management facility is premised on
+   authentication mechanisms having exchanges of just one message -
+   adding new API is possible, but it would take a long time for
+   applications to begin using it.  Thus mechanisms that require just
+   one message are at a premium (but see the next section).
+
+   The number of authentication messages is also important for latency
+   reasons: since authentication message exchanges are synchronous, each
+   round trip time is added to the latency observed by the user.
+
+   The number of messages that an authentication mechanism needs to
+   exchange with infrastructure (e.g., trusted third parties) also
+   affects latency, but at least applications need never be aware of
+   messages exchanged with infrastructure - these can be abstracted away
+   by the APIs.  Some authentication mechanisms have fast re-
+   authentication facilities such that the latency cost of
+   infrastructure messaging need not be incurred as frequently as the
+   entity authenticates to others.
+
    [[anchor6: ...]]
+
+
+
+
+
+
+
+Williams                Expires December 4, 2012               [Page 10]
+
+Internet-Draft         HTTPbis Auth Classification             June 2012
+
 
 2.5.  On Channel Binding and One-Message Authentication Mechanisms
 
@@ -497,14 +587,6 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    channel bindings be used, which effectively eliminates MITMs at the
    TLS layer.  At the time the SASL community rejected this proposal,
    mostly on account of not wanting to have SASL be aware of the type of
-
-
-
-Williams                Expires December 3, 2012                [Page 9]
-
-Internet-Draft         HTTPbis Auth Classification             June 2012
-
-
    channel bindings data used by the application.  In retrospect,
    however, the idea has merit.
 
@@ -527,10 +609,21 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    authentication system, but if there's a way to do so it would help.
 
    YAP is a proof-of-possession mechanism, of course, thus it is quite
+
+
+
+Williams                Expires December 4, 2012               [Page 11]
+
+Internet-Draft         HTTPbis Auth Classification             June 2012
+
+
    simple to apply channel binding types other than server end-point,
    thus making YAP secure against message theft and re-use where a
    bearer token system could not be.  The point being that a secure half
    round trip (one message) user authentication mechanism is feasible.
+
+   Work is ongoing to develop a version of OAuth that is capable of
+   channel binding.  [XXX Add references!]
 
 2.6.  Logon Sessions
 
@@ -556,7 +649,26 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires December 4, 2012               [Page 12]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -565,32 +677,33 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    Several orthogonal classification axes are proposed:
 
-   1.   Dependence on/independence of the TLS server PKI;
+   1.  Dependence on/independence of the TLS server PKI;
 
-   2.   Solutions based on bearer tokens vs. ones based on proof of
-        possession;
+   2.  Solutions based on bearer tokens vs. ones based on proof of
+       possession;
 
-   3.   Layer at which user authentication takes place: TLS, HTTPbis, or
-        the application layer;
+   3.  Layer at which user authentication takes place: TLS, HTTPbis, or
+       the application layer (note: distinguishing network layer from
+       API layer);
 
-   4.   Whether the client, the server, or both, engage in
-        infrastructure messaging;
+   4.  Whether the client, the server, or both, engage in infrastructure
+       messaging;
 
-   5.   Number of messages exchanged / "round trips";
+   5.  Number of messages exchanged / "round trips";
 
-   6.   Trust establishment: pair/group-wise non-transitive, federated
-        or otherwise transitive, hierarchical vs. mesh;
+   6.  Trust establishment: pair/group-wise non-transitive, federated or
+       otherwise transitive, hierarchical vs. mesh;
 
-   7.   Threat modeling;
+   7.  Threat modeling;
 
-   8.   Explicit versus implicit session management;
+   8.  Explicit versus implicit session management;
 
-   9.   In-band / out-of-band.
+   9.  In-band / out-of-band.
 
-   10.  [Maybe add something about separation of password verifier
-        access, to limit the attack surface area for password recovery?]
+   [[anchor10: Maybe add something about separation of password verifier
+   access, to limit the attack surface area for password recovery?]]
 
-   [[anchor10: Note: The author assumes that all acceptable proposals
+   [[anchor11: Note: The author assumes that all acceptable proposals
    will have HTTPbis continue to depend on TLS for transport security -
    for confidentiality (encryption) and integrity (authentication)
    protection of data exchanged by the HTTPbis client and server.  If
@@ -608,14 +721,15 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    objective classification to guide any applicability statements for
    the proposals accepted.  Ideally the WG can apply objective
    classification first, then for each "bucket" of similar proposals the
-   WG could consider more subjective classification criteria.
 
 
 
-Williams                Expires December 3, 2012               [Page 11]
+Williams                Expires December 4, 2012               [Page 13]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
+
+   WG could consider more subjective classification criteria.
 
 3.1.  Dependence on TLS Server PKI
 
@@ -662,17 +776,18 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    o  HTTPbis,
 
-   o  and the application layer.
-
-   We dismiss out of hand the possibility of that layer being TCP or
 
 
 
-Williams                Expires December 3, 2012               [Page 12]
+
+Williams                Expires December 4, 2012               [Page 14]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
+   o  and the application layer.
+
+   We dismiss out of hand the possibility of that layer being TCP or
    IPsec, though admittedly they are also end-to-end layers where user
    authentication could theoretically be done.
 
@@ -721,10 +836,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-
-
-
-Williams                Expires December 3, 2012               [Page 13]
+Williams                Expires December 4, 2012               [Page 15]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -780,7 +892,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 14]
+Williams                Expires December 4, 2012               [Page 16]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -836,7 +948,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 15]
+Williams                Expires December 4, 2012               [Page 17]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -892,7 +1004,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 16]
+Williams                Expires December 4, 2012               [Page 18]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -939,7 +1051,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
                                  Figure 3
 
    There's not much difference between the first two examples.  The
-   third example jas several important differences relative to the first
+   third example has several important differences relative to the first
    two examples:
 
    o  The URL is sent to the server before any chance to have completed
@@ -948,7 +1060,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 17]
+Williams                Expires December 4, 2012               [Page 19]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1004,7 +1116,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 18]
+Williams                Expires December 4, 2012               [Page 20]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1060,7 +1172,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 19]
+Williams                Expires December 4, 2012               [Page 21]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1093,8 +1205,8 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       *  Note however that the user may have a hard time identifying the
          context in which they are being prompted by the system for
          credentials or credential selection.  This is usually not a
-         problem in smartphone and other such small devices, where it is
-         generally clear what application is in the foreground, and
+         problem in smart-phone and other such small devices, where it
+         is generally clear what application is in the foreground, and
          therefore the context of a prompt.  But this is not necessarily
          so on other platforms.
 
@@ -1108,7 +1220,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 3.4.  Party Responsible for Infrastructure Messaging
 
-   [[anchor11: XXX Add references for OCSP, AAA, ...]]
+   [[anchor12: XXX Add references for OCSP, AAA, ...]]
 
    "Infrastructure" consists, for the purposes of this document, of
    services such as Identity Providers (IdPs), Certificate Revocation
@@ -1116,7 +1228,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 20]
+Williams                Expires December 4, 2012               [Page 22]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1127,14 +1239,15 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    application server.  In some cases infrastructure services may be
    physically co-located with the client or server, but by and large
    they are physically separated; infrastructure services are always
-   logically separate from the client and server.
+   logically separate from the client and server.  [XXX Move this to
+   glossary.]
 
    Some protocols require that the client do all or most of the message
    exchanges with infrastructure, some require that the server do this
    messaging, some require both to do some messaging.  In some cases a
    server might proxy a client's messages to infrastructure.  There are
    advantages to the client doing this messaging: namely a simpler
-   server, less subject to denial of service . resource consumption
+   server, less subject to denial of service / resource consumption
    attacks.  [Are there advantages to the server doing this messaging?]
 
    Consider a protocol like Kerberos.  Kerberos relies on Key
@@ -1168,15 +1281,15 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    authenticate a peer varies a lot by authentication mechanism.  Some
    require just one message from the client to the server.  Others
    require a reply message from the server.  Others require some larger
-   number of messages (typically three or four).  Yet others require a
 
 
 
-Williams                Expires December 3, 2012               [Page 21]
+Williams                Expires December 4, 2012               [Page 23]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
+   number of messages (typically three or four).  Yet others require a
    variable number of messages.
 
    Typically key exchange is also required in order to provide
@@ -1223,16 +1336,16 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    o  Pluggable frameworks (SASL, GSS, EAP) (arbitrary message counts,
       usually dependent on what mechanism is selected)
 
-   It's worth pointing out that TLS is a three- or four-message
-   protocol, but when providing confidentiality protection for the
+   It's worth pointing out that TLS is a three- to four-message
 
 
 
-Williams                Expires December 3, 2012               [Page 22]
+Williams                Expires December 4, 2012               [Page 24]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
+   protocol, but when providing confidentiality protection for the
    client identity it becomes a six- to eight-message protocol (though
    there is a proposal to improve this, getting back to three to four
    messages [add reference to Marsh's I-D]).
@@ -1260,7 +1373,9 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    exchange, but otherwise have no transitive trust issues: every pair
    of entities that has shared keying can communicate without the aid of
    any other entity.  However, pair-wise pre-shared keying does not
-   scale to the Internet as it is O(n^2).
+   scale to the Internet as it is O(n^2), and it requires either "leap
+   of faith" (a.k.a., trust on first use, or TOFU) or physical proximity
+   for the key pre-sharing.  Physical proximity
 
    Authentication mechanisms that scale to the Internet of necessity
    require some degree of trust transitivity.  That is, there must be
@@ -1271,23 +1386,26 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    There are a number of issues with trust transitivity:
 
    o  Trusted third parties can mount MITM attacks on the parties that
-      trust them
+      rely on them
 
-   o  Compromise of trusted third parties has far reaching, negative
-      effects
+      *  Compromise of trusted third parties, therefore, has far
+         reaching, negative effects
 
-   o  Policy for trust transit paths is difficult to express
-
-   o  Mechanisms for establishing trust paths are often manual and prone
-      to error or abuse
+      *  The longer a trust path, the less trustworth -so to speak- it
+         is
 
 
 
-
-Williams                Expires December 3, 2012               [Page 23]
+Williams                Expires December 4, 2012               [Page 25]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
+
+   o  Policy for determining acceptable trust paths is difficult to
+      express
+
+   o  Mechanisms for establishing trust paths are often manual and prone
+      to error or abuse
 
    There are several ways to use transitive trust.  In hierarchical
    transitive trust we organize the trusted third parties in such a way
@@ -1302,7 +1420,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    that are much smaller than the entire Internet, but large enough to
    be of use to large numbers of users.  For example, an online merchant
    might provide for authentication of all users to a set of
-   participating vendors[Expand on this greatly!!]
+   participating vendors [XXX expand on this].
 
    Given the need for transitive trust and the serious drawbacks of
    transitive trust, some workarounds may be necessary, such as:
@@ -1312,20 +1430,33 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    o  Facilities for limiting the length of, or otherwise shortening
       trust paths
 
+      *  By, for example, providing for bootstrapping of shorter trust
+         paths when a given trust path involves an "introducer" trusted
+         third party.
+
    o  "Pinning" facilities to force changes in the infrastructure to
       proceed in ways which make some MITM attacks harder to mount
 
-   o  Auditing facilities by which to show that trusted third parties
-      are not mounting MITM attacks
+   o  Auditing -and compromise detection- facilities by which to show
+      that trusted third parties are not mounting MITM attacks
 
    o  Revocation facilities that actually work
 
-   o  Root keys that are rarely used and live in HSMs?
+   o  Root keys that are rarely used and live in HSMs
 
-   o  Fast re-keying?
+   o  Fast re-keying as a method for dealing with trusted third party
+      compromise
 
    For an example of pinning, consider a TLS extension where self-
    signed, persistent user certificates are used, possibly one per-
+
+
+
+Williams                Expires December 4, 2012               [Page 26]
+
+Internet-Draft         HTTPbis Auth Classification             June 2012
+
+
    origin for pseudonymity purposes.  The user agent can enroll the user
    certificates at their corresponding origin servers such that
    thereafter no MITMs are possible that can impersonate the user to the
@@ -1338,37 +1469,31 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    pinning need not only be used on clients, but may be used even in the
    distributed trust infrastructure (e.g., to shorten trust paths).
 
-
-
-Williams                Expires December 3, 2012               [Page 24]
-
-Internet-Draft         HTTPbis Auth Classification             June 2012
-
-
    Ideally an authentication facility for HTTP/2.0 should support a
    variety of trust establishment models, as it is not clear that one
    mode is superior to the others.  (Though certainly the hierarchical
-   model is the most scalable in a single-sign-on (SSO) manner.
-   However, users may not mind having a small number of logon
-   credentials for a trust island model.)
+   model is likely the scheme that can have the most universal reach,
+   and therefore most minimize user credentials needed.  However, users
+   may not mind having a small number of logon credentials for a trust
+   island model.)
 
 3.7.  Threat Modeling
 
-   [Cover the Internet threat model.  Discuss the end-to-end model and
-   the hop-by-hop semantics of transitive trust.]
+   [[anchor13: Cover the Internet threat model.  Discuss the end-to-end
+   model and the hop-by-hop semantics of transitive trust.]]
 
-3.8.  Explicit versus Implisit Session Management
+3.8.  Explicit versus Implicit Session Management
 
-   [Discuss lack of / weakness of application session concept on the
-   web.  Discuss the historically limited application of TLS sessions to
-   HTTP apps.  Discuss desirability of a real concept of session and
-   logout.]
+   [[anchor14: Discuss lack of / weakness of application session concept
+   on the web.  Discuss the historically limited application of TLS
+   sessions to HTTP apps.  Discuss desirability of a real concept of
+   session and logout.]]
 
 3.9.  In-Band versus Out-of-Band Authentication
 
-   [Discuss out-of-band user authentication systems such as ones where
-   "tokens" are sent to users' mobile phones via SMS, as well as systems
-   where a "login URL" is sent to the user via e-mail.]
+   [[anchor15: Discuss out-of-band user authentication systems such as
+   ones where "tokens" are sent to users' mobile phones via SMS, as well
+   as systems where a "login URL" is sent to the user via e-mail.]]
 
 
 
@@ -1383,20 +1508,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Williams                Expires December 3, 2012               [Page 25]
+Williams                Expires December 4, 2012               [Page 27]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1432,7 +1544,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    ]
 
-   [[anchor12: What else to cover?]]
+   [[anchor16: What else to cover?]]
 
 
 
@@ -1452,7 +1564,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 26]
+Williams                Expires December 4, 2012               [Page 28]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1461,8 +1573,12 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    It seems likely that no single user authentication method will
    satisfy the needs of all web applications.  Nor can we predict the
-   future.  This argues for a multitude of solutions, and possibly a
-   pluggable system.  The author proposes the following:
+   future.  Moreover, some weak authentication approaches are perfectly
+   safe for accessing low-value resources, or in contexts where the
+   Internet threat model is overkill.  This argues for a multitude of
+   solutions, and possibly a pluggable system.
+
+   The author proposes the following:
 
    1.  For all authentication mechanisms (i.e., cryptographic
        authentication methods) use the GSS-API, possibly through the
@@ -1478,12 +1594,13 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
        chosen authentication framework and which have the following
        features:
 
-       1.  federation (which implies trusted third parties)
+       1.  federation (even though it implies trusted third parties)
 
        2.  strong initial user authentication (e.g., with ZKPPs)
 
-       3.  minimized password verifier attack surface area (e.g., minize
-           the number of servers that have access to password verifiers)
+       3.  minimized password verifier attack surface area (e.g.,
+           minimize the number of servers that have access to password
+           verifiers)
 
        4.  trust path bootstrapping
 
@@ -1493,7 +1610,29 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
        7.  [preferably] mutual authentication
 
-   3.  Specify a new URI scheme that identifies services rather than
+   3.  Standardize weak authentication mechanisms (e.g., passwords
+       POSTed in forms) to facilitate the development of effective
+       password managers.  [This is primarily for low-value sites.]
+
+   4.  Specify HTML and JavaScript interfaces for initiating
+       authentication, including the name of the service to authenticate
+       to.  This will allow login pages to have a customized look, yet
+
+
+
+Williams                Expires December 4, 2012               [Page 29]
+
+Internet-Draft         HTTPbis Auth Classification             June 2012
+
+
+       allow for login operations to be performed by the browser
+       platform using a strong authentication mechanism.  Specifically
+       there must be a method for kick-starting authentication such that
+       the user and/or device identity and credential input does not
+       happen through HTML forms but through browser/platform trusted
+       user interfaces.
+
+   5.  Specify a new URI scheme that identifies services rather than
        hosts.  For example: svc:<service>@<domainname>/<local-part> .
        An option to embed service authentication information (possibly a
        digital signature, or a URL referring to a digital signature) may
@@ -1501,14 +1640,43 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
        1.  Also specify a service location protocol.
 
-   4.  Specify an abstract API for interfacing HTTPbis applications to
+   6.  Specify an abstract API for interfacing HTTPbis applications to
        HTTPbis.
 
 
 
 
 
-Williams                Expires December 3, 2012               [Page 27]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires December 4, 2012               [Page 30]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1564,7 +1732,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 28]
+Williams                Expires December 4, 2012               [Page 31]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1620,7 +1788,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 3, 2012               [Page 29]
+Williams                Expires December 4, 2012               [Page 32]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1676,5 +1844,5 @@ Author's Address
 
 
 
-Williams                Expires December 3, 2012               [Page 30]
+Williams                Expires December 4, 2012               [Page 33]
 

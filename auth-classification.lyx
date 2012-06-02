@@ -237,7 +237,7 @@ trust200902
 status collapsed
 
 \begin_layout Plain Layout
-Informational
+info
 \end_layout
 
 \end_inset
@@ -433,7 +433,13 @@ Glossary
 \end_layout
 
 \begin_layout Standard
-This section defines terms as they are used in this document.
+This section defines terms as they are used in 
+\emph on
+this
+\emph default
+ document.
+ Readers are strongly encouraged to read this section before reading any
+ subsequent section.
 \end_layout
 
 \begin_layout Description
@@ -469,7 +475,7 @@ Layer A complex Internet application might require a large number of APIs,
 
 \begin_layout Description
 Authentication The process of establishing the veracity or origin of some
- statement (e.g., of an entity's identity), usually by proxy (e.g., with keypairs
+ statement (e.g., of an entity's identity), usually by proxy (e.g., with key-pairs
  to an asymmetric key cryptographic system 
 \begin_inset Quotes eld
 \end_inset
@@ -764,6 +770,16 @@ Infrastructure
 \end_layout
 
 \begin_layout Description
+Relying
+\begin_inset space ~
+\end_inset
+
+Party An entity that authenticates another.
+ For example, in PKI the entity that validates another's certificate as
+ part of the process of authenticating that other entity, is a relying party.
+\end_layout
+
+\begin_layout Description
 SCRAM Salted Challenge Response Authentication Mechanism (SCRAM)
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -778,8 +794,8 @@ key "key-9"
 
 \end_inset
 
- and GSS mechanism based on password-derived pre-shared keys and challeng/respon
-se.
+ and GSS mechanism based on password-derived pre-shared keys and challenge/respo
+nse.
  SCRAM is intended as the successor to SASL's DIGEST-MD5, and possibly to
  HTTP's DIGEST-MD5.
 \end_layout
@@ -805,6 +821,140 @@ service
  on one (or more) ports on a given server.
 \end_layout
 
+\begin_layout Description
+Trust
+\begin_inset space ~
+\end_inset
+
+(in
+\begin_inset space ~
+\end_inset
+
+authentication) This word, 
+\begin_inset Quotes eld
+\end_inset
+
+trust
+\begin_inset Quotes erd
+\end_inset
+
+, is a terrible word: it means too many things to too many people.
+ But it's also a very convenient word when everyone understands the meaning
+ to be accorded to it in any given context.
+ For the time being this document will use this word, 
+\begin_inset Quotes eld
+\end_inset
+
+trust
+\begin_inset Quotes erd
+\end_inset
+
+, as follows: to trust an entity is to accept as fact assertions -relating
+ to other entities- made by the trusted entity.
+ Alternative phrasing: to trust an entity is to rely on it to make assertions
+ relating to other entities the truth of which cannot otherwise be ascertained.
+ For example, in a PKI a relying party relies on the certification authorities
+ (and related infrastructure) to make statements of facts of the form 
+\begin_inset Quotes eld
+\end_inset
+
+the public key <key> belongs to <subject name>
+\begin_inset Quotes erd
+\end_inset
+
+ (details elided).
+ We only use 
+\begin_inset Quotes eld
+\end_inset
+
+trust
+\begin_inset Quotes erd
+\end_inset
+
+ in connection to 
+\begin_inset Quotes eld
+\end_inset
+
+trusted third parties
+\begin_inset Quotes erd
+\end_inset
+
+ -- when an authenticated entity makes assertions about itself we do not
+ speak of trusting them to do so.
+\end_layout
+
+\begin_layout Description
+Trust
+\begin_inset space ~
+\end_inset
+
+(in
+\begin_inset space ~
+\end_inset
+
+user
+\begin_inset space ~
+\end_inset
+
+interfaces) One of the many alternative meanings of 
+\begin_inset Quotes eld
+\end_inset
+
+trust
+\begin_inset Quotes erd
+\end_inset
+
+, and the only alternative one used in this document, relates to user interfaces
+, namely: a trusted user interface is one that the user can somehow ascertain
+ that it is presented by the operating system or browser platform and 
+\emph on
+not
+\emph default
+ by some possibly malicious peer.
+\end_layout
+
+\begin_layout Description
+Trust
+\begin_inset space ~
+\end_inset
+
+Path Continuing with the horrible word 
+\begin_inset Quotes eld
+\end_inset
+
+trust
+\begin_inset Quotes erd
+\end_inset
+
+, we use 
+\begin_inset Quotes eld
+\end_inset
+
+trust path
+\begin_inset Quotes erd
+\end_inset
+
+ to the note the list of trusted third parties involved in authenticating
+ an entity to a relying party.
+ This list is ordered, though it could conceivably be set of lists when
+ multiple trust paths are possible.
+\end_layout
+
+\begin_layout Description
+Trusted
+\begin_inset space ~
+\end_inset
+
+Third
+\begin_inset space ~
+\end_inset
+
+Party An entity that can be relied up -by those relying parties that trust
+ it- to make assertions relating to other entities, typically assertions
+ about how to authenticate those entities and/or of facts relevant to authorizat
+ion at the relying party.
+\end_layout
+
 \begin_layout RevisionRemark
 Fill out! Add some entries for OAuth, Kerberos, Basic, DIGEST-MD5, EAP,
  GSS, SASL, ...
@@ -827,7 +977,7 @@ The most common user authentication methods used in web applications today
 \end_layout
 
 \begin_layout Itemize
-Username and password POSTed to the serverfrom an HTML form.
+Username and password POSTed to the server from an HTML form.
  Usually the URL to post to is an HTTPS URL.
  Not as often the URL of the HTML page containing the form is also an HTTPS
  URL.
@@ -905,6 +1055,18 @@ This problem derives in part from the nature of the HTTP URI scheme: by
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+User credentials are too easy to 
+\begin_inset Quotes eld
+\end_inset
+
+phish
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
 \begin_layout Itemize
 OTP and out-of-band methods do not protect against MITMs, and thus depend
  on the integrity of TLS and the TLS server PKI.
@@ -1050,6 +1212,33 @@ All authentication mechanism require some number of messages in order to
  message exchanges may be required involving trusted third parties.
 \end_layout
 
+\begin_layout Standard
+The number of authentication messages that must be exchanged for a given
+ authentication mechanism is important.
+ The API of at least one important credential management facility is premised
+ on authentication mechanisms having exchanges of just one message -- adding
+ new API is possible, but it would take a long time for applications to
+ begin using it.
+ Thus mechanisms that require just one message are at a premium (but see
+ the next section).
+\end_layout
+
+\begin_layout Standard
+The number of authentication messages is also important for latency reasons:
+ since authentication message exchanges are synchronous, each round trip
+ time is added to the latency observed by the user.
+\end_layout
+
+\begin_layout Standard
+The number of messages that an authentication mechanism needs to exchange
+ with infrastructure (e.g., trusted third parties) also affects latency, but
+ at least applications need never be aware of messages exchanged with infrastruc
+ture -- these can be abstracted away by the APIs.
+ Some authentication mechanisms have fast re-authentication facilities such
+ that the latency cost of infrastructure messaging need not be incurred
+ as frequently as the entity authenticates to others.
+\end_layout
+
 \begin_layout RevisionRemark
 ...
 \end_layout
@@ -1137,6 +1326,12 @@ YAP is a proof-of-possession mechanism, of course, thus it is quite simple
  mechanism is feasible.
 \end_layout
 
+\begin_layout Standard
+Work is ongoing to develop a version of OAuth that is capable of channel
+ binding.
+ [XXX Add references!]
+\end_layout
+
 \begin_layout Subsection
 Logon Sessions
 \end_layout
@@ -1193,7 +1388,7 @@ Solutions based on bearer tokens vs.
 
 \begin_layout Enumerate
 Layer at which user authentication takes place: TLS, HTTPbis, or the application
- layer;
+ layer (note: distinguishing network layer from API layer);
 \end_layout
 
 \begin_layout Enumerate
@@ -1230,9 +1425,9 @@ Explicit versus implicit session management;
 In-band / out-of-band.
 \end_layout
 
-\begin_layout Enumerate
-[Maybe add something about separation of password verifier access, to limit
- the attack surface area for password recovery?]
+\begin_layout RevisionRemark
+Maybe add something about separation of password verifier access, to limit
+ the attack surface area for password recovery?
 \end_layout
 
 \begin_layout RevisionRemark
@@ -2076,7 +2271,7 @@ Extended HTTP/1.1 Style Login w/ SCRAM Example
 
 \begin_layout Standard
 There's not much difference between the first two examples.
- The third example jas several important differences relative to the first
+ The third example has several important differences relative to the first
  two examples:
 \end_layout
 
@@ -2265,7 +2460,7 @@ Where the platform can provide credential management and user interaction
 Note however that the user may have a hard time identifying the context
  in which they are being prompted by the system for credentials or credential
  selection.
- This is usually not a problem in smartphone and other such small devices,
+ This is usually not a problem in smart-phone and other such small devices,
  where it is generally clear what application is in the foreground, and
  therefore the context of a prompt.
  But this is not necessarily so on other platforms.
@@ -2306,6 +2501,7 @@ Infrastructure
  In some cases infrastructure services may be physically co-located with
  the client or server, but by and large they are physically separated; infrastru
 cture services are always logically separate from the client and server.
+ [XXX Move this to glossary.]
 \end_layout
 
 \begin_layout Standard
@@ -2314,8 +2510,7 @@ Some protocols require that the client do all or most of the message exchanges
  require both to do some messaging.
  In some cases a server might proxy a client's messages to infrastructure.
  There are advantages to the client doing this messaging: namely a simpler
- server, less subject to denial of service .
- resource consumption attacks.
+ server, less subject to denial of service / resource consumption attacks.
  [Are there advantages to the server doing this messaging?]
 \end_layout
 
@@ -2441,7 +2636,7 @@ Pluggable frameworks (SASL, GSS, EAP) (arbitrary message counts, usually
 \end_layout
 
 \begin_layout Standard
-It's worth pointing out that TLS is a three- or four-message protocol, but
+It's worth pointing out that TLS is a three- to four-message protocol, but
  when providing confidentiality protection for the client identity it becomes
  a six- to eight-message protocol (though there is a proposal to improve
  this, getting back to three to four messages [add reference to Marsh's
@@ -2480,7 +2675,17 @@ Pair-wise pre-shared keying systems require careful initial key exchange,
  but otherwise have no transitive trust issues: every pair of entities that
  has shared keying can communicate without the aid of any other entity.
  However, pair-wise pre-shared keying does not scale to the Internet as
- it is O(n^2).
+ it is O(n^2), and it requires either 
+\begin_inset Quotes eld
+\end_inset
+
+leap of faith
+\begin_inset Quotes erd
+\end_inset
+
+ (a.k.a., trust on first use, or TOFU) or physical proximity for the key pre-sharin
+g.
+ Physical proximity
 \end_layout
 
 \begin_layout Standard
@@ -2496,15 +2701,23 @@ There are a number of issues with trust transitivity:
 \end_layout
 
 \begin_layout Itemize
-Trusted third parties can mount MITM attacks on the parties that trust them
+Trusted third parties can mount MITM attacks on the parties that rely on
+ them
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Compromise of trusted third parties, therefore, has far reaching, negative
+ effects
 \end_layout
 
 \begin_layout Itemize
-Compromise of trusted third parties has far reaching, negative effects
+The longer a trust path, the less trustworth -so to speak- it is
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
-Policy for trust transit paths is difficult to express
+Policy for determining acceptable trust paths is difficult to express
 \end_layout
 
 \begin_layout Itemize
@@ -2536,7 +2749,7 @@ There may be other models of transitive trust, such as one with islands
  (using hierarchical or mesh models) that are much smaller than the entire
  Internet, but large enough to be of use to large numbers of users.
  For example, an online merchant might provide for authentication of all
- users to a set of participating vendors[Expand on this greatly!!]
+ users to a set of participating vendors [XXX expand on this].
 \end_layout
 
 \begin_layout Standard
@@ -2552,6 +2765,21 @@ Policy language for choosing suitable trust paths
 Facilities for limiting the length of, or otherwise shortening trust paths
 \end_layout
 
+\begin_deeper
+\begin_layout Itemize
+By, for example, providing for bootstrapping of shorter trust paths when
+ a given trust path involves an 
+\begin_inset Quotes eld
+\end_inset
+
+introducer
+\begin_inset Quotes erd
+\end_inset
+
+ trusted third party.
+\end_layout
+
+\end_deeper
 \begin_layout Itemize
 \begin_inset Quotes eld
 \end_inset
@@ -2565,8 +2793,8 @@ Pinning
 \end_layout
 
 \begin_layout Itemize
-Auditing facilities by which to show that trusted third parties are not
- mounting MITM attacks
+Auditing -and compromise detection- facilities by which to show that trusted
+ third parties are not mounting MITM attacks
 \end_layout
 
 \begin_layout Itemize
@@ -2574,11 +2802,11 @@ Revocation facilities that actually work
 \end_layout
 
 \begin_layout Itemize
-Root keys that are rarely used and live in HSMs?
+Root keys that are rarely used and live in HSMs
 \end_layout
 
 \begin_layout Itemize
-Fast re-keying?
+Fast re-keying as a method for dealing with trusted third party compromise
 \end_layout
 
 \begin_layout Standard
@@ -2602,8 +2830,9 @@ t user certificates are used, possibly one per-origin for pseudonymity purposes.
 Ideally an authentication facility for HTTP/2.0 should support a variety
  of trust establishment models, as it is not clear that one mode is superior
  to the others.
- (Though certainly the hierarchical model is the most scalable in a single-sign-
-on (SSO) manner.
+ (Though certainly the hierarchical model is likely the scheme that can
+ have the most universal reach, and therefore most minimize user credentials
+ needed.
  However, users may not mind having a small number of logon credentials
  for a trust island model.)
 \end_layout
@@ -2612,28 +2841,28 @@ on (SSO) manner.
 Threat Modeling
 \end_layout
 
-\begin_layout Standard
-[Cover the Internet threat model.
+\begin_layout RevisionRemark
+Cover the Internet threat model.
  Discuss the end-to-end model and the hop-by-hop semantics of transitive
- trust.]
+ trust.
 \end_layout
 
 \begin_layout Subsection
-Explicit versus Implisit Session Management
+Explicit versus Implicit Session Management
 \end_layout
 
-\begin_layout Standard
-[Discuss lack of / weakness of application session concept on the web.
+\begin_layout RevisionRemark
+Discuss lack of / weakness of application session concept on the web.
  Discuss the historically limited application of TLS sessions to HTTP apps.
- Discuss desirability of a real concept of session and logout.]
+ Discuss desirability of a real concept of session and logout.
 \end_layout
 
 \begin_layout Subsection
 In-Band versus Out-of-Band Authentication
 \end_layout
 
-\begin_layout Standard
-[Discuss out-of-band user authentication systems such as ones where 
+\begin_layout RevisionRemark
+Discuss out-of-band user authentication systems such as ones where 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2649,7 +2878,7 @@ login URL
 \begin_inset Quotes erd
 \end_inset
 
- is sent to the user via e-mail.]
+ is sent to the user via e-mail.
 \end_layout
 
 \begin_layout Section
@@ -2726,8 +2955,14 @@ Author's Recommendations
 It seems likely that no single user authentication method will satisfy the
  needs of all web applications.
  Nor can we predict the future.
+ Moreover, some weak authentication approaches are perfectly safe for accessing
+ low-value resources, or in contexts where the Internet threat model is
+ overkill.
  This argues for a multitude of solutions, and possibly a pluggable system.
- The author proposes the following:
+\end_layout
+
+\begin_layout Standard
+The author proposes the following:
 \end_layout
 
 \begin_layout Enumerate
@@ -2755,7 +2990,7 @@ ation framework and which have the following features:
 
 \begin_deeper
 \begin_layout Enumerate
-federation (which implies trusted third parties)
+federation (even though it implies trusted third parties)
 \end_layout
 
 \begin_layout Enumerate
@@ -2763,8 +2998,8 @@ strong initial user authentication (e.g., with ZKPPs)
 \end_layout
 
 \begin_layout Enumerate
-minimized password verifier attack surface area (e.g., minize the number of
- servers that have access to password verifiers)
+minimized password verifier attack surface area (e.g., minimize the number
+ of servers that have access to password verifiers)
 \end_layout
 
 \begin_layout Enumerate
@@ -2784,6 +3019,23 @@ auditable trusted third parties
 \end_layout
 
 \end_deeper
+\begin_layout Enumerate
+Standardize weak authentication mechanisms (e.g., passwords POSTed in forms)
+ to facilitate the development of effective password managers.
+ [This is primarily for low-value sites.]
+\end_layout
+
+\begin_layout Enumerate
+Specify HTML and JavaScript interfaces for initiating authentication, including
+ the name of the service to authenticate to.
+ This will allow login pages to have a customized look, yet allow for login
+ operations to be performed by the browser platform using a strong authenticatio
+n mechanism.
+ Specifically there must be a method for kick-starting authentication such
+ that the user and/or device identity and credential input does not happen
+ through HTML forms but through browser/platform trusted user interfaces.
+\end_layout
+
 \begin_layout Enumerate
 Specify a new URI scheme that identifies services rather than hosts.
  For example: svc:<service>@<domainname>/<local-part> .
