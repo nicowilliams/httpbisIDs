@@ -1356,9 +1356,9 @@ Discuss cookies as a form of bearer token and how the situation is not as
 User Interface Issues
 \end_layout
 
-\begin_layout RevisionRemark
-Discuss phishing issues, in particular the difficult of creating user interfaces
- in web apps that cannot be spoofed by either server impersonators or MITMs.
+\begin_layout Standard
+[Discuss phishing issues, in particular the difficult of creating user interface
+s in web apps that cannot be spoofed by either server impersonators or MITMs.
  Reference Sam Hartman's anti-phishing I-D 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -1366,7 +1366,7 @@ key "key-7"
 
 \end_inset
 
-.
+.]
 \end_layout
 
 \begin_layout Section

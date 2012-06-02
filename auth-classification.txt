@@ -640,10 +640,10 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 2.8.  User Interface Issues
 
-   [[anchor9: Discuss phishing issues, in particular the difficult of
-   creating user interfaces in web apps that cannot be spoofed by either
-   server impersonators or MITMs.  Reference Sam Hartman's anti-phishing
-   I-D [].]][I-D.hartman-webauth-phishing]
+   [Discuss phishing issues, in particular the difficult of creating
+   user interfaces in web apps that cannot be spoofed by either server
+   impersonators or MITMs.  Reference Sam Hartman's anti-phishing I-D
+   [[I-D.hartman-webauth-phishing]].]
 
 
 
@@ -700,10 +700,10 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    9.  In-band / out-of-band.
 
-   [[anchor10: Maybe add something about separation of password verifier
+   [[anchor9: Maybe add something about separation of password verifier
    access, to limit the attack surface area for password recovery?]]
 
-   [[anchor11: Note: The author assumes that all acceptable proposals
+   [[anchor10: Note: The author assumes that all acceptable proposals
    will have HTTPbis continue to depend on TLS for transport security -
    for confidentiality (encryption) and integrity (authentication)
    protection of data exchanged by the HTTPbis client and server.  If
@@ -1220,7 +1220,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 3.4.  Party Responsible for Infrastructure Messaging
 
-   [[anchor12: XXX Add references for OCSP, AAA, ...]]
+   [[anchor11: XXX Add references for OCSP, AAA, ...]]
 
    "Infrastructure" consists, for the purposes of this document, of
    services such as Identity Providers (IdPs), Certificate Revocation
@@ -1479,19 +1479,19 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 3.7.  Threat Modeling
 
-   [[anchor13: Cover the Internet threat model.  Discuss the end-to-end
+   [[anchor12: Cover the Internet threat model.  Discuss the end-to-end
    model and the hop-by-hop semantics of transitive trust.]]
 
 3.8.  Explicit versus Implicit Session Management
 
-   [[anchor14: Discuss lack of / weakness of application session concept
+   [[anchor13: Discuss lack of / weakness of application session concept
    on the web.  Discuss the historically limited application of TLS
    sessions to HTTP apps.  Discuss desirability of a real concept of
    session and logout.]]
 
 3.9.  In-Band versus Out-of-Band Authentication
 
-   [[anchor15: Discuss out-of-band user authentication systems such as
+   [[anchor14: Discuss out-of-band user authentication systems such as
    ones where "tokens" are sent to users' mobile phones via SMS, as well
    as systems where a "login URL" is sent to the user via e-mail.]]
 
@@ -1544,7 +1544,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    ]
 
-   [[anchor16: What else to cover?]]
+   [[anchor15: What else to cover?]]
 
 
 
