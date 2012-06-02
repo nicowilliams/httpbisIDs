@@ -1,0 +1,3361 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass docbook
+\use_default_options true
+\maintain_unincluded_children false
+\begin_local_layout
+Format 31
+
+InsetLayout Flex:PI_Strict
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_SymRefs
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_SortRefs
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOC
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCIndent
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCDepth
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCNarrow
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCCompact
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCAppendix
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:DocName
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IntendedStatus
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:RFCNumber
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IPR
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IETFArea
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:XML2RFCKeyword
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:TitleAbbrev
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorRole
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorInitials
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorSurname
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorOrg
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorOrgAbbrev
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorEmailAddr
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrStreet
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCity
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrRegion
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCode
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCountry
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:ReferenceEntity
+    LyXType Custom
+    HTMLTag div
+End
+\end_local_layout
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman cmr
+\font_sans cmss
+\font_typewriter cmtt
+\font_default_family ttdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+A Proposals for Classification and Analysis of HTTPbis Authentication Proposals
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex DocName
+status collapsed
+
+\begin_layout Plain Layout
+draft-williams-httpbis-auth-classification
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IPR
+status collapsed
+
+\begin_layout Plain Layout
+trust200902
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IntendedStatus
+status collapsed
+
+\begin_layout Plain Layout
+Informational
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex TitleAbbrev
+status collapsed
+
+\begin_layout Plain Layout
+HTTPbis Auth Classification
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IETFArea
+status collapsed
+
+\begin_layout Plain Layout
+Security Area
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex XML2RFCKeyword
+status collapsed
+
+\begin_layout Plain Layout
+Internet-Draft
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+tocindent="no"
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+comments="yes"
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+inline="yes"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Nicolas Williams
+\begin_inset Flex AuthorOrg
+status collapsed
+
+\begin_layout Plain Layout
+Cryptonector, LLC
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex AuthorOrgAbbrev
+status collapsed
+
+\begin_layout Plain Layout
+Cryptonector
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex AuthorEmailAddr
+status collapsed
+
+\begin_layout Plain Layout
+nico@cryptonector.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This document proposes a classification scheme for HTTPbis authentication
+ proposals, to help with analysis and selection.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+The HTTPbis WG is accepting proposals for new authentication systems for
+ HTTPbis, the successor to Hypertext Transport Protocol (HTTP) version 1.1
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-3"
+
+\end_inset
+
+.
+ This document proposes a classification system for these proposals.
+ Several axes of classification are proposed, and several simplified imagined
+ or likely authentication systems are used to illustrate the classification
+ system.
+\end_layout
+
+\begin_layout Standard
+The author assumes that the WG is interested primarily in new user authenticatio
+n proposals, with ones that provide mutual authentication (of users and
+ servers to each other) being in scope.
+ The author also assumes that Transport Layer Security (TLS) 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-2"
+
+\end_inset
+
+ will continue to be used by HTTPbis for cryptographic session protection.
+\end_layout
+
+\begin_layout Standard
+Some familiarity with authentication systems is assumed.
+ A glossary is provided.
+\end_layout
+
+\begin_layout Subsection
+Conventions used in this document
+\end_layout
+
+\begin_layout Standard
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+ "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
+ to be interpreted as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Scope
+\end_layout
+
+\begin_layout Standard
+This document considers user authentication only in the context of HTTP
+ applications, whether they be web applications or otherwise.
+ Authentication of the service is also in scope, but authentication methods
+ that authenticate only the user to the service (with the service authenticated
+ by Transport Layer Security (TLS)) are in scope.
+\end_layout
+
+\begin_layout Standard
+There are at least two entities involved in authentication in this context:
+ the user (on the client side), one or more of the web server host or the
+ web server application/service, and any trusted third parties that an authentic
+ation mechanism might involve.
+\end_layout
+
+\begin_layout Subsection
+Glossary
+\end_layout
+
+\begin_layout Standard
+This section defines terms as they are used in this document.
+\end_layout
+
+\begin_layout Description
+API Application Programming Interface.
+ These are interfaces between an application and a feature that is abstracted
+ into a 
+\begin_inset Quotes eld
+\end_inset
+
+library
+\begin_inset Quotes erd
+\end_inset
+
+ -- a service provided by the platform's operating system.
+\end_layout
+
+\begin_layout Description
+API
+\begin_inset space ~
+\end_inset
+
+Layer A complex Internet application might require a large number of APIs,
+ such as, for example, one for every network layer.
+ In practice it is more common to have a single API that encompasses all
+ network layers below it, with the component providing that API likely invoking
+ other APIs itself.
+ which in turn invoke other APIs.
+ For example, a web application might use a library that presents a single
+ API to all of the HTTP network stack from HTTP all the way down to IP.
+ Note that there need not be a direct correspondence of network and API
+ layers.
+\end_layout
+
+\begin_layout Description
+Authentication The process of establishing the veracity or origin of some
+ statement (e.g., of an entity's identity), usually by proxy (e.g., with keypairs
+ to an asymmetric key cryptographic system 
+\begin_inset Quotes eld
+\end_inset
+
+speaking for
+\begin_inset Quotes erd
+\end_inset
+
+ the authenticated entities).
+ In this document, and unless otherwise stated, 
+\begin_inset Quotes eld
+\end_inset
+
+authentication
+\begin_inset Quotes erd
+\end_inset
+
+ will refer to authentication of identity of entities such as 
+\begin_inset Quotes eld
+\end_inset
+
+users
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+hosts
+\begin_inset Quotes erd
+\end_inset
+
+, and 
+\begin_inset Quotes eld
+\end_inset
+
+services
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+Authentication
+\begin_inset space ~
+\end_inset
+
+Mechanism A cryptographic protocol for authenticating entity identities.
+ Note that this does not cover POSTing usernames and passwords in forms,
+ but it does cover bearer token mechanisms (if just barely).
+\end_layout
+
+\begin_layout Description
+Authentication
+\begin_inset space ~
+\end_inset
+
+Method A scheme for authenticating entity identities.
+ An authentication method can be non-cryptographic, covering HTTP Basic
+ authentication and usernames&passwords POSTed from HTML forms.
+\end_layout
+
+\begin_layout Description
+Authentication
+\begin_inset space ~
+\end_inset
+
+Framework A protocol into which other authentication mechanisms may be plugged
+ in.
+ For example: SASL
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+, GSS-API
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-13"
+
+\end_inset
+
+, EAP
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-12"
+
+\end_inset
+
+, among others.
+\end_layout
+
+\begin_layout Description
+Bearer
+\begin_inset space ~
+\end_inset
+
+Token A technique for authentication that involves a message that can be
+ presented by the authenticating entity to another.
+ No proof of possession is required for using bearer tokens, which means
+ that the token can be presented by any entity possessing the token, which
+ in turn means that bearer tokens must be sent with confidentiality protection,
+ as otherwise eavesdroppers can steal them and use them to impersonate the
+ subject.
+\end_layout
+
+\begin_layout Description
+Channel
+\begin_inset space ~
+\end_inset
+
+Binding A security protocol composition and analysis tool.
+ The purpose of channel binding
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ is to 
+\begin_inset Quotes eld
+\end_inset
+
+bind
+\begin_inset Quotes erd
+\end_inset
+
+ a secure channel (at one layer in the network stack) into an authentication
+ protocol running at a higher layer in the stack, thereby ensuring that
+ the channel is end-to-end and 
+\begin_inset Quotes eld
+\end_inset
+
+speaks for
+\begin_inset Quotes erd
+\end_inset
+
+ its end-points.
+\end_layout
+
+\begin_layout Description
+Confidentiality
+\begin_inset space ~
+\end_inset
+
+protection Cryptographic encryption of data.
+ Confidentiality protection is/must always be used with integrity protection
+ as well.
+\end_layout
+
+\begin_layout Description
+Data
+\begin_inset space ~
+\end_inset
+
+authentication Data origin authentication, a.k.a., integrity protection.
+\end_layout
+
+\begin_layout Description
+Integrity
+\begin_inset space ~
+\end_inset
+
+protection Cryptographic protection against modification of data.
+ See also 
+\begin_inset Quotes eld
+\end_inset
+
+data authentication
+\begin_inset Quotes erd
+\end_inset
+
+, above.
+\end_layout
+
+\begin_layout Description
+Mechanism Shorthand for 
+\begin_inset Quotes eld
+\end_inset
+
+authentication mechanism
+\begin_inset Quotes erd
+\end_inset
+
+, a protocol defining messages to be exchanged in order to authenticate
+ one party to another (or two parties to each other).
+\end_layout
+
+\begin_layout Description
+Mutual
+\begin_inset space ~
+\end_inset
+
+Authentication Authentication of a user and a server/service to each other.
+\end_layout
+
+\begin_layout Description
+Mutual
+\begin_inset space ~
+\end_inset
+
+Authentication
+\begin_inset space ~
+\end_inset
+
+(key
+\begin_inset space ~
+\end_inset
+
+confirmation
+\begin_inset space ~
+\end_inset
+
+sense) In some protocols key exchange is bound to authentication of the
+ service to the user such that the service is finally authenticated when
+ it sends a proof-of-possession of the exchanged session key back to the
+ user.
+ Protocols that use RSA key transport (e.g., TLS in common usage), Diffie-Hellman
+ with a persistent public key for the server, or Needham-Schroeder protocols
+ (such as Kerberos
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5"
+
+\end_inset
+
+), perform server authentication in this way.
+ A client may not always care to receive key confirmation.
+ For example, a Kerberos client for a lossy logging application might not
+ care that confidentiality protected data ends up at the wrong server, as
+ long as unintended servers can't decrypt the data.
+ Some clients may send application data optimistically ahead of key confirmation
+ from the server.
+ Such data should generally be confidentiality protected, and the protocol
+ should not be subject to MITM attacks where the MITM can somehow modify
+ what optimistic data is sent, nor should an active attacker be able to
+ replay such optimistic data.
+\end_layout
+
+\begin_layout Description
+Network
+\begin_inset space ~
+\end_inset
+
+Layer A layer in the OSI or Internet network model.
+ Examples of layers that are relevant to HTTP applications: IP, TCP/UDP,
+ TLS, HTTP, and the application layer.
+\end_layout
+
+\begin_layout Description
+Proof
+\begin_inset space ~
+\end_inset
+
+of
+\begin_inset space ~
+\end_inset
+
+Possession A technique for authentication that involves using a cryptographic
+ operation to 
+\begin_inset Quotes eld
+\end_inset
+
+prove
+\begin_inset Quotes erd
+\end_inset
+
+ (not necessarily in a rigorous sense) that the entity that creates the
+ proof has access to a private/secret key to a cryptosystem (e.g., a private
+ RSA key, a secret AES key, etcetera).
+\end_layout
+
+\begin_layout Description
+Public
+\begin_inset space ~
+\end_inset
+
+Key
+\begin_inset space ~
+\end_inset
+
+Infrastructure
+\begin_inset space ~
+\end_inset
+
+(PKI) An authentication system based on public key cryptography and supporting
+ hierarchical transitive trust via trusted third parties known as Certificate
+ Authorities (CAs).
+\end_layout
+
+\begin_layout Description
+SCRAM Salted Challenge Response Authentication Mechanism (SCRAM)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-10"
+
+\end_inset
+
+, a SASL
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+ and GSS mechanism based on password-derived pre-shared keys and challeng/respon
+se.
+ SCRAM is intended as the successor to SASL's DIGEST-MD5, and possibly to
+ HTTP's DIGEST-MD5.
+\end_layout
+
+\begin_layout Description
+Server A system with one or more IP addresses, serving HTTP on one more
+ TCP ports on those IP addresses.
+ [A general definition would not be constrained to HTTP only, but for the
+ purposes of this document this is good enough.]
+\end_layout
+
+\begin_layout Description
+Service An entity providing a service or services for an application.
+ Typically -but not always!- a service is closely related to a host server,
+ which may provide several services.
+ Usually we need to distinguish between the various services that a single
+ host provides, thus we often need to authenticate the 
+\emph on
+service
+\emph default
+ rather than the host server.
+ For HTTP applications a service may be a collection of resources available
+ on one (or more) ports on a given server.
+\end_layout
+
+\begin_layout RevisionRemark
+Fill out! Add some entries for OAuth, Kerberos, Basic, DIGEST-MD5, EAP,
+ GSS, SASL, ...
+\end_layout
+
+\begin_layout Section
+Background
+\end_layout
+
+\begin_layout Standard
+Web applications today use a variety of user authentication methods, many
+ of which are somewhat or deeply unsatisfying.
+ Almost all of these methods involve the user-agent being mostly dumb --
+ not participating in any cryptographic protocols other than TLS.
+\end_layout
+
+\begin_layout Standard
+The most common user authentication methods used in web applications today
+ include:
+\end_layout
+
+\begin_layout Itemize
+Username and password POSTed to the serverfrom an HTML form.
+ Usually the URL to post to is an HTTPS URL.
+ Not as often the URL of the HTML page containing the form is also an HTTPS
+ URL.
+\end_layout
+
+\begin_layout Itemize
+HTTP Basic or DIGEST-MD5 authentication.
+\end_layout
+
+\begin_layout Itemize
+Out-of-band methods:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+PINs sent to user devices via SMS (POSTed along with passwords)
+\end_layout
+
+\begin_layout Itemize
+OTP tokens (POSTed along with passwords)
+\end_layout
+
+\begin_layout Itemize
+login URLs e-mailed to the user
+\end_layout
+
+\begin_layout Itemize
+passwords e-mailed to the user
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Not much use is made of TLS user certificates, though that is available
+ as well.
+\end_layout
+
+\begin_layout Standard
+These methods are somewhat-to-highly unsatisfactory for a variety of reasons:
+\end_layout
+
+\begin_layout Itemize
+Users have to remember/carry too many passwords, even when they have many
+ fewer 
+\begin_inset Quotes eld
+\end_inset
+
+identities
+\begin_inset Quotes erd
+\end_inset
+
+ (typically in the form of e-mail addresses).
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Credential sharing becomes a problem: compromise of one site can result
+ in compromise of user accounts at unrelated sites.
+ Also, a malicious site posing as a friendly site can do the same.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+The service is generally not authenticated to the user.
+ TLS does authenticate the server, but not necessarily the service, and
+ anyways only to the best of the TLS server PKI's ability.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+This problem derives in part from the nature of the HTTP URI scheme: by
+ identifying server hosts rather than services the HTTP URI scheme fails
+ to provide the user and user-agent with enough information by which to
+ identify, and thence authenticate, a service.
+ New URI schemes may be required.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+OTP and out-of-band methods do not protect against MITMs, and thus depend
+ on the integrity of TLS and the TLS server PKI.
+\end_layout
+
+\begin_layout Itemize
+HTTP/Negotiate
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-14"
+
+\end_inset
+
+, which effectively uses GSS-API
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-13"
+
+\end_inset
+
+ mechanisms, usually NTLM [XXX Add reference] or Kerberos
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-5,key-15"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Additionally, there is no strong concept of 
+\begin_inset Quotes eld
+\end_inset
+
+sessions
+\begin_inset Quotes erd
+\end_inset
+
+ in web applications.
+ Sessions, such as they are, consist of HTTP requests and responses united
+ into a session by the web cookies they bear.
+ Not all web cookies are used for identifying sessions, and there is no
+ simple 
+\begin_inset Quotes eld
+\end_inset
+
+logout
+\begin_inset Quotes erd
+\end_inset
+
+ functionality.
+ The biggest problem with web cookies is that they are too easy to misuse
+ or steal (e.g., given the occasional TLS vulnerability, such as BEAST [XXX
+ Add references!]).
+\end_layout
+
+\begin_layout Standard
+Furthermore, there are uncomfortable user interface (UI) problems.
+ In particular it is difficult to convey to the user information about the
+ server's/service's identity and how it is authenticated (if at all).
+\end_layout
+
+\begin_layout Standard
+HTTP applications that are not web application have similar issues, though
+ some of them can also use SASL
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+.
+ Non-web HTTP applications also may not need cookies, instead using a single
+ HTTP/1.1 persistent connection over which to issue all requests that make
+ up a session -- such applications have a stronger sense of session than
+ web applications do.
+\end_layout
+
+\begin_layout RevisionRemark
+XXX Finish this section.
+\end_layout
+
+\begin_layout Subsection
+Threat Models
+\end_layout
+
+\begin_layout RevisionRemark
+Talk about threat models and which are appropriate for HTTPbis.
+ Discuss the Internet threat model and its flaws (namely/primarily, the
+ local security assumption).
+\end_layout
+
+\begin_layout Subsection
+On Trust
+\end_layout
+
+\begin_layout RevisionRemark
+Describe issues w.r.t.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+trust
+\begin_inset Quotes erd
+\end_inset
+
+, such as transitivity, introductions, and so on.
+ This is important for evaluating proposals.
+ A proposal that replaces the TLS server PKI's primacy with...
+ another system with similar transitive trust issues may not be a useful
+ proposal.
+ On the other hand, it seems impossible to avoid transitive trust when scaling
+ to Internet scale.
+ Understanding this may help, for example, give impetus to improvements
+ to the TLS server PKI, or it may guide replacements, understand scalability,
+ and so on.
+\end_layout
+
+\begin_layout Subsection
+On Mutual Authentication and URI Schemes
+\end_layout
+
+\begin_layout RevisionRemark
+Describe the limitations imposed by the Internet threat model when there
+ is no mutual authentication.
+ Describe the two types/senses of mutual authentication: authenticating
+ the server (in addition to the client) and key confirmation.
+ Describe the limitations, imposed by the HTTP URI scheme, on service identifica
+tion and authentication.
+\end_layout
+
+\begin_layout Subsection
+On Authentication Mechanism Message Counts
+\end_layout
+
+\begin_layout Standard
+All authentication mechanism require some number of messages in order to
+ authenticate an entity.
+ For example, TLS generally requires two round-trips, while OAuth requires
+ a single message from the client to the server.
+ Here we count only messages from the HTTP client to the HTTP server; additional
+ message exchanges may be required involving trusted third parties.
+\end_layout
+
+\begin_layout RevisionRemark
+...
+\end_layout
+
+\begin_layout Subsection
+On Channel Binding and One-Message Authentication Mechanisms
+\end_layout
+
+\begin_layout Standard
+Channel binding 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+ is the act of binding authentication at one network layer to key exchange
+ at a lower network layer.
+ When this occurs within the same layer we don't call it channel binding,
+ but the same concept is involved.
+ For example, TLS PSK and user certificates are cryptographically bound
+ to whatever key exchange method is used, but because this happens naturally
+ within TLS we don't call it channel binding.
+ [Expand on this for the benefit of those not familiar with RFC5056.]
+\end_layout
+
+\begin_layout Standard
+Normally channel binding requires mutual authentication, either in the key
+ confirmation sense or in the sense of actually authenticating the server.
+ In order to see why imagine a one-message user authentication system: a
+ man-in-the-middle (MITM) at a lower layer might be able to steal this one
+ message, close the connection to the real client, then impersonate the
+ client to the server.
+ There are ways of preventing this, but they are not as general as requiring
+ mutual authentication is.
+\end_layout
+
+\begin_layout Standard
+At one point a SASL mechanism, 
+\begin_inset Quotes eld
+\end_inset
+
+YAP
+\begin_inset Quotes erd
+\end_inset
+
+, was proposed that requires just one message and provides channel binding.
+ In order to prevent the message theft problem described above YAP requires
+ that tls-unique channel bindings be used, which effectively eliminates
+ MITMs at the TLS layer.
+ At the time the SASL community rejected this proposal, mostly on account
+ of not wanting to have SASL be aware of the type of channel bindings data
+ used by the application.
+ In retrospect, however, the idea has merit.
+\end_layout
+
+\begin_layout Standard
+Now consider an authentication system that begins life as a bearer token
+ and later is upgraded to be a bearer token that is encrypted in the server's
+ public key, the same public key as is expected to be used by the server
+ in TLS.
+ This bearer token can still be stolen and used by the thief...
+ unless the TLS client knows to ensure that the same public key is used
+ at both layers.
+ But how might the client know how to do that? If the client passes the
+ server's certificate to the client's IdP then the most the IdP can do is
+ apply certificate validation, including certificate/CA/public key pinning
+ options; if the IdP doesn't do this then the MITM will be able to decrypt
+ the bearer token and then re-encrypt it in the real server's public key.
+ This can be overcome by having the IdP do better certificate validation
+ or knowing the target server's certificate a priori, with all the same
+ problems as the traditional TLS server PKI (which is not necessarily a
+ problem).
+ It's not clear how one might successfully apply unique or client end-point
+ channel bindings to a bearer token authentication system, but if there's
+ a way to do so it would help.
+\end_layout
+
+\begin_layout Standard
+YAP is a proof-of-possession mechanism, of course, thus it is quite simple
+ to apply channel binding types other than server end-point, thus making
+ YAP secure against message theft and re-use where a bearer token system
+ could not be.
+ The point being that a secure half round trip (one message) user authentication
+ mechanism is feasible.
+\end_layout
+
+\begin_layout Subsection
+Logon Sessions
+\end_layout
+
+\begin_layout RevisionRemark
+Discuss the binding of HTTP requests (and responses) to logon sessions.
+ Discuss logout.
+\end_layout
+
+\begin_layout Subsection
+Web Cookies, a Form of Bearer Tokens
+\end_layout
+
+\begin_layout RevisionRemark
+Discuss cookies as a form of bearer token and how the situation is not as
+ dire as with bearer tokens for user authentication.
+ Discuss alternatives based on MACing portions (or all) of the HTTP requests
+ (and responses) or the channel bindings data for the TLS channel.
+\end_layout
+
+\begin_layout Subsection
+User Interface Issues
+\end_layout
+
+\begin_layout RevisionRemark
+Discuss phishing issues, in particular the difficult of creating user interfaces
+ in web apps that cannot be spoofed by either server impersonators or MITMs.
+ Reference Sam Hartman's anti-phishing I-D 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-7"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Classification Axes
+\end_layout
+
+\begin_layout Standard
+Several orthogonal classification axes are proposed:
+\end_layout
+
+\begin_layout Enumerate
+Dependence on/independence of the TLS server PKI;
+\end_layout
+
+\begin_layout Enumerate
+Solutions based on bearer tokens vs.
+ ones based on proof of possession;
+\end_layout
+
+\begin_layout Enumerate
+Layer at which user authentication takes place: TLS, HTTPbis, or the application
+ layer;
+\end_layout
+
+\begin_layout Enumerate
+Whether the client, the server, or both, engage in infrastructure messaging;
+\end_layout
+
+\begin_layout Enumerate
+Number of messages exchanged / 
+\begin_inset Quotes eld
+\end_inset
+
+round trips
+\begin_inset Quotes erd
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Enumerate
+Trust establishment: pair/group-wise non-transitive, federated or otherwise
+ transitive, hierarchical vs.
+ mesh;
+\end_layout
+
+\begin_layout Enumerate
+Threat modeling;
+\end_layout
+
+\begin_layout Enumerate
+Explicit versus implicit session management;
+\end_layout
+
+\begin_layout Enumerate
+In-band / out-of-band.
+\end_layout
+
+\begin_layout Enumerate
+[Maybe add something about separation of password verifier access, to limit
+ the attack surface area for password recovery?]
+\end_layout
+
+\begin_layout RevisionRemark
+Note: The author assumes that all acceptable proposals will have HTTPbis
+ continue to depend on TLS for transport security -- for confidentiality
+ (encryption) and integrity (authentication) protection of data exchanged
+ by the HTTPbis client and server.
+ If this assumption is incorrect then we can add one more axis of classification
+: dependence on / independence of TLS.
+\end_layout
+
+\begin_layout Standard
+These nine classification axes are largely orthogonal to each other.
+ Other classification criteria are also possible and may be added in future
+ versions of this Internet-Draft.
+ Some such possible additional criteria are subjective, such as, for example:
+ ease of deployment, ease of implementation, etcetera.
+ Perhaps the WG can come to consensus regarding desirable properties based
+ on objective classification to narrow the set of proposals to consider.
+ Or perhaps the WG can consider a large number of proposals and use objective
+ classification to guide any applicability statements for the proposals
+ accepted.
+ Ideally the WG can apply objective classification first, then for each
+ 
+\begin_inset Quotes eld
+\end_inset
+
+bucket
+\begin_inset Quotes erd
+\end_inset
+
+ of similar proposals the WG could consider more subjective classification
+ criteria.
+\end_layout
+
+\begin_layout Subsection
+Dependence on TLS Server PKI
+\end_layout
+
+\begin_layout Standard
+The web today depends utterly on the 
+\begin_inset Quotes eld
+\end_inset
+
+TLS server PKI
+\begin_inset Quotes erd
+\end_inset
+
+ for security.
+ This would be just fine were it not for the systemic weaknesses in the
+ TLS server PKI: the lack of name constraints, the large number of trust
+ anchors, the large number of certificate authority (CA) compromises, and
+ so on.
+ Building on the TLS server PKI and thus assuming its being sufficiently
+ secure, is quite tempting, as it may simplify various aspects of user authentic
+ation (not least by providing server authentication a priori, thus saving
+ the designers the need to provide server authentication themselves).
+\end_layout
+
+\begin_layout Standard
+This classification axis is very simple: either a proposed solution depends
+ on the TLS server PKI or it doesn't.
+ Some shades of black are imaginable in this case (if not likely).
+\end_layout
+
+\begin_layout Subsection
+Bearer Tokens vs.
+ Proof of Possession
+\end_layout
+
+\begin_layout Standard
+A bearer token is a message the presentation of which is sufficient to authentic
+ate the presenter.
+ Stolen bearer tokens may be used to trivially impersonate the subject,
+ thus bearer tokens generally require confidentiality protection in any
+ protocols over which they might be exchanged, and generally depend on authentic
+ating the relying party first.
+\end_layout
+
+\begin_layout Standard
+Proof of possession systems consist of some secret/private key(s), an authentica
+tor message the 
+\begin_inset Quotes eld
+\end_inset
+
+proves
+\begin_inset Quotes erd
+\end_inset
+
+ possession of the secret or private key(s) used in the construction of
+ the authenticator, and a token not unlike a bearer token but which securely
+ indicates to the relying party(ies) what keys the user must have used in
+ the construction of the authenticator.
+ The relying party then validates the authenticator to establish that the
+ user did indeed possess the necessary secret/private key(s) to the best
+ of the cryptographic capabilities of the authentication system used.
+\end_layout
+
+\begin_layout Subsection
+Layer at which Authentication Protocol Operates
+\end_layout
+
+\begin_layout Standard
+It is possible to design user (and mutual) authentication mechanisms that
+ can work at any end-to-end layer between the HTTPbis client and server.
+ The relevant layers are:
+\end_layout
+
+\begin_layout Itemize
+TLS,
+\end_layout
+
+\begin_layout Itemize
+HTTPbis,
+\end_layout
+
+\begin_layout Itemize
+and the application layer.
+\end_layout
+
+\begin_layout Standard
+We dismiss out of hand the possibility of that layer being TCP or IPsec,
+ though admittedly they are also end-to-end layers where user authentication
+ could theoretically be done.
+\end_layout
+
+\begin_layout Standard
+We distinguish between network layers and API layers (see glossary).
+ A solution at the application 
+\emph on
+network
+\emph default
+ layer might nonetheless be implemented at the HTTP 
+\emph on
+API
+\emph default
+ layer (and vice-versa).
+\end_layout
+
+\begin_layout Standard
+User authentication is generally something that a transport layer cannot
+ know to initiate on its own: the application must be in control of when
+ (server- and client-side) to authenticate, how (server- and/or client-side),
+ with what credentials / as whom (client-side).
+ This means that authentication in the transport layer requires APIs that
+ give the application a measure of control.
+ HTTP API capabilities will vary, but HTTPbis is a good opportunity to standardi
+ze an abstract API outlining capabilities and semantics to be exposed to
+ applications by an HTTP stack.
+\end_layout
+
+\begin_layout Standard
+Note that on the user-agent side the platform may provide user interaction
+ facilities for authentication, thus simplifying user authentication APIs.
+ The application, on the server side, remains in control over when to initiate
+ authentication.
+\end_layout
+
+\begin_layout Standard
+End-to-end session cryptographic protection is best done in the lowest possible
+ transport layer.
+ For HTTP applications, historically this means TLS; though it'd be technically
+ feasible to provide protection at lower layers it does not appear to be
+ a realistic option at this time.
+\end_layout
+
+\begin_layout Standard
+User authentication is best 
+\begin_inset Quotes eld
+\end_inset
+
+bound
+\begin_inset Quotes erd
+\end_inset
+
+ into transport security layers, in this case TLS.
+ When user authentication is moved to higher layers a 
+\begin_inset Quotes eld
+\end_inset
+
+channel binding
+\begin_inset Quotes erd
+\end_inset
+
+ problem arises: we would like to ensure that no man-in-the-middle exists
+ in the transport layer, with the MITM terminating two TLS connections.
+ For more information about channel binding see 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-4"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+UI and API issues are quite different for web applications versus non-web
+ applications.
+ The former have rich UI elements (all of HTML's) and programming models
+ (scripting, particularly through JavaScript).
+ One problem that is particularly severe for web applications, is the ability
+ of server impersonators to emulate all imaginable graphical user interfaces
+ that the native user-agent might wish to use to distinguish itself from
+ the applications it runs.
+ Regardless of what layer implements authentication this problem will arise
+ in web applications.
+\end_layout
+
+\begin_layout Subsubsection
+HTTP- vs.
+ Application-Layer Authentication in the Network Stack
+\end_layout
+
+\begin_layout Standard
+It's important to note that there need not be much difference between HTTP-layer
+ and application-layer user authentication, at least if we assume a standard
+ application-layer user authentication convention.
+ For argument's sake let's assume an application-layer user authentication
+ convention like the one in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-6"
+
+\end_inset
+
+, and let's assume two possible HTTPbis HTTP-layer authentication solutions:
+ one that is most similar to HTTP/1.1's and one that uses a new verb for
+ authentication.
+ Then let's look at what each of these three solutions look like on the
+ wire using the SCRAM mechanism for cases where the client already knows
+ it has to authenticate.
+ For brevity we elide any HTTP request and response where the server indicates
+ that the client must authenticate, as well as any requests/responses involving
+ negotiation of mechanism to use.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+   C->S: HTTP/1.1 POST /rest-gss-login
+\end_layout
+
+\begin_layout Plain Layout
+
+         Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/rest-gss-login
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         SCRAM-SHA-1,,MIC
+\end_layout
+
+\begin_layout Plain Layout
+
+         n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   S->C: HTTP/1.1 201
+\end_layout
+
+\begin_layout Plain Layout
+
+         Location http://A.example/rest-gss-session-9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/rest-gss-login
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         C
+\end_layout
+
+\begin_layout Plain Layout
+
+         r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+         s=QSXCR+Q6sek8bf92,i=4096
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   C->S: HTTP/1.1 POST /rest-gss-session-9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+         Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/rest-gss-login
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+         p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   S->C: HTTP/1.1 200
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/rest-gss-login
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         A
+\end_layout
+
+\begin_layout Plain Layout
+
+         v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+REST-GSS Login w/ SCRAM Example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+   C->S: HTTP/1.1 LOGIN
+\end_layout
+
+\begin_layout Plain Layout
+
+         Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/SASL
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         SCRAM-SHA-1,,MIC
+\end_layout
+
+\begin_layout Plain Layout
+
+         n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   S->C: HTTP/1.1 201
+\end_layout
+
+\begin_layout Plain Layout
+
+         Location http://A.example/login-session-9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/SASL
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         C
+\end_layout
+
+\begin_layout Plain Layout
+
+         r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+         s=QSXCR+Q6sek8bf92,i=4096
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   C->S: HTTP/1.1 LOGINCONTINUE /login-session-9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+         Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/SASL
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+         p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   S->C: HTTP/1.1 200
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: application/SASL
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         A
+\end_layout
+
+\begin_layout Plain Layout
+
+         v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+HTTPbis w/ New Verb Login w/ SCRAM Example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+   C->S: HTTP/1.1 GET /location/of/interest/to/app
+\end_layout
+
+\begin_layout Plain Layout
+
+         Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   S->C: HTTP/1.1/401 Unauthorized
+\end_layout
+
+\begin_layout Plain Layout
+
+         Server: HTTPd/0.9
+\end_layout
+
+\begin_layout Plain Layout
+
+         Date: Sun, 10 Apr 2005 20:26:47 GMT
+\end_layout
+
+\begin_layout Plain Layout
+
+         WWW-Authenticate: <list of mechanisms>
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: text/html
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         <error document>
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   C->S: HTTP/1.1 GET /location/of/interest/to/app
+\end_layout
+
+\begin_layout Plain Layout
+
+         Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+         Authorization: SCRAM-SHA-1,,MIC
+\end_layout
+
+\begin_layout Plain Layout
+
+                        n,,n=user,r=fyko+d2lbbFgONRv9qkxdaw
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   S->C: HTTP/1.1 4xx
+\end_layout
+
+\begin_layout Plain Layout
+
+         WWW-Authenticate: C
+\end_layout
+
+\begin_layout Plain Layout
+
+                           r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+                           s=QSXCR+Q6sek8bf92,i=4096
+\end_layout
+
+\begin_layout Plain Layout
+
+         WWW-Authenticate-Session: 9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   C->S: HTTP/1.1 GET /location/of/interest/to/app
+\end_layout
+
+\begin_layout Plain Layout
+
+         Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+         Authorization-Session: 9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+         Authorization: c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+                        p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   S->C: HTTP/1.1 200
+\end_layout
+
+\begin_layout Plain Layout
+
+         WWW-Authenticate: A
+\end_layout
+
+\begin_layout Plain Layout
+
+                           v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Type: ...
+\end_layout
+
+\begin_layout Plain Layout
+
+         Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+         <content>
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Extended HTTP/1.1 Style Login w/ SCRAM Example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There's not much difference between the first two examples.
+ The third example jas several important differences relative to the first
+ two examples:
+\end_layout
+
+\begin_layout Itemize
+The URL is sent to the server before any chance to have completed mutual
+ authentication, should the selected mechanism provide mutual authentication.
+ If the client knows a priori to authenticate and the URL contains sensitive
+ information then the client has no choice but to leak this information
+ prior to completing mutual authentication, thus the client becomes dependent
+ on TLS for authenticating the server even when the client could authenticate
+ the server more strongly via the selected HTTP authentication mechanism.
+ This is an important weakness.
+\end_layout
+
+\begin_layout Itemize
+The whole sequence involves multiple requests/responses, which goes against
+ the stateless nature of HTTP.
+ State is needed in all three examples, but the first example is RESTful,
+ while the second employs a would-be new verb that provides for stateful
+ authentication.
+ The third example simply cannot be thought of as remotely RESTful.
+ Perhaps this is not a problem.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Alternatively mechanisms requiring multiple round trips can be ruled out
+ of scope.
+ This would rule out quite a few desirable mechanisms!
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+The main difference on the wire between a generic HTTP-layer user authentication
+ framework (like the one in the second example) and an application-layer
+ equivalent (as in the first example) can be so minimal as to make the choice
+ of layer seem like splitting hairs.
+\end_layout
+
+\begin_layout Subsubsection
+HTTP- vs.
+ Application-Layer Authentication in the API Stack
+\end_layout
+
+\begin_layout Standard
+There are HTTP stacks that make it possible to implement HTTP authentication
+ methods in the application (e.g., FCGI in web servers), and nothing would
+ prevent HTTP stacks from implementing a 
+\emph on
+standard
+\emph default
+ application-layer user authentication protocol either.
+ The APIs offered by an HTTP stack should look remarkably similar regardless
+ of which layer the user authentication protocol is technically at.
+ Once again, the difference between HTTP-layer and standard application-layer
+ user authentication is minimal.
+\end_layout
+
+\begin_layout Standard
+Note however that if the HTTP stack does not implement authentication, leaving
+ it to the application to do so, then the application developer runs the
+ risk of making mistakes in the implementation, such as failing to implement
+ channel binding where possible.
+ Thus it is generally best if the HTTP stack implements authentication --
+ even if TLS is used for user authentication, the HTTP stack should provide
+ a singular API for authentication.
+\end_layout
+
+\begin_layout Subsubsection
+Choice of Layer
+\end_layout
+
+\begin_layout Standard
+The choice of layer is clearly more important for APIs than on the wire.
+ On the wire the choice of layer is minimal, trivial even, when the choice
+ is between HTTP and the application layer.
+\end_layout
+
+\begin_layout Standard
+If the WG agrees that the distinction between HTTP-layer and application-layer
+ user authentication is or should be minimal then how should the WG pick
+ one of those two layers, if it decides not to pursue TLS-layer user authenticat
+ion?
+\end_layout
+
+\begin_layout Standard
+A standard application-layer authentication scheme implies no changes to
+ HTTP itself, and may not rely on any particular features of HTTP/1.1 or
+ HTTPbis, thus it may be usable even with HTTP/1.0.
+ This is true of the REST-GSS proposal
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-6"
+
+\end_inset
+
+, which is also RESTful.
+ This must be of some value.
+\end_layout
+
+\begin_layout Standard
+An HTTP-layer authentication solution must either: a) not support multi-round
+ trip mechanisms, b) add verbs, or c) not be RESTful.
+ (a) works with HTTP/1.0, (b) would not work with HTTP/1.0.
+ [The author believes that RESTfulness is desirable.]
+\end_layout
+
+\begin_layout Subsubsection
+User Authentication in the TLS Layer
+\end_layout
+
+\begin_layout Standard
+Issues:
+\end_layout
+
+\begin_layout Itemize
+The transport cannot know when to require user authentication (on the server
+ side) or when to initiate it (on the client side).
+ Simply always initiating user authentication creates privacy problems:
+ the user may not want to disclose their identity all the time!
+\end_layout
+
+\begin_layout Itemize
+To address the problem of when to require or initiate user authentication
+ the TLS implementation must provide suitable APIs to the application.
+ And since the application will generally decide that authentication is
+ required only after (possibly well after) a TLS connection is setup, the
+ user generally must be authenticated by renegotiating TLS, which in turn
+ means that two round trips will be needed just for that, at minimum, even
+ if the user authentication mechanism selected requires fewer round trips.
+ This is inefficient, though not fatal.
+\end_layout
+
+\begin_layout Itemize
+The TLS community has resisted proposals for user authentication mechanisms
+ with arbitrary round trip counts before [references? this is in reference
+ to Stefan's TLS-GSS proposal...].
+ This may no longer be true (or perhaps the author is misunderstanding or
+ misremembering the events in question), but if it is still the case then
+ the range of choices for user authentication in TLS is significantly curtailed.
+\end_layout
+
+\begin_layout Itemize
+Several major TLS implementations defer certificate validation until the
+ peer's Finished message is received.
+ This means that unless one is using TLS renegotiation (with the inner connectio
+n's server certificate being the same as in the outer connection's) the
+ user's identity and the payloads related to user authentication will be
+ revealed to the server before the server is authenticated.
+\end_layout
+
+\begin_layout Itemize
+User Interface issues:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+A user authentication framework and future mechanisms will likely need to
+ interact with the user.
+ In some cases this may be best done through a platform component, such
+ as a credential management facility.
+ In other cases this may best be done by the application.
+ Driving user interaction from within the TLS layer presents a slight complicati
+on: any interaction has to be effected through application- or platform-provided
+ code paths.
+ Adding interaction to existing TLS implementations may not be trivial.
+\end_layout
+
+\begin_layout Itemize
+...
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Benefits:
+\end_layout
+
+\begin_layout Itemize
+Where the platform can provide credential management and user interaction
+ then user authentication in TLS can greatly simplify HTTP applications:
+ no user authentication APIs or UIs are then needed in the application.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Note however that the user may have a hard time identifying the context
+ in which they are being prompted by the system for credentials or credential
+ selection.
+ This is usually not a problem in smartphone and other such small devices,
+ where it is generally clear what application is in the foreground, and
+ therefore the context of a prompt.
+ But this is not necessarily so on other platforms.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Non-web applications typically know a priori when they wish to authenticate.
+ Typical non-web applications that use HTTP/1.1 over a single TLS connection,
+ with an application session consisting of all the HTTP requests performed
+ over that one connection.
+ For such applications having user authentication in the TLS layer may be
+ the simplest way to get user authentication into the application.
+\end_layout
+
+\begin_layout Subsection
+Party Responsible for Infrastructure Messaging
+\end_layout
+
+\begin_layout RevisionRemark
+XXX Add references for OCSP, AAA, ...
+\end_layout
+
+\begin_layout Standard
+\begin_inset Quotes eld
+\end_inset
+
+Infrastructure
+\begin_inset Quotes erd
+\end_inset
+
+ consists, for the purposes of this document, of services such as Identity
+ Providers (IdPs), Certificate Revocation Lists (CRLs) and their servers,
+ Online Certificate Status Protocol (OCSP) responders, Kerberos Key Distribution
+ Centers (KDCs), RADIUS/DIAMETER servers, etcetera.
+ These are services that run on parties other than a client (e.g., a web browser
+ / user agent) and an application server.
+ In some cases infrastructure services may be physically co-located with
+ the client or server, but by and large they are physically separated; infrastru
+cture services are always logically separate from the client and server.
+\end_layout
+
+\begin_layout Standard
+Some protocols require that the client do all or most of the message exchanges
+ with infrastructure, some require that the server do this messaging, some
+ require both to do some messaging.
+ In some cases a server might proxy a client's messages to infrastructure.
+ There are advantages to the client doing this messaging: namely a simpler
+ server, less subject to denial of service .
+ resource consumption attacks.
+ [Are there advantages to the server doing this messaging?]
+\end_layout
+
+\begin_layout Standard
+Consider a protocol like Kerberos.
+ Kerberos relies on Key Distribution Center (KDC) infrastructure, and it
+ relies on the client doing all the messaging needed to ultimately authenticate
+ it to a server.
+ Kerberos can be used in a way such that the relying party proxies this
+ messaging for the client (see IAKERB), but even so the client had to communicat
+e with the KDCs in order to ultimately authenticate to the relying party
+ -- IAKERB is simply a proxy mechanism.
+\end_layout
+
+\begin_layout Standard
+Now consider an authentication mechanism based on PKI.
+ The only online infrastructure in a PKI are the CRLs and OCSP responders.
+ Of course, a Certificate Authority (CA) can also be online, as in kca [add
+ reference], a CA that authenticates clients via Kerberos and which issues
+ fresh, short-lived certificates.
+ Private keys for certificates can also be served by online services such
+ as SACRED and browserid.
+ The method of validating certificates currently considered ideal is for
+ the possessor of certificate's private key to send both, the certificate
+ and a current/fresh OCSP response for it (or, rather, responses, for the
+ entire certificate chain), thus the PKI relying party should ideally not
+ have to contact infrastructure; in practice CRL checking is still the more
+ commonly used method, requiring infrastructure messaging on the relying
+ party side.
+\end_layout
+
+\begin_layout Standard
+The responsibility for infrastructure messaging varies widely.
+\end_layout
+
+\begin_layout Subsection
+Number of Messages
+\end_layout
+
+\begin_layout Standard
+The number of messages that must be exchanged in order to authenticate a
+ peer varies a lot by authentication mechanism.
+ Some require just one message from the client to the server.
+ Others require a reply message from the server.
+ Others require some larger number of messages (typically three or four).
+ Yet others require a variable number of messages.
+\end_layout
+
+\begin_layout Standard
+Typically key exchange is also required in order to provide confidentiality
+ and integrity protection to the transport.
+ Key exchange protocols also vary in number of messages required.
+ Key exchange and authentication may be combined, either directly in a single
+ network layer, or across layers via channel binding.
+\end_layout
+
+\begin_layout Standard
+One-message authentication protocols:
+\end_layout
+
+\begin_layout Itemize
+OAuth
+\end_layout
+
+\begin_layout Itemize
+Kerberos (w/o key confirmation)
+\end_layout
+
+\begin_layout Itemize
+Public key signature schemes when authenticating only the client
+\end_layout
+
+\begin_layout Itemize
+Diffie-Hellman (when the client knows the server's DH public key a priori,
+ and w/o key confirmation)
+\end_layout
+
+\begin_layout Itemize
+RSA key transport (w/o key confirmation)
+\end_layout
+
+\begin_layout Itemize
+all bearer token protocols (but see [ref to on channel bindings section])
+\end_layout
+
+\begin_layout Standard
+Two-message authentication protocols:
+\end_layout
+
+\begin_layout Itemize
+Kerberos
+\end_layout
+
+\begin_layout Itemize
+Diffie-Hellman with fixed public keys
+\end_layout
+
+\begin_layout Itemize
+RSA key transport
+\end_layout
+
+\begin_layout Standard
+Authentication protocols with three or more messages, or with arbitrary
+ numbers of messages:
+\end_layout
+
+\begin_layout Itemize
+Most/all zero-knowledge password proof protocols (e.g., SRP) (usually three
+ or four messages)
+\end_layout
+
+\begin_layout Itemize
+SCRAM, and other challenge-response protocols (usually three or four messages)
+\end_layout
+
+\begin_layout Itemize
+IAKERB (usually four messages)
+\end_layout
+
+\begin_layout Itemize
+Pluggable frameworks (SASL, GSS, EAP) (arbitrary message counts, usually
+ dependent on what mechanism is selected)
+\end_layout
+
+\begin_layout Standard
+It's worth pointing out that TLS is a three- or four-message protocol, but
+ when providing confidentiality protection for the client identity it becomes
+ a six- to eight-message protocol (though there is a proposal to improve
+ this, getting back to three to four messages [add reference to Marsh's
+ I-D]).
+\end_layout
+
+\begin_layout Standard
+Some authentication protocols can provide key exchange, others cannot.
+ Similarly, not all mechanisms can provide channel binding.
+\end_layout
+
+\begin_layout Standard
+The total number of messages required is important.
+ These message exchanges are always ordered and synchronous; no progress
+ can be made by the application until they are completed.
+ Over long distances the time to complete each round trip add up to noticeable
+ latency, and there is much pressure to get this latency down to an absolute
+ minimum.
+\end_layout
+
+\begin_layout Standard
+Integrating user authentication into TLS has the clear allure of potentially
+ cutting down the number of round trips necessary, but it's not clear that
+ this can be achieved in every case.
+ In particular it may not be clear that a client has to authenticate until
+ after a TLS connection is established over which the client may request
+ access to some resource that requires authenticated clients.
+\end_layout
+
+\begin_layout Subsection
+Trust Establishment
+\end_layout
+
+\begin_layout Standard
+Pair-wise pre-shared keying systems require careful initial key exchange,
+ but otherwise have no transitive trust issues: every pair of entities that
+ has shared keying can communicate without the aid of any other entity.
+ However, pair-wise pre-shared keying does not scale to the Internet as
+ it is O(n^2).
+\end_layout
+
+\begin_layout Standard
+Authentication mechanisms that scale to the Internet of necessity require
+ some degree of trust transitivity.
+ That is, there must be many cases where Alice and Bob can communicate with
+ each other only because they can authenticate each other by way of one
+ or more third parties (e.g., Trent) that each of them trust a priori.
+\end_layout
+
+\begin_layout Standard
+There are a number of issues with trust transitivity:
+\end_layout
+
+\begin_layout Itemize
+Trusted third parties can mount MITM attacks on the parties that trust them
+\end_layout
+
+\begin_layout Itemize
+Compromise of trusted third parties has far reaching, negative effects
+\end_layout
+
+\begin_layout Itemize
+Policy for trust transit paths is difficult to express
+\end_layout
+
+\begin_layout Itemize
+Mechanisms for establishing trust paths are often manual and prone to error
+ or abuse
+\end_layout
+
+\begin_layout Standard
+There are several ways to use transitive trust.
+ In hierarchical transitive trust we organize the trusted third parties
+ in such a way that there should be a trust path for every pair of entities
+ of interest (e.g., every user to every server, every user to every user,
+ ...) -- think of PKI.
+ In mesh systems trust transits through every entity's 
+\begin_inset Quotes eld
+\end_inset
+
+friends
+\begin_inset Quotes erd
+\end_inset
+
+ -- think of PGP.
+\end_layout
+
+\begin_layout Standard
+There may be other models of transitive trust, such as one with islands
+ of trust.
+ An islands of trust model would consist of federations of transitive trust
+ (using hierarchical or mesh models) that are much smaller than the entire
+ Internet, but large enough to be of use to large numbers of users.
+ For example, an online merchant might provide for authentication of all
+ users to a set of participating vendors[Expand on this greatly!!]
+\end_layout
+
+\begin_layout Standard
+Given the need for transitive trust and the serious drawbacks of transitive
+ trust, some workarounds may be necessary, such as:
+\end_layout
+
+\begin_layout Itemize
+Policy language for choosing suitable trust paths
+\end_layout
+
+\begin_layout Itemize
+Facilities for limiting the length of, or otherwise shortening trust paths
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Quotes eld
+\end_inset
+
+Pinning
+\begin_inset Quotes erd
+\end_inset
+
+ facilities to force changes in the infrastructure to proceed in ways which
+ make some MITM attacks harder to mount
+\end_layout
+
+\begin_layout Itemize
+Auditing facilities by which to show that trusted third parties are not
+ mounting MITM attacks
+\end_layout
+
+\begin_layout Itemize
+Revocation facilities that actually work
+\end_layout
+
+\begin_layout Itemize
+Root keys that are rarely used and live in HSMs?
+\end_layout
+
+\begin_layout Itemize
+Fast re-keying?
+\end_layout
+
+\begin_layout Standard
+For an example of pinning, consider a TLS extension where self-signed, persisten
+t user certificates are used, possibly one per-origin for pseudonymity purposes.
+ The user agent can enroll the user certificates at their corresponding
+ origin servers such that thereafter no MITMs are possible that can impersonate
+ the user to the server.
+ Of course, such a scheme suffers from needing a fall-back authentication
+ method when the user's device(s) that store the relevant private keys are
+ lost.
+ Users would need to be able to fall-back on an alternative authentication
+ method for re-enrollment, likely one that is susceptible to attack or else
+ is inconvenient.
+ In this cases the pinning is on the server side; keep in mind that pinning
+ need not only be used on clients, but may be used even in the distributed
+ trust infrastructure (e.g., to shorten trust paths).
+\end_layout
+
+\begin_layout Standard
+Ideally an authentication facility for HTTP/2.0 should support a variety
+ of trust establishment models, as it is not clear that one mode is superior
+ to the others.
+ (Though certainly the hierarchical model is the most scalable in a single-sign-
+on (SSO) manner.
+ However, users may not mind having a small number of logon credentials
+ for a trust island model.)
+\end_layout
+
+\begin_layout Subsection
+Threat Modeling
+\end_layout
+
+\begin_layout Standard
+[Cover the Internet threat model.
+ Discuss the end-to-end model and the hop-by-hop semantics of transitive
+ trust.]
+\end_layout
+
+\begin_layout Subsection
+Explicit versus Implisit Session Management
+\end_layout
+
+\begin_layout Standard
+[Discuss lack of / weakness of application session concept on the web.
+ Discuss the historically limited application of TLS sessions to HTTP apps.
+ Discuss desirability of a real concept of session and logout.]
+\end_layout
+
+\begin_layout Subsection
+In-Band versus Out-of-Band Authentication
+\end_layout
+
+\begin_layout Standard
+[Discuss out-of-band user authentication systems such as ones where 
+\begin_inset Quotes eld
+\end_inset
+
+tokens
+\begin_inset Quotes erd
+\end_inset
+
+ are sent to users' mobile phones via SMS, as well as systems where a 
+\begin_inset Quotes eld
+\end_inset
+
+login URL
+\begin_inset Quotes erd
+\end_inset
+
+ is sent to the user via e-mail.]
+\end_layout
+
+\begin_layout Section
+Analysis of Some Possible Authentication Proposals
+\end_layout
+
+\begin_layout Standard
+[Cover:
+\end_layout
+
+\begin_layout Itemize
+Authentication mechanisms:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Bearer token systems
+\end_layout
+
+\begin_layout Itemize
+Other half round trip systems, including Kerberos, OAuth
+\end_layout
+
+\begin_layout Itemize
+PK w/ SACRED, browserid, smartcards
+\end_layout
+
+\begin_layout Itemize
+ZKPPs
+\end_layout
+
+\begin_layout Itemize
+Challenge/response password-based mechanisms (DIGEST-MD5, SCRAM)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Generic auth frameworks
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+GSS, SASL, EAP (anything else? IKEv2? SSHv2?)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Authentication in TLS, HTTP, and above HTTP
+\end_layout
+
+\begin_layout Itemize
+OTP and out-of-band (SMS, e-mail) auth, both as part of authentication mechanism
+s and as port of traditional webauth.
+\end_layout
+
+\begin_layout Itemize
+Traditional webauth (passwords posted in forms), possibly with password
+ wallets (stateful and stateless)
+\end_layout
+
+\begin_layout Standard
+]
+\end_layout
+
+\begin_layout RevisionRemark
+What else to cover?
+\end_layout
+
+\begin_layout Section
+Author's Recommendations
+\end_layout
+
+\begin_layout Standard
+It seems likely that no single user authentication method will satisfy the
+ needs of all web applications.
+ Nor can we predict the future.
+ This argues for a multitude of solutions, and possibly a pluggable system.
+ The author proposes the following:
+\end_layout
+
+\begin_layout Enumerate
+For all authentication mechanisms (i.e., cryptographic authentication methods)
+ use the GSS-API, possibly through the thin shim of RFC5801 [XXX change
+ into reference].
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+do this above HTTP in the network stack, but...
+\end_layout
+
+\begin_layout Enumerate
+...recommend that this be implemented by HTTP stacks, rather than by applications.
+ I.e., authentication above HTTP on the wire, within HTTP as far as APIs are
+ concerned.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Encourage development of authentication mechanisms that fit the chosen authentic
+ation framework and which have the following features:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+federation (which implies trusted third parties)
+\end_layout
+
+\begin_layout Enumerate
+strong initial user authentication (e.g., with ZKPPs)
+\end_layout
+
+\begin_layout Enumerate
+minimized password verifier attack surface area (e.g., minize the number of
+ servers that have access to password verifiers)
+\end_layout
+
+\begin_layout Enumerate
+trust path bootstrapping
+\end_layout
+
+\begin_layout Enumerate
+short trust paths
+\end_layout
+
+\begin_layout Enumerate
+auditable trusted third parties
+\end_layout
+
+\begin_layout Enumerate
+[preferably] mutual authentication
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Specify a new URI scheme that identifies services rather than hosts.
+ For example: svc:<service>@<domainname>/<local-part> .
+ An option to embed service authentication information (possibly a digital
+ signature, or a URL referring to a digital signature) may prove useful.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Also specify a service location protocol.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Specify an abstract API for interfacing HTTPbis applications to HTTPbis.
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2119
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2119"
+target "http://www.ietf.org/rfc/rfc2119.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5246
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5246"
+target "http://www.ietf.org/rfc/rfc5246.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2616
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2616"
+target "http://www.ietf.org/rfc/rfc2616.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2616.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-4"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5056
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5056"
+target "http://www.ietf.org/rfc/rfc5056.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-5"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc4120
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC4120"
+target "http://www.ietf.org/rfc/rfc4120.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4120.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-6"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+I-D.williams-rest-gss
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "I-D.williams-rest-gss"
+target "https://datatracker.ietf.org/doc/draft-williams-rest-gss/"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-7"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+I-D.hartman-webauth-phishing
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "I-D.hartman-webauth-phishing"
+target "https://datatracker.ietf.org/doc/draft-hartman-webauth-phishing/"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.hartman-webauth-phishing.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-8"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2818
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2818"
+target "http://www.ietf.org/rfc/rfc2818.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2818.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-9"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc4422
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC4422"
+target "http://www.ietf.org/rfc/rfc4422.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-10"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5802
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5802"
+target "http://www.ietf.org/rfc/rfc5802.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5802.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-11"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2617
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2617"
+target "http://www.ietf.org/rfc/rfc2617.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2617.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-12"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc3748
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC3748"
+target "http://www.ietf.org/rfc/rfc3748.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3748.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-13"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2743
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2743"
+target "http://www.ietf.org/rfc/rfc2743.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-14"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc4559
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC4559"
+target "http://www.ietf.org/rfc/rfc4559.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-15"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc4121
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC4121"
+target "http://www.ietf.org/rfc/rfc4121.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+[Add references for HSTS, SACRED, OAuth, browserid, OpenId, and many others.]
+\end_layout
+
+\begin_layout Standard
+[Re-order the references into a saner order, with HTTP and TLS first, then
+ auth frameworks, then auth mechanisms, then ...; I-Ds last.
+ Or maybe sort fir RFCs first, in numeric order, then I-Ds in alphabetic
+ order.
+ Either way, a saner ordering.]
+\end_layout
+
+\end_body
+\end_document
