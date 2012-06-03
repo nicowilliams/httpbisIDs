@@ -83,6 +83,11 @@ InsetLayout Flex:IETFArea
     HTMLTag div
 End
 
+InsetLayout Flex:IETFWorkingGroup
+    LyXType Custom
+    HTMLTag div
+End
+
 InsetLayout Flex:XML2RFCKeyword
     LyXType Custom
     HTMLTag div

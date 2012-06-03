@@ -1,10 +1,10 @@
 
 
 
-NETWORK WORKING GROUP                                        N. Williams
+Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                              June 2, 2012
-Expires: December 4, 2012
+Intended status: Informational                              June 3, 2012
+Expires: December 5, 2012
 
 
  A Proposals for Classification and Analysis of HTTPbis Authentication
@@ -31,7 +31,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on December 4, 2012.
+   This Internet-Draft will expire on December 5, 2012.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Williams                Expires December 4, 2012                [Page 1]
+Williams                Expires December 5, 2012                [Page 1]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -108,7 +108,7 @@ Table of Contents
 
 
 
-Williams                Expires December 4, 2012                [Page 2]
+Williams                Expires December 5, 2012                [Page 2]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -117,17 +117,17 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    The HTTPbis WG is accepting proposals for new authentication systems
    for HTTPbis, the successor to Hypertext Transport Protocol (HTTP)
-   version 1.1[[RFC2616]].  This document proposes a classification
-   system for these proposals.  Several axes of classification are
-   proposed, and several simplified imagined or likely authentication
-   systems are used to illustrate the classification system.
+   version 1.1[RFC2616].  This document proposes a classification system
+   for these proposals.  Several axes of classification are proposed,
+   and several simplified imagined or likely authentication systems are
+   used to illustrate the classification system.
 
    The author assumes that the WG is interested primarily in new user
    authentication proposals, with ones that provide mutual
    authentication (of users and servers to each other) being in scope.
-   The author also assumes that Transport Layer Security (TLS)
-   [[RFC5246]] will continue to be used by HTTPbis for cryptographic
-   session protection.
+   The author also assumes that Transport Layer Security (TLS) [RFC5246]
+   will continue to be used by HTTPbis for cryptographic session
+   protection.
 
    Some familiarity with authentication systems is assumed.  A glossary
    is provided.
@@ -136,7 +136,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
-   document are to be interpreted as described in [[RFC2119]].
+   document are to be interpreted as described in [RFC2119].
 
 1.2.  Scope
 
@@ -164,7 +164,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012                [Page 3]
+Williams                Expires December 5, 2012                [Page 3]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -202,8 +202,8 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       forms.
 
    Authentication Framework  A protocol into which other authentication
-      mechanisms may be plugged in.  For example: SASL[[RFC4422]], GSS-
-      API[[RFC2743]], EAP[[RFC3748]], among others.
+      mechanisms may be plugged in.  For example: SASL[RFC4422], GSS-
+      API[RFC2743], EAP[RFC3748], among others.
 
    Bearer Token  A technique for authentication that involves a message
       that can be presented by the authenticating entity to another.  No
@@ -214,13 +214,13 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       them and use them to impersonate the subject.
 
    Channel Binding  A security protocol composition and analysis tool.
-      The purpose of channel binding[[RFC5056]] is to "bind" a secure
+      The purpose of channel binding[RFC5056] is to "bind" a secure
       channel (at one layer in the network stack) into an authentication
       protocol running at a higher layer in the stack, thereby ensuring
 
 
 
-Williams                Expires December 4, 2012                [Page 4]
+Williams                Expires December 5, 2012                [Page 4]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -250,7 +250,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       proof-of-possession of the exchanged session key back to the user.
       Protocols that use RSA key transport (e.g., TLS in common usage),
       Diffie-Hellman with a persistent public key for the server, or
-      Needham-Schroeder protocols (such as Kerberos[[RFC4120]]), perform
+      Needham-Schroeder protocols (such as Kerberos[RFC4120]), perform
       server authentication in this way.  A client may not always care
       to receive key confirmation.  For example, a Kerberos client for a
       lossy logging application might not care that confidentiality
@@ -276,7 +276,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012                [Page 5]
+Williams                Expires December 5, 2012                [Page 5]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -291,7 +291,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
       process of authenticating that other entity, is a relying party.
 
    SCRAM  Salted Challenge Response Authentication Mechanism
-      (SCRAM)[[RFC5802]], a SASL[[RFC4422]] and GSS mechanism based on
+      (SCRAM)[RFC5802], a SASL[RFC4422] and GSS mechanism based on
       password-derived pre-shared keys and challenge/response.  SCRAM is
       intended as the successor to SASL's DIGEST-MD5, and possibly to
       HTTP's DIGEST-MD5.
@@ -332,7 +332,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012                [Page 6]
+Williams                Expires December 5, 2012                [Page 6]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -388,7 +388,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012                [Page 7]
+Williams                Expires December 5, 2012                [Page 7]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -444,7 +444,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012                [Page 8]
+Williams                Expires December 5, 2012                [Page 8]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -457,9 +457,9 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    o  OTP and out-of-band methods do not protect against MITMs, and thus
       depend on the integrity of TLS and the TLS server PKI.
 
-   o  HTTP/Negotiate[[RFC4559]], which effectively uses GSS-
-      API[[RFC2743]] mechanisms, usually NTLM [XXX Add reference] or
-      Kerberos[[RFC4120], [RFC4121]].
+   o  HTTP/Negotiate[RFC4559], which effectively uses GSS-API[RFC2743]
+      mechanisms, usually NTLM [XXX Add reference] or Kerberos[RFC4120],
+      [RFC4121].
 
    Additionally, there is no strong concept of "sessions" in web
    applications.  Sessions, such as they are, consist of HTTP requests
@@ -475,7 +475,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    all).
 
    HTTP applications that are not web application have similar issues,
-   though some of them can also use SASL[[RFC4422]].  Non-web HTTP
+   though some of them can also use SASL[RFC4422].  Non-web HTTP
    applications also may not need cookies, instead using a single
    HTTP/1.1 persistent connection over which to issue all requests that
    make up a session - such applications have a stronger sense of
@@ -500,7 +500,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012                [Page 9]
+Williams                Expires December 5, 2012                [Page 9]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -556,17 +556,17 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 10]
+Williams                Expires December 5, 2012               [Page 10]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 2.5.  On Channel Binding and One-Message Authentication Mechanisms
 
-   Channel binding [[RFC5056]] is the act of binding authentication at
-   one network layer to key exchange at a lower network layer.  When
-   this occurs within the same layer we don't call it channel binding,
-   but the same concept is involved.  For example, TLS PSK and user
+   Channel binding [RFC5056] is the act of binding authentication at one
+   network layer to key exchange at a lower network layer.  When this
+   occurs within the same layer we don't call it channel binding, but
+   the same concept is involved.  For example, TLS PSK and user
    certificates are cryptographically bound to whatever key exchange
    method is used, but because this happens naturally within TLS we
    don't call it channel binding.  [Expand on this for the benefit of
@@ -612,7 +612,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 11]
+Williams                Expires December 5, 2012               [Page 11]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -643,7 +643,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    [Discuss phishing issues, in particular the difficult of creating
    user interfaces in web apps that cannot be spoofed by either server
    impersonators or MITMs.  Reference Sam Hartman's anti-phishing I-D
-   [[I-D.hartman-webauth-phishing]].]
+   [I-D.hartman-webauth-phishing].]
 
 
 
@@ -668,7 +668,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 12]
+Williams                Expires December 5, 2012               [Page 12]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -724,7 +724,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 13]
+Williams                Expires December 5, 2012               [Page 13]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -780,7 +780,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 14]
+Williams                Expires December 5, 2012               [Page 14]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -821,7 +821,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    a "channel binding" problem arises: we would like to ensure that no
    man-in-the-middle exists in the transport layer, with the MITM
    terminating two TLS connections.  For more information about channel
-   binding see [[RFC5056]].
+   binding see [RFC5056].
 
    UI and API issues are quite different for web applications versus
    non-web applications.  The former have rich UI elements (all of
@@ -836,7 +836,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 15]
+Williams                Expires December 5, 2012               [Page 15]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -847,7 +847,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    HTTP-layer and application-layer user authentication, at least if we
    assume a standard application-layer user authentication convention.
    For argument's sake let's assume an application-layer user
-   authentication convention like the one in [[I-D.williams-rest-gss]],
+   authentication convention like the one in [I-D.williams-rest-gss],
    and let's assume two possible HTTPbis HTTP-layer authentication
    solutions: one that is most similar to HTTP/1.1's and one that uses a
    new verb for authentication.  Then let's look at what each of these
@@ -892,7 +892,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 16]
+Williams                Expires December 5, 2012               [Page 16]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -948,7 +948,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 17]
+Williams                Expires December 5, 2012               [Page 17]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1004,7 +1004,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 18]
+Williams                Expires December 5, 2012               [Page 18]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1060,7 +1060,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 19]
+Williams                Expires December 5, 2012               [Page 19]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1116,7 +1116,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 20]
+Williams                Expires December 5, 2012               [Page 20]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1129,7 +1129,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    A standard application-layer authentication scheme implies no changes
    to HTTP itself, and may not rely on any particular features of
    HTTP/1.1 or HTTPbis, thus it may be usable even with HTTP/1.0.  This
-   is true of the REST-GSS proposal[[I-D.williams-rest-gss]], which is
+   is true of the REST-GSS proposal[I-D.williams-rest-gss], which is
    also RESTful.  This must be of some value.
 
    An HTTP-layer authentication solution must either: a) not support
@@ -1172,7 +1172,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 21]
+Williams                Expires December 5, 2012               [Page 21]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1228,7 +1228,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 22]
+Williams                Expires December 5, 2012               [Page 22]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1284,7 +1284,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 23]
+Williams                Expires December 5, 2012               [Page 23]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1340,7 +1340,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 24]
+Williams                Expires December 5, 2012               [Page 24]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1396,7 +1396,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 25]
+Williams                Expires December 5, 2012               [Page 25]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1452,7 +1452,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 26]
+Williams                Expires December 5, 2012               [Page 26]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1508,7 +1508,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 27]
+Williams                Expires December 5, 2012               [Page 27]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1564,7 +1564,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 28]
+Williams                Expires December 5, 2012               [Page 28]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1620,7 +1620,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 29]
+Williams                Expires December 5, 2012               [Page 29]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1676,7 +1676,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 30]
+Williams                Expires December 5, 2012               [Page 30]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1703,8 +1703,8 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
    [I-D.williams-rest-gss]
               Williams, N., "RESTful Hypertext Transfer Protocol
               Application-Layer Authentication Using Generic Security
-              Services", draft-williams-rest-gss-00 (work in progress),
-              June 2011.
+              Services", draft-williams-rest-gss-01 (work in progress),
+              June 2012.
 
    [I-D.hartman-webauth-phishing]
               Hartman, S., "Requirements for Web Authentication
@@ -1732,7 +1732,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 31]
+Williams                Expires December 5, 2012               [Page 31]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1788,7 +1788,7 @@ Internet-Draft         HTTPbis Auth Classification             June 2012
 
 
 
-Williams                Expires December 4, 2012               [Page 32]
+Williams                Expires December 5, 2012               [Page 32]
 
 Internet-Draft         HTTPbis Auth Classification             June 2012
 
@@ -1844,5 +1844,5 @@ Author's Address
 
 
 
-Williams                Expires December 4, 2012               [Page 33]
+Williams                Expires December 5, 2012               [Page 33]
 

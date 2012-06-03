@@ -32,8 +32,9 @@ nico@cryptonector.com</email>
       </address>
     </author>
     <date month="June" year="2012"/>
-    <area>Security Area</area>
-    <workgroup>NETWORK WORKING GROUP</workgroup>
+    <area>
+Security Area
+</area>
     <keyword>Internet-Draft</keyword>
     <abstract>
       <t>
@@ -43,14 +44,14 @@ This document proposes a classification scheme for HTTPbis authentication propos
   <middle>
     <section title="Introduction" anchor="d1e318">
       <t>
-The HTTPbis WG is accepting proposals for new authentication systems for HTTPbis, the successor to Hypertext Transport Protocol (HTTP) version 1.1[<xref target="RFC2616"/>]. This document proposes a classification system for these proposals. Several axes of classification are proposed, and several simplified imagined or likely authentication systems are used to illustrate the classification system.</t>
+The HTTPbis WG is accepting proposals for new authentication systems for HTTPbis, the successor to Hypertext Transport Protocol (HTTP) version 1.1<xref target="RFC2616"/>. This document proposes a classification system for these proposals. Several axes of classification are proposed, and several simplified imagined or likely authentication systems are used to illustrate the classification system.</t>
       <t>
-The author assumes that the WG is interested primarily in new user authentication proposals, with ones that provide mutual authentication (of users and servers to each other) being in scope. The author also assumes that Transport Layer Security (TLS) [<xref target="RFC5246"/>] will continue to be used by HTTPbis for cryptographic session protection.</t>
+The author assumes that the WG is interested primarily in new user authentication proposals, with ones that provide mutual authentication (of users and servers to each other) being in scope. The author also assumes that Transport Layer Security (TLS) <xref target="RFC5246"/> will continue to be used by HTTPbis for cryptographic session protection.</t>
       <t>
 Some familiarity with authentication systems is assumed. A glossary is provided.</t>
       <section title="Conventions used in this document" anchor="d1e339">
         <t>
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [<xref target="RFC2119"/>].</t>
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
       </section>
       <section title="Scope" anchor="d1e352">
         <t>
@@ -74,11 +75,11 @@ This section defines terms as they are used in <spanx style="emph">this</spanx> 
             <t hangText="Authentication Method">
  A scheme for authenticating entity identities. An authentication method can be non-cryptographic, covering HTTP Basic authentication and usernames&amp;passwords POSTed from HTML forms.</t>
             <t hangText="Authentication Framework">
- A protocol into which other authentication mechanisms may be plugged in. For example: SASL[<xref target="RFC4422"/>], GSS-API[<xref target="RFC2743"/>], EAP[<xref target="RFC3748"/>], among others.</t>
+ A protocol into which other authentication mechanisms may be plugged in. For example: SASL<xref target="RFC4422"/>, GSS-API<xref target="RFC2743"/>, EAP<xref target="RFC3748"/>, among others.</t>
             <t hangText="Bearer Token">
  A technique for authentication that involves a message that can be presented by the authenticating entity to another. No proof of possession is required for using bearer tokens, which means that the token can be presented by any entity possessing the token, which in turn means that bearer tokens must be sent with confidentiality protection, as otherwise eavesdroppers can steal them and use them to impersonate the subject.</t>
             <t hangText="Channel Binding">
- A security protocol composition and analysis tool. The purpose of channel binding[<xref target="RFC5056"/>] is to “bind” a secure channel (at one layer in the network stack) into an authentication protocol running at a higher layer in the stack, thereby ensuring that the channel is end-to-end and “speaks for” its end-points.</t>
+ A security protocol composition and analysis tool. The purpose of channel binding<xref target="RFC5056"/> is to “bind” a secure channel (at one layer in the network stack) into an authentication protocol running at a higher layer in the stack, thereby ensuring that the channel is end-to-end and “speaks for” its end-points.</t>
             <t hangText="Confidentiality protection">
  Cryptographic encryption of data. Confidentiality protection is/must always be used with integrity protection as well.</t>
             <t hangText="Data authentication">
@@ -90,7 +91,7 @@ This section defines terms as they are used in <spanx style="emph">this</spanx> 
             <t hangText="Mutual Authentication">
  Authentication of a user and a server/service to each other.</t>
             <t hangText="Mutual Authentication (key confirmation sense)">
- In some protocols key exchange is bound to authentication of the service to the user such that the service is finally authenticated when it sends a proof-of-possession of the exchanged session key back to the user. Protocols that use RSA key transport (e.g., TLS in common usage), Diffie-Hellman with a persistent public key for the server, or Needham-Schroeder protocols (such as Kerberos[<xref target="RFC4120"/>]), perform server authentication in this way. A client may not always care to receive key confirmation. For example, a Kerberos client for a lossy logging application might not care that confidentiality protected data ends up at the wrong server, as long as unintended servers can't decrypt the data. Some clients may send application data optimistically ahead of key confirmation from the server. Such data should generally be confidentiality protected, and the protocol should not be subject to MITM attacks where the MITM can somehow modify what optimistic data is sent, nor should an active attacker be able to replay such optimistic data.</t>
+ In some protocols key exchange is bound to authentication of the service to the user such that the service is finally authenticated when it sends a proof-of-possession of the exchanged session key back to the user. Protocols that use RSA key transport (e.g., TLS in common usage), Diffie-Hellman with a persistent public key for the server, or Needham-Schroeder protocols (such as Kerberos<xref target="RFC4120"/>), perform server authentication in this way. A client may not always care to receive key confirmation. For example, a Kerberos client for a lossy logging application might not care that confidentiality protected data ends up at the wrong server, as long as unintended servers can't decrypt the data. Some clients may send application data optimistically ahead of key confirmation from the server. Such data should generally be confidentiality protected, and the protocol should not be subject to MITM attacks where the MITM can somehow modify what optimistic data is sent, nor should an active attacker be able to replay such optimistic data.</t>
             <t hangText="Network Layer">
  A layer in the OSI or Internet network model. Examples of layers that are relevant to HTTP applications: IP, TCP/UDP, TLS, HTTP, and the application layer.</t>
             <t hangText="Proof of Possession">
@@ -100,7 +101,7 @@ This section defines terms as they are used in <spanx style="emph">this</spanx> 
             <t hangText="Relying Party">
  An entity that authenticates another. For example, in PKI the entity that validates another's certificate as part of the process of authenticating that other entity, is a relying party.</t>
             <t hangText="SCRAM">
- Salted Challenge Response Authentication Mechanism (SCRAM)[<xref target="RFC5802"/>], a SASL[<xref target="RFC4422"/>] and GSS mechanism based on password-derived pre-shared keys and challenge/response. SCRAM is intended as the successor to SASL's DIGEST-MD5, and possibly to HTTP's DIGEST-MD5.</t>
+ Salted Challenge Response Authentication Mechanism (SCRAM)<xref target="RFC5802"/>, a SASL<xref target="RFC4422"/> and GSS mechanism based on password-derived pre-shared keys and challenge/response. SCRAM is intended as the successor to SASL's DIGEST-MD5, and possibly to HTTP's DIGEST-MD5.</t>
             <t hangText="Server">
  A system with one or more IP addresses, serving HTTP on one more TCP ports on those IP addresses. [A general definition would not be constrained to HTTP only, but for the purposes of this document this is good enough.]</t>
             <t hangText="Service">
@@ -166,7 +167,7 @@ User credentials are too easy to “phish”.</t>
           <t>
 OTP and out-of-band methods do not protect against MITMs, and thus depend on the integrity of TLS and the TLS server PKI.</t>
           <t>
-HTTP/Negotiate[<xref target="RFC4559"/>], which effectively uses GSS-API[<xref target="RFC2743"/>] mechanisms, usually NTLM [XXX Add reference] or Kerberos[<xref target="RFC4120"/>, <xref target="RFC4121"/>].</t>
+HTTP/Negotiate<xref target="RFC4559"/>, which effectively uses GSS-API<xref target="RFC2743"/> mechanisms, usually NTLM [XXX Add reference] or Kerberos<xref target="RFC4120"/>, <xref target="RFC4121"/>.</t>
         </list>
       </t>
       <t>
@@ -174,7 +175,7 @@ Additionally, there is no strong concept of “sessions” in web applications. 
       <t>
 Furthermore, there are uncomfortable user interface (UI) problems. In particular it is difficult to convey to the user information about the server's/service's identity and how it is authenticated (if at all).</t>
       <t>
-HTTP applications that are not web application have similar issues, though some of them can also use SASL[<xref target="RFC4422"/>]. Non-web HTTP applications also may not need cookies, instead using a single HTTP/1.1 persistent connection over which to issue all requests that make up a session – such applications have a stronger sense of session than web applications do.</t>
+HTTP applications that are not web application have similar issues, though some of them can also use SASL<xref target="RFC4422"/>. Non-web HTTP applications also may not need cookies, instead using a single HTTP/1.1 persistent connection over which to issue all requests that make up a session – such applications have a stronger sense of session than web applications do.</t>
       <t>
         <cref>
 XXX Finish this section.</cref>
@@ -213,7 +214,7 @@ The number of messages that an authentication mechanism needs to exchange with i
       </section>
       <section title="On Channel Binding and One-Message Authentication Mechanisms" anchor="d1e681">
         <t>
-Channel binding [<xref target="RFC5056"/>] is the act of binding authentication at one network layer to key exchange at a lower network layer. When this occurs within the same layer we don't call it channel binding, but the same concept is involved. For example, TLS PSK and user certificates are cryptographically bound to whatever key exchange method is used, but because this happens naturally within TLS we don't call it channel binding. [Expand on this for the benefit of those not familiar with RFC5056.]</t>
+Channel binding <xref target="RFC5056"/> is the act of binding authentication at one network layer to key exchange at a lower network layer. When this occurs within the same layer we don't call it channel binding, but the same concept is involved. For example, TLS PSK and user certificates are cryptographically bound to whatever key exchange method is used, but because this happens naturally within TLS we don't call it channel binding. [Expand on this for the benefit of those not familiar with RFC5056.]</t>
         <t>
 Normally channel binding requires mutual authentication, either in the key confirmation sense or in the sense of actually authenticating the server. In order to see why imagine a one-message user authentication system: a man-in-the-middle (MITM) at a lower layer might be able to steal this one message, close the connection to the real client, then impersonate the client to the server. There are ways of preventing this, but they are not as general as requiring mutual authentication is.</t>
         <t>
@@ -239,7 +240,7 @@ Discuss cookies as a form of bearer token and how the situation is not as dire a
       </section>
       <section title="User Interface Issues" anchor="d1e727">
         <t>
-[Discuss phishing issues, in particular the difficult of creating user interfaces in web apps that cannot be spoofed by either server impersonators or MITMs. Reference Sam Hartman's anti-phishing I-D [<xref target="I-D.hartman-webauth-phishing"/>].]</t>
+[Discuss phishing issues, in particular the difficult of creating user interfaces in web apps that cannot be spoofed by either server impersonators or MITMs. Reference Sam Hartman's anti-phishing I-D <xref target="I-D.hartman-webauth-phishing"/>.]</t>
       </section>
     </section>
     <section title="Classification Axes" anchor="d1e740">
@@ -313,16 +314,16 @@ Note that on the user-agent side the platform may provide user interaction facil
         <t>
 End-to-end session cryptographic protection is best done in the lowest possible transport layer. For HTTP applications, historically this means TLS; though it'd be technically feasible to provide protection at lower layers it does not appear to be a realistic option at this time.</t>
         <t>
-User authentication is best “bound” into transport security layers, in this case TLS. When user authentication is moved to higher layers a “channel binding” problem arises: we would like to ensure that no man-in-the-middle exists in the transport layer, with the MITM terminating two TLS connections. For more information about channel binding see [<xref target="RFC5056"/>].</t>
+User authentication is best “bound” into transport security layers, in this case TLS. When user authentication is moved to higher layers a “channel binding” problem arises: we would like to ensure that no man-in-the-middle exists in the transport layer, with the MITM terminating two TLS connections. For more information about channel binding see <xref target="RFC5056"/>.</t>
         <t>
 UI and API issues are quite different for web applications versus non-web applications. The former have rich UI elements (all of HTML's) and programming models (scripting, particularly through JavaScript). One problem that is particularly severe for web applications, is the ability of server impersonators to emulate all imaginable graphical user interfaces that the native user-agent might wish to use to distinguish itself from the applications it runs. Regardless of what layer implements authentication this problem will arise in web applications.</t>
         <section title="HTTP- vs. Application-Layer Authentication in the Network Stack" anchor="d1e861">
           <t>
-It's important to note that there need not be much difference between HTTP-layer and application-layer user authentication, at least if we assume a standard application-layer user authentication convention. For argument's sake let's assume an application-layer user authentication convention like the one in [<xref target="I-D.williams-rest-gss"/>], and let's assume two possible HTTPbis HTTP-layer authentication solutions: one that is most similar to HTTP/1.1's and one that uses a new verb for authentication. Then let's look at what each of these three solutions look like on the wire using the SCRAM mechanism for cases where the client already knows it has to authenticate. For brevity we elide any HTTP request and response where the server indicates that the client must authenticate, as well as any requests/responses involving negotiation of mechanism to use.</t>
+It's important to note that there need not be much difference between HTTP-layer and application-layer user authentication, at least if we assume a standard application-layer user authentication convention. For argument's sake let's assume an application-layer user authentication convention like the one in <xref target="I-D.williams-rest-gss"/>, and let's assume two possible HTTPbis HTTP-layer authentication solutions: one that is most similar to HTTP/1.1's and one that uses a new verb for authentication. Then let's look at what each of these three solutions look like on the wire using the SCRAM mechanism for cases where the client already knows it has to authenticate. For brevity we elide any HTTP request and response where the server indicates that the client must authenticate, as well as any requests/responses involving negotiation of mechanism to use.</t>
           <t>
 </t>
           <t>
-            <figure anchor="magicparlabel-177 magicparlabel-213">
+            <figure anchor="magicparlabel-177">
               <artwork>   C-&gt;S: HTTP/1.1 POST /rest-gss-login
          Host: A.example
          Content-Type: application/rest-gss-login
@@ -363,7 +364,7 @@ REST-GSS Login w/ SCRAM Example
           <t>
 </t>
           <t>
-            <figure anchor="magicparlabel-222 magicparlabel-258">
+            <figure anchor="magicparlabel-222">
               <artwork>   C-&gt;S: HTTP/1.1 LOGIN
          Host: A.example
          Content-Type: application/SASL
@@ -404,7 +405,7 @@ HTTPbis w/ New Verb Login w/ SCRAM Example
           <t>
 </t>
           <t>
-            <figure anchor="magicparlabel-267 magicparlabel-308">
+            <figure anchor="magicparlabel-267">
               <artwork>   C-&gt;S: HTTP/1.1 GET /location/of/interest/to/app
          Host: A.example
  
@@ -476,7 +477,7 @@ The choice of layer is clearly more important for APIs than on the wire. On the 
           <t>
 If the WG agrees that the distinction between HTTP-layer and application-layer user authentication is or should be minimal then how should the WG pick one of those two layers, if it decides not to pursue TLS-layer user authentication?</t>
           <t>
-A standard application-layer authentication scheme implies no changes to HTTP itself, and may not rely on any particular features of HTTP/1.1 or HTTPbis, thus it may be usable even with HTTP/1.0. This is true of the REST-GSS proposal[<xref target="I-D.williams-rest-gss"/>], which is also RESTful. This must be of some value.</t>
+A standard application-layer authentication scheme implies no changes to HTTP itself, and may not rely on any particular features of HTTP/1.1 or HTTPbis, thus it may be usable even with HTTP/1.0. This is true of the REST-GSS proposal<xref target="I-D.williams-rest-gss"/>, which is also RESTful. This must be of some value.</t>
           <t>
 An HTTP-layer authentication solution must either: a) not support multi-round trip mechanisms, b) add verbs, or c) not be RESTful. (a) works with HTTP/1.0, (b) would not work with HTTP/1.0. [The author believes that RESTfulness is desirable.]</t>
         </section>
