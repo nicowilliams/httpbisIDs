@@ -222,7 +222,7 @@ A Proposals for Classification and Analysis of HTTPbis Authentication Proposals
 status collapsed
 
 \begin_layout Plain Layout
-draft-williams-httpbis-auth-classification-01
+draft-williams-httpbis-auth-classification-02
 \end_layout
 
 \end_inset
@@ -3133,6 +3133,48 @@ Also specify a service location protocol.
 \end_deeper
 \begin_layout Enumerate
 Specify an abstract API for interfacing HTTPbis applications to HTTPbis.
+\end_layout
+
+\begin_layout Subsection
+Trust Islands for Effective Mutual Authentication
+\end_layout
+
+\begin_layout Standard
+The author's vision for mutual authentication for high-value services (e.g.,
+ shopping, banking) is to use small federations of like services to mutually
+ authenticate all of their many users to the member services.
+\end_layout
+
+\begin_layout Standard
+For example, suppose there were a federation of banks in a single country
+ (or currency zone), allowing only members that are chartered as banks with
+ the relevant bank chartering authorities.
+ Each user would be able to register with the bank federation that is relevant
+ to them, and either obtain an ID within that federation, or to register
+ an external ID for use in authenticating to banks in this federation.
+ (Users could have more than one identify, of course.) Because such a federation
+ would so exclusive for service membership it would be much more difficult
+ for phishers to target its members -- in order to target them the phisher
+ would have to either become a member of the highly exclusive federation
+ (which can be made much more difficult than merely joining the TLS server
+ PKI) or subvert the user-agent UIs.
+ Anti-phishing improvements to the user-agent UIs would still be needed,
+ but one half of the problem is instantly addressed by using exclusive federatio
+ns.
+\end_layout
+
+\begin_layout Standard
+This works for shopping as well.
+ Thing of Amazon and Yahoo! Shopping as such shopping federations where
+ the entity running the federation allows relatively few member services
+ (orders of magnitude fewer than on the global Internet, in the TLS server
+ PKI).
+ In effect we already have this, but we have no strong way to bind this
+ into the user authentication experience.
+ If these federations provided a user authentication mechanism that provides
+ mutual authentication and channel binding to TLS then the weaknesses of
+ the TLS server PKI would become completely irrelevant to the federations,
+ their members, and their users.
 \end_layout
 
 \begin_layout Section
