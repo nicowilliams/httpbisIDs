@@ -643,6 +643,25 @@ authentication Data origin authentication, a.k.a., integrity protection.
 \end_layout
 
 \begin_layout Description
+Hardware
+\begin_inset space ~
+\end_inset
+
+Security
+\begin_inset space ~
+\end_inset
+
+Module
+\begin_inset space ~
+\end_inset
+
+(HSM) A hardware component of security-critical trusted third parties.
+ An HSM is intended to be reasonably secure against physical and software
+ attacks against it -much more than traditional servers-, thus making it
+ ideal for storing non-extractable secret/private key material.
+\end_layout
+
+\begin_layout Description
 Integrity
 \begin_inset space ~
 \end_inset
@@ -1061,6 +1080,10 @@ This problem derives in part from the nature of the HTTP URI scheme: by
 
 \end_deeper
 \begin_layout Itemize
+The TLS server PKI is fundamentally weak.
+\end_layout
+
+\begin_layout Itemize
 User credentials are too easy to 
 \begin_inset Quotes eld
 \end_inset
@@ -1192,6 +1215,106 @@ trust
 \end_layout
 
 \begin_layout Subsection
+On the TLS Server PKI
+\end_layout
+
+\begin_layout Standard
+The TLS server PKI, and, truly, any hierarchical or flat PKI intended for
+ authenticating servers or services to users has a fundamental problem:
+ the number of Names for which to issue certificates is too large to expect
+ the PKI administrators to do a good job of keeping out the bad guys.
+ Bad guys use any number of phishing techniques such that the names of their
+ services need not even match those of the services that they wish to steal
+ credentials for.
+ The goal should be to keep the bad guys out altogether, but this is also
+ quite difficult, if not impossible for many reasons including political
+ ones.
+\end_layout
+
+\begin_layout Standard
+The TLS server PKI suffers from a number of other non-fundamental problems,
+ mostly due to legacy deployment:
+\end_layout
+
+\begin_layout Itemize
+x.500-style naming, which utterly fails to match Internet naming (domainnames,
+ e-mail addresses, etcetera);
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The addition of subjectAlternativeName (SAN) does not successfully address
+ this problem because a) the TBSCertificate's primary Name is still limited
+ to being an x.500 name, and b) too much of the deployed relying party base
+ simply lacks SAN support.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+incomplete implementations of the PKIX standards;
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+For example, missing implementations of name constraints, leading to the
+ inability of CAs to safely issue intermediate CA certificates to their
+ customers as either such certificates cannot contain critical name constraints
+ or those are ignored by some relying parties anyways, thus intermediate
+ CAs have no real constraints other than those enforceable by HSMs.
+\end_layout
+
+\begin_layout Itemize
+In general it is not possible to make use of critical certificate extensions
+ in certificates that will be presented to the Internet web's user-agents:
+ they will either ignore such extensions, fail soft (by prompting the user
+ as to whether to continue or fail), or fail hard.
+ None of these relying party behaviors are desirable on the Internet.
+ This problem arises from the nature of security protocols that use PKIs,
+ which in turn results from the off-line infrastructure nature of PKIs.
+ By encouraging non-negotiation of security features, PKI pushes future
+ extensions into a critical/non-critical dichotomy, but since critical extension
+s are difficult to deploy, the result must either be additional negotiation
+ in protocols using PKI (e.g., TLS SNI), or non-use of critical extensions.
+ Compare to Kerberos, where there is a negotiation between the client and
+ the server 
+\emph on
+by proxy
+\emph default
+ (i.e., mediated by the KDC).
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+The TLS server PKI also suffers from all the problems that trusted third
+ party systems suffer from, namely: the need to trust the third parties.
+ Fortunately there are a number of efforts under way to improve the trustworthin
+ess of TLS server PKI CAs by, for example, making them auditable by the
+ public [XXX Add references to CT, Convergence, HSTS/TACK/other pinning
+ schemes, and others!]
+\end_layout
+
+\begin_layout Standard
+And yet the TLS server PKI is here to stay.
+ It will not go away.
+ We can only minimize the dependence of the web's security on the TLS server
+ PKI.
+ To do so requires authentication mechanisms that can provide authentication
+ of the server to the user in some manner such that none of the above problems
+ apply.
+ The hardest PKI problem to address is the fundamental problem described
+ above: this requires accepting a smaller scale of server/service authentication
+ to the user -- a balkanization of sorts of the web, but see the discussion
+ of trust islands in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Trust-Establishment"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
 On Mutual Authentication and URI Schemes
 \end_layout
 
@@ -1248,93 +1371,29 @@ ture -- these can be abstracted away by the APIs.
 ...
 \end_layout
 
-\begin_layout Subsection
-On Channel Binding and One-Message Authentication Mechanisms
+\begin_layout Subsubsection
+On One-Message Authentication Mechanisms
 \end_layout
 
 \begin_layout Standard
-Channel binding 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-4"
-
-\end_inset
-
- is the act of binding authentication at one network layer to key exchange
- at a lower network layer.
- When this occurs within the same layer we don't call it channel binding,
- but the same concept is involved.
- For example, TLS PSK and user certificates are cryptographically bound
- to whatever key exchange method is used, but because this happens naturally
- within TLS we don't call it channel binding.
- [Expand on this for the benefit of those not familiar with RFC5056.]
+Half round trip mechanisms depend utterly on some other system for authenticatio
+n of the server -- in webauth this means the TLS server PKI.
+ To understand why imagine that an application sends the one authentication
+ message to a service, but it turns out that it is speaking to an impersonator
+ for that service.
+ The impersonator can at the very least obtain any sensitive data that the
+ application is willing to send immediately.
+ Additionally, if there's no channel bindings between the authentication
+ mechanism and the service impersonator then the one message can be sent
+ by the impersonator to the real service, letting the service impersonator
+ impersonate the user to the real service as well (thus being a proper MITM).
 \end_layout
 
 \begin_layout Standard
-Normally channel binding requires mutual authentication, either in the key
- confirmation sense or in the sense of actually authenticating the server.
- In order to see why imagine a one-message user authentication system: a
- man-in-the-middle (MITM) at a lower layer might be able to steal this one
- message, close the connection to the real client, then impersonate the
- client to the server.
- There are ways of preventing this, but they are not as general as requiring
- mutual authentication is.
-\end_layout
-
-\begin_layout Standard
-At one point a SASL mechanism, 
-\begin_inset Quotes eld
-\end_inset
-
-YAP
-\begin_inset Quotes erd
-\end_inset
-
-, was proposed that requires just one message and provides channel binding.
- In order to prevent the message theft problem described above YAP requires
- that tls-unique channel bindings be used, which effectively eliminates
- MITMs at the TLS layer.
- At the time the SASL community rejected this proposal, mostly on account
- of not wanting to have SASL be aware of the type of channel bindings data
- used by the application.
- In retrospect, however, the idea has merit.
-\end_layout
-
-\begin_layout Standard
-Now consider an authentication system that begins life as a bearer token
- and later is upgraded to be a bearer token that is encrypted in the server's
- public key, the same public key as is expected to be used by the server
- in TLS.
- This bearer token can still be stolen and used by the thief...
- unless the TLS client knows to ensure that the same public key is used
- at both layers.
- But how might the client know how to do that? If the client passes the
- server's certificate to the client's IdP then the most the IdP can do is
- apply certificate validation, including certificate/CA/public key pinning
- options; if the IdP doesn't do this then the MITM will be able to decrypt
- the bearer token and then re-encrypt it in the real server's public key.
- This can be overcome by having the IdP do better certificate validation
- or knowing the target server's certificate a priori, with all the same
- problems as the traditional TLS server PKI (which is not necessarily a
- problem).
- It's not clear how one might successfully apply unique or client end-point
- channel bindings to a bearer token authentication system, but if there's
- a way to do so it would help.
-\end_layout
-
-\begin_layout Standard
-YAP is a proof-of-possession mechanism, of course, thus it is quite simple
- to apply channel binding types other than server end-point, thus making
- YAP secure against message theft and re-use where a bearer token system
- could not be.
- The point being that a secure half round trip (one message) user authentication
- mechanism is feasible.
-\end_layout
-
-\begin_layout Standard
-Work is ongoing to develop a version of OAuth that is capable of channel
- binding.
- [XXX Add references!]
+There exist a number of one-message webauth authentication mechanisms that
+ are widely deployed; we cannot forbid their use, we can only document their
+ security considerations, namely: that they depend entirely on the TLS server
+ PKI for their security.
 \end_layout
 
 \begin_layout Subsection
@@ -1362,8 +1421,9 @@ User Interface Issues
 \end_layout
 
 \begin_layout Standard
-[Discuss phishing issues, in particular the difficult of creating user interface
-s in web apps that cannot be spoofed by either server impersonators or MITMs.
+[Discuss phishing issues, in particular the difficulty of creating user
+ interfaces in web apps that cannot be spoofed by either server impersonators
+ or MITMs.
  Reference Sam Hartman's anti-phishing I-D 
 \begin_inset CommandInset citation
 LatexCommand cite
@@ -2672,6 +2732,12 @@ Integrating user authentication into TLS has the clear allure of potentially
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Trust-Establishment"
+
+\end_inset
+
 Trust Establishment
 \end_layout
 
@@ -2717,7 +2783,7 @@ Compromise of trusted third parties, therefore, has far reaching, negative
 \end_layout
 
 \begin_layout Itemize
-The longer a trust path, the less trustworth -so to speak- it is
+The longer a trust path, the less trustworthy -so to speak- it is
 \end_layout
 
 \end_deeper
@@ -2972,8 +3038,14 @@ The author proposes the following:
 
 \begin_layout Enumerate
 For all authentication mechanisms (i.e., cryptographic authentication methods)
- use the GSS-API, possibly through the thin shim of RFC5801 [XXX change
- into reference].
+ use the GSS-API, possibly through the thin shim of SASL/GS2
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-16"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_deeper
@@ -2983,11 +3055,16 @@ do this above HTTP in the network stack, but...
 
 \begin_layout Enumerate
 ...recommend that this be implemented by HTTP stacks, rather than by applications.
- I.e., authentication above HTTP on the wire, within HTTP as far as APIs are
- concerned.
+ I.e., authentication above HTTP on the wire, but within HTTP as far as APIs
+ are concerned.
 \end_layout
 
 \end_deeper
+\begin_layout Enumerate
+Encourage the adoption of islands of trust / federation for service authenticati
+on, rather than one single, world-wide PKI for service authentication.
+\end_layout
+
 \begin_layout Enumerate
 Encourage development of authentication mechanisms that fit the chosen authentic
 ation framework and which have the following features:
@@ -3043,7 +3120,7 @@ n mechanism.
 
 \begin_layout Enumerate
 Specify a new URI scheme that identifies services rather than hosts.
- For example: svc:<service>@<domainname>/<local-part> .
+ For example: svc:<service>@<domainname>/<local-part>.
  An option to embed service authentication information (possibly a digital
  signature, or a URL referring to a digital signature) may prove useful.
 \end_layout
@@ -3596,6 +3673,42 @@ target "http://www.ietf.org/rfc/rfc4121.txt"
 LatexCommand href
 name "(bibxml)"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-16"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5801
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5801"
+target "http://www.ietf.org/rfc/rfc5801.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml"
 
 \end_inset
 

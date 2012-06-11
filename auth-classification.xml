@@ -20,6 +20,7 @@
 <!ENTITY rfc2743 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">
 <!ENTITY rfc4559 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml">
 <!ENTITY rfc4121 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">
+<!ENTITY rfc5801 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml">
 ]>
 <rfc docName="draft-williams-httpbis-auth-classification-00" ipr="trust200902" category="info">
   <front>
@@ -42,24 +43,24 @@ This document proposes a classification scheme for HTTPbis authentication propos
     </abstract>
   </front>
   <middle>
-    <section title="Introduction" anchor="d1e318">
+    <section title="Introduction" anchor="d1e326">
       <t>
 The HTTPbis WG is accepting proposals for new authentication systems for HTTPbis, the successor to Hypertext Transport Protocol (HTTP) version 1.1<xref target="RFC2616"/>. This document proposes a classification system for these proposals. Several axes of classification are proposed, and several simplified imagined or likely authentication systems are used to illustrate the classification system.</t>
       <t>
 The author assumes that the WG is interested primarily in new user authentication proposals, with ones that provide mutual authentication (of users and servers to each other) being in scope. The author also assumes that Transport Layer Security (TLS) <xref target="RFC5246"/> will continue to be used by HTTPbis for cryptographic session protection.</t>
       <t>
 Some familiarity with authentication systems is assumed. A glossary is provided.</t>
-      <section title="Conventions used in this document" anchor="d1e339">
+      <section title="Conventions used in this document" anchor="d1e347">
         <t>
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
       </section>
-      <section title="Scope" anchor="d1e352">
+      <section title="Scope" anchor="d1e360">
         <t>
 This document considers user authentication only in the context of HTTP applications, whether they be web applications or otherwise. Authentication of the service is also in scope, but authentication methods that authenticate only the user to the service (with the service authenticated by Transport Layer Security (TLS)) are in scope.</t>
         <t>
 There are at least two entities involved in authentication in this context: the user (on the client side), one or more of the web server host or the web server application/service, and any trusted third parties that an authentication mechanism might involve.</t>
       </section>
-      <section title="Glossary" anchor="d1e364">
+      <section title="Glossary" anchor="d1e372">
         <t>
 This section defines terms as they are used in <spanx style="emph">this</spanx>  document. Readers are strongly encouraged to read this section before reading any subsequent section.</t>
         <t>
@@ -84,6 +85,8 @@ This section defines terms as they are used in <spanx style="emph">this</spanx> 
  Cryptographic encryption of data. Confidentiality protection is/must always be used with integrity protection as well.</t>
             <t hangText="Data authentication">
  Data origin authentication, a.k.a., integrity protection.</t>
+            <t hangText="Hardware Security Module (HSM)">
+ A hardware component of security-critical trusted third parties. An HSM is intended to be reasonably secure against physical and software attacks against it -much more than traditional servers-, thus making it ideal for storing non-extractable secret/private key material.</t>
             <t hangText="Integrity protection">
  Cryptographic protection against modification of data. See also “data authentication”, above.</t>
             <t hangText="Mechanism">
@@ -122,7 +125,7 @@ Fill out! Add some entries for OAuth, Kerberos, Basic, DIGEST-MD5, EAP, GSS, SAS
         </t>
       </section>
     </section>
-    <section title="Background" anchor="d1e536">
+    <section title="Background" anchor="d1e549">
       <t>
 Web applications today use a variety of user authentication methods, many of which are somewhat or deeply unsatisfying. Almost all of these methods involve the user-agent being mostly dumb – not participating in any cryptographic protocols other than TLS.</t>
       <t>
@@ -163,6 +166,8 @@ The service is generally not authenticated to the user. TLS does authenticate th
 This problem derives in part from the nature of the HTTP URI scheme: by identifying server hosts rather than services the HTTP URI scheme fails to provide the user and user-agent with enough information by which to identify, and thence authenticate, a service. New URI schemes may be required.</t></list>
 </t>
           <t>
+The TLS server PKI is fundamentally weak.</t>
+          <t>
 User credentials are too easy to “phish”.</t>
           <t>
 OTP and out-of-band methods do not protect against MITMs, and thus depend on the integrity of TLS and the TLS server PKI.</t>
@@ -180,25 +185,52 @@ HTTP applications that are not web application have similar issues, though some 
         <cref>
 XXX Finish this section.</cref>
       </t>
-      <section title="Threat Models" anchor="d1e632">
+      <section title="Threat Models" anchor="d1e648">
         <t>
           <cref>
 Talk about threat models and which are appropriate for HTTPbis. Discuss the Internet threat model and its flaws (namely/primarily, the local security assumption).</cref>
         </t>
       </section>
-      <section title="On Trust" anchor="d1e641">
+      <section title="On Trust" anchor="d1e657">
         <t>
           <cref>
 Describe issues w.r.t. “trust”, such as transitivity, introductions, and so on. This is important for evaluating proposals. A proposal that replaces the TLS server PKI's primacy with... another system with similar transitive trust issues may not be a useful proposal. On the other hand, it seems impossible to avoid transitive trust when scaling to Internet scale. Understanding this may help, for example, give impetus to improvements to the TLS server PKI, or it may guide replacements, understand scalability, and so on.</cref>
         </t>
       </section>
-      <section title="On Mutual Authentication and URI Schemes" anchor="d1e651">
+      <section title="On the TLS Server PKI" anchor="d1e667">
+        <t>
+The TLS server PKI, and, truly, any hierarchical or flat PKI intended for authenticating servers or services to users has a fundamental problem: the number of Names for which to issue certificates is too large to expect the PKI administrators to do a good job of keeping out the bad guys. Bad guys use any number of phishing techniques such that the names of their services need not even match those of the services that they wish to steal credentials for. The goal should be to keep the bad guys out altogether, but this is also quite difficult, if not impossible for many reasons including political ones.</t>
+        <t>
+The TLS server PKI suffers from a number of other non-fundamental problems, mostly due to legacy deployment:</t>
+        <t>
+          <list style="symbols">
+            <t>
+x.500-style naming, which utterly fails to match Internet naming (domainnames, e-mail addresses, etcetera);
+
+<list style="symbols"><t>
+The addition of subjectAlternativeName (SAN) does not successfully address this problem because a) the TBSCertificate's primary Name is still limited to being an x.500 name, and b) too much of the deployed relying party base simply lacks SAN support.</t></list>
+</t>
+            <t>
+incomplete implementations of the PKIX standards;
+
+<list style="symbols"><t>
+For example, missing implementations of name constraints, leading to the inability of CAs to safely issue intermediate CA certificates to their customers as either such certificates cannot contain critical name constraints or those are ignored by some relying parties anyways, thus intermediate CAs have no real constraints other than those enforceable by HSMs.</t><t>
+In general it is not possible to make use of critical certificate extensions in certificates that will be presented to the Internet web's user-agents: they will either ignore such extensions, fail soft (by prompting the user as to whether to continue or fail), or fail hard. None of these relying party behaviors are desirable on the Internet. This problem arises from the nature of security protocols that use PKIs, which in turn results from the off-line infrastructure nature of PKIs. By encouraging non-negotiation of security features, PKI pushes future extensions into a critical/non-critical dichotomy, but since critical extensions are difficult to deploy, the result must either be additional negotiation in protocols using PKI (e.g., TLS SNI), or non-use of critical extensions. Compare to Kerberos, where there is a negotiation between the client and the server <spanx style="emph">by proxy</spanx>  (i.e., mediated by the KDC).</t></list>
+</t>
+          </list>
+        </t>
+        <t>
+The TLS server PKI also suffers from all the problems that trusted third party systems suffer from, namely: the need to trust the third parties. Fortunately there are a number of efforts under way to improve the trustworthiness of TLS server PKI CAs by, for example, making them auditable by the public [XXX Add references to CT, Convergence, HSTS/TACK/other pinning schemes, and others!]</t>
+        <t>
+And yet the TLS server PKI is here to stay. It will not go away. We can only minimize the dependence of the web's security on the TLS server PKI. To do so requires authentication mechanisms that can provide authentication of the server to the user in some manner such that none of the above problems apply. The hardest PKI problem to address is the fundamental problem described above: this requires accepting a smaller scale of server/service authentication to the user – a balkanization of sorts of the web, but see the discussion of trust islands in  <xref target="sub_Trust_Establishment"/>.</t>
+      </section>
+      <section title="On Mutual Authentication and URI Schemes" anchor="d1e711">
         <t>
           <cref>
 Describe the limitations imposed by the Internet threat model when there is no mutual authentication. Describe the two types/senses of mutual authentication: authenticating the server (in addition to the client) and key confirmation. Describe the limitations, imposed by the HTTP URI scheme, on service identification and authentication.</cref>
         </t>
       </section>
-      <section title="On Authentication Mechanism Message Counts" anchor="d1e660">
+      <section title="On Authentication Mechanism Message Counts" anchor="d1e720">
         <t>
 All authentication mechanism require some number of messages in order to authenticate an entity. For example, TLS generally requires two round-trips, while OAuth requires a single message from the client to the server. Here we count only messages from the HTTP client to the HTTP server; additional message exchanges may be required involving trusted third parties.</t>
         <t>
@@ -211,39 +243,31 @@ The number of messages that an authentication mechanism needs to exchange with i
           <cref>
 ...</cref>
         </t>
+        <section title="On One-Message Authentication Mechanisms" anchor="d1e742">
+          <t>
+Half round trip mechanisms depend utterly on some other system for authentication of the server – in webauth this means the TLS server PKI. To understand why imagine that an application sends the one authentication message to a service, but it turns out that it is speaking to an impersonator for that service. The impersonator can at the very least obtain any sensitive data that the application is willing to send immediately. Additionally, if there's no channel bindings between the authentication mechanism and the service impersonator then the one message can be sent by the impersonator to the real service, letting the service impersonator impersonate the user to the real service as well (thus being a proper MITM).</t>
+          <t>
+There exist a number of one-message webauth authentication mechanisms that are widely deployed; we cannot forbid their use, we can only document their security considerations, namely: that they depend entirely on the TLS server PKI for their security.</t>
+        </section>
       </section>
-      <section title="On Channel Binding and One-Message Authentication Mechanisms" anchor="d1e681">
-        <t>
-Channel binding <xref target="RFC5056"/> is the act of binding authentication at one network layer to key exchange at a lower network layer. When this occurs within the same layer we don't call it channel binding, but the same concept is involved. For example, TLS PSK and user certificates are cryptographically bound to whatever key exchange method is used, but because this happens naturally within TLS we don't call it channel binding. [Expand on this for the benefit of those not familiar with RFC5056.]</t>
-        <t>
-Normally channel binding requires mutual authentication, either in the key confirmation sense or in the sense of actually authenticating the server. In order to see why imagine a one-message user authentication system: a man-in-the-middle (MITM) at a lower layer might be able to steal this one message, close the connection to the real client, then impersonate the client to the server. There are ways of preventing this, but they are not as general as requiring mutual authentication is.</t>
-        <t>
-At one point a SASL mechanism, “YAP”, was proposed that requires just one message and provides channel binding. In order to prevent the message theft problem described above YAP requires that tls-unique channel bindings be used, which effectively eliminates MITMs at the TLS layer. At the time the SASL community rejected this proposal, mostly on account of not wanting to have SASL be aware of the type of channel bindings data used by the application. In retrospect, however, the idea has merit.</t>
-        <t>
-Now consider an authentication system that begins life as a bearer token and later is upgraded to be a bearer token that is encrypted in the server's public key, the same public key as is expected to be used by the server in TLS. This bearer token can still be stolen and used by the thief... unless the TLS client knows to ensure that the same public key is used at both layers. But how might the client know how to do that? If the client passes the server's certificate to the client's IdP then the most the IdP can do is apply certificate validation, including certificate/CA/public key pinning options; if the IdP doesn't do this then the MITM will be able to decrypt the bearer token and then re-encrypt it in the real server's public key. This can be overcome by having the IdP do better certificate validation or knowing the target server's certificate a priori, with all the same problems as the traditional TLS server PKI (which is not necessarily a problem). It's not clear how one might successfully apply unique or client end-point channel bindings to a bearer token authentication system, but if there's a way to do so it would help.</t>
-        <t>
-YAP is a proof-of-possession mechanism, of course, thus it is quite simple to apply channel binding types other than server end-point, thus making YAP secure against message theft and re-use where a bearer token system could not be. The point being that a secure half round trip (one message) user authentication mechanism is feasible.</t>
-        <t>
-Work is ongoing to develop a version of OAuth that is capable of channel binding. [XXX Add references!]</t>
-      </section>
-      <section title="Logon Sessions" anchor="d1e709">
+      <section title="Logon Sessions" anchor="d1e754">
         <t>
           <cref>
 Discuss the binding of HTTP requests (and responses) to logon sessions. Discuss logout.</cref>
         </t>
       </section>
-      <section title="Web Cookies, a Form of Bearer Tokens" anchor="d1e718">
+      <section title="Web Cookies, a Form of Bearer Tokens" anchor="d1e763">
         <t>
           <cref>
 Discuss cookies as a form of bearer token and how the situation is not as dire as with bearer tokens for user authentication. Discuss alternatives based on MACing portions (or all) of the HTTP requests (and responses) or the channel bindings data for the TLS channel.</cref>
         </t>
       </section>
-      <section title="User Interface Issues" anchor="d1e727">
+      <section title="User Interface Issues" anchor="d1e773">
         <t>
-[Discuss phishing issues, in particular the difficult of creating user interfaces in web apps that cannot be spoofed by either server impersonators or MITMs. Reference Sam Hartman's anti-phishing I-D <xref target="I-D.hartman-webauth-phishing"/>.]</t>
+[Discuss phishing issues, in particular the difficulty of creating user interfaces in web apps that cannot be spoofed by either server impersonators or MITMs. Reference Sam Hartman's anti-phishing I-D <xref target="I-D.hartman-webauth-phishing"/>.]</t>
       </section>
     </section>
-    <section title="Classification Axes" anchor="d1e740">
+    <section title="Classification Axes" anchor="d1e785">
       <t>
 Several orthogonal classification axes are proposed:</t>
       <t>
@@ -278,19 +302,19 @@ Note: The author assumes that all acceptable proposals will have HTTPbis continu
       </t>
       <t>
 These nine classification axes are largely orthogonal to each other. Other classification criteria are also possible and may be added in future versions of this Internet-Draft. Some such possible additional criteria are subjective, such as, for example: ease of deployment, ease of implementation, etcetera. Perhaps the WG can come to consensus regarding desirable properties based on objective classification to narrow the set of proposals to consider. Or perhaps the WG can consider a large number of proposals and use objective classification to guide any applicability statements for the proposals accepted. Ideally the WG can apply objective classification first, then for each “bucket” of similar proposals the WG could consider more subjective classification criteria.</t>
-      <section title="Dependence on TLS Server PKI" anchor="d1e786">
+      <section title="Dependence on TLS Server PKI" anchor="d1e831">
         <t>
 The web today depends utterly on the “TLS server PKI” for security. This would be just fine were it not for the systemic weaknesses in the TLS server PKI: the lack of name constraints, the large number of trust anchors, the large number of certificate authority (CA) compromises, and so on. Building on the TLS server PKI and thus assuming its being sufficiently secure, is quite tempting, as it may simplify various aspects of user authentication (not least by providing server authentication a priori, thus saving the designers the need to provide server authentication themselves).</t>
         <t>
 This classification axis is very simple: either a proposed solution depends on the TLS server PKI or it doesn't. Some shades of black are imaginable in this case (if not likely).</t>
       </section>
-      <section title="Bearer Tokens vs. Proof of Possession" anchor="d1e798">
+      <section title="Bearer Tokens vs. Proof of Possession" anchor="d1e844">
         <t>
 A bearer token is a message the presentation of which is sufficient to authenticate the presenter. Stolen bearer tokens may be used to trivially impersonate the subject, thus bearer tokens generally require confidentiality protection in any protocols over which they might be exchanged, and generally depend on authenticating the relying party first.</t>
         <t>
 Proof of possession systems consist of some secret/private key(s), an authenticator message the “proves” possession of the secret or private key(s) used in the construction of the authenticator, and a token not unlike a bearer token but which securely indicates to the relying party(ies) what keys the user must have used in the construction of the authenticator. The relying party then validates the authenticator to establish that the user did indeed possess the necessary secret/private key(s) to the best of the cryptographic capabilities of the authentication system used.</t>
       </section>
-      <section title="Layer at which Authentication Protocol Operates" anchor="d1e811">
+      <section title="Layer at which Authentication Protocol Operates" anchor="d1e856">
         <t>
 It is possible to design user (and mutual) authentication mechanisms that can work at any end-to-end layer between the HTTPbis client and server. The relevant layers are:</t>
         <t>
@@ -317,13 +341,13 @@ End-to-end session cryptographic protection is best done in the lowest possible 
 User authentication is best “bound” into transport security layers, in this case TLS. When user authentication is moved to higher layers a “channel binding” problem arises: we would like to ensure that no man-in-the-middle exists in the transport layer, with the MITM terminating two TLS connections. For more information about channel binding see <xref target="RFC5056"/>.</t>
         <t>
 UI and API issues are quite different for web applications versus non-web applications. The former have rich UI elements (all of HTML's) and programming models (scripting, particularly through JavaScript). One problem that is particularly severe for web applications, is the ability of server impersonators to emulate all imaginable graphical user interfaces that the native user-agent might wish to use to distinguish itself from the applications it runs. Regardless of what layer implements authentication this problem will arise in web applications.</t>
-        <section title="HTTP- vs. Application-Layer Authentication in the Network Stack" anchor="d1e861">
+        <section title="HTTP- vs. Application-Layer Authentication in the Network Stack" anchor="d1e906">
           <t>
 It's important to note that there need not be much difference between HTTP-layer and application-layer user authentication, at least if we assume a standard application-layer user authentication convention. For argument's sake let's assume an application-layer user authentication convention like the one in <xref target="I-D.williams-rest-gss"/>, and let's assume two possible HTTPbis HTTP-layer authentication solutions: one that is most similar to HTTP/1.1's and one that uses a new verb for authentication. Then let's look at what each of these three solutions look like on the wire using the SCRAM mechanism for cases where the client already knows it has to authenticate. For brevity we elide any HTTP request and response where the server indicates that the client must authenticate, as well as any requests/responses involving negotiation of mechanism to use.</t>
           <t>
 </t>
           <t>
-            <figure anchor="magicparlabel-177">
+            <figure anchor="magicparlabel-185">
               <artwork>   C-&gt;S: HTTP/1.1 POST /rest-gss-login
          Host: A.example
          Content-Type: application/rest-gss-login
@@ -364,7 +388,7 @@ REST-GSS Login w/ SCRAM Example
           <t>
 </t>
           <t>
-            <figure anchor="magicparlabel-222">
+            <figure anchor="magicparlabel-230">
               <artwork>   C-&gt;S: HTTP/1.1 LOGIN
          Host: A.example
          Content-Type: application/SASL
@@ -405,7 +429,7 @@ HTTPbis w/ New Verb Login w/ SCRAM Example
           <t>
 </t>
           <t>
-            <figure anchor="magicparlabel-267">
+            <figure anchor="magicparlabel-275">
               <artwork>   C-&gt;S: HTTP/1.1 GET /location/of/interest/to/app
          Host: A.example
  
@@ -465,13 +489,13 @@ Alternatively mechanisms requiring multiple round trips can be ruled out of scop
           <t>
 The main difference on the wire between a generic HTTP-layer user authentication framework (like the one in the second example) and an application-layer equivalent (as in the first example) can be so minimal as to make the choice of layer seem like splitting hairs.</t>
         </section>
-        <section title="HTTP- vs. Application-Layer Authentication in the API Stack" anchor="d1e958">
+        <section title="HTTP- vs. Application-Layer Authentication in the API Stack" anchor="d1e1003">
           <t>
 There are HTTP stacks that make it possible to implement HTTP authentication methods in the application (e.g., FCGI in web servers), and nothing would prevent HTTP stacks from implementing a <spanx style="emph">standard</spanx>  application-layer user authentication protocol either. The APIs offered by an HTTP stack should look remarkably similar regardless of which layer the user authentication protocol is technically at. Once again, the difference between HTTP-layer and standard application-layer user authentication is minimal.</t>
           <t>
 Note however that if the HTTP stack does not implement authentication, leaving it to the application to do so, then the application developer runs the risk of making mistakes in the implementation, such as failing to implement channel binding where possible. Thus it is generally best if the HTTP stack implements authentication – even if TLS is used for user authentication, the HTTP stack should provide a singular API for authentication.</t>
         </section>
-        <section title="Choice of Layer" anchor="d1e973">
+        <section title="Choice of Layer" anchor="d1e1018">
           <t>
 The choice of layer is clearly more important for APIs than on the wire. On the wire the choice of layer is minimal, trivial even, when the choice is between HTTP and the application layer.</t>
           <t>
@@ -481,7 +505,7 @@ A standard application-layer authentication scheme implies no changes to HTTP it
           <t>
 An HTTP-layer authentication solution must either: a) not support multi-round trip mechanisms, b) add verbs, or c) not be RESTful. (a) works with HTTP/1.0, (b) would not work with HTTP/1.0. [The author believes that RESTfulness is desirable.]</t>
         </section>
-        <section title="User Authentication in the TLS Layer" anchor="d1e994">
+        <section title="User Authentication in the TLS Layer" anchor="d1e1039">
           <t>
 Issues:</t>
           <t>
@@ -519,7 +543,7 @@ Non-web applications typically know a priori when they wish to authenticate. Typ
           </t>
         </section>
       </section>
-      <section title="Party Responsible for Infrastructure Messaging" anchor="d1e1043">
+      <section title="Party Responsible for Infrastructure Messaging" anchor="d1e1088">
         <t>
           <cref>
 XXX Add references for OCSP, AAA, ...</cref>
@@ -535,7 +559,7 @@ Now consider an authentication mechanism based on PKI. The only online infrastru
         <t>
 The responsibility for infrastructure messaging varies widely.</t>
       </section>
-      <section title="Number of Messages" anchor="d1e1067">
+      <section title="Number of Messages" anchor="d1e1113">
         <t>
 The number of messages that must be exchanged in order to authenticate a peer varies a lot by authentication mechanism. Some require just one message from the client to the server. Others require a reply message from the server. Others require some larger number of messages (typically three or four). Yet others require a variable number of messages.</t>
         <t>
@@ -593,7 +617,7 @@ The total number of messages required is important. These message exchanges are 
         <t>
 Integrating user authentication into TLS has the clear allure of potentially cutting down the number of round trips necessary, but it's not clear that this can be achieved in every case. In particular it may not be clear that a client has to authenticate until after a TLS connection is established over which the client may request access to some resource that requires authenticated clients.</t>
       </section>
-      <section title="Trust Establishment" anchor="d1e1144">
+      <section title="Trust Establishment" anchor="sub_Trust_Establishment">
         <t>
 Pair-wise pre-shared keying systems require careful initial key exchange, but otherwise have no transitive trust issues: every pair of entities that has shared keying can communicate without the aid of any other entity. However, pair-wise pre-shared keying does not scale to the Internet as it is O(n^2), and it requires either “leap of faith” (a.k.a., trust on first use, or TOFU) or physical proximity for the key pre-sharing. Physical proximity</t>
         <t>
@@ -607,7 +631,7 @@ Trusted third parties can mount MITM attacks on the parties that rely on them
 
 <list style="symbols"><t>
 Compromise of trusted third parties, therefore, has far reaching, negative effects</t><t>
-The longer a trust path, the less trustworth -so to speak- it is</t></list>
+The longer a trust path, the less trustworthy -so to speak- it is</t></list>
 </t>
             <t>
 Policy for determining acceptable trust paths is difficult to express</t>
@@ -648,26 +672,26 @@ For an example of pinning, consider a TLS extension where self-signed, persisten
         <t>
 Ideally an authentication facility for HTTP/2.0 should support a variety of trust establishment models, as it is not clear that one mode is superior to the others. (Though certainly the hierarchical model is likely the scheme that can have the most universal reach, and therefore most minimize user credentials needed. However, users may not mind having a small number of logon credentials for a trust island model.)</t>
       </section>
-      <section title="Threat Modeling" anchor="d1e1220">
+      <section title="Threat Modeling" anchor="d1e1267">
         <t>
           <cref>
 Cover the Internet threat model. Discuss the end-to-end model and the hop-by-hop semantics of transitive trust.</cref>
         </t>
       </section>
-      <section title="Explicit versus Implicit Session Management" anchor="d1e1229">
+      <section title="Explicit versus Implicit Session Management" anchor="d1e1276">
         <t>
           <cref>
 Discuss lack of / weakness of application session concept on the web. Discuss the historically limited application of TLS sessions to HTTP apps. Discuss desirability of a real concept of session and logout.</cref>
         </t>
       </section>
-      <section title="In-Band versus Out-of-Band Authentication" anchor="d1e1238">
+      <section title="In-Band versus Out-of-Band Authentication" anchor="d1e1285">
         <t>
           <cref>
 Discuss out-of-band user authentication systems such as ones where “tokens” are sent to users' mobile phones via SMS, as well as systems where a “login URL” is sent to the user via e-mail.</cref>
         </t>
       </section>
     </section>
-    <section title="Analysis of Some Possible Authentication Proposals" anchor="d1e1247">
+    <section title="Analysis of Some Possible Authentication Proposals" anchor="d1e1294">
       <t>
 [Cover:</t>
       <t>
@@ -703,7 +727,7 @@ Traditional webauth (passwords posted in forms), possibly with password wallets 
 What else to cover?</cref>
       </t>
     </section>
-    <section title="Author's Recommendations" anchor="d1e1301">
+    <section title="Author's Recommendations" anchor="d1e1348">
       <t>
 It seems likely that no single user authentication method will satisfy the needs of all web applications. Nor can we predict the future. Moreover, some weak authentication approaches are perfectly safe for accessing low-value resources, or in contexts where the Internet threat model is overkill. This argues for a multitude of solutions, and possibly a pluggable system.</t>
       <t>
@@ -711,12 +735,14 @@ The author proposes the following:</t>
       <t>
         <list style="numbers">
           <t>
-For all authentication mechanisms (i.e., cryptographic authentication methods) use the GSS-API, possibly through the thin shim of RFC5801 [XXX change into reference].
+For all authentication mechanisms (i.e., cryptographic authentication methods) use the GSS-API, possibly through the thin shim of SASL/GS2<xref target="RFC5801"/>.
 
 <list style="numbers"><t>
 do this above HTTP in the network stack, but...</t><t>
-...recommend that this be implemented by HTTP stacks, rather than by applications. I.e., authentication above HTTP on the wire, within HTTP as far as APIs are concerned.</t></list>
+...recommend that this be implemented by HTTP stacks, rather than by applications. I.e., authentication above HTTP on the wire, but within HTTP as far as APIs are concerned.</t></list>
 </t>
+          <t>
+Encourage the adoption of islands of trust / federation for service authentication, rather than one single, world-wide PKI for service authentication.</t>
           <t>
 Encourage development of authentication mechanisms that fit the chosen authentication framework and which have the following features:
 
@@ -734,7 +760,7 @@ Standardize weak authentication mechanisms (e.g., passwords POSTed in forms) to 
           <t>
 Specify HTML and JavaScript interfaces for initiating authentication, including the name of the service to authenticate to. This will allow login pages to have a customized look, yet allow for login operations to be performed by the browser platform using a strong authentication mechanism. Specifically there must be a method for kick-starting authentication such that the user and/or device identity and credential input does not happen through HTML forms but through browser/platform trusted user interfaces.</t>
           <t>
-Specify a new URI scheme that identifies services rather than hosts. For example: svc:&lt;service&gt;@&lt;domainname&gt;/&lt;local-part&gt; . An option to embed service authentication information (possibly a digital signature, or a URL referring to a digital signature) may prove useful.
+Specify a new URI scheme that identifies services rather than hosts. For example: svc:&lt;service&gt;@&lt;domainname&gt;/&lt;local-part&gt;. An option to embed service authentication information (possibly a digital signature, or a URL referring to a digital signature) may prove useful.
 
 <list style="numbers"><t>
 Also specify a service location protocol.</t></list>
@@ -761,6 +787,7 @@ Specify an abstract API for interfacing HTTPbis applications to HTTPbis.</t>
 &rfc2743;
 &rfc4559;
 &rfc4121;
+&rfc5801;
 </references>
   </back>
 </rfc>
