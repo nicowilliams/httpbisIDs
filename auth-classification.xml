@@ -22,7 +22,7 @@
 <!ENTITY rfc4121 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">
 <!ENTITY rfc5801 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml">
 ]>
-<rfc docName="draft-williams-httpbis-auth-classification-00" ipr="trust200902" category="info">
+<rfc docName="draft-williams-httpbis-auth-classification-01" ipr="trust200902" category="info">
   <front>
     <title abbrev="HTTPbis Auth Classification">A Proposals for Classification and Analysis of HTTPbis Authentication Proposals</title>
     <author initials="N." surname="Williams" fullname="Nicolas Williams">
