@@ -1,0 +1,1502 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass docbook
+\use_default_options true
+\maintain_unincluded_children false
+\begin_local_layout
+Format 31
+
+InsetLayout Flex:PI_Strict
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_SymRefs
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_SortRefs
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOC
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCIndent
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCDepth
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCNarrow
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCCompact
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCAppendix
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:DocName
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IntendedStatus
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:RFCNumber
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IPR
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IETFArea
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IETFWorkingGroup
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:XML2RFCKeyword
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:TitleAbbrev
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorRole
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorInitials
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorSurname
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorOrg
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorOrgAbbrev
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorEmailAddr
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrStreet
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCity
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrRegion
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCode
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCountry
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:ReferenceEntity
+    LyXType Custom
+    HTMLTag div
+End
+\end_local_layout
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman cmr
+\font_sans cmss
+\font_typewriter cmtt
+\font_default_family ttdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Simplified and Minimized Profiles of the Generic Security Services Application
+ Programming Interface
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex DocName
+status collapsed
+
+\begin_layout Plain Layout
+draft-williams-gss-profiles-00
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IPR
+status collapsed
+
+\begin_layout Plain Layout
+trust200902
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IntendedStatus
+status collapsed
+
+\begin_layout Plain Layout
+info
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex TitleAbbrev
+status collapsed
+
+\begin_layout Plain Layout
+GSS-API Profiles
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IETFArea
+status collapsed
+
+\begin_layout Plain Layout
+Security Area
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex XML2RFCKeyword
+status collapsed
+
+\begin_layout Plain Layout
+Internet-Draft
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+tocindent="no"
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+comments="yes"
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+inline="yes"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Nicolas Williams
+\begin_inset Flex AuthorOrg
+status collapsed
+
+\begin_layout Plain Layout
+Cryptonector, LLC
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex AuthorOrgAbbrev
+status collapsed
+
+\begin_layout Plain Layout
+Cryptonector
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex AuthorEmailAddr
+status collapsed
+
+\begin_layout Plain Layout
+nico@cryptonector.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+The Generic Security Service Application Programming Interface (GSS-API)
+ is often mistaken for a bloated framework.
+ This document describes simplified and minimized profiles of the GSS-API
+ for two purposes: explaining its use, whether in standards specifications
+ or actual applications, and specifying sub-sets of the API for those applicatio
+ns that wish to use it but not carry the whole thing.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Subsection
+Conventions used in this document
+\end_layout
+
+\begin_layout Standard
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+ "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
+ to be interpreted as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Simple Profiles of the GSS-API
+\end_layout
+
+\begin_layout Standard
+We define profiles of the GSS-API for a variety of applications:
+\end_layout
+
+\begin_layout Itemize
+Trivial client (
+\begin_inset Quotes eld
+\end_inset
+
+initiator
+\begin_inset Quotes erd
+\end_inset
+
+) applications;
+\end_layout
+
+\begin_layout Itemize
+Simple initiator applications;
+\end_layout
+
+\begin_layout Itemize
+Simple initiator applications with per-message tokens;
+\end_layout
+
+\begin_layout Itemize
+Trivial server (
+\begin_inset Quotes eld
+\end_inset
+
+acceptor
+\begin_inset Quotes erd
+\end_inset
+
+) applications;
+\end_layout
+
+\begin_layout Itemize
+Simple acceptor applications;
+\end_layout
+
+\begin_layout Itemize
+Simple acceptor applications with per-message tokens;
+\end_layout
+
+\begin_layout Standard
+We also define C bindings for these profiles, as well as for specific additional
+ subsets of GSS-API functionality.
+ These will take the form of C pre-processor macros indicating what profiles
+ and functionality subsets are available.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Trivial-Initiator"
+
+\end_inset
+
+Trivial Initiator (client) Application
+\end_layout
+
+\begin_layout Standard
+This profile requires just six GSS-API functions, three of which are destructors
+, and one of which is a function for formatting error strings:
+\end_layout
+
+\begin_layout Itemize
+GSS_Import_name()
+\end_layout
+
+\begin_layout Itemize
+GSS_Init_sec_context()
+\end_layout
+
+\begin_layout Itemize
+GSS_Release_name()
+\end_layout
+
+\begin_layout Itemize
+GSS_Release_buffer()
+\end_layout
+
+\begin_layout Itemize
+GSS_Delete_sec_context()
+\end_layout
+
+\begin_layout Itemize
+GSS_Display_status()
+\end_layout
+
+\begin_layout Standard
+The trivial initiator application profile REQUIRES two name-types: GSS_C_NT_HOST
+BASED_SERVICE and GSS_C_NO_OID (denoting a mechanism-specific default name
+ syntax).
+\end_layout
+
+\begin_layout Standard
+A trivial initiator application begins by using GSS_Import_name() to get
+ a NAME object for the target acceptor (server).
+ This will be a host-based service name like 
+\begin_inset Quotes eld
+\end_inset
+
+HTTP@hostname
+\begin_inset Quotes erd
+\end_inset
+
+.
+ The application then loops over GSS_Init_sec_context() to drive the exchange
+ security context tokens (authentication messages) with the target.
+\end_layout
+
+\begin_layout Standard
+Most input arguments to GSS_Init_sec_context() will be defaulted.
+\end_layout
+
+\begin_layout Standard
+If a trivial initiator application has multiple initiator credentials to
+ choose from then the choice of credential will be left to the GSS-API framework
+ or security mechanism.
+ GSS-API implementations SHOULD provide some facility for configuring reasonable
+ initiator identity selection.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Simple-Initiator"
+
+\end_inset
+
+Simple Initiator Application
+\end_layout
+
+\begin_layout Standard
+This profile adds two functions to the trivial initiator application profile,
+ one of which is a destructor:
+\end_layout
+
+\begin_layout Itemize
+GSS_Acquire_cred()
+\end_layout
+
+\begin_layout Itemize
+GSS_Release_cred()
+\end_layout
+
+\begin_layout Standard
+The initiator application may have multiple credentials and want to choose
+ a specific one to authenticate as to a target.
+ Such an application does so by calling GSS_Import_name() for the desired
+ name, then GSS_Acquire_cred() to acquire a CREDENTIAL HANDLE to pass to
+ GSS_Init_sec_context() as the initiator credential.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Trivial-Acceptor"
+
+\end_inset
+
+Trivial Acceptor (server) Application
+\end_layout
+
+\begin_layout Standard
+This profile requires just eight GSS-API functions, three of which are destructo
+rs, and one of which is a function for formatting error strings:
+\end_layout
+
+\begin_layout Itemize
+GSS_Accept_sec_context()
+\end_layout
+
+\begin_layout Itemize
+GSS_Display_name_ext()
+\end_layout
+
+\begin_layout Itemize
+GSS_Display_name()
+\end_layout
+
+\begin_layout Itemize
+GSS_Export_name()
+\end_layout
+
+\begin_layout Itemize
+GSS_Release_name()
+\end_layout
+
+\begin_layout Itemize
+GSS_Release_buffer()
+\end_layout
+
+\begin_layout Itemize
+GSS_Delete_sec_context()
+\end_layout
+
+\begin_layout Itemize
+GSS_Display_status()
+\end_layout
+
+\begin_layout Standard
+This profile REQUIRES one name-type: GSS_C_NT_USERNAME.
+\end_layout
+
+\begin_layout Standard
+A trivial acceptor application begins by using GSS_Accept_sec_context()
+ to drive an exchange of security context tokens by which to authenticate
+ an initiator.
+ A successful authentication will yield a NAME representing the identity
+ of the initiator -- the acceptor will perform authorization based on the
+ name of the initiator.
+ The acceptor application MUST use one of GSS_Display_name_ext(), GSS_Display_na
+me(), or GSS_Export_name() to obtain a textual or binary representation
+ of the initiator name suitable for authorization.
+\end_layout
+
+\begin_layout Standard
+Most input arguments to GSS_Accept_sec_context() will be defaulted.
+\end_layout
+
+\begin_layout Standard
+If a trivial acceptor application has multiple acceptor credentials to choose
+ from then the choice will be the initiator's.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Simple-Acceptor"
+
+\end_inset
+
+Simple Acceptor Application
+\end_layout
+
+\begin_layout Standard
+This profile adds three functions to the trivial initiator application profile,
+ one of which is a destructor:
+\end_layout
+
+\begin_layout Description
+GSS_Inquire_context() A simple acceptor application may be interested in
+ knowing what name it was called by the initiator, and may do so by calling
+ GSS_Inquire_context().
+\end_layout
+
+\begin_layout Description
+GSS_Store_cred() A simple acceptor application may have a use for delegated
+ credentials.
+ This function makes it possible to make delegated credentials available
+ to other applications.
+\end_layout
+
+\begin_layout Description
+GSS_Release_cred() This is the destructor for the delegated CREDENTIAL HANDLE.
+\end_layout
+
+\begin_layout Section
+Transport Security Options
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:TLS-Name-Binding"
+
+\end_inset
+
+TLS with Server Name Binding
+\end_layout
+
+\begin_layout Standard
+This profile adds not functions to any of the trivial and simple acceptor
+ application profiles.
+\end_layout
+
+\begin_layout Standard
+Applications using this profile use TLS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-2"
+
+\end_inset
+
+ for transport security and the GSS-API for authentication.
+ This profile REQUIRES that applications use a TLS server certificate to
+ authenticate the server to the client and that the same server name used
+ to authenticate the server in TLS also be used to authenticate the server
+ in the GSS-API.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:TLS-CB"
+
+\end_inset
+
+TLS with Channel Binding
+\end_layout
+
+\begin_layout Standard
+This profile adds no functions to any of the initiator or acceptor application
+ profiles.
+ Instead this profile makes support for channel binding
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-3"
+
+\end_inset
+
+ REQUIRED.
+\end_layout
+
+\begin_layout Standard
+Applications using this profile use TLS
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-2"
+
+\end_inset
+
+ for transport security, possibly using anonymous Diffie-Hellman (DH) cipher
+ suites.
+ Channel binding ensures that the end-points of the TLS connection are logically
+ the same as the GSS-API end-points, thus ensuring that there are no men
+ in the middle (MITMs) even if anonymous DH TLS cipher suites are used.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Per-msg-tokens"
+
+\end_inset
+
+Per-Message Tokens
+\end_layout
+
+\begin_layout Standard
+This profile adds four functions to the simple initiator application profile:
+\end_layout
+
+\begin_layout Description
+GSS_GetMIC() Get an authentication code for a message (something like a
+ MAC);
+\end_layout
+
+\begin_layout Description
+GSS_VerifyMIC() Verify an authentication code sent by the peer;
+\end_layout
+
+\begin_layout Description
+GSS_Wrap() Wrap an application message, typically to provide confidentiality
+ and integrity protection (i.e., encrypt with authentication);
+\end_layout
+
+\begin_layout Description
+GSS_Unwrap() Unwrap a wrapped application message (i.e., decrypt with authenticati
+on).
+\end_layout
+
+\begin_layout Standard
+An application of this type will rely on the GSS-API security mechanism
+ to provide confidentiality and/or integrity protection to the application's
+ messages.
+ This kind of application typically does not use TLS or any other framework
+ for transport security.
+\end_layout
+
+\begin_layout Standard
+Applications may use these functions to implement either of octet streams
+ and unsequenced datagram security layers.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:PRF"
+
+\end_inset
+
+GSS-Keyed Application Transport Security Layer
+\end_layout
+
+\begin_layout Standard
+This profile adds one function to the simple initiator application profile:
+\end_layout
+
+\begin_layout Description
+GSS_Pseudo_random() Get a pseudo-random output octet string based on session
+ keys exchanged by the GSS-API security mechanism and an input octet string
+ provided by the application.
+\end_layout
+
+\begin_layout Standard
+An application of this type typically has its own transport security layer
+ (i.e., does its own encryption) and only requires a session key, which it
+ can get from the GSS-API security context by using the GSS_Pseudo_random()
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-12"
+
+\end_inset
+
+ function to obtain an octet string of suitable length.
+\end_layout
+
+\begin_layout Section
+Complex Profiles
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Complex-Initiator-Application"
+
+\end_inset
+
+Complex Initiator Application
+\end_layout
+
+\begin_layout Standard
+A complex initiator application requires most of the functions defined in
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+ in addition to those of the simple initiator application profile.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Complex-Acceptor-Application"
+
+\end_inset
+
+Complex Acceptor Application
+\end_layout
+
+\begin_layout Standard
+A complex acceptor application typically requires fine-grained access to
+ the initiator names so as to implement more advanced authorization schemes.
+ This means all of the naming extensions APIs:
+\end_layout
+
+\begin_layout Description
+GSS_Display_name_ext() Already covered in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Trivial-Acceptor"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_Inquire_name() Needed to list attributes available in the initiator
+ name.
+\end_layout
+
+\begin_layout Description
+GSS_Get_name_attribute() Needed to access individual attributes of the initiator
+ name.
+\end_layout
+
+\begin_layout Description
+GSS_Export_name_composite() Needed to be able to save a binary version of
+ the initiator name with all its attributes.
+\end_layout
+
+\begin_layout Section
+GSS-API Profile and Subset Identifiers
+\end_layout
+
+\begin_layout Standard
+We define identifiers for GSS-API profiles and subsets.
+ These should be used as follows:
+\end_layout
+
+\begin_layout Itemize
+Internet application specifications using the GSS-API must list the profiles/sub
+sets of the API required to implement the specification;
+\end_layout
+
+\begin_layout Itemize
+GSS-API implementations SHOULD use these identifiers to advertise which
+ profiles/subsets of the API are available
+\end_layout
+
+\begin_layout Itemize
+GSS-API application implementations using the GSS-API in the implementation
+ SHOULD use these identifiers to request profiles/subsets of the API to
+ use.
+\end_layout
+
+\begin_layout Standard
+The identifiers are:
+\end_layout
+
+\begin_layout Description
+GSS_PR_V2U1 This refers to the base GSS-API version 2 update 1.
+\end_layout
+
+\begin_layout Description
+GSS_PR_TRIVIAL_INITIATOR See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Trivial-Initiator"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_SIMPLE_INITIATOR See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Simple-Initiator"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_TRIVIAL_ACCEPTOR See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Trivial-Acceptor"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_SIMPLE_ACCEPTOR See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Simple-Acceptor"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_COMPLEX_INITIATOR See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Complex-Initiator-Application"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_COMPLEX_ACCEPTOR See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Complex-Acceptor-Application"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_CB See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:TLS-CB"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_MSG_TOKENS See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Per-msg-tokens"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_PRF See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:PRF"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-12"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Description
+GSS_PR_STORE_CRED See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Simple-Acceptor"
+
+\end_inset
+
+ and 
+\end_layout
+
+\begin_layout Description
+GSS_PR_EXTENDED_MECH_INQUIRY Functions from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-9"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+GSS_PR_EXTENDED_NAMING Functions from 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-10"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+C-Bindings
+\end_layout
+
+\begin_layout Standard
+C pre-processor macros MUST be defined by <gssapi.h> or <gssapi/gssapi.h>
+ for each of the supported profiles and subsets of the GSS-API supported
+ by the GSS-API implementation.
+ The C pre-processor macro names MUST be as given in the preceding section,
+ and the value should be 1 if the macro is defined.
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2119
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2119"
+target "http://www.ietf.org/rfc/rfc2119.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5246
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5246"
+target "http://www.ietf.org/rfc/rfc5246.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5056
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5056"
+target "http://www.ietf.org/rfc/rfc5056.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-4"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+I-D.williams-rest-gss
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "I-D.williams-rest-gss"
+target "https://datatracker.ietf.org/doc/draft-williams-rest-gss/"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-5"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc4422
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC4422"
+target "http://www.ietf.org/rfc/rfc4422.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-6"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2743
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2743"
+target "http://www.ietf.org/rfc/rfc2743.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-7"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc4559
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC4559"
+target "http://www.ietf.org/rfc/rfc4559.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-8"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5801
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5801"
+target "http://www.ietf.org/rfc/rfc5801.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-9"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5587
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5587"
+target "http://www.ietf.org/rfc/rfc5587.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-10"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+I-D.ietf-kitten-gssapi-naming-exts
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "I-D.ietf-kitten-gssapi-naming-exts"
+target "https://datatracker.ietf.org/doc/draft-ietf-kitten-gssapi-naming-exts/"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-kitten-gssapi-naming-exts.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-11"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5588
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5588"
+target "http://www.ietf.org/rfc/rfc5588.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5588.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-12"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc4401
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC4401"
+target "http://www.ietf.org/rfc/rfc4401.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4401.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\end_body
+\end_document

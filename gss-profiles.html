@@ -1,0 +1,343 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en"><head profile="http://www.w3.org/2006/03/hcard"><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Simplified and Minimized Profiles of the Generic Security Services Application Programming Interface</title><style type="text/css" title="Xml2Rfc (sans serif)">
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+a:active {
+  text-decoration: underline;
+}
+address {
+  margin-top: 1em;
+  margin-left: 2em;
+  font-style: normal;
+}
+body {
+  color: #000000;
+  font-family: verdana, helvetica, arial, sans-serif;
+  font-size: 10pt;
+}
+cite {
+  font-style: normal;
+}
+dd {
+  margin-right: 2em;
+}
+dl {
+  margin-left: 2em;
+}
+
+dl.empty dd {
+  margin-top: .5em;
+}
+dl p {
+  margin-left: 0em;
+}
+dt {
+  margin-top: .5em;
+}
+h1 {
+  color: #333333;
+  font-size: 14pt;
+  line-height: 21pt;
+  page-break-after: avoid;
+}
+h1.np {
+  page-break-before: always;
+}
+h1 a {
+  color: #333333;
+}
+h2 {
+  color: #000000;
+  font-size: 12pt;
+  line-height: 15pt;
+  page-break-after: avoid;
+}
+h2 a {
+  color: #000000;
+}
+h3 {
+  color: #000000;
+  font-size: 10pt;
+  page-break-after: avoid;
+}
+h3 a {
+  color: #000000;
+}
+h4 {
+  color: #000000;
+  font-size: 10pt;
+  page-break-after: avoid;
+}
+h4 a {
+  color: #000000;
+}
+h5 {
+  color: #000000;
+  font-size: 10pt;
+  page-break-after: avoid;
+}
+h5 a {
+  color: #000000;
+}
+img {
+  margin-left: 3em;
+}
+li {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+ol {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+ol p {
+  margin-left: 0em;
+}
+p {
+  margin-left: 2em;
+  margin-right: 2em;
+
+}
+pre {
+  margin-left: 3em;
+  background-color: lightyellow;
+  padding: .25em;
+}
+pre.text2 {
+  border-style: dotted;
+  border-width: 1px;
+  background-color: #f0f0f0;
+  width: 69em;
+}
+pre.inline {
+  background-color: white;
+  padding: 0em;
+}
+pre.text {
+  border-style: dotted;
+  border-width: 1px;
+  background-color: #f8f8f8;
+  width: 69em;
+}
+pre.drawing {
+  border-style: solid;
+  border-width: 1px;
+  background-color: #f8f8f8;
+  padding: 2em;
+}
+table {
+  margin-left: 2em;
+}
+table.header {
+  width: 95%;
+  font-size: 10pt;
+  color: white;
+}
+td.top {
+  vertical-align: top;
+}
+td.topnowrap {
+  vertical-align: top;
+  white-space: nowrap; 
+}
+td.header {
+  background-color: gray;
+  width: 50%;
+}
+td.reference {
+  vertical-align: top;
+  white-space: nowrap;
+  padding-right: 1em;
+}
+thead {
+  display:table-header-group;
+}
+ul.toc {
+  list-style: none;
+  margin-left: 1.5em;
+  margin-right: 0em;
+  padding-left: 0em;
+}
+li.tocline0 {
+  line-height: 150%;
+  font-weight: bold;
+  font-size: 10pt;
+  margin-left: 0em;
+  margin-right: 0em;
+}
+li.tocline1 {
+  line-height: normal;
+  font-weight: normal;
+  font-size: 9pt;
+  margin-left: 0em;
+  margin-right: 0em;
+}
+li.tocline2 {
+  font-size: 0pt;
+}
+ul p {
+  margin-left: 0em;
+}
+ul.ind {
+  list-style: none;
+  margin-left: 1.5em;
+  margin-right: 0em;
+  padding-left: 0em;
+}
+li.indline0 {
+  font-weight: bold;
+  line-height: 200%;
+  margin-left: 0em;
+  margin-right: 0em;
+}
+li.indline1 {
+  font-weight: normal;
+  line-height: 150%;
+  margin-left: 0em;
+  margin-right: 0em;
+}
+
+.comment {
+  background-color: yellow;
+}
+
+.center {
+  text-align: center;
+}
+.error {
+  color: red;
+  font-style: italic;
+  font-weight: bold;
+}
+.figure {
+  font-weight: bold;
+  text-align: center;
+  font-size: 9pt;
+}
+.filename {
+  color: #333333;
+  font-weight: bold;
+  font-size: 12pt;
+  line-height: 21pt;
+  text-align: center;
+}
+.fn {
+  font-weight: bold;
+}
+.hidden {
+  display: none;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.title {
+  color: #990000;
+  font-size: 18pt;
+  line-height: 18pt;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 36pt;
+}
+.vcardline {
+  display: block;
+}
+.warning {
+  font-size: 14pt;
+  background-color: yellow;
+}
+
+
+@media print {
+  .noprint {
+    display: none;
+  }
+  
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  table.header {
+    width: 90%;
+  }
+
+  td.header {
+    width: 50%;
+    color: black;
+    background-color: white;
+    vertical-align: top;
+    font-size: 12pt;
+  }
+
+  ul.toc a::after {
+    content: leader('.') target-counter(attr(href), page);
+  }
+  
+  a.iref {
+    content: target-counter(attr(href), page);
+  }
+  
+  .print2col {
+    column-count: 2;
+    -moz-column-count: 2;
+    column-fill: auto;
+  }
+}
+
+@page {
+  @top-left {
+       content: "INTERNET DRAFT"; 
+  } 
+  @top-right {
+       content: "July 2012"; 
+  } 
+  @top-center {
+       content: "GSS-API Profiles"; 
+  } 
+  @bottom-left {
+       content: "Williams"; 
+  } 
+  @bottom-center {
+       content: "Informational"; 
+  } 
+  @bottom-right {
+       content: "[Page " counter(page) "]"; 
+  } 
+}
+
+@page:first { 
+    @top-left {
+      content: normal;
+    }
+    @top-right {
+      content: normal;
+    }
+    @top-center {
+      content: normal;
+    }
+}
+
+</style><link rel="Contents" href="#rfc.toc"><link rel="Author" href="#rfc.authors"><link rel="Copyright" href="#rfc.copyright"><link rel="Chapter" title="1 Introduction" href="#rfc.section.1"><link rel="Chapter" title="2 Simple Profiles of the GSS-API" href="#rfc.section.2"><link rel="Chapter" title="3 Transport Security Options" href="#rfc.section.3"><link rel="Chapter" title="4 Complex Profiles" href="#rfc.section.4"><link rel="Chapter" title="5 GSS-API Profile and Subset Identifiers" href="#rfc.section.5"><link rel="Chapter" href="#rfc.section.6" title="6 References"><meta name="generator" content="http://greenbytes.de/tech/webdav/rfc2629.xslt, Revision 1.340, 2007/07/14 15:16:14, XSLT vendor: SAXON 9.0.0.4 from Saxonica http://www.saxonica.com/"><meta name="keywords" content="Internet-Draft"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.Creator" content="Williams, N."><meta name="DC.Identifier" content="urn:ietf:id:draft-williams-gss-profiles-00"><meta name="DC.Date.Issued" scheme="ISO8601" content="2012-07"><meta name="DC.Description.Abstract" content="The Generic Security Service Application Programming Interface (GSS-API) is often mistaken for a bloated framework. This document describes simplified and minimized profiles of the GSS-API for two purposes: explaining its use, whether in standards specifications or actual applications, and specifying sub-sets of the API for those applications that wish to use it but not carry the whole thing."></head><body><table summary="header information" class="header" border="0" cellpadding="1" cellspacing="1"><p class="error">
+
+  This stylesheet requires either an XSLT-1.0 processor with node-set()
+  extension function, or an XSLT-2.0 processor. Therefore, parts of the
+  document couldn't be displayed.
+</p></table><p class="title">Simplified and Minimized Profiles of the Generic Security Services Application Programming Interface<br><span class="filename">draft-williams-gss-profiles-00</span></p><p class="error">
+
+  This stylesheet requires either an XSLT-1.0 processor with node-set()
+  extension function, or an XSLT-2.0 processor. Therefore, parts of the
+  document couldn't be displayed.
+</p><h1 id="rfc.abstract"><a href="#rfc.abstract">Abstract</a></h1><p>The Generic Security Service Application Programming Interface (GSS-API) is often mistaken for a bloated framework. This document describes simplified and minimized profiles of the GSS-API for two purposes: explaining its use, whether in standards specifications or actual applications, and specifying sub-sets of the API for those applications that wish to use it but not carry the whole thing.</p><hr class="noprint"><h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1><ul class="toc"><li class="tocline0">1.&nbsp;&nbsp;&nbsp;<a href="#d1e233">Introduction</a><ul class="toc"><li class="tocline1">1.1&nbsp;&nbsp;&nbsp;<a href="#d1e242">Conventions used in this document</a></li></ul></li><li class="tocline0">2.&nbsp;&nbsp;&nbsp;<a href="#d1e254">Simple Profiles of the GSS-API</a><ul class="toc"><li class="tocline1">2.1&nbsp;&nbsp;&nbsp;<a href="#sub_Trivial_Initiator">Trivial Initiator (client) Application</a></li><li class="tocline1">2.2&nbsp;&nbsp;&nbsp;<a href="#sub_Simple_Initiator">Simple Initiator Application</a></li><li class="tocline1">2.3&nbsp;&nbsp;&nbsp;<a href="#sub_Trivial_Acceptor">Trivial Acceptor (server) Application</a></li><li class="tocline1">2.4&nbsp;&nbsp;&nbsp;<a href="#sub_Simple_Acceptor">Simple Acceptor Application</a></li></ul></li><li class="tocline0">3.&nbsp;&nbsp;&nbsp;<a href="#d1e426">Transport Security Options</a><ul class="toc"><li class="tocline1">3.1&nbsp;&nbsp;&nbsp;<a href="#sub_TLS_Name_Binding">TLS with Server Name Binding</a></li><li class="tocline1">3.2&nbsp;&nbsp;&nbsp;<a href="#sub_TLS_CB">TLS with Channel Binding</a></li><li class="tocline1">3.3&nbsp;&nbsp;&nbsp;<a href="#sub_Per_msg_tokens">Per-Message Tokens</a></li><li class="tocline1">3.4&nbsp;&nbsp;&nbsp;<a href="#sub_PRF">GSS-Keyed Application Transport Security Layer</a></li></ul></li><li class="tocline0">4.&nbsp;&nbsp;&nbsp;<a href="#d1e531">Complex Profiles</a><ul class="toc"><li class="tocline1">4.1&nbsp;&nbsp;&nbsp;<a href="#sub_Complex_Initiator_Application">Complex Initiator Application</a></li><li class="tocline1">4.2&nbsp;&nbsp;&nbsp;<a href="#sub_Complex_Acceptor_Application">Complex Acceptor Application</a></li></ul></li><li class="tocline0">5.&nbsp;&nbsp;&nbsp;<a href="#d1e587">GSS-API Profile and Subset Identifiers</a><ul class="toc"><li class="tocline1">5.1&nbsp;&nbsp;&nbsp;<a href="#d1e716">C-Bindings</a></li></ul></li><li class="tocline0">6.&nbsp;&nbsp;&nbsp;<a href="#rfc.references">References</a></li><li class="tocline0"><a href="#rfc.authors">Author's Address</a></li><li class="tocline0"><a href="#rfc.ipr">Intellectual Property and Copyright Statements</a></li></ul><hr class="noprint"><h1 id="rfc.section.1" class="np"><a href="#rfc.section.1">1.</a>&nbsp;<a id="d1e233" href="#d1e233">Introduction</a></h1><p id="rfc.section.1.p.1">...</p><h2 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1</a>&nbsp;<a id="d1e242" href="#d1e242">Conventions used in this document</a></h2><p id="rfc.section.1.1.p.1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <a href="#RFC2119"><cite title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</cite></a>.</p><hr class="noprint"><h1 id="rfc.section.2" class="np"><a href="#rfc.section.2">2.</a>&nbsp;<a id="d1e254" href="#d1e254">Simple Profiles of the GSS-API</a></h1><p id="rfc.section.2.p.1">We define profiles of the GSS-API for a variety of applications:</p><p id="rfc.section.2.p.2"> </p><ul><li>Trivial client (&#8220;initiator&#8221;) applications;</li><li>Simple initiator applications;</li><li>Simple initiator applications with per-message tokens;</li><li>Trivial server (&#8220;acceptor&#8221;) applications;</li><li>Simple acceptor applications;</li><li>Simple acceptor applications with per-message tokens;</li></ul><p id="rfc.section.2.p.3">We also define C bindings for these profiles, as well as for specific additional subsets of GSS-API functionality. These will take the form of C pre-processor macros indicating what profiles and functionality subsets are available.</p><h2 id="rfc.section.2.1"><a href="#rfc.section.2.1">2.1</a>&nbsp;<a id="sub_Trivial_Initiator" href="#sub_Trivial_Initiator">Trivial Initiator (client) Application</a></h2><p id="rfc.section.2.1.p.1">This profile requires just six GSS-API functions, three of which are destructors, and one of which is a function for formatting error strings:</p><p id="rfc.section.2.1.p.2"> </p><ul><li>GSS_Import_name()</li><li>GSS_Init_sec_context()</li><li>GSS_Release_name()</li><li>GSS_Release_buffer()</li><li>GSS_Delete_sec_context()</li><li>GSS_Display_status()</li></ul><p id="rfc.section.2.1.p.3">The trivial initiator application profile REQUIRES two name-types: GSS_C_NT_HOSTBASED_SERVICE and GSS_C_NO_OID (denoting a mechanism-specific default name syntax).</p><p id="rfc.section.2.1.p.4">A trivial initiator application begins by using GSS_Import_name() to get a NAME object for the target acceptor (server). This will be a host-based service name like &#8220;HTTP@hostname&#8221;. The application then loops over GSS_Init_sec_context() to drive the exchange security context tokens (authentication messages) with the target.</p><p id="rfc.section.2.1.p.5">Most input arguments to GSS_Init_sec_context() will be defaulted.</p><p id="rfc.section.2.1.p.6">If a trivial initiator application has multiple initiator credentials to choose from then the choice of credential will be left to the GSS-API framework or security mechanism. GSS-API implementations SHOULD provide some facility for configuring reasonable initiator identity selection.</p><h2 id="rfc.section.2.2"><a href="#rfc.section.2.2">2.2</a>&nbsp;<a id="sub_Simple_Initiator" href="#sub_Simple_Initiator">Simple Initiator Application</a></h2><p id="rfc.section.2.2.p.1">This profile adds two functions to the trivial initiator application profile, one of which is a destructor:</p><p id="rfc.section.2.2.p.2"> </p><ul><li>GSS_Acquire_cred()</li><li>GSS_Release_cred()</li></ul><p id="rfc.section.2.2.p.3">The initiator application may have multiple credentials and want to choose a specific one to authenticate as to a target. Such an application does so by calling GSS_Import_name() for the desired name, then GSS_Acquire_cred() to acquire a CREDENTIAL HANDLE to pass to GSS_Init_sec_context() as the initiator credential.</p><h2 id="rfc.section.2.3"><a href="#rfc.section.2.3">2.3</a>&nbsp;<a id="sub_Trivial_Acceptor" href="#sub_Trivial_Acceptor">Trivial Acceptor (server) Application</a></h2><p id="rfc.section.2.3.p.1">This profile requires just eight GSS-API functions, three of which are destructors, and one of which is a function for formatting error strings:</p><p id="rfc.section.2.3.p.2"> </p><ul><li>GSS_Accept_sec_context()</li><li>GSS_Display_name_ext()</li><li>GSS_Display_name()</li><li>GSS_Export_name()</li><li>GSS_Release_name()</li><li>GSS_Release_buffer()</li><li>GSS_Delete_sec_context()</li><li>GSS_Display_status()</li></ul><p id="rfc.section.2.3.p.3">This profile REQUIRES one name-type: GSS_C_NT_USERNAME.</p><p id="rfc.section.2.3.p.4">A trivial acceptor application begins by using GSS_Accept_sec_context() to drive an exchange of security context tokens by which to authenticate an initiator. A successful authentication will yield a NAME representing the identity of the initiator &#8211; the acceptor will perform authorization based on the name of the initiator. The acceptor application MUST use one of GSS_Display_name_ext(), GSS_Display_name(), or GSS_Export_name() to obtain a textual or binary representation of the initiator name suitable for authorization.</p><p id="rfc.section.2.3.p.5">Most input arguments to GSS_Accept_sec_context() will be defaulted.</p><p id="rfc.section.2.3.p.6">If a trivial acceptor application has multiple acceptor credentials to choose from then the choice will be the initiator's.</p><h2 id="rfc.section.2.4"><a href="#rfc.section.2.4">2.4</a>&nbsp;<a id="sub_Simple_Acceptor" href="#sub_Simple_Acceptor">Simple Acceptor Application</a></h2><p id="rfc.section.2.4.p.1">This profile adds three functions to the trivial initiator application profile, one of which is a destructor:</p><p id="rfc.section.2.4.p.2"> </p><dl><dt>GSS_Inquire_context()</dt><dd>A simple acceptor application may be interested in knowing what name it was called by the initiator, and may do so by calling GSS_Inquire_context().</dd><dt>GSS_Store_cred()</dt><dd>A simple acceptor application may have a use for delegated credentials. This function makes it possible to make delegated credentials available to other applications.</dd><dt>GSS_Release_cred()</dt><dd>This is the destructor for the delegated CREDENTIAL HANDLE.</dd></dl><hr class="noprint"><h1 id="rfc.section.3" class="np"><a href="#rfc.section.3">3.</a>&nbsp;<a id="d1e426" href="#d1e426">Transport Security Options</a></h1><h2 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1</a>&nbsp;<a id="sub_TLS_Name_Binding" href="#sub_TLS_Name_Binding">TLS with Server Name Binding</a></h2><p id="rfc.section.3.1.p.1">This profile adds not functions to any of the trivial and simple acceptor application profiles.</p><p id="rfc.section.3.1.p.2">Applications using this profile use TLS<a href="#RFC5246"><cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[RFC5246]</cite></a> for transport security and the GSS-API for authentication. This profile REQUIRES that applications use a TLS server certificate to authenticate the server to the client and that the same server name used to authenticate the server in TLS also be used to authenticate the server in the GSS-API.</p><h2 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2</a>&nbsp;<a id="sub_TLS_CB" href="#sub_TLS_CB">TLS with Channel Binding</a></h2><p id="rfc.section.3.2.p.1">This profile adds no functions to any of the initiator or acceptor application profiles. Instead this profile makes support for channel binding<a href="#RFC5056"><cite title="On the Use of Channel Bindings to Secure Channels">[RFC5056]</cite></a> REQUIRED.</p><p id="rfc.section.3.2.p.2">Applications using this profile use TLS<a href="#RFC5246"><cite title="The Transport Layer Security (TLS) Protocol Version 1.2">[RFC5246]</cite></a> for transport security, possibly using anonymous Diffie-Hellman (DH) cipher suites. Channel binding ensures that the end-points of the TLS connection are logically the same as the GSS-API end-points, thus ensuring that there are no men in the middle (MITMs) even if anonymous DH TLS cipher suites are used.</p><h2 id="rfc.section.3.3"><a href="#rfc.section.3.3">3.3</a>&nbsp;<a id="sub_Per_msg_tokens" href="#sub_Per_msg_tokens">Per-Message Tokens</a></h2><p id="rfc.section.3.3.p.1">This profile adds four functions to the simple initiator application profile:</p><p id="rfc.section.3.3.p.2"> </p><dl><dt>GSS_GetMIC()</dt><dd>Get an authentication code for a message (something like a MAC);</dd><dt>GSS_VerifyMIC()</dt><dd>Verify an authentication code sent by the peer;</dd><dt>GSS_Wrap()</dt><dd>Wrap an application message, typically to provide confidentiality and integrity protection (i.e., encrypt with authentication);</dd><dt>GSS_Unwrap()</dt><dd>Unwrap a wrapped application message (i.e., decrypt with authentication).</dd></dl><p id="rfc.section.3.3.p.3">An application of this type will rely on the GSS-API security mechanism to provide confidentiality and/or integrity protection to the application's messages. This kind of application typically does not use TLS or any other framework for transport security.</p><p id="rfc.section.3.3.p.4">Applications may use these functions to implement either of octet streams and unsequenced datagram security layers.</p><h2 id="rfc.section.3.4"><a href="#rfc.section.3.4">3.4</a>&nbsp;<a id="sub_PRF" href="#sub_PRF">GSS-Keyed Application Transport Security Layer</a></h2><p id="rfc.section.3.4.p.1">This profile adds one function to the simple initiator application profile:</p><p id="rfc.section.3.4.p.2"> </p><dl><dt>GSS_Pseudo_random()</dt><dd>Get a pseudo-random output octet string based on session keys exchanged by the GSS-API security mechanism and an input octet string provided by the application.</dd></dl><p id="rfc.section.3.4.p.3">An application of this type typically has its own transport security layer (i.e., does its own encryption) and only requires a session key, which it can get from the GSS-API security context by using the GSS_Pseudo_random()<a href="#RFC4401"><cite title="A Pseudo-Random Function (PRF) API Extension for the Generic Security Service Application Program Interface (GSS-API)">[RFC4401]</cite></a> function to obtain an octet string of suitable length.</p><hr class="noprint"><h1 id="rfc.section.4" class="np"><a href="#rfc.section.4">4.</a>&nbsp;<a id="d1e531" href="#d1e531">Complex Profiles</a></h1><h2 id="rfc.section.4.1"><a href="#rfc.section.4.1">4.1</a>&nbsp;<a id="sub_Complex_Initiator_Application" href="#sub_Complex_Initiator_Application">Complex Initiator Application</a></h2><p id="rfc.section.4.1.p.1">A complex initiator application requires most of the functions defined in <a href="#RFC5587"><cite title="Extended Generic Security Service Mechanism Inquiry APIs">[RFC5587]</cite></a> in addition to those of the simple initiator application profile.</p><h2 id="rfc.section.4.2"><a href="#rfc.section.4.2">4.2</a>&nbsp;<a id="sub_Complex_Acceptor_Application" href="#sub_Complex_Acceptor_Application">Complex Acceptor Application</a></h2><p id="rfc.section.4.2.p.1">A complex acceptor application typically requires fine-grained access to the initiator names so as to implement more advanced authorization schemes. This means all of the naming extensions APIs:</p><p id="rfc.section.4.2.p.2"> </p><dl><dt>GSS_Display_name_ext()</dt><dd>Already covered in <a href="#sub_Trivial_Acceptor" title="Trivial Acceptor (server) Application">Section&nbsp;2.3</a>.</dd><dt>GSS_Inquire_name()</dt><dd>Needed to list attributes available in the initiator name.</dd><dt>GSS_Get_name_attribute()</dt><dd>Needed to access individual attributes of the initiator name.</dd><dt>GSS_Export_name_composite()</dt><dd>Needed to be able to save a binary version of the initiator name with all its attributes.</dd></dl><hr class="noprint"><h1 id="rfc.section.5" class="np"><a href="#rfc.section.5">5.</a>&nbsp;<a id="d1e587" href="#d1e587">GSS-API Profile and Subset Identifiers</a></h1><p id="rfc.section.5.p.1">We define identifiers for GSS-API profiles and subsets. These should be used as follows:</p><p id="rfc.section.5.p.2"> </p><ul><li>Internet application specifications using the GSS-API must list the profiles/subsets of the API required to implement the specification;</li><li>GSS-API implementations SHOULD use these identifiers to advertise which profiles/subsets of the API are available</li><li>GSS-API application implementations using the GSS-API in the implementation SHOULD use these identifiers to request profiles/subsets of the API to use.</li></ul><p id="rfc.section.5.p.3">The identifiers are:</p><p id="rfc.section.5.p.4"> </p><dl><dt>GSS_PR_V2U1</dt><dd>This refers to the base GSS-API version 2 update 1.</dd><dt>GSS_PR_TRIVIAL_INITIATOR</dt><dd>See <a href="#sub_Trivial_Initiator" title="Trivial Initiator (client) Application">Section&nbsp;2.1</a>.</dd><dt>GSS_PR_SIMPLE_INITIATOR</dt><dd>See <a href="#sub_Simple_Initiator" title="Simple Initiator Application">Section&nbsp;2.2</a>.</dd><dt>GSS_PR_TRIVIAL_ACCEPTOR</dt><dd>See <a href="#sub_Trivial_Acceptor" title="Trivial Acceptor (server) Application">Section&nbsp;2.3</a>.</dd><dt>GSS_PR_SIMPLE_ACCEPTOR</dt><dd>See <a href="#sub_Simple_Acceptor" title="Simple Acceptor Application">Section&nbsp;2.4</a>.</dd><dt>GSS_PR_COMPLEX_INITIATOR</dt><dd>See <a href="#sub_Complex_Initiator_Application" title="Complex Initiator Application">Section&nbsp;4.1</a>.</dd><dt>GSS_PR_COMPLEX_ACCEPTOR</dt><dd>See <a href="#sub_Complex_Acceptor_Application" title="Complex Acceptor Application">Section&nbsp;4.2</a>.</dd><dt>GSS_PR_CB</dt><dd>See <a href="#sub_TLS_CB" title="TLS with Channel Binding">Section&nbsp;3.2</a>.</dd><dt>GSS_PR_MSG_TOKENS</dt><dd>See <a href="#sub_Per_msg_tokens" title="Per-Message Tokens">Section&nbsp;3.3</a>.</dd><dt>GSS_PR_PRF</dt><dd>See <a href="#sub_PRF" title="GSS-Keyed Application Transport Security Layer">Section&nbsp;3.4</a>  <a href="#RFC4401"><cite title="A Pseudo-Random Function (PRF) API Extension for the Generic Security Service Application Program Interface (GSS-API)">[RFC4401]</cite></a>.</dd><dt>GSS_PR_STORE_CRED</dt><dd>See <a href="#sub_Simple_Acceptor" title="Simple Acceptor Application">Section&nbsp;2.4</a> and</dd><dt>GSS_PR_EXTENDED_MECH_INQUIRY</dt><dd>Functions from <a href="#RFC5587"><cite title="Extended Generic Security Service Mechanism Inquiry APIs">[RFC5587]</cite></a> </dd><dt>GSS_PR_EXTENDED_NAMING</dt><dd>Functions from <a href="#I-D.ietf-kitten-gssapi-naming-exts"><cite title="GSS-API Naming Extensions">[I-D.ietf-kitten-gssapi-naming-exts]</cite></a> </dd></dl><h2 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1</a>&nbsp;<a id="d1e716" href="#d1e716">C-Bindings</a></h2><p id="rfc.section.5.1.p.1">C pre-processor macros MUST be defined by &lt;gssapi.h&gt; or &lt;gssapi/gssapi.h&gt; for each of the supported profiles and subsets of the GSS-API supported by the GSS-API implementation. The C pre-processor macro names MUST be as given in the preceding section, and the value should be 1 if the macro is defined.</p><h1 class="np" id="rfc.references"><a href="#rfc.section.6" id="rfc.section.6">6.</a> References</h1><table summary="References"><tr><td class="reference"><b id="RFC2119">[RFC2119]</b></td><td class="top"><a href="mailto:sob@harvard.edu" title="Harvard University">Bradner, S.</a>, &#8220;<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>&#8221;, BCP&nbsp;14, RFC&nbsp;2119, March&nbsp;1997.</td></tr><tr><td class="reference"><b id="RFC5246">[RFC5246]</b></td><td class="top">Dierks, T. and E. Rescorla, &#8220;<a href="http://tools.ietf.org/html/rfc5246">The Transport Layer Security (TLS) Protocol Version 1.2</a>&#8221;, RFC&nbsp;5246, August&nbsp;2008.</td></tr><tr><td class="reference"><b id="RFC5056">[RFC5056]</b></td><td class="top">Williams, N., &#8220;<a href="http://tools.ietf.org/html/rfc5056">On the Use of Channel Bindings to Secure Channels</a>&#8221;, RFC&nbsp;5056, November&nbsp;2007.</td></tr><tr><td class="reference"><b id="I-D.williams-rest-gss">[I-D.williams-rest-gss]</b></td><td class="top">Williams, N., &#8220;<a href="http://tools.ietf.org/html/draft-williams-rest-gss-01">RESTful Hypertext Transfer Protocol Application-Layer Authentication Using Generic Security Services</a>&#8221;, Internet-Draft&nbsp;draft-williams-rest-gss-01 (work in progress), June&nbsp;2012.</td></tr><tr><td class="reference"><b id="RFC4422">[RFC4422]</b></td><td class="top">Melnikov, A. and K. Zeilenga, &#8220;<a href="http://tools.ietf.org/html/rfc4422">Simple Authentication and Security Layer (SASL)</a>&#8221;, RFC&nbsp;4422, June&nbsp;2006.</td></tr><tr><td class="reference"><b id="RFC2743">[RFC2743]</b></td><td class="top"><a href="mailto:jlinn@rsasecurity.com" title="RSA Laboratories">Linn, J.</a>, &#8220;<a href="http://tools.ietf.org/html/rfc2743">Generic Security Service Application Program Interface Version 2, Update 1</a>&#8221;, RFC&nbsp;2743, January&nbsp;2000.</td></tr><tr><td class="reference"><b id="RFC4559">[RFC4559]</b></td><td class="top">Jaganathan, K., Zhu, L., and J. Brezak, &#8220;<a href="http://tools.ietf.org/html/rfc4559">SPNEGO-based Kerberos and NTLM HTTP Authentication in Microsoft Windows</a>&#8221;, RFC&nbsp;4559, June&nbsp;2006.</td></tr><tr><td class="reference"><b id="RFC5801">[RFC5801]</b></td><td class="top">Josefsson, S. and N. Williams, &#8220;<a href="http://tools.ietf.org/html/rfc5801">Using Generic Security Service Application Program Interface (GSS-API) Mechanisms in Simple Authentication and Security Layer (SASL): The GS2 Mechanism Family</a>&#8221;, RFC&nbsp;5801, July&nbsp;2010.</td></tr><tr><td class="reference"><b id="RFC5587">[RFC5587]</b></td><td class="top">Williams, N., &#8220;<a href="http://tools.ietf.org/html/rfc5587">Extended Generic Security Service Mechanism Inquiry APIs</a>&#8221;, RFC&nbsp;5587, July&nbsp;2009.</td></tr><tr><td class="reference"><b id="I-D.ietf-kitten-gssapi-naming-exts">[I-D.ietf-kitten-gssapi-naming-exts]</b></td><td class="top">Williams, N., Johansson, L., Hartman, S., and S. Josefsson, &#8220;<a href="http://tools.ietf.org/html/draft-ietf-kitten-gssapi-naming-exts-15">GSS-API Naming Extensions</a>&#8221;, Internet-Draft&nbsp;draft-ietf-kitten-gssapi-naming-exts-15 (work in progress), May&nbsp;2012.</td></tr><tr><td class="reference"><b id="RFC5588">[RFC5588]</b></td><td class="top">Williams, N., &#8220;<a href="http://tools.ietf.org/html/rfc5588">Generic Security Service Application Program Interface (GSS-API) Extension for Storing Delegated Credentials</a>&#8221;, RFC&nbsp;5588, July&nbsp;2009.</td></tr><tr><td class="reference"><b id="RFC4401">[RFC4401]</b></td><td class="top">Williams, N., &#8220;<a href="http://tools.ietf.org/html/rfc4401">A Pseudo-Random Function (PRF) API Extension for the Generic Security Service Application Program Interface (GSS-API)</a>&#8221;, RFC&nbsp;4401, February&nbsp;2006.</td></tr></table><hr class="noprint"><h1 id="rfc.authors" class="np"><a href="#rfc.authors">Author's Address</a></h1><address class="vcard"><span class="vcardline"><span class="fn">Nicolas Williams</span><span class="n hidden"><span class="family-name">Williams</span><span class="given-name">Nicolas</span></span></span><span class="org vcardline">Cryptonector, LLC</span><span class="vcardline">EMail: <a href="mailto:nico@cryptonector.com"><span class="email">nico@cryptonector.com</span></a></span></address><p class="error">
+
+  This stylesheet requires either an XSLT-1.0 processor with node-set()
+  extension function, or an XSLT-2.0 processor. Therefore, parts of the
+  document couldn't be displayed.
+</p></body></html>

@@ -1,0 +1,632 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/2001/REC-MathML2-20010221/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="GENERATOR" content="LyX 2.0.0" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>Simplified and Minimized Profiles of the Generic Security Services Application Programming Interface</title>
+
+<!-- Text Class Preamble -->
+<style type="text/css">
+div.toc {
+margin: 2em 0em;
+border-style: solid;
+border-width: 2px 0px;
+padding: 1em 0em;
+}
+div.tochead { font-size: x-large; font-weight: bold; }
+div.lyxtoc-0 {
+margin: 2em 0em 0em 0em;
+font-size: xx-large;
+font-weight: bold;
+}
+div.lyxtoc-1 {
+margin: 1em 0em 0em 0em;
+font-size: x-large;
+font-weight: bold;
+}
+div.lyxtoc-2 {
+margin: 0em 0em 0em 1em;
+font-size: large;
+font-weight: normal;
+}
+div.lyxtoc-3 { margin: 0em 0em 0em 0.5em; font-size: medium; }
+div.lyxtoc-4 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-5 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-6 { margin: 0em 0em 0em 0.5em; }
+a.tocentry {
+text-decoration: none;
+color: black;
+}
+a.tocentry:visited { color: black; }
+a.tocarrow {
+font-weight: bold;
+text-decoration: none;
+color: #909090;
+}
+a.tocarrow:visited { color: #C0C0C0; }
+</style>
+
+<!-- Preamble Snippets -->
+
+<!-- Layout-provided Styles -->
+<style type='text/css'>
+h1.title {
+font-size: x-large;
+margin-bottom: 1ex;
+text-align: center;
+
+}
+div.standard {
+text-align: left;
+
+}
+div.plain_layout {
+text-align: left;
+
+}
+div.author {
+font-size: large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: center;
+
+}
+div.abstract {
+font-size: small;
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+margin-right: 3ex;
+text-align: left;
+
+}
+div.abstract_label {
+font-weight: bold;
+font-size: large;
+text-align: center;
+
+}
+
+div.abstract {
+margin: 4ex;
+}
+div.abstract_item {
+font-size: small;
+padding-top: 1ex;
+}
+div.abstract_label {
+font-weight: bold;
+}
+h2.section {
+font-weight: bold;
+font-size: x-large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: left;
+
+}
+h3.subsection {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
+ul.itemize {
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+text-align: left;
+
+}
+dl.description dt { font-weight: bold; }
+div.bibliography {
+text-align: left;
+
+}
+div.flex_docname {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_ipr {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_intendedstatus {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_titleabbrev {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_ietfarea {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_xml_rfckeyword {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_pi {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_authororg {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_authororgabbrev {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_authoremailaddr {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_referenceentity {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+</style>
+</head>
+<body>
+<h1 class="title"><a id='magicparlabel-1' />
+Simplified and Minimized Profiles of the Generic Security Services Application Programming Interface</h1>
+<div class="standard"><a id='magicparlabel-2' />
+<div class="flex_docname"><div class="plain_layout"><a id='magicparlabel-6' />
+draft-williams-gss-profiles-00</div>
+</div><div class="flex_ipr"><div class="plain_layout"><a id='magicparlabel-10' />
+trust200902</div>
+</div><div class="flex_intendedstatus"><div class="plain_layout"><a id='magicparlabel-14' />
+info</div>
+</div><div class="flex_titleabbrev"><div class="plain_layout"><a id='magicparlabel-18' />
+GSS-API Profiles</div>
+</div><div class="flex_ietfarea"><div class="plain_layout"><a id='magicparlabel-22' />
+Security Area</div>
+</div><div class="flex_xml_rfckeyword"><div class="plain_layout"><a id='magicparlabel-26' />
+Internet-Draft</div>
+</div><div class="flex_pi"><div class="plain_layout"><a id='magicparlabel-30' />
+tocindent="no"</div>
+</div><div class="flex_pi"><div class="plain_layout"><a id='magicparlabel-34' />
+comments="yes"</div>
+</div><div class="flex_pi"><div class="plain_layout"><a id='magicparlabel-38' />
+inline="yes"</div>
+</div></div>
+
+<div class="author"><div class="author_item"><a id='magicparlabel-39' />
+Nicolas Williams<div class="flex_authororg"><div class="plain_layout"><a id='magicparlabel-43' />
+Cryptonector, LLC</div>
+</div><div class="flex_authororgabbrev"><div class="plain_layout"><a id='magicparlabel-47' />
+Cryptonector</div>
+</div><div class="flex_authoremailaddr"><div class="plain_layout"><a id='magicparlabel-51' />
+nico@cryptonector.com</div>
+</div></div>
+</div>
+
+<div class="abstract"><div class="abstract_label">Abstract</div>
+<div class="abstract_item"><a id='magicparlabel-52' />
+The Generic Security Service Application Programming Interface (GSS-API) is often mistaken for a bloated framework. This document describes simplified and minimized profiles of the GSS-API for two purposes: explaining its use, whether in standards specifications or actual applications, and specifying sub-sets of the API for those applications that wish to use it but not carry the whole thing.</div>
+</div>
+<div class="standard"><a id='magicparlabel-53' />
+</div>
+<div class='toc'><div class='tochead part_'>Table of Contents</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-54' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-54' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-56' class='tocentry'>1.1 Conventions used in this document</a> <a href='#magicparlabel-56' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-58' class='tocentry'>2 Simple Profiles of the GSS-API</a> <a href='#magicparlabel-58' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-67' class='tocentry'>2.1 Trivial Initiator (client) Application</a> <a href='#magicparlabel-67' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-79' class='tocentry'>2.2 Simple Initiator Application</a> <a href='#magicparlabel-79' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-84' class='tocentry'>2.3 Trivial Acceptor (server) Application</a> <a href='#magicparlabel-84' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-98' class='tocentry'>2.4 Simple Acceptor Application</a> <a href='#magicparlabel-98' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-103' class='tocentry'>3 Transport Security Options</a> <a href='#magicparlabel-103' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-104' class='tocentry'>3.1 TLS with Server Name Binding</a> <a href='#magicparlabel-104' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-107' class='tocentry'>3.2 TLS with Channel Binding</a> <a href='#magicparlabel-107' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-110' class='tocentry'>3.3 Per-Message Tokens</a> <a href='#magicparlabel-110' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-118' class='tocentry'>3.4 GSS-Keyed Application Transport Security Layer</a> <a href='#magicparlabel-118' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-122' class='tocentry'>4 Complex Profiles</a> <a href='#magicparlabel-122' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-123' class='tocentry'>4.1 Complex Initiator Application</a> <a href='#magicparlabel-123' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-125' class='tocentry'>4.2 Complex Acceptor Application</a> <a href='#magicparlabel-125' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-131' class='tocentry'>5 GSS-API Profile and Subset Identifiers</a> <a href='#magicparlabel-131' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-150' class='tocentry'>5.1 C-Bindings</a> <a href='#magicparlabel-150' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-152' class='tocentry'>6 References</a> <a href='#magicparlabel-152' class='tocarrow'>&gt;</a></div>
+</div>
+
+<h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-54' />
+Introduction</h2>
+<div class="standard"><a id='magicparlabel-55' />
+...</div>
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-56' />
+Conventions used in this document</h3>
+<div class="standard"><a id='magicparlabel-57' />
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [<a href='#key-1'>key-1</a>].</div>
+<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-58' />
+Simple Profiles of the GSS-API</h2>
+<div class="standard"><a id='magicparlabel-59' />
+We define profiles of the GSS-API for a variety of applications:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-60' />
+Trivial client (&ldquo;initiator&rdquo;) applications;</li>
+<li class="itemize_item"><a id='magicparlabel-61' />
+Simple initiator applications;</li>
+<li class="itemize_item"><a id='magicparlabel-62' />
+Simple initiator applications with per-message tokens;</li>
+<li class="itemize_item"><a id='magicparlabel-63' />
+Trivial server (&ldquo;acceptor&rdquo;) applications;</li>
+<li class="itemize_item"><a id='magicparlabel-64' />
+Simple acceptor applications;</li>
+<li class="itemize_item"><a id='magicparlabel-65' />
+Simple acceptor applications with per-message tokens;</li>
+</ul>
+<div class="standard"><a id='magicparlabel-66' />
+We also define C bindings for these profiles, as well as for specific additional subsets of GSS-API functionality. These will take the form of C pre-processor macros indicating what profiles and functionality subsets are available.</div>
+<h3 class="subsection"><span class="subsection_label">2.1</span> <a id='magicparlabel-67' />
+<a id="sub_Trivial_Initiator" />
+Trivial Initiator (client) Application</h3>
+<div class="standard"><a id='magicparlabel-68' />
+This profile requires just six GSS-API functions, three of which are destructors, and one of which is a function for formatting error strings:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-69' />
+GSS_Import_name()</li>
+<li class="itemize_item"><a id='magicparlabel-70' />
+GSS_Init_sec_context()</li>
+<li class="itemize_item"><a id='magicparlabel-71' />
+GSS_Release_name()</li>
+<li class="itemize_item"><a id='magicparlabel-72' />
+GSS_Release_buffer()</li>
+<li class="itemize_item"><a id='magicparlabel-73' />
+GSS_Delete_sec_context()</li>
+<li class="itemize_item"><a id='magicparlabel-74' />
+GSS_Display_status()</li>
+</ul>
+<div class="standard"><a id='magicparlabel-75' />
+The trivial initiator application profile REQUIRES two name-types: GSS_C_NT_HOSTBASED_SERVICE and GSS_C_NO_OID (denoting a mechanism-specific default name syntax).</div>
+
+<div class="standard"><a id='magicparlabel-76' />
+A trivial initiator application begins by using GSS_Import_name() to get a NAME object for the target acceptor (server). This will be a host-based service name like &ldquo;HTTP@hostname&rdquo;. The application then loops over GSS_Init_sec_context() to drive the exchange security context tokens (authentication messages) with the target.</div>
+
+<div class="standard"><a id='magicparlabel-77' />
+Most input arguments to GSS_Init_sec_context() will be defaulted.</div>
+
+<div class="standard"><a id='magicparlabel-78' />
+If a trivial initiator application has multiple initiator credentials to choose from then the choice of credential will be left to the GSS-API framework or security mechanism. GSS-API implementations SHOULD provide some facility for configuring reasonable initiator identity selection.</div>
+<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-79' />
+<a id="sub_Simple_Initiator" />
+Simple Initiator Application</h3>
+<div class="standard"><a id='magicparlabel-80' />
+This profile adds two functions to the trivial initiator application profile, one of which is a destructor:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-81' />
+GSS_Acquire_cred()</li>
+<li class="itemize_item"><a id='magicparlabel-82' />
+GSS_Release_cred()</li>
+</ul>
+<div class="standard"><a id='magicparlabel-83' />
+The initiator application may have multiple credentials and want to choose a specific one to authenticate as to a target. Such an application does so by calling GSS_Import_name() for the desired name, then GSS_Acquire_cred() to acquire a CREDENTIAL HANDLE to pass to GSS_Init_sec_context() as the initiator credential.</div>
+<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-84' />
+<a id="sub_Trivial_Acceptor" />
+Trivial Acceptor (server) Application</h3>
+<div class="standard"><a id='magicparlabel-85' />
+This profile requires just eight GSS-API functions, three of which are destructors, and one of which is a function for formatting error strings:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-86' />
+GSS_Accept_sec_context()</li>
+<li class="itemize_item"><a id='magicparlabel-87' />
+GSS_Display_name_ext()</li>
+<li class="itemize_item"><a id='magicparlabel-88' />
+GSS_Display_name()</li>
+<li class="itemize_item"><a id='magicparlabel-89' />
+GSS_Export_name()</li>
+<li class="itemize_item"><a id='magicparlabel-90' />
+GSS_Release_name()</li>
+<li class="itemize_item"><a id='magicparlabel-91' />
+GSS_Release_buffer()</li>
+<li class="itemize_item"><a id='magicparlabel-92' />
+GSS_Delete_sec_context()</li>
+<li class="itemize_item"><a id='magicparlabel-93' />
+GSS_Display_status()</li>
+</ul>
+<div class="standard"><a id='magicparlabel-94' />
+This profile REQUIRES one name-type: GSS_C_NT_USERNAME.</div>
+
+<div class="standard"><a id='magicparlabel-95' />
+A trivial acceptor application begins by using GSS_Accept_sec_context() to drive an exchange of security context tokens by which to authenticate an initiator. A successful authentication will yield a NAME representing the identity of the initiator &ndash; the acceptor will perform authorization based on the name of the initiator. The acceptor application MUST use one of GSS_Display_name_ext(), GSS_Display_name(), or GSS_Export_name() to obtain a textual or binary representation of the initiator name suitable for authorization.</div>
+
+<div class="standard"><a id='magicparlabel-96' />
+Most input arguments to GSS_Accept_sec_context() will be defaulted.</div>
+
+<div class="standard"><a id='magicparlabel-97' />
+If a trivial acceptor application has multiple acceptor credentials to choose from then the choice will be the initiator's.</div>
+<h3 class="subsection"><span class="subsection_label">2.4</span> <a id='magicparlabel-98' />
+<a id="sub_Simple_Acceptor" />
+Simple Acceptor Application</h3>
+<div class="standard"><a id='magicparlabel-99' />
+This profile adds three functions to the trivial initiator application profile, one of which is a destructor:</div>
+
+<dl class='description'><dt class="description_label">GSS_Inquire_context()</dt>
+<dd class="description_item"><a id='magicparlabel-100' />
+ A simple acceptor application may be interested in knowing what name it was called by the initiator, and may do so by calling GSS_Inquire_context().</dd>
+<dt class="description_label">GSS_Store_cred()</dt>
+<dd class="description_item"><a id='magicparlabel-101' />
+ A simple acceptor application may have a use for delegated credentials. This function makes it possible to make delegated credentials available to other applications.</dd>
+<dt class="description_label">GSS_Release_cred()</dt>
+<dd class="description_item"><a id='magicparlabel-102' />
+ This is the destructor for the delegated CREDENTIAL HANDLE.</dd>
+</dl>
+<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-103' />
+Transport Security Options</h2>
+<h3 class="subsection"><span class="subsection_label">3.1</span> <a id='magicparlabel-104' />
+<a id="sub_TLS_Name_Binding" />
+TLS with Server Name Binding</h3>
+<div class="standard"><a id='magicparlabel-105' />
+This profile adds not functions to any of the trivial and simple acceptor application profiles.</div>
+
+<div class="standard"><a id='magicparlabel-106' />
+Applications using this profile use TLS[<a href='#key-2'>key-2</a>] for transport security and the GSS-API for authentication. This profile REQUIRES that applications use a TLS server certificate to authenticate the server to the client and that the same server name used to authenticate the server in TLS also be used to authenticate the server in the GSS-API.</div>
+<h3 class="subsection"><span class="subsection_label">3.2</span> <a id='magicparlabel-107' />
+<a id="sub_TLS_CB" />
+TLS with Channel Binding</h3>
+<div class="standard"><a id='magicparlabel-108' />
+This profile adds no functions to any of the initiator or acceptor application profiles. Instead this profile makes support for channel binding[<a href='#key-3'>key-3</a>] REQUIRED.</div>
+
+<div class="standard"><a id='magicparlabel-109' />
+Applications using this profile use TLS[<a href='#key-2'>key-2</a>] for transport security, possibly using anonymous Diffie-Hellman (DH) cipher suites. Channel binding ensures that the end-points of the TLS connection are logically the same as the GSS-API end-points, thus ensuring that there are no men in the middle (MITMs) even if anonymous DH TLS cipher suites are used.</div>
+<h3 class="subsection"><span class="subsection_label">3.3</span> <a id='magicparlabel-110' />
+<a id="sub_Per_msg_tokens" />
+Per-Message Tokens</h3>
+<div class="standard"><a id='magicparlabel-111' />
+This profile adds four functions to the simple initiator application profile:</div>
+
+<dl class='description'><dt class="description_label">GSS_GetMIC()</dt>
+<dd class="description_item"><a id='magicparlabel-112' />
+ Get an authentication code for a message (something like a MAC);</dd>
+<dt class="description_label">GSS_VerifyMIC()</dt>
+<dd class="description_item"><a id='magicparlabel-113' />
+ Verify an authentication code sent by the peer;</dd>
+<dt class="description_label">GSS_Wrap()</dt>
+<dd class="description_item"><a id='magicparlabel-114' />
+ Wrap an application message, typically to provide confidentiality and integrity protection (i.e., encrypt with authentication);</dd>
+<dt class="description_label">GSS_Unwrap()</dt>
+<dd class="description_item"><a id='magicparlabel-115' />
+ Unwrap a wrapped application message (i.e., decrypt with authentication).</dd>
+</dl>
+<div class="standard"><a id='magicparlabel-116' />
+An application of this type will rely on the GSS-API security mechanism to provide confidentiality and/or integrity protection to the application's messages. This kind of application typically does not use TLS or any other framework for transport security.</div>
+
+<div class="standard"><a id='magicparlabel-117' />
+Applications may use these functions to implement either of octet streams and unsequenced datagram security layers.</div>
+<h3 class="subsection"><span class="subsection_label">3.4</span> <a id='magicparlabel-118' />
+<a id="sub_PRF" />
+GSS-Keyed Application Transport Security Layer</h3>
+<div class="standard"><a id='magicparlabel-119' />
+This profile adds one function to the simple initiator application profile:</div>
+
+<dl class='description'><dt class="description_label">GSS_Pseudo_random()</dt>
+<dd class="description_item"><a id='magicparlabel-120' />
+ Get a pseudo-random output octet string based on session keys exchanged by the GSS-API security mechanism and an input octet string provided by the application.</dd>
+</dl>
+<div class="standard"><a id='magicparlabel-121' />
+An application of this type typically has its own transport security layer (i.e., does its own encryption) and only requires a session key, which it can get from the GSS-API security context by using the GSS_Pseudo_random()[<a href='#key-12'>key-12</a>] function to obtain an octet string of suitable length.</div>
+<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-122' />
+Complex Profiles</h2>
+<h3 class="subsection"><span class="subsection_label">4.1</span> <a id='magicparlabel-123' />
+<a id="sub_Complex_Initiator_Application" />
+Complex Initiator Application</h3>
+<div class="standard"><a id='magicparlabel-124' />
+A complex initiator application requires most of the functions defined in [<a href='#key-9'>key-9</a>] in addition to those of the simple initiator application profile.</div>
+<h3 class="subsection"><span class="subsection_label">4.2</span> <a id='magicparlabel-125' />
+<a id="sub_Complex_Acceptor_Application" />
+Complex Acceptor Application</h3>
+<div class="standard"><a id='magicparlabel-126' />
+A complex acceptor application typically requires fine-grained access to the initiator names so as to implement more advanced authorization schemes. This means all of the naming extensions APIs:</div>
+
+<dl class='description'><dt class="description_label">GSS_Display_name_ext()</dt>
+<dd class="description_item"><a id='magicparlabel-127' />
+ Already covered in <a href="#sub_Trivial_Acceptor">2.3</a>.</dd>
+<dt class="description_label">GSS_Inquire_name()</dt>
+<dd class="description_item"><a id='magicparlabel-128' />
+ Needed to list attributes available in the initiator name.</dd>
+<dt class="description_label">GSS_Get_name_attribute()</dt>
+<dd class="description_item"><a id='magicparlabel-129' />
+ Needed to access individual attributes of the initiator name.</dd>
+<dt class="description_label">GSS_Export_name_composite()</dt>
+<dd class="description_item"><a id='magicparlabel-130' />
+ Needed to be able to save a binary version of the initiator name with all its attributes.</dd>
+</dl>
+<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-131' />
+GSS-API Profile and Subset Identifiers</h2>
+<div class="standard"><a id='magicparlabel-132' />
+We define identifiers for GSS-API profiles and subsets. These should be used as follows:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-133' />
+Internet application specifications using the GSS-API must list the profiles/subsets of the API required to implement the specification;</li>
+<li class="itemize_item"><a id='magicparlabel-134' />
+GSS-API implementations SHOULD use these identifiers to advertise which profiles/subsets of the API are available</li>
+<li class="itemize_item"><a id='magicparlabel-135' />
+GSS-API application implementations using the GSS-API in the implementation SHOULD use these identifiers to request profiles/subsets of the API to use.</li>
+</ul>
+<div class="standard"><a id='magicparlabel-136' />
+The identifiers are:</div>
+
+<dl class='description'><dt class="description_label">GSS_PR_V2U1</dt>
+<dd class="description_item"><a id='magicparlabel-137' />
+ This refers to the base GSS-API version 2 update 1.</dd>
+<dt class="description_label">GSS_PR_TRIVIAL_INITIATOR</dt>
+<dd class="description_item"><a id='magicparlabel-138' />
+ See <a href="#sub_Trivial_Initiator">2.1</a>.</dd>
+<dt class="description_label">GSS_PR_SIMPLE_INITIATOR</dt>
+<dd class="description_item"><a id='magicparlabel-139' />
+ See <a href="#sub_Simple_Initiator">2.2</a>.</dd>
+<dt class="description_label">GSS_PR_TRIVIAL_ACCEPTOR</dt>
+<dd class="description_item"><a id='magicparlabel-140' />
+ See <a href="#sub_Trivial_Acceptor">2.3</a>.</dd>
+<dt class="description_label">GSS_PR_SIMPLE_ACCEPTOR</dt>
+<dd class="description_item"><a id='magicparlabel-141' />
+ See <a href="#sub_Simple_Acceptor">2.4</a>.</dd>
+<dt class="description_label">GSS_PR_COMPLEX_INITIATOR</dt>
+<dd class="description_item"><a id='magicparlabel-142' />
+ See <a href="#sub_Complex_Initiator_Application">4.1</a>.</dd>
+<dt class="description_label">GSS_PR_COMPLEX_ACCEPTOR</dt>
+<dd class="description_item"><a id='magicparlabel-143' />
+ See <a href="#sub_Complex_Acceptor_Application">4.2</a>.</dd>
+<dt class="description_label">GSS_PR_CB</dt>
+<dd class="description_item"><a id='magicparlabel-144' />
+ See <a href="#sub_TLS_CB">3.2</a>.</dd>
+<dt class="description_label">GSS_PR_MSG_TOKENS</dt>
+<dd class="description_item"><a id='magicparlabel-145' />
+ See <a href="#sub_Per_msg_tokens">3.3</a>.</dd>
+<dt class="description_label">GSS_PR_PRF</dt>
+<dd class="description_item"><a id='magicparlabel-146' />
+ See <a href="#sub_PRF">3.4</a>[<a href='#key-12'>key-12</a>].</dd>
+<dt class="description_label">GSS_PR_STORE_CRED</dt>
+<dd class="description_item"><a id='magicparlabel-147' />
+ See <a href="#sub_Simple_Acceptor">2.4</a> and </dd>
+<dt class="description_label">GSS_PR_EXTENDED_MECH_INQUIRY</dt>
+<dd class="description_item"><a id='magicparlabel-148' />
+ Functions from [<a href='#key-9'>key-9</a>]</dd>
+<dt class="description_label">GSS_PR_EXTENDED_NAMING</dt>
+<dd class="description_item"><a id='magicparlabel-149' />
+ Functions from [<a href='#key-10'>key-10</a>]</dd>
+</dl>
+<h3 class="subsection"><span class="subsection_label">5.1</span> <a id='magicparlabel-150' />
+C-Bindings</h3>
+<div class="standard"><a id='magicparlabel-151' />
+C pre-processor macros MUST be defined by &lt;gssapi.h&gt; or &lt;gssapi/gssapi.h&gt; for each of the supported profiles and subsets of the GSS-API supported by the GSS-API implementation. The C pre-processor macro names MUST be as given in the preceding section, and the value should be 1 if the macro is defined.</div>
+<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-152' />
+References</h2>
+<div class="bibliography"><a id='magicparlabel-153' />
+<a id='' />
+<span class='bibitemlabel'>1</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-157' />
+rfc2119</div>
+</div><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-158' />
+<a id='' />
+<span class='bibitemlabel'>2</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-162' />
+rfc5246</div>
+</div><a href="http://www.ietf.org/rfc/rfc5246.txt">RFC5246</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-163' />
+<a id='' />
+<span class='bibitemlabel'>3</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-167' />
+rfc5056</div>
+</div><a href="http://www.ietf.org/rfc/rfc5056.txt">RFC5056</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-168' />
+<a id='' />
+<span class='bibitemlabel'>4</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-172' />
+I-D.williams-rest-gss</div>
+</div><a href="https://datatracker.ietf.org/doc/draft-williams-rest-gss/">I-D.williams-rest-gss</a><a href="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-173' />
+<a id='' />
+<span class='bibitemlabel'>5</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-177' />
+rfc4422</div>
+</div><a href="http://www.ietf.org/rfc/rfc4422.txt">RFC4422</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-178' />
+<a id='' />
+<span class='bibitemlabel'>6</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-182' />
+rfc2743</div>
+</div><a href="http://www.ietf.org/rfc/rfc2743.txt">RFC2743</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-183' />
+<a id='' />
+<span class='bibitemlabel'>7</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-187' />
+rfc4559</div>
+</div><a href="http://www.ietf.org/rfc/rfc4559.txt">RFC4559</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-188' />
+<a id='' />
+<span class='bibitemlabel'>8</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-192' />
+rfc5801</div>
+</div><a href="http://www.ietf.org/rfc/rfc5801.txt">RFC5801</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-193' />
+<a id='' />
+<span class='bibitemlabel'>9</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-197' />
+rfc5587</div>
+</div><a href="http://www.ietf.org/rfc/rfc5587.txt">RFC5587</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-198' />
+<a id='' />
+<span class='bibitemlabel'>10</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-202' />
+I-D.ietf-kitten-gssapi-naming-exts</div>
+</div><a href="https://datatracker.ietf.org/doc/draft-ietf-kitten-gssapi-naming-exts/">I-D.ietf-kitten-gssapi-naming-exts</a><a href="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-kitten-gssapi-naming-exts.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-203' />
+<a id='' />
+<span class='bibitemlabel'>11</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-207' />
+rfc5588</div>
+</div><a href="http://www.ietf.org/rfc/rfc5588.txt">RFC5588</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5588.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-208' />
+<a id='' />
+<span class='bibitemlabel'>12</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-212' />
+rfc4401</div>
+</div><a href="http://www.ietf.org/rfc/rfc4401.txt">RFC4401</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4401.xml">(bibxml)</a></div>
+
+<div class="standard"><a id='magicparlabel-213' />
+...</div>
+
+<div class="standard"><a id='magicparlabel-214' />
+...</div>
+</body>
+</html>

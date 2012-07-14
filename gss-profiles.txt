@@ -1,0 +1,728 @@
+
+
+
+Network Working Group                                        N. Williams
+Internet-Draft                                              Cryptonector
+Intended status: Informational                             July 14, 2012
+Expires: January 15, 2013
+
+
+   Simplified and Minimized Profiles of the Generic Security Services
+                   Application Programming Interface
+                     draft-williams-gss-profiles-00
+
+Abstract
+
+   The Generic Security Service Application Programming Interface (GSS-
+   API) is often mistaken for a bloated framework.  This document
+   describes simplified and minimized profiles of the GSS-API for two
+   purposes: explaining its use, whether in standards specifications or
+   actual applications, and specifying sub-sets of the API for those
+   applications that wish to use it but not carry the whole thing.
+
+Status of this Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on January 15, 2013.
+
+Copyright Notice
+
+   Copyright (c) 2012 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (http://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+
+
+
+Williams                Expires January 15, 2013                [Page 1]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+Table of Contents
+
+   1.    Introduction . . . . . . . . . . . . . . . . . . . . . . . .  3
+   1.1.  Conventions used in this document  . . . . . . . . . . . . .  3
+   2.    Simple Profiles of the GSS-API . . . . . . . . . . . . . . .  4
+   2.1.  Trivial Initiator (client) Application . . . . . . . . . . .  4
+   2.2.  Simple Initiator Application . . . . . . . . . . . . . . . .  5
+   2.3.  Trivial Acceptor (server) Application  . . . . . . . . . . .  5
+   2.4.  Simple Acceptor Application  . . . . . . . . . . . . . . . .  6
+   3.    Transport Security Options . . . . . . . . . . . . . . . . .  7
+   3.1.  TLS with Server Name Binding . . . . . . . . . . . . . . . .  7
+   3.2.  TLS with Channel Binding . . . . . . . . . . . . . . . . . .  7
+   3.3.  Per-Message Tokens . . . . . . . . . . . . . . . . . . . . .  7
+   3.4.  GSS-Keyed Application Transport Security Layer . . . . . . .  8
+   4.    Complex Profiles . . . . . . . . . . . . . . . . . . . . . .  9
+   4.1.  Complex Initiator Application  . . . . . . . . . . . . . . .  9
+   4.2.  Complex Acceptor Application . . . . . . . . . . . . . . . .  9
+   5.    GSS-API Profile and Subset Identifiers . . . . . . . . . . . 10
+   5.1.  C-Bindings . . . . . . . . . . . . . . . . . . . . . . . . . 11
+   6.    References . . . . . . . . . . . . . . . . . . . . . . . . . 12
+         Author's Address . . . . . . . . . . . . . . . . . . . . . . 13
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013                [Page 2]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+1.  Introduction
+
+   ...
+
+1.1.  Conventions used in this document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013                [Page 3]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+2.  Simple Profiles of the GSS-API
+
+   We define profiles of the GSS-API for a variety of applications:
+
+   o  Trivial client ("initiator") applications;
+
+   o  Simple initiator applications;
+
+   o  Simple initiator applications with per-message tokens;
+
+   o  Trivial server ("acceptor") applications;
+
+   o  Simple acceptor applications;
+
+   o  Simple acceptor applications with per-message tokens;
+
+   We also define C bindings for these profiles, as well as for specific
+   additional subsets of GSS-API functionality.  These will take the
+   form of C pre-processor macros indicating what profiles and
+   functionality subsets are available.
+
+2.1.  Trivial Initiator (client) Application
+
+   This profile requires just six GSS-API functions, three of which are
+   destructors, and one of which is a function for formatting error
+   strings:
+
+   o  GSS_Import_name()
+
+   o  GSS_Init_sec_context()
+
+   o  GSS_Release_name()
+
+   o  GSS_Release_buffer()
+
+   o  GSS_Delete_sec_context()
+
+   o  GSS_Display_status()
+
+   The trivial initiator application profile REQUIRES two name-types:
+   GSS_C_NT_HOSTBASED_SERVICE and GSS_C_NO_OID (denoting a mechanism-
+   specific default name syntax).
+
+   A trivial initiator application begins by using GSS_Import_name() to
+   get a NAME object for the target acceptor (server).  This will be a
+   host-based service name like "HTTP@hostname".  The application then
+   loops over GSS_Init_sec_context() to drive the exchange security
+   context tokens (authentication messages) with the target.
+
+
+
+Williams                Expires January 15, 2013                [Page 4]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+   Most input arguments to GSS_Init_sec_context() will be defaulted.
+
+   If a trivial initiator application has multiple initiator credentials
+   to choose from then the choice of credential will be left to the GSS-
+   API framework or security mechanism.  GSS-API implementations SHOULD
+   provide some facility for configuring reasonable initiator identity
+   selection.
+
+2.2.  Simple Initiator Application
+
+   This profile adds two functions to the trivial initiator application
+   profile, one of which is a destructor:
+
+   o  GSS_Acquire_cred()
+
+   o  GSS_Release_cred()
+
+   The initiator application may have multiple credentials and want to
+   choose a specific one to authenticate as to a target.  Such an
+   application does so by calling GSS_Import_name() for the desired
+   name, then GSS_Acquire_cred() to acquire a CREDENTIAL HANDLE to pass
+   to GSS_Init_sec_context() as the initiator credential.
+
+2.3.  Trivial Acceptor (server) Application
+
+   This profile requires just eight GSS-API functions, three of which
+   are destructors, and one of which is a function for formatting error
+   strings:
+
+   o  GSS_Accept_sec_context()
+
+   o  GSS_Display_name_ext()
+
+   o  GSS_Display_name()
+
+   o  GSS_Export_name()
+
+   o  GSS_Release_name()
+
+   o  GSS_Release_buffer()
+
+   o  GSS_Delete_sec_context()
+
+   o  GSS_Display_status()
+
+   This profile REQUIRES one name-type: GSS_C_NT_USERNAME.
+
+   A trivial acceptor application begins by using
+
+
+
+Williams                Expires January 15, 2013                [Page 5]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+   GSS_Accept_sec_context() to drive an exchange of security context
+   tokens by which to authenticate an initiator.  A successful
+   authentication will yield a NAME representing the identity of the
+   initiator - the acceptor will perform authorization based on the name
+   of the initiator.  The acceptor application MUST use one of
+   GSS_Display_name_ext(), GSS_Display_name(), or GSS_Export_name() to
+   obtain a textual or binary representation of the initiator name
+   suitable for authorization.
+
+   Most input arguments to GSS_Accept_sec_context() will be defaulted.
+
+   If a trivial acceptor application has multiple acceptor credentials
+   to choose from then the choice will be the initiator's.
+
+2.4.  Simple Acceptor Application
+
+   This profile adds three functions to the trivial initiator
+   application profile, one of which is a destructor:
+
+   GSS_Inquire_context()  A simple acceptor application may be
+      interested in knowing what name it was called by the initiator,
+      and may do so by calling GSS_Inquire_context().
+
+   GSS_Store_cred()  A simple acceptor application may have a use for
+      delegated credentials.  This function makes it possible to make
+      delegated credentials available to other applications.
+
+   GSS_Release_cred()  This is the destructor for the delegated
+      CREDENTIAL HANDLE.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013                [Page 6]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+3.  Transport Security Options
+
+3.1.  TLS with Server Name Binding
+
+   This profile adds not functions to any of the trivial and simple
+   acceptor application profiles.
+
+   Applications using this profile use TLS[RFC5246] for transport
+   security and the GSS-API for authentication.  This profile REQUIRES
+   that applications use a TLS server certificate to authenticate the
+   server to the client and that the same server name used to
+   authenticate the server in TLS also be used to authenticate the
+   server in the GSS-API.
+
+3.2.  TLS with Channel Binding
+
+   This profile adds no functions to any of the initiator or acceptor
+   application profiles.  Instead this profile makes support for channel
+   binding[RFC5056] REQUIRED.
+
+   Applications using this profile use TLS[RFC5246] for transport
+   security, possibly using anonymous Diffie-Hellman (DH) cipher suites.
+   Channel binding ensures that the end-points of the TLS connection are
+   logically the same as the GSS-API end-points, thus ensuring that
+   there are no men in the middle (MITMs) even if anonymous DH TLS
+   cipher suites are used.
+
+3.3.  Per-Message Tokens
+
+   This profile adds four functions to the simple initiator application
+   profile:
+
+   GSS_GetMIC()  Get an authentication code for a message (something
+      like a MAC);
+
+   GSS_VerifyMIC()  Verify an authentication code sent by the peer;
+
+   GSS_Wrap()  Wrap an application message, typically to provide
+      confidentiality and integrity protection (i.e., encrypt with
+      authentication);
+
+   GSS_Unwrap()  Unwrap a wrapped application message (i.e., decrypt
+      with authentication).
+
+   An application of this type will rely on the GSS-API security
+   mechanism to provide confidentiality and/or integrity protection to
+   the application's messages.  This kind of application typically does
+   not use TLS or any other framework for transport security.
+
+
+
+Williams                Expires January 15, 2013                [Page 7]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+   Applications may use these functions to implement either of octet
+   streams and unsequenced datagram security layers.
+
+3.4.  GSS-Keyed Application Transport Security Layer
+
+   This profile adds one function to the simple initiator application
+   profile:
+
+   GSS_Pseudo_random()  Get a pseudo-random output octet string based on
+      session keys exchanged by the GSS-API security mechanism and an
+      input octet string provided by the application.
+
+   An application of this type typically has its own transport security
+   layer (i.e., does its own encryption) and only requires a session
+   key, which it can get from the GSS-API security context by using the
+   GSS_Pseudo_random()[RFC4401] function to obtain an octet string of
+   suitable length.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013                [Page 8]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+4.  Complex Profiles
+
+4.1.  Complex Initiator Application
+
+   A complex initiator application requires most of the functions
+   defined in [RFC5587] in addition to those of the simple initiator
+   application profile.
+
+4.2.  Complex Acceptor Application
+
+   A complex acceptor application typically requires fine-grained access
+   to the initiator names so as to implement more advanced authorization
+   schemes.  This means all of the naming extensions APIs:
+
+   GSS_Display_name_ext()  Already covered in Section 2.3.
+
+   GSS_Inquire_name()  Needed to list attributes available in the
+      initiator name.
+
+   GSS_Get_name_attribute()  Needed to access individual attributes of
+      the initiator name.
+
+   GSS_Export_name_composite()  Needed to be able to save a binary
+      version of the initiator name with all its attributes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013                [Page 9]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+5.  GSS-API Profile and Subset Identifiers
+
+   We define identifiers for GSS-API profiles and subsets.  These should
+   be used as follows:
+
+   o  Internet application specifications using the GSS-API must list
+      the profiles/subsets of the API required to implement the
+      specification;
+
+   o  GSS-API implementations SHOULD use these identifiers to advertise
+      which profiles/subsets of the API are available
+
+   o  GSS-API application implementations using the GSS-API in the
+      implementation SHOULD use these identifiers to request profiles/
+      subsets of the API to use.
+
+   The identifiers are:
+
+   GSS_PR_V2U1  This refers to the base GSS-API version 2 update 1.
+
+   GSS_PR_TRIVIAL_INITIATOR  See Section 2.1.
+
+   GSS_PR_SIMPLE_INITIATOR  See Section 2.2.
+
+   GSS_PR_TRIVIAL_ACCEPTOR  See Section 2.3.
+
+   GSS_PR_SIMPLE_ACCEPTOR  See Section 2.4.
+
+   GSS_PR_COMPLEX_INITIATOR  See Section 4.1.
+
+   GSS_PR_COMPLEX_ACCEPTOR  See Section 4.2.
+
+   GSS_PR_CB  See Section 3.2.
+
+   GSS_PR_MSG_TOKENS  See Section 3.3.
+
+   GSS_PR_PRF  See Section 3.4 [RFC4401].
+
+   GSS_PR_STORE_CRED  See Section 2.4 and
+
+   GSS_PR_EXTENDED_MECH_INQUIRY  Functions from [RFC5587]
+
+   GSS_PR_EXTENDED_NAMING  Functions from
+      [I-D.ietf-kitten-gssapi-naming-exts]
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013               [Page 10]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+5.1.  C-Bindings
+
+   C pre-processor macros MUST be defined by <gssapi.h> or <gssapi/
+   gssapi.h> for each of the supported profiles and subsets of the GSS-
+   API supported by the GSS-API implementation.  The C pre-processor
+   macro names MUST be as given in the preceding section, and the value
+   should be 1 if the macro is defined.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013               [Page 11]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+6.  References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", RFC 5246, August 2008.
+
+   [RFC5056]  Williams, N., "On the Use of Channel Bindings to Secure
+              Channels", RFC 5056, November 2007.
+
+   [I-D.williams-rest-gss]
+              Williams, N., "RESTful Hypertext Transfer Protocol
+              Application-Layer Authentication Using Generic Security
+              Services", draft-williams-rest-gss-01 (work in progress),
+              June 2012.
+
+   [RFC4422]  Melnikov, A. and K. Zeilenga, "Simple Authentication and
+              Security Layer (SASL)", RFC 4422, June 2006.
+
+   [RFC2743]  Linn, J., "Generic Security Service Application Program
+              Interface Version 2, Update 1", RFC 2743, January 2000.
+
+   [RFC4559]  Jaganathan, K., Zhu, L., and J. Brezak, "SPNEGO-based
+              Kerberos and NTLM HTTP Authentication in Microsoft
+              Windows", RFC 4559, June 2006.
+
+   [RFC5801]  Josefsson, S. and N. Williams, "Using Generic Security
+              Service Application Program Interface (GSS-API) Mechanisms
+              in Simple Authentication and Security Layer (SASL): The
+              GS2 Mechanism Family", RFC 5801, July 2010.
+
+   [RFC5587]  Williams, N., "Extended Generic Security Service Mechanism
+              Inquiry APIs", RFC 5587, July 2009.
+
+   [I-D.ietf-kitten-gssapi-naming-exts]
+              Williams, N., Johansson, L., Hartman, S., and S.
+              Josefsson, "GSS-API Naming Extensions",
+              draft-ietf-kitten-gssapi-naming-exts-15 (work in
+              progress), May 2012.
+
+   [RFC5588]  Williams, N., "Generic Security Service Application
+              Program Interface (GSS-API) Extension for Storing
+              Delegated Credentials", RFC 5588, July 2009.
+
+   [RFC4401]  Williams, N., "A Pseudo-Random Function (PRF) API
+              Extension for the Generic Security Service Application
+              Program Interface (GSS-API)", RFC 4401, February 2006.
+
+
+
+Williams                Expires January 15, 2013               [Page 12]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
+
+Author's Address
+
+   Nicolas Williams
+   Cryptonector, LLC
+
+   Email: nico@cryptonector.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires January 15, 2013               [Page 13]
+
