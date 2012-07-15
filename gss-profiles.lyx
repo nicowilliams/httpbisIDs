@@ -425,6 +425,99 @@ By providing minimized profiles/subsets of the GSS-API we hope to make the
 \end_layout
 
 \begin_layout Subsection
+A Brief Primer on the GSS-API
+\end_layout
+
+\begin_layout Standard
+In GSS terminology we have:
+\end_layout
+
+\begin_layout Description
+Principals Entities to be authenticated;
+\end_layout
+
+\begin_layout Description
+Credentials Credentials are used to authenticate principals;
+\end_layout
+
+\begin_layout Description
+Security
+\begin_inset space ~
+\end_inset
+
+context
+\begin_inset space ~
+\end_inset
+
+tokens Messages exchanged by two principals to authenticate one to the other
+ (and possibly the other to the one);
+\end_layout
+
+\begin_layout Description
+Security
+\begin_inset space ~
+\end_inset
+
+contexts The shared state (e.g., session keys) that results from a successful
+ exchange of security context tokens;
+\end_layout
+
+\begin_layout Description
+Initiator The party (typically the client) that initiates a security context
+ token exchange;
+\end_layout
+
+\begin_layout Description
+Acceptor The party (typically the server) that receives an initial security
+ context token.
+\end_layout
+
+\begin_layout Standard
+The abstract API has a few data types:
+\end_layout
+
+\begin_layout Description
+Buffers Octet strings;
+\end_layout
+
+\begin_layout Description
+OIDs Constants identifying GSS mechanisms and name types;
+\end_layout
+
+\begin_layout Description
+OID
+\begin_inset space ~
+\end_inset
+
+sets Sets of OIDs;
+\end_layout
+
+\begin_layout Description
+NAME Opaque object representing the name of a principal;
+\end_layout
+
+\begin_layout Description
+CREDENTIAL
+\begin_inset space ~
+\end_inset
+
+HANDLE Opaque object representing a credential for authenticating the entity
+ that has access to it;
+\end_layout
+
+\begin_layout Description
+SECURITY
+\begin_inset space ~
+\end_inset
+
+CONTEXT
+\begin_inset space ~
+\end_inset
+
+HANDLE Opaque object representing a security context.
+\end_layout
+
+\begin_layout Subsection
 Conventions used in this document
 \end_layout
 
