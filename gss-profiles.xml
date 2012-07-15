@@ -38,15 +38,25 @@ The Generic Security Service Application Programming Interface (GSS-API) is ofte
     </abstract>
   </front>
   <middle>
-    <section title="Introduction" anchor="d1e233">
+    <section title="Introduction" anchor="d1e284">
       <t>
-...</t>
-      <section title="Conventions used in this document" anchor="d1e242">
+There has been some confusion in the Internet community as to the nature of the GSS-API. One problem that has been identified by some is that the GSS-API is quite large, that simpler subsets of it may be desirable. This document proposes some subsets and “profiles” of the GSS-API.</t>
+      <t>
+The GSS-API is first and foremost an <spanx style="emph">abstract</spanx>  API whose purpose is to describe with high precision how Internet application protocols handle user/service authentication and transport security.</t>
+      <t>
+The GSS-API is also a set of constraints on its security mechanisms.</t>
+      <t>
+The GSS-API is also a pattern for programming language bindings of the abstract GSS-API. In the IETF we have standardized C and Java bindings for the abstract API.</t>
+      <t>
+Note that there is <spanx style="emph">absolutely no requirement</spanx>  that implementators use the C or Java, or any other bindings of the GSS-API to implement applications whose specifications use the <spanx style="emph">abstract</spanx>  GSS-API. For example, one major implementor uses a different API (though in broad strokes quite similar to the GSS-API) to access generic security mechanisms, and applications using that API interoperate perfectly with applications that use bonafide GSS-API implementations.</t>
+      <t>
+By providing minimized profiles/subsets of the GSS-API we hope to make the GSS-API easier to use.</t>
+      <section title="Conventions used in this document" anchor="d1e318">
         <t>
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
       </section>
     </section>
-    <section title="Simple Profiles of the GSS-API" anchor="d1e254">
+    <section title="Simple Profiles of the GSS-API" anchor="d1e330">
       <t>
 We define profiles of the GSS-API for a variety of applications:</t>
       <t>
@@ -71,19 +81,25 @@ We also define C bindings for these profiles, as well as for specific additional
         <t>
 This profile requires just six GSS-API functions, three of which are destructors, and one of which is a function for formatting error strings:</t>
         <t>
+          <list style="hanging">
+            <t hangText="GSS_Import_name()">
+ Produces a NAME object given a string and a name type;</t>
+            <t hangText="GSS_Init_sec_context()">
+ Drives the exchange of security context tokens (authentication messages) on the initiator side;</t>
+            <t hangText="GSS_Display_status()">
+ Produces a human-readable representation of a status code (error code);</t>
+          </list>
+        </t>
+        <t>
+destructor functions:</t>
+        <t>
           <list style="symbols">
-            <t>
-GSS_Import_name()</t>
-            <t>
-GSS_Init_sec_context()</t>
             <t>
 GSS_Release_name()</t>
             <t>
 GSS_Release_buffer()</t>
             <t>
 GSS_Delete_sec_context()</t>
-            <t>
-GSS_Display_status()</t>
           </list>
         </t>
         <t>
@@ -99,9 +115,15 @@ If a trivial initiator application has multiple initiator credentials to choose 
         <t>
 This profile adds two functions to the trivial initiator application profile, one of which is a destructor:</t>
         <t>
+          <list style="hanging">
+            <t hangText="GSS_Acquire_cred()">
+ Produces a CREDENTIAL HANDLE for a given desired NAME.</t>
+          </list>
+        </t>
+        <t>
+destructor function:</t>
+        <t>
           <list style="symbols">
-            <t>
-GSS_Acquire_cred()</t>
             <t>
 GSS_Release_cred()</t>
           </list>
@@ -113,23 +135,29 @@ The initiator application may have multiple credentials and want to choose a spe
         <t>
 This profile requires just eight GSS-API functions, three of which are destructors, and one of which is a function for formatting error strings:</t>
         <t>
+          <list style="hanging">
+            <t hangText="GSS_Accept_sec_context()">
+ Driver of security context token exchange;</t>
+            <t hangText="GSS_Display_name_ext()">
+ Produces human-readable representation of a NAME object in the syntax of selected name type, if possible;</t>
+            <t hangText="GSS_Display_name()">
+ Produces a human-readable representation of a NAME object in a mechanism-specific syntax;</t>
+            <t hangText="GSS_Export_name()">
+ Produces a machine-readable representation of a NAME object in a mechanism-specific format;</t>
+            <t hangText="GSS_Display_status()">
+ Produces a human-readable representation of a status code (error code);</t>
+          </list>
+        </t>
+        <t>
+destructor functions:</t>
+        <t>
           <list style="symbols">
-            <t>
-GSS_Accept_sec_context()</t>
-            <t>
-GSS_Display_name_ext()</t>
-            <t>
-GSS_Display_name()</t>
-            <t>
-GSS_Export_name()</t>
             <t>
 GSS_Release_name()</t>
             <t>
 GSS_Release_buffer()</t>
             <t>
 GSS_Delete_sec_context()</t>
-            <t>
-GSS_Display_status()</t>
           </list>
         </t>
         <t>
@@ -156,7 +184,17 @@ This profile adds three functions to the trivial initiator application profile, 
         </t>
       </section>
     </section>
-    <section title="Transport Security Options" anchor="d1e426">
+    <section title="Transport Security Options" anchor="d1e532">
+      <t>
+Internet applications often require transport security – integrity protection or integrity and confidentiality protection. In simpler terms: some applications require encryption.</t>
+      <t>
+The GSS-API was originally designed to provide facilities that the application could use to protect its in-flight data. Since then a number of options have been added to make it easier to use the GSS-API in existing applications that already have transport security facilities. The GSS-API now supports applications that use TLS for transport security, applications that have their own cryptographic transport protection facilities (like AFS' RX transport), as well as applications that can just use the original GSS-API transport security facilities.</t>
+      <t>
+It is now possible to retrofit the GSS-API for authentication (and, where required, key exchange) into the widest possible range of applications.</t>
+      <section title="Null Transport Security" anchor="d1e547">
+        <t>
+In some environments strong authentication of users and services is sufficient, with no need to protect in-flight data from passive nor active attacks. The trivial and simple profiles of the GSS-API suffice for these applications.</t>
+      </section>
       <section title="TLS with Server Name Binding" anchor="sub_TLS_Name_Binding">
         <t>
 This profile adds not functions to any of the trivial and simple acceptor application profiles.</t>
@@ -202,10 +240,20 @@ This profile adds one function to the simple initiator application profile:</t>
 An application of this type typically has its own transport security layer (i.e., does its own encryption) and only requires a session key, which it can get from the GSS-API security context by using the GSS_Pseudo_random()<xref target="RFC4401"/> function to obtain an octet string of suitable length.</t>
       </section>
     </section>
-    <section title="Complex Profiles" anchor="d1e531">
+    <section title="Complex Profiles" anchor="d1e656">
       <section title="Complex Initiator Application" anchor="sub_Complex_Initiator_Application">
         <t>
-A complex initiator application requires most of the functions defined in <xref target="RFC5587"/> in addition to those of the simple initiator application profile.</t>
+A complex initiator application requires most of the functions defined in <xref target="RFC5587"/> in addition to those of the simple initiator application profile:</t>
+        <t>
+          <list style="hanging">
+            <t hangText="GSS_Indicate_mechs_by_attrs()">
+ Select mechanisms based on desired attributes;</t>
+            <t hangText="GSS_Inquire_attrs_for_mech()">
+ Get the set of attributes of a given mechanism.</t>
+          </list>
+        </t>
+        <t>
+These functions are useful for mechanism negotiation.</t>
       </section>
       <section title="Complex Acceptor Application" anchor="sub_Complex_Acceptor_Application">
         <t>
@@ -222,9 +270,17 @@ A complex acceptor application typically requires fine-grained access to the ini
  Needed to be able to save a binary version of the initiator name with all its attributes.</t>
           </list>
         </t>
+        <t>
+Complex acceptor applications may also need at least one extended mechanism inquiry function<xref target="RFC5587"/>:</t>
+        <t>
+          <list style="hanging">
+            <t hangText="GSS_Inquire_attrs_for_mech()">
+ Get the set of attributes of a given mechanism.</t>
+          </list>
+        </t>
       </section>
     </section>
-    <section title="GSS-API Profile and Subset Identifiers" anchor="d1e587">
+    <section title="GSS-API Profile and Subset Identifiers" anchor="sec_identifiers">
       <t>
 We define identifiers for GSS-API profiles and subsets. These should be used as follows:</t>
       <t>
@@ -272,10 +328,40 @@ The identifiers are:</t>
 </t>
         </list>
       </t>
-      <section title="C-Bindings" anchor="d1e716">
+      <section title="C-Bindings" anchor="d1e869">
         <t>
 C pre-processor macros MUST be defined by &lt;gssapi.h&gt; or &lt;gssapi/gssapi.h&gt; for each of the supported profiles and subsets of the GSS-API supported by the GSS-API implementation. The C pre-processor macro names MUST be as given in the preceding section, and the value should be 1 if the macro is defined.</t>
       </section>
+    </section>
+    <section title="Mechanism Profiles" anchor="d1e878">
+      <t>
+A mechanism profile is a set of GSS-API mechanisms that MUST be provided.</t>
+      <section title="Intranet Profile: SPNEGO, Kerberos" anchor="d1e887">
+        <t>
+...</t>
+      </section>
+      <section title="Internet Profile: SPNEGO, &lt;TBD&gt;" anchor="d1e897">
+        <t>
+...</t>
+      </section>
+    </section>
+    <section title="Minimized GSS-API Implementations" anchor="d1e906">
+      <t>
+Typically a GSS-API implementation includes all of the basic version 2, update 1 API<xref target="RFC2743"/>. For embedded and mobile applications it may be desirable to have minimized GSS-API implementations, both for the framework itself and the mechanisms. A minimized implementation should provide at least the functionality required by the application and, preferably, no more than is required by the application. In practice this may mean that a complete implementation may have to provide tools for reducing the functionality provided.</t>
+      <t>
+One possibility may be to implement a system whereby all the sources for a C implementation are combined into a single file and then C pre-processing can be used to eliminate all functionality that is not desired, then the resulting object file is linked into the application. This is known by some as an “amalgamation”, and is much like static linking, but can be significantly more selective. This approach is used by SQLite3, for example.</t>
+      <t>
+Another possibility is to structure the framework library and the mechanism plugins such that subsets are in distinct static linking archives or shared objects. This approach may result in a multiplicity of libraries and/or packages that reflect the profiles of the GSS-API.</t>
+      <t>
+For minimization we recommend either the amalgamation approach or a scheme whereby static linking archives are used. For general purpose use we recommend dynamic linking and no minimization.</t>
+    </section>
+    <section title="IANA Considerations" anchor="d1e927">
+      <t>
+We ask the IANA to create a registry of GSS-API profiles and subsets, with the identifiers list from of  <xref target="sec_identifiers"/> as its contents.</t>
+    </section>
+    <section title="Security Considerations" anchor="d1e939">
+      <t>
+The security considerations of the GSS-API version 2, update 1, and its various extensions apply. Using too trivial a profile for an application can have security impact. For example, applications using the trivial initiator application profile (GSS_PR_TRIVIAL_INITIATOR) cannot select an initiator identity and depend entirely on the framework and/or selected mechanism for this.</t>
     </section>
   </middle>
   <back>
