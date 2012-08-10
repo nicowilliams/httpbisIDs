@@ -1,0 +1,892 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass docbook
+\use_default_options true
+\maintain_unincluded_children false
+\begin_local_layout
+Format 31
+
+InsetLayout Flex:PI_Strict
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_SymRefs
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_SortRefs
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOC
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCIndent
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCDepth
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCNarrow
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCCompact
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:PI_TOCAppendix
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:DocName
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IntendedStatus
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:RFCNumber
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IPR
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IETFArea
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:IETFWorkingGroup
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:XML2RFCKeyword
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:TitleAbbrev
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorRole
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorInitials
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorSurname
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorOrg
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorOrgAbbrev
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorEmailAddr
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrStreet
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCity
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrRegion
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCode
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:AuthorAddrCountry
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:ReferenceEntity
+    LyXType Custom
+    HTMLTag div
+End
+\end_local_layout
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman cmr
+\font_sans cmss
+\font_typewriter cmtt
+\font_default_family ttdefault
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex DocName
+status collapsed
+
+\begin_layout Plain Layout
+draft-williams-http-rest-auth
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IPR
+status collapsed
+
+\begin_layout Plain Layout
+trust200902
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IntendedStatus
+status collapsed
+
+\begin_layout Plain Layout
+info
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex TitleAbbrev
+status collapsed
+
+\begin_layout Plain Layout
+RESTful Authentication
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex IETFArea
+status collapsed
+
+\begin_layout Plain Layout
+Security Area
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex XML2RFCKeyword
+status collapsed
+
+\begin_layout Plain Layout
+Internet-Draft
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+tocindent="no"
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+comments="yes"
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex PI
+status collapsed
+
+\begin_layout Plain Layout
+inline="yes"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Nicolas Williams
+\begin_inset Flex AuthorOrg
+status collapsed
+
+\begin_layout Plain Layout
+Cryptonector, LLC
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex AuthorOrgAbbrev
+status collapsed
+
+\begin_layout Plain Layout
+Cryptonector
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex AuthorEmailAddr
+status collapsed
+
+\begin_layout Plain Layout
+nico@cryptonector.com
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+This document proposes a 
+\begin_inset Quotes eld
+\end_inset
+
+RESTful
+\begin_inset Quotes erd
+\end_inset
+
+ pattern of authentication for HTTP/1.0, 1.1, and 2.0.
+ The existing 401 status code and WWW-Authenticate header are used to indicate
+ that authentication is required and for negotiation purposes.
+ The client POSTs an initial authentication message to an indicated login
+ URI, then 
+\end_layout
+
+\begin_layout Abstract
+This approach has a number of benefits: it can be implemented with or without
+ help from the HTTP stack, it can be universally implemented on the server
+ side using the Common Information Gateway (CGI) and FastCGI, it results
+ in a session Uniform Resource Identifier (URI) that can be DELETEd to logout,
+ it is completely orthogonal to any HTTP 
+\begin_inset Quotes eld
+\end_inset
+
+routers
+\begin_inset Quotes erd
+\end_inset
+
+ and proxies, and it naturally (i.e., without changing HTTP) handles multi-legged
+ authentication mechanisms.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Introduction"
+
+\end_inset
+
+Introduction
+\end_layout
+
+\begin_layout Standard
+We propose a pattern for HTTP authentication mechanisms that, by being 
+\begin_inset Quotes eld
+\end_inset
+
+RESTful
+\begin_inset Quotes erd
+\end_inset
+
+, obtains a number of benefits:
+\end_layout
+
+\begin_layout Itemize
+compatibility with 
+\begin_inset Quotes eld
+\end_inset
+
+HTTP routing
+\begin_inset Quotes erd
+\end_inset
+
+ by making no assumptions that related requests are sent over the same TCP/TLS
+ connection;
+\end_layout
+
+\begin_layout Itemize
+a 
+\begin_inset Quotes eld
+\end_inset
+
+session URI
+\begin_inset Quotes erd
+\end_inset
+
+ results that can be used to multiplex multiple sessions onto the same TCP/TLS
+ connections;
+\end_layout
+
+\begin_layout Itemize
+a 
+\begin_inset Quotes eld
+\end_inset
+
+session URI
+\begin_inset Quotes erd
+\end_inset
+
+ results that can be DELETEd to effect logout;
+\end_layout
+
+\begin_layout Itemize
+a 
+\begin_inset Quotes eld
+\end_inset
+
+session URI
+\begin_inset Quotes erd
+\end_inset
+
+ results that has better security semantics than web cookies;
+\end_layout
+
+\begin_layout Itemize
+the ability to refer to multiple sessions in one request wherever such a
+ concept might be useful;
+\end_layout
+
+\begin_layout Itemize
+can be implemented by any application without changes being required to
+ any HTTP stack;
+\end_layout
+
+\begin_layout Itemize
+can be implemented by the HTTP stack;
+\end_layout
+
+\begin_layout Itemize
+on the server side this can be implemented entirely via CGI and FastCGI;
+\end_layout
+
+\begin_layout Itemize
+by its RESTful nature, multi-legged authentication message exchanges are
+ naturally handled without making any changes to HTTP.
+\end_layout
+
+\begin_layout Standard
+There are probably other benefits not listed above.
+\end_layout
+
+\begin_layout Standard
+The rough outline of the protocol is quite simple: initial authentication
+ messages are POSTed to an agreed-upon or indicated resource, which then
+ results in a new resource being created with the authentication reply message
+ as the new resource's representation.
+ Thereafter any additional authentication message exchanges needed (for
+ multi-legged mechanisms) are POSTed to the new resource without a new resource
+ being created.
+ The resource created by the POSTing of the initial authentication mechanism
+ identifies the resulting session, and its URI is known as the session URI.
+ Session URIs can be used to multiplex multiple sessions over the same TCP/TLS
+ connections, implement logout, and share sessions across multiple related
+ servers.
+\end_layout
+
+\begin_layout Standard
+Server-initiated authentication is also possible, whereby the server sends
+ a challenge (not much else can be sent of value in an initial authentication
+ message from the server besides a challenge, negotiation parameters, and,
+ perhaps, a digital signature) in 401 errors in headers.
+ If the server gives the client has a choice of mechanisms and the client
+ picks one where the server sent the initial authentication message, then
+ the client consumes that message and POSTs subsequent ones to the agreed
+ URI.
+\end_layout
+
+\begin_layout Subsection
+Conventions used in this document
+\end_layout
+
+\begin_layout Standard
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+ "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
+ to be interpreted as described in 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "key-1"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Protocol
+\end_layout
+
+\begin_layout Standard
+The are very few normative protocol elements here besides the outline given
+ in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:Introduction"
+
+\end_inset
+
+.
+ The normative protocol elements are:
+\end_layout
+
+\begin_layout Itemize
+part of the form of the WWW-Authenticate headers for RESTauth mechanisms;
+\end_layout
+
+\begin_layout Itemize
+the POSTing of authentication messages from the client, with the initial
+ client authentication message going to either a pre-agreed URI or to a
+ URI named in the WWW-Authenticate headers;
+\end_layout
+
+\begin_layout Itemize
+the creation of a session URI as a result of the initial POST, and the subsequen
+t POSTing of any additional authentication messages to the session URI;
+\end_layout
+
+\begin_layout Itemize
+the new session URI resource representation resulting from POSTs being the
+ server's response authentication message, if any;
+\end_layout
+
+\begin_layout Itemize
+the DELETEion of session URIs as signalling logout;
+\end_layout
+
+\begin_layout Itemize
+a new header for referencing session URIs in normal HTTP requests;
+\end_layout
+
+\begin_layout Itemize
+the use of channel binding to TLS for session protection;
+\end_layout
+
+\begin_layout Itemize
+the use of session keys as an option for integrity protection when TLS is
+ not used.
+\end_layout
+
+\begin_layout Subsection
+WWW-Authenticate Header Value Prefix Syntax
+\end_layout
+
+\begin_layout Standard
+The ABNF for RESTauth WWW-Authenticate header values is as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+      challenge           = ( "RA-" mechname SP restauth-challenge )
+\end_layout
+
+\begin_layout Plain Layout
+
+      mechname            = TBD
+\end_layout
+
+\begin_layout Plain Layout
+
+      restauth-challenge  = ( login-uri SP cb-types SP
+\end_layout
+
+\begin_layout Plain Layout
+
+                              session-types SP replay-prot SP
+\end_layout
+
+\begin_layout Plain Layout
+
+                              *1(mech-challenge) )
+\end_layout
+
+\begin_layout Plain Layout
+
+      login-uri           = absoluteURI
+\end_layout
+
+\begin_layout Plain Layout
+
+      ; CB types are as registered in the
+\end_layout
+
+\begin_layout Plain Layout
+
+      ; CB type registry; see RFC5929)
+\end_layout
+
+\begin_layout Plain Layout
+
+      cb-types            = "c=" cb-type / (cb-type ":" cb-types)
+\end_layout
+
+\begin_layout Plain Layout
+
+      session-types       = "s=" session-type /
+\end_layout
+
+\begin_layout Plain Layout
+
+                            (session-type ":" session-types)
+\end_layout
+
+\begin_layout Plain Layout
+
+      session-type        = "cookie" / "session-ID" / "MIC"
+\end_layout
+
+\begin_layout Plain Layout
+
+      replay-prot         = "r=" ("yes" / "no")
+\end_layout
+
+\begin_layout Plain Layout
+
+      ; TODO: add production for
+\end_layout
+
+\begin_layout Plain Layout
+
+      ; mech-challenge as a base64 string
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+WWW-Authenticate ABNF
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For a DIGEST-like mechanism it might look like 
+\begin_inset Quotes eld
+\end_inset
+
+WWW-Authenticate: RA-Digest-SHA-256 tls-server-end-point session-ID no HE4SgWGrd
+/3+O7t16HqusA==
+\begin_inset Quotes erd
+\end_inset
+
+.
+ For example, the mechname for the Kerberos V5 GSS-API mechanism might be
+ 
+\begin_inset Quotes eld
+\end_inset
+
+gss-krb5
+\begin_inset Quotes erd
+\end_inset
+
+, and a WWW-Authenticate header value for it might look like 
+\begin_inset Quotes eld
+\end_inset
+
+WWW-Authenticate: RA-gss-krb5 http://foo.example/restauth-login tls-server-end-po
+int session-ID no
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Note that mechanisms that may be used include: GSS mechanisms, SASL mechanisms,
+ ad-hoc mechanisms, and so on.
+\end_layout
+
+\begin_layout Subsection
+The New WWW-Session-URI Header
+\end_layout
+
+\begin_layout Standard
+A new HTTP header is added called WWW-Session-URI whose value consists of
+ whitespace-separated session URIs.
+ At least one session URI MUST be included.
+ Servers MAY fail to implement support for multiple session URIs being reference
+d by a single request, in which case they MUST answer with error code <TBD>.
+ Servers MUST validate the session URI before processing the request; if
+ the session URI is invalid the server MUST respond with a 401 (or TBD?)
+ status code.
+\end_layout
+
+\begin_layout Section
+HTTP Routing and RESTauth
+\end_layout
+
+\begin_layout Section
+IANA Considerations
+\end_layout
+
+\begin_layout Standard
+TBD.
+\end_layout
+
+\begin_layout Section
+Security Considerations
+\end_layout
+
+\begin_layout Standard
+This entire document deals with security considerations.
+ [Add more, like about channel binding, same-origin-like constraints on
+ the login and session absolute URIs', ...]
+\end_layout
+
+\begin_layout Section
+References
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-1"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc2119
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC2119"
+target "http://www.ietf.org/rfc/rfc2119.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-2"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5246
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5246"
+target "http://www.ietf.org/rfc/rfc5246.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "key-3"
+
+\end_inset
+
+
+\begin_inset Flex ReferenceEntity
+status collapsed
+
+\begin_layout Plain Layout
+rfc5056
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "RFC5056"
+target "http://www.ietf.org/rfc/rfc5056.txt"
+
+\end_inset
+
+
+\begin_inset CommandInset href
+LatexCommand href
+name "(bibxml)"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\end_body
+\end_document

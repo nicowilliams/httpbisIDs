@@ -1,0 +1,616 @@
+
+
+
+Network Working Group                                        N. Williams
+Internet-Draft                                              Cryptonector
+Intended status: Informational                           August 10, 2012
+Expires: February 11, 2013
+
+
+  RESTful Authentication Pattern for the HyperText Transport Protocol
+                                 (HTTP)
+                     draft-williams-http-rest-auth
+
+Abstract
+
+   This document proposes a "RESTful" pattern of authentication for
+   HTTP/1.0, 1.1, and 2.0.  The existing 401 status code and WWW-
+   Authenticate header are used to indicate that authentication is
+   required and for negotiation purposes.  The client POSTs an initial
+   authentication message to an indicated login URI, then
+
+   This approach has a number of benefits: it can be implemented with or
+   without help from the HTTP stack, it can be universally implemented
+   on the server side using the Common Information Gateway (CGI) and
+   FastCGI, it results in a session Uniform Resource Identifier (URI)
+   that can be DELETEd to logout, it is completely orthogonal to any
+   HTTP "routers" and proxies, and it naturally (i.e., without changing
+   HTTP) handles multi-legged authentication mechanisms.
+
+Status of this Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on February 11, 2013.
+
+Copyright Notice
+
+   Copyright (c) 2012 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+
+
+
+Williams                Expires February 11, 2013               [Page 1]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents
+   (http://trustee.ietf.org/license-info) in effect on the date of
+   publication of this document.  Please review these documents
+   carefully, as they describe your rights and restrictions with respect
+   to this document.  Code Components extracted from this document must
+   include Simplified BSD License text as described in Section 4.e of
+   the Trust Legal Provisions and are provided without warranty as
+   described in the Simplified BSD License.
+
+
+Table of Contents
+
+   1.    Introduction . . . . . . . . . . . . . . . . . . . . . . . .  3
+   1.1.  Conventions used in this document  . . . . . . . . . . . . .  4
+   2.    Protocol . . . . . . . . . . . . . . . . . . . . . . . . . .  5
+   2.1.  WWW-Authenticate Header Value Prefix Syntax  . . . . . . . .  5
+   2.2.  The New WWW-Session-URI Header . . . . . . . . . . . . . . .  6
+   3.    HTTP Routing and RESTauth  . . . . . . . . . . . . . . . . .  7
+   4.    IANA Considerations  . . . . . . . . . . . . . . . . . . . .  8
+   5.    Security Considerations  . . . . . . . . . . . . . . . . . .  9
+   6.    References . . . . . . . . . . . . . . . . . . . . . . . . . 10
+         Author's Address . . . . . . . . . . . . . . . . . . . . . . 11
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 2]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+1.  Introduction
+
+   We propose a pattern for HTTP authentication mechanisms that, by
+   being "RESTful", obtains a number of benefits:
+
+   o  compatibility with "HTTP routing" by making no assumptions that
+      related requests are sent over the same TCP/TLS connection;
+
+   o  a "session URI" results that can be used to multiplex multiple
+      sessions onto the same TCP/TLS connections;
+
+   o  a "session URI" results that can be DELETEd to effect logout;
+
+   o  a "session URI" results that has better security semantics than
+      web cookies;
+
+   o  the ability to refer to multiple sessions in one request wherever
+      such a concept might be useful;
+
+   o  can be implemented by any application without changes being
+      required to any HTTP stack;
+
+   o  can be implemented by the HTTP stack;
+
+   o  on the server side this can be implemented entirely via CGI and
+      FastCGI;
+
+   o  by its RESTful nature, multi-legged authentication message
+      exchanges are naturally handled without making any changes to
+      HTTP.
+
+   There are probably other benefits not listed above.
+
+   The rough outline of the protocol is quite simple: initial
+   authentication messages are POSTed to an agreed-upon or indicated
+   resource, which then results in a new resource being created with the
+   authentication reply message as the new resource's representation.
+   Thereafter any additional authentication message exchanges needed
+   (for multi-legged mechanisms) are POSTed to the new resource without
+   a new resource being created.  The resource created by the POSTing of
+   the initial authentication mechanism identifies the resulting
+   session, and its URI is known as the session URI.  Session URIs can
+   be used to multiplex multiple sessions over the same TCP/TLS
+   connections, implement logout, and share sessions across multiple
+   related servers.
+
+   Server-initiated authentication is also possible, whereby the server
+   sends a challenge (not much else can be sent of value in an initial
+
+
+
+Williams                Expires February 11, 2013               [Page 3]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+   authentication message from the server besides a challenge,
+   negotiation parameters, and, perhaps, a digital signature) in 401
+   errors in headers.  If the server gives the client has a choice of
+   mechanisms and the client picks one where the server sent the initial
+   authentication message, then the client consumes that message and
+   POSTs subsequent ones to the agreed URI.
+
+1.1.  Conventions used in this document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 4]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+2.  Protocol
+
+   The are very few normative protocol elements here besides the outline
+   given in Section 1.  The normative protocol elements are:
+
+   o  part of the form of the WWW-Authenticate headers for RESTauth
+      mechanisms;
+
+   o  the POSTing of authentication messages from the client, with the
+      initial client authentication message going to either a pre-agreed
+      URI or to a URI named in the WWW-Authenticate headers;
+
+   o  the creation of a session URI as a result of the initial POST, and
+      the subsequent POSTing of any additional authentication messages
+      to the session URI;
+
+   o  the new session URI resource representation resulting from POSTs
+      being the server's response authentication message, if any;
+
+   o  the DELETEion of session URIs as signalling logout;
+
+   o  a new header for referencing session URIs in normal HTTP requests;
+
+   o  the use of channel binding to TLS for session protection;
+
+   o  the use of session keys as an option for integrity protection when
+      TLS is not used.
+
+2.1.  WWW-Authenticate Header Value Prefix Syntax
+
+   The ABNF for RESTauth WWW-Authenticate header values is as follows:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 5]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+         challenge           = ( "RA-" mechname SP restauth-challenge )
+         mechname            = TBD
+         restauth-challenge  = ( login-uri SP cb-types SP
+                                 session-types SP replay-prot SP
+                                 *1(mech-challenge) )
+         login-uri           = absoluteURI
+         ; CB types are as registered in the
+         ; CB type registry; see RFC5929)
+         cb-types            = "c=" cb-type / (cb-type ":" cb-types)
+         session-types       = "s=" session-type /
+                               (session-type ":" session-types)
+         session-type        = "cookie" / "session-ID" / "MIC"
+         replay-prot         = "r=" ("yes" / "no")
+         ; TODO: add production for
+         ; mech-challenge as a base64 string
+   Figure 1: WWW-Authenticate ABNF
+
+                                 Figure 1
+
+   For a DIGEST-like mechanism it might look like "WWW-Authenticate: RA-
+   Digest-SHA-256 tls-server-end-point session-ID no HE4SgWGrd/
+   3+O7t16HqusA==".  For example, the mechname for the Kerberos V5 GSS-
+   API mechanism might be "gss-krb5", and a WWW-Authenticate header
+   value for it might look like "WWW-Authenticate: RA-gss-krb5
+   http://foo.example/restauth-login tls-server-end-point session-ID
+   no".
+
+   Note that mechanisms that may be used include: GSS mechanisms, SASL
+   mechanisms, ad-hoc mechanisms, and so on.
+
+2.2.  The New WWW-Session-URI Header
+
+   A new HTTP header is added called WWW-Session-URI whose value
+   consists of whitespace-separated session URIs.  At least one session
+   URI MUST be included.  Servers MAY fail to implement support for
+   multiple session URIs being referenced by a single request, in which
+   case they MUST answer with error code <TBD>.  Servers MUST validate
+   the session URI before processing the request; if the session URI is
+   invalid the server MUST respond with a 401 (or TBD?) status code.
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 6]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+3.  HTTP Routing and RESTauth
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 7]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+4.  IANA Considerations
+
+   TBD.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 8]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+5.  Security Considerations
+
+   This entire document deals with security considerations.  [Add more,
+   like about channel binding, same-origin-like constraints on the login
+   and session absolute URIs', ...]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 9]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+6.  References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+   [RFC5246]  Dierks, T. and E. Rescorla, "The Transport Layer Security
+              (TLS) Protocol Version 1.2", RFC 5246, August 2008.
+
+   [RFC5056]  Williams, N., "On the Use of Channel Bindings to Secure
+              Channels", RFC 5056, November 2007.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013              [Page 10]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+Author's Address
+
+   Nicolas Williams
+   Cryptonector, LLC
+
+   Email: nico@cryptonector.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013              [Page 11]
+

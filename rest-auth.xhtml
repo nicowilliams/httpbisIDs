@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "http://www.w3.org/TR/2001/REC-MathML2-20010221/dtd/xhtml-math11-f.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="GENERATOR" content="LyX 2.0.0" />
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<title>RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)</title>
+
+<!-- Text Class Preamble -->
+<style type="text/css">
+div.toc {
+margin: 2em 0em;
+border-style: solid;
+border-width: 2px 0px;
+padding: 1em 0em;
+}
+div.tochead { font-size: x-large; font-weight: bold; }
+div.lyxtoc-0 {
+margin: 2em 0em 0em 0em;
+font-size: xx-large;
+font-weight: bold;
+}
+div.lyxtoc-1 {
+margin: 1em 0em 0em 0em;
+font-size: x-large;
+font-weight: bold;
+}
+div.lyxtoc-2 {
+margin: 0em 0em 0em 1em;
+font-size: large;
+font-weight: normal;
+}
+div.lyxtoc-3 { margin: 0em 0em 0em 0.5em; font-size: medium; }
+div.lyxtoc-4 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-5 { margin: 0em 0em 0em 0.5em; }
+div.lyxtoc-6 { margin: 0em 0em 0em 0.5em; }
+a.tocentry {
+text-decoration: none;
+color: black;
+}
+a.tocentry:visited { color: black; }
+a.tocarrow {
+font-weight: bold;
+text-decoration: none;
+color: #909090;
+}
+a.tocarrow:visited { color: #C0C0C0; }
+</style>
+
+<!-- Preamble Snippets -->
+
+<!-- Layout-provided Styles -->
+<style type='text/css'>
+h1.title {
+font-size: x-large;
+margin-bottom: 1ex;
+text-align: center;
+
+}
+div.standard {
+text-align: left;
+
+}
+div.plain_layout {
+text-align: left;
+
+}
+div.author {
+font-size: large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: center;
+
+}
+div.abstract {
+font-size: small;
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+margin-right: 3ex;
+text-align: left;
+
+}
+div.abstract_label {
+font-weight: bold;
+font-size: large;
+text-align: center;
+
+}
+
+div.abstract {
+margin: 4ex;
+}
+div.abstract_item {
+font-size: small;
+padding-top: 1ex;
+}
+div.abstract_label {
+font-weight: bold;
+}
+h2.section {
+font-weight: bold;
+font-size: x-large;
+margin-top: 1.3ex;
+margin-bottom: 0.7ex;
+text-align: left;
+
+}
+ul.itemize {
+margin-top: 0.7ex;
+margin-bottom: 0.7ex;
+margin-left: 3ex;
+text-align: left;
+
+}
+h3.subsection {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
+div.bibliography {
+text-align: left;
+
+}
+div.flex_docname {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_ipr {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_intendedstatus {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_titleabbrev {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_ietfarea {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_xml_rfckeyword {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_pi {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_authororg {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_authororgabbrev {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.flex_authoremailaddr {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+div.float {
+border: 2px solid black;
+text-align: center;
+}
+div.listings {
+font-family: monospace;
+}
+div.float-caption {
+text-align: center;
+border: 2px solid black;
+padding: 1ex;
+margin: 1ex;
+}
+div.flex_referenceentity {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
+</style>
+</head>
+<body>
+<h1 class="title"><a id='magicparlabel-1' />
+RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)</h1>
+<div class="standard"><a id='magicparlabel-2' />
+<div class="flex_docname"><div class="plain_layout"><a id='magicparlabel-6' />
+draft-williams-http-rest-auth</div>
+</div><div class="flex_ipr"><div class="plain_layout"><a id='magicparlabel-10' />
+trust200902</div>
+</div><div class="flex_intendedstatus"><div class="plain_layout"><a id='magicparlabel-14' />
+info</div>
+</div><div class="flex_titleabbrev"><div class="plain_layout"><a id='magicparlabel-18' />
+RESTful Authentication</div>
+</div><div class="flex_ietfarea"><div class="plain_layout"><a id='magicparlabel-22' />
+Security Area</div>
+</div><div class="flex_xml_rfckeyword"><div class="plain_layout"><a id='magicparlabel-26' />
+Internet-Draft</div>
+</div><div class="flex_pi"><div class="plain_layout"><a id='magicparlabel-30' />
+tocindent="no"</div>
+</div><div class="flex_pi"><div class="plain_layout"><a id='magicparlabel-34' />
+comments="yes"</div>
+</div><div class="flex_pi"><div class="plain_layout"><a id='magicparlabel-38' />
+inline="yes"</div>
+</div></div>
+
+<div class="author"><div class="author_item"><a id='magicparlabel-39' />
+Nicolas Williams<div class="flex_authororg"><div class="plain_layout"><a id='magicparlabel-43' />
+Cryptonector, LLC</div>
+</div><div class="flex_authororgabbrev"><div class="plain_layout"><a id='magicparlabel-47' />
+Cryptonector</div>
+</div><div class="flex_authoremailaddr"><div class="plain_layout"><a id='magicparlabel-51' />
+nico@cryptonector.com</div>
+</div></div>
+</div>
+
+<div class="abstract"><div class="abstract_label">Abstract</div>
+<div class="abstract_item"><a id='magicparlabel-52' />
+This document proposes a &ldquo;RESTful&rdquo; pattern of authentication for HTTP/1.0, 1.1, and 2.0. The existing 401 status code and WWW-Authenticate header are used to indicate that authentication is required and for negotiation purposes. The client POSTs an initial authentication message to an indicated login URI, then </div>
+<div class="abstract_item"><a id='magicparlabel-53' />
+This approach has a number of benefits: it can be implemented with or without help from the HTTP stack, it can be universally implemented on the server side using the Common Information Gateway (CGI) and FastCGI, it results in a session Uniform Resource Identifier (URI) that can be DELETEd to logout, it is completely orthogonal to any HTTP &ldquo;routers&rdquo; and proxies, and it naturally (i.e., without changing HTTP) handles multi-legged authentication mechanisms.</div>
+</div>
+<div class="standard"><a id='magicparlabel-54' />
+</div>
+<div class='toc'><div class='tochead part_'>Table of Contents</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-55' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-55' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-69' class='tocentry'>1.1 Conventions used in this document</a> <a href='#magicparlabel-69' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-71' class='tocentry'>2 Protocol</a> <a href='#magicparlabel-71' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-81' class='tocentry'>2.1 WWW-Authenticate Header Value Prefix Syntax</a> <a href='#magicparlabel-81' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-113' class='tocentry'>2.2 The New WWW-Session-URI Header</a> <a href='#magicparlabel-113' class='tocarrow'>&gt;</a></div>
+</div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-115' class='tocentry'>3 HTTP Routing and RESTauth</a> <a href='#magicparlabel-115' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-116' class='tocentry'>4 IANA Considerations</a> <a href='#magicparlabel-116' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-118' class='tocentry'>5 Security Considerations</a> <a href='#magicparlabel-118' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-120' class='tocentry'>6 References</a> <a href='#magicparlabel-120' class='tocarrow'>&gt;</a></div>
+</div>
+
+<h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-55' />
+<a id="sec_Introduction" />
+Introduction</h2>
+<div class="standard"><a id='magicparlabel-56' />
+We propose a pattern for HTTP authentication mechanisms that, by being &ldquo;RESTful&rdquo;, obtains a number of benefits:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-57' />
+compatibility with &ldquo;HTTP routing&rdquo; by making no assumptions that related requests are sent over the same TCP/TLS connection;</li>
+<li class="itemize_item"><a id='magicparlabel-58' />
+a &ldquo;session URI&rdquo; results that can be used to multiplex multiple sessions onto the same TCP/TLS connections;</li>
+<li class="itemize_item"><a id='magicparlabel-59' />
+a &ldquo;session URI&rdquo; results that can be DELETEd to effect logout;</li>
+<li class="itemize_item"><a id='magicparlabel-60' />
+a &ldquo;session URI&rdquo; results that has better security semantics than web cookies;</li>
+<li class="itemize_item"><a id='magicparlabel-61' />
+the ability to refer to multiple sessions in one request wherever such a concept might be useful;</li>
+<li class="itemize_item"><a id='magicparlabel-62' />
+can be implemented by any application without changes being required to any HTTP stack;</li>
+<li class="itemize_item"><a id='magicparlabel-63' />
+can be implemented by the HTTP stack;</li>
+<li class="itemize_item"><a id='magicparlabel-64' />
+on the server side this can be implemented entirely via CGI and FastCGI;</li>
+<li class="itemize_item"><a id='magicparlabel-65' />
+by its RESTful nature, multi-legged authentication message exchanges are naturally handled without making any changes to HTTP.</li>
+</ul>
+<div class="standard"><a id='magicparlabel-66' />
+There are probably other benefits not listed above.</div>
+
+<div class="standard"><a id='magicparlabel-67' />
+The rough outline of the protocol is quite simple: initial authentication messages are POSTed to an agreed-upon or indicated resource, which then results in a new resource being created with the authentication reply message as the new resource's representation. Thereafter any additional authentication message exchanges needed (for multi-legged mechanisms) are POSTed to the new resource without a new resource being created. The resource created by the POSTing of the initial authentication mechanism identifies the resulting session, and its URI is known as the session URI. Session URIs can be used to multiplex multiple sessions over the same TCP/TLS connections, implement logout, and share sessions across multiple related servers.</div>
+
+<div class="standard"><a id='magicparlabel-68' />
+Server-initiated authentication is also possible, whereby the server sends a challenge (not much else can be sent of value in an initial authentication message from the server besides a challenge, negotiation parameters, and, perhaps, a digital signature) in 401 errors in headers. If the server gives the client has a choice of mechanisms and the client picks one where the server sent the initial authentication message, then the client consumes that message and POSTs subsequent ones to the agreed URI.</div>
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-69' />
+Conventions used in this document</h3>
+<div class="standard"><a id='magicparlabel-70' />
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [<a href='#key-1'>key-1</a>].</div>
+<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-71' />
+Protocol</h2>
+<div class="standard"><a id='magicparlabel-72' />
+The are very few normative protocol elements here besides the outline given in <a href="#sec_Introduction">1</a>. The normative protocol elements are:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-73' />
+part of the form of the WWW-Authenticate headers for RESTauth mechanisms;</li>
+<li class="itemize_item"><a id='magicparlabel-74' />
+the POSTing of authentication messages from the client, with the initial client authentication message going to either a pre-agreed URI or to a URI named in the WWW-Authenticate headers;</li>
+<li class="itemize_item"><a id='magicparlabel-75' />
+the creation of a session URI as a result of the initial POST, and the subsequent POSTing of any additional authentication messages to the session URI;</li>
+<li class="itemize_item"><a id='magicparlabel-76' />
+the new session URI resource representation resulting from POSTs being the server's response authentication message, if any;</li>
+<li class="itemize_item"><a id='magicparlabel-77' />
+the DELETEion of session URIs as signalling logout;</li>
+<li class="itemize_item"><a id='magicparlabel-78' />
+a new header for referencing session URIs in normal HTTP requests;</li>
+<li class="itemize_item"><a id='magicparlabel-79' />
+the use of channel binding to TLS for session protection;</li>
+<li class="itemize_item"><a id='magicparlabel-80' />
+the use of session keys as an option for integrity protection when TLS is not used.</li>
+</ul>
+<h3 class="subsection"><span class="subsection_label">2.1</span> <a id='magicparlabel-81' />
+WWW-Authenticate Header Value Prefix Syntax</h3>
+<div class="standard"><a id='magicparlabel-82' />
+The ABNF for RESTauth WWW-Authenticate header values is as follows:</div>
+
+<div class="standard"><a id='magicparlabel-83' />
+</div>
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-87' />
+</div>
+<div class='float float-listings'><pre>      challenge           = ( "RA-" mechname SP restauth-challenge )
+      mechname            = TBD
+      restauth-challenge  = ( login-uri SP cb-types SP
+                              session-types SP replay-prot SP
+                              *1(mech-challenge) )
+      login-uri           = absoluteURI
+      ; CB types are as registered in the
+      ; CB type registry; see RFC5929)
+      cb-types            = "c=" cb-type / (cb-type ":" cb-types)
+      session-types       = "s=" session-type /
+                            (session-type ":" session-types)
+      session-type        = "cookie" / "session-ID" / "MIC"
+      replay-prot         = "r=" ("yes" / "no")
+      ; TODO: add production for
+      ; mech-challenge as a base64 string</pre></div>
+
+
+<div class="plain_layout"><a id='magicparlabel-106' />
+<div class='float-caption float-caption-figure'>Figure 1:<div class="plain_layout"><a id='magicparlabel-110' />
+WWW-Authenticate ABNF</div>
+</div></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-111' />
+For a DIGEST-like mechanism it might look like &ldquo;WWW-Authenticate: RA-Digest-SHA-256 tls-server-end-point session-ID no HE4SgWGrd/3+O7t16HqusA==&rdquo;. For example, the mechname for the Kerberos V5 GSS-API mechanism might be &ldquo;gss-krb5&rdquo;, and a WWW-Authenticate header value for it might look like &ldquo;WWW-Authenticate: RA-gss-krb5 http://foo.example/restauth-login tls-server-end-point session-ID no&rdquo;.</div>
+
+<div class="standard"><a id='magicparlabel-112' />
+Note that mechanisms that may be used include: GSS mechanisms, SASL mechanisms, ad-hoc mechanisms, and so on.</div>
+<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-113' />
+The New WWW-Session-URI Header</h3>
+<div class="standard"><a id='magicparlabel-114' />
+A new HTTP header is added called WWW-Session-URI whose value consists of whitespace-separated session URIs. At least one session URI MUST be included. Servers MAY fail to implement support for multiple session URIs being referenced by a single request, in which case they MUST answer with error code &lt;TBD&gt;. Servers MUST validate the session URI before processing the request; if the session URI is invalid the server MUST respond with a 401 (or TBD?) status code.</div>
+<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-115' />
+HTTP Routing and RESTauth</h2>
+<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-116' />
+IANA Considerations</h2>
+<div class="standard"><a id='magicparlabel-117' />
+TBD.</div>
+<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-118' />
+Security Considerations</h2>
+<div class="standard"><a id='magicparlabel-119' />
+This entire document deals with security considerations. [Add more, like about channel binding, same-origin-like constraints on the login and session absolute URIs', ...]</div>
+<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-120' />
+References</h2>
+<div class="bibliography"><a id='magicparlabel-121' />
+<a id='' />
+<span class='bibitemlabel'>1</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-125' />
+rfc2119</div>
+</div><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-126' />
+<a id='' />
+<span class='bibitemlabel'>2</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-130' />
+rfc5246</div>
+</div><a href="http://www.ietf.org/rfc/rfc5246.txt">RFC5246</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">(bibxml)</a></div>
+
+<div class="bibliography"><a id='magicparlabel-131' />
+<a id='' />
+<span class='bibitemlabel'>3</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-135' />
+rfc5056</div>
+</div><a href="http://www.ietf.org/rfc/rfc5056.txt">RFC5056</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">(bibxml)</a></div>
+
+<div class="standard"><a id='magicparlabel-136' />
+...</div>
+</body>
+</html>
