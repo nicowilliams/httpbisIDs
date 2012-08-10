@@ -3,8 +3,8 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                             July 14, 2012
-Expires: January 15, 2013
+Intended status: Informational                             July 16, 2012
+Expires: January 17, 2013
 
 
    Simplified and Minimized Profiles of the Generic Security Services
@@ -14,11 +14,19 @@ Expires: January 15, 2013
 Abstract
 
    The Generic Security Service Application Programming Interface (GSS-
-   API) is often mistaken for a bloated framework.  This document
-   describes simplified and minimized profiles of the GSS-API for two
-   purposes: explaining its use, whether in standards specifications or
-   actual applications, and specifying sub-sets of the API for those
-   applications that wish to use it but not carry the whole thing.
+   API) is often mistaken for a bloated framework.  The GSS-API is
+   really several things: a basis for formal descriptions of application
+   authentication protocols (what happens when), a pattern for actual
+   programming APIs, a set of constraints and requirements for generic
+   security mechanisms, and concrete programming APIs.  Only the first
+   of these is relevant to Internet application protocols.
+
+   This document describes simplified and minimized profiles of the GSS-
+   API for two purposes: explaining its use, whether in standards
+   specifications or actual applications, and specifying sub-sets of the
+   API for a) newcomers to the API, b) application developers that wish
+   to use it but not have to link the whole thing into their
+   applications.
 
 Status of this Memo
 
@@ -35,12 +43,19 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 15, 2013.
+   This Internet-Draft will expire on January 17, 2013.
 
 Copyright Notice
 
    Copyright (c) 2012 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
+
+
+
+Williams                Expires January 17, 2013                [Page 1]
+
+Internet-Draft              GSS-API Profiles                   July 2012
+
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
@@ -49,14 +64,6 @@ Copyright Notice
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
    include Simplified BSD License text as described in Section 4.e of
-
-
-
-Williams                Expires January 15, 2013                [Page 1]
-
-Internet-Draft              GSS-API Profiles                   July 2012
-
-
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
@@ -71,15 +78,15 @@ Table of Contents
    2.2.  Simple Initiator Application . . . . . . . . . . . . . . . .  6
    2.3.  Trivial Acceptor (server) Application  . . . . . . . . . . .  6
    2.4.  Simple Acceptor Application  . . . . . . . . . . . . . . . .  7
-   3.    Transport Security Options . . . . . . . . . . . . . . . . .  8
+   3.    Transport Security Layer Profiles  . . . . . . . . . . . . .  8
    3.1.  Null Transport Security  . . . . . . . . . . . . . . . . . .  8
    3.2.  TLS with Server Name Binding . . . . . . . . . . . . . . . .  8
    3.3.  TLS with Channel Binding . . . . . . . . . . . . . . . . . .  8
    3.4.  Per-Message Tokens . . . . . . . . . . . . . . . . . . . . .  9
    3.5.  GSS-Keyed Application Transport Security Layer . . . . . . .  9
    4.    Complex Profiles . . . . . . . . . . . . . . . . . . . . . . 10
-   4.1.  Complex Initiator Application  . . . . . . . . . . . . . . . 10
-   4.2.  Complex Acceptor Application . . . . . . . . . . . . . . . . 10
+   4.1.  Advanced Initiator Application . . . . . . . . . . . . . . . 10
+   4.2.  Advanced Acceptor Application  . . . . . . . . . . . . . . . 10
    5.    GSS-API Profile and Subset Identifiers . . . . . . . . . . . 11
    5.1.  C-Bindings . . . . . . . . . . . . . . . . . . . . . . . . . 12
    6.    Mechanism Profiles . . . . . . . . . . . . . . . . . . . . . 13
@@ -101,14 +108,7 @@ Table of Contents
 
 
 
-
-
-
-
-
-
-
-Williams                Expires January 15, 2013                [Page 2]
+Williams                Expires January 17, 2013                [Page 2]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -119,7 +119,8 @@ Internet-Draft              GSS-API Profiles                   July 2012
    nature of the GSS-API.  One problem that has been identified by some
    is that the GSS-API is quite large, that simpler subsets of it may be
    desirable.  This document proposes some subsets and "profiles" of the
-   GSS-API.
+   GSS-API.  We hope this will make the API more approachable,
+   acceptable, and easier to understand.
 
    The GSS-API is first and foremost an _abstract_ API whose purpose is
    to describe with high precision how Internet application protocols
@@ -163,8 +164,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-
-Williams                Expires January 15, 2013                [Page 3]
+Williams                Expires January 17, 2013                [Page 3]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -220,26 +220,27 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013                [Page 4]
+Williams                Expires January 17, 2013                [Page 4]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
 
 2.  Simple Profiles of the GSS-API
 
-   We define profiles of the GSS-API for a variety of applications:
+   We define profiles of the GSS-API for a variety of applications.
+   These can be used both, for application security protocol
+   specifications, and for implementation (but the latter is never
+   required).
 
    o  Trivial client ("initiator") applications;
 
    o  Simple initiator applications;
 
-   o  Simple initiator applications with per-message tokens;
+   o  Various security layer options;
 
    o  Trivial server ("acceptor") applications;
 
-   o  Simple acceptor applications;
-
-   o  Simple acceptor applications with per-message tokens;
+   o  Simple acceptor applications.
 
    We also define C bindings for these profiles, as well as for specific
    additional subsets of GSS-API functionality.  These will take the
@@ -275,8 +276,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-
-Williams                Expires January 15, 2013                [Page 5]
+Williams                Expires January 17, 2013                [Page 5]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -332,7 +332,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013                [Page 6]
+Williams                Expires January 17, 2013                [Page 6]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -371,7 +371,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 2.4.  Simple Acceptor Application
 
    This profile adds three functions to the trivial initiator
-   application profile, one of which is a destructor:
+   application profile:
 
    GSS_Inquire_context()  A simple acceptor application may be
       interested in knowing what name it was called by the initiator,
@@ -388,12 +388,12 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013                [Page 7]
+Williams                Expires January 17, 2013                [Page 7]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
 
-3.  Transport Security Options
+3.  Transport Security Layer Profiles
 
    Internet applications often require transport security - integrity
    protection or integrity and confidentiality protection.  In simpler
@@ -444,7 +444,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013                [Page 8]
+Williams                Expires January 17, 2013                [Page 8]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -500,14 +500,14 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013                [Page 9]
+Williams                Expires January 17, 2013                [Page 9]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
 
 4.  Complex Profiles
 
-4.1.  Complex Initiator Application
+4.1.  Advanced Initiator Application
 
    A complex initiator application requires most of the functions
    defined in [RFC5587] in addition to those of the simple initiator
@@ -521,7 +521,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
    These functions are useful for mechanism negotiation.
 
-4.2.  Complex Acceptor Application
+4.2.  Advanced Acceptor Application
 
    A complex acceptor application typically requires fine-grained access
    to the initiator names so as to implement more advanced authorization
@@ -556,7 +556,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013               [Page 10]
+Williams                Expires January 17, 2013               [Page 10]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -589,9 +589,9 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
    GSS_PR_SIMPLE_ACCEPTOR  See Section 2.4.
 
-   GSS_PR_COMPLEX_INITIATOR  See Section 4.1.
+   GSS_PR_ADVANCED_INITIATOR  See Section 4.1.
 
-   GSS_PR_COMPLEX_ACCEPTOR  See Section 4.2.
+   GSS_PR_ADVANCED_ACCEPTOR  See Section 4.2.
 
    GSS_PR_CB  See Section 3.3.
 
@@ -612,7 +612,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013               [Page 11]
+Williams                Expires January 17, 2013               [Page 11]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -668,7 +668,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013               [Page 12]
+Williams                Expires January 17, 2013               [Page 12]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -724,7 +724,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013               [Page 13]
+Williams                Expires January 17, 2013               [Page 13]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -780,7 +780,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013               [Page 14]
+Williams                Expires January 17, 2013               [Page 14]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -836,7 +836,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013               [Page 15]
+Williams                Expires January 17, 2013               [Page 15]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -850,6 +850,13 @@ Internet-Draft              GSS-API Profiles                   July 2012
    (GSS_PR_TRIVIAL_INITIATOR) cannot select an initiator identity and
    depend entirely on the framework and/or selected mechanism for this.
 
+   Internet applications that use GSS mechanisms should specify one of
+   th transport security layers from Section 3 other than the null layer
+   as required to implement.  The simplest transport security layer is,
+   of course, none at all (see Section 3.1), but this is not secure in
+   the Internet threat model; all the other options listed in Section 3
+   offer good security in the Internet threat model.  The next simplest
+   may well be to use TLS with server name binding (see Section 3.2).
 
 
 
@@ -885,14 +892,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-
-
-
-
-
-
-
-Williams                Expires January 15, 2013               [Page 16]
+Williams                Expires January 17, 2013               [Page 16]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -911,8 +911,8 @@ Internet-Draft              GSS-API Profiles                   July 2012
    [I-D.williams-rest-gss]
               Williams, N., "RESTful Hypertext Transfer Protocol
               Application-Layer Authentication Using Generic Security
-              Services", draft-williams-rest-gss-01 (work in progress),
-              June 2012.
+              Services", draft-williams-rest-gss-02 (work in progress),
+              July 2012.
 
    [RFC4422]  Melnikov, A. and K. Zeilenga, "Simple Authentication and
               Security Layer (SASL)", RFC 4422, June 2006.
@@ -948,7 +948,7 @@ Internet-Draft              GSS-API Profiles                   July 2012
 
 
 
-Williams                Expires January 15, 2013               [Page 17]
+Williams                Expires January 17, 2013               [Page 17]
 
 Internet-Draft              GSS-API Profiles                   July 2012
 
@@ -1004,5 +1004,5 @@ Author's Address
 
 
 
-Williams                Expires January 15, 2013               [Page 18]
+Williams                Expires January 17, 2013               [Page 18]
 

@@ -241,20 +241,22 @@ nico@cryptonector.com</div>
 
 <div class="abstract"><div class="abstract_label">Abstract</div>
 <div class="abstract_item"><a id='magicparlabel-52' />
-The Generic Security Service Application Programming Interface (GSS-API) is often mistaken for a bloated framework. This document describes simplified and minimized profiles of the GSS-API for two purposes: explaining its use, whether in standards specifications or actual applications, and specifying sub-sets of the API for those applications that wish to use it but not carry the whole thing.</div>
+The Generic Security Service Application Programming Interface (GSS-API) is often mistaken for a bloated framework. The GSS-API is really several things: a basis for formal descriptions of application authentication protocols (what happens when), a pattern for actual programming APIs, a set of constraints and requirements for generic security mechanisms, and concrete programming APIs. Only the first of these is relevant to Internet application protocols.</div>
+<div class="abstract_item"><a id='magicparlabel-53' />
+This document describes simplified and minimized profiles of the GSS-API for two purposes: explaining its use, whether in standards specifications or actual applications, and specifying sub-sets of the API for a) newcomers to the API, b) application developers that wish to use it but not have to link the whole thing into their applications.</div>
 </div>
-<div class="standard"><a id='magicparlabel-53' />
+<div class="standard"><a id='magicparlabel-54' />
 </div>
 <div class='toc'><div class='tochead part_'>Table of Contents</div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-54' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-54' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-55' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-55' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-61' class='tocentry'>1.1 A Brief Primer on the GSS-API</a> <a href='#magicparlabel-61' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-62' class='tocentry'>1.1 A Brief Primer on the GSS-API</a> <a href='#magicparlabel-62' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-76' class='tocentry'>1.2 Conventions used in this document</a> <a href='#magicparlabel-76' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-77' class='tocentry'>1.2 Conventions used in this document</a> <a href='#magicparlabel-77' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-78' class='tocentry'>2 Simple Profiles of the GSS-API</a> <a href='#magicparlabel-78' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-79' class='tocentry'>2 Simple Profiles of the GSS-API</a> <a href='#magicparlabel-79' class='tocarrow'>&gt;</a>
 
 <div class='lyxtoc-2'><a href='#magicparlabel-87' class='tocentry'>2.1 Trivial Initiator (client) Application</a> <a href='#magicparlabel-87' class='tocarrow'>&gt;</a></div>
 
@@ -265,7 +267,7 @@ The Generic Security Service Application Programming Interface (GSS-API) is ofte
 <div class='lyxtoc-2'><a href='#magicparlabel-121' class='tocentry'>2.4 Simple Acceptor Application</a> <a href='#magicparlabel-121' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-126' class='tocentry'>3 Transport Security Options</a> <a href='#magicparlabel-126' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-126' class='tocentry'>3 Transport Security Layer Profiles</a> <a href='#magicparlabel-126' class='tocarrow'>&gt;</a>
 
 <div class='lyxtoc-2'><a href='#magicparlabel-130' class='tocentry'>3.1 Null Transport Security</a> <a href='#magicparlabel-130' class='tocarrow'>&gt;</a></div>
 
@@ -280,9 +282,9 @@ The Generic Security Service Application Programming Interface (GSS-API) is ofte
 
 <div class='lyxtoc-1'><a href='#magicparlabel-150' class='tocentry'>4 Complex Profiles</a> <a href='#magicparlabel-150' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-151' class='tocentry'>4.1 Complex Initiator Application</a> <a href='#magicparlabel-151' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-151' class='tocentry'>4.1 Advanced Initiator Application</a> <a href='#magicparlabel-151' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-156' class='tocentry'>4.2 Complex Acceptor Application</a> <a href='#magicparlabel-156' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-156' class='tocentry'>4.2 Advanced Acceptor Application</a> <a href='#magicparlabel-156' class='tocarrow'>&gt;</a></div>
 </div>
 
 <div class='lyxtoc-1'><a href='#magicparlabel-164' class='tocentry'>5 GSS-API Profile and Subset Identifiers</a> <a href='#magicparlabel-164' class='tocarrow'>&gt;</a>
@@ -303,95 +305,93 @@ The Generic Security Service Application Programming Interface (GSS-API) is ofte
 
 <div class='lyxtoc-1'><a href='#magicparlabel-198' class='tocentry'>9 Security Considerations</a> <a href='#magicparlabel-198' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-200' class='tocentry'>10 References</a> <a href='#magicparlabel-200' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-201' class='tocentry'>10 References</a> <a href='#magicparlabel-201' class='tocarrow'>&gt;</a></div>
 </div>
 
-<h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-54' />
+<h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-55' />
 Introduction</h2>
-<div class="standard"><a id='magicparlabel-55' />
-There has been some confusion in the Internet community as to the nature of the GSS-API. One problem that has been identified by some is that the GSS-API is quite large, that simpler subsets of it may be desirable. This document proposes some subsets and &ldquo;profiles&rdquo; of the GSS-API.</div>
-
 <div class="standard"><a id='magicparlabel-56' />
-The GSS-API is first and foremost an <em>abstract</em> API whose purpose is to describe with high precision how Internet application protocols handle user/service authentication and transport security.</div>
+There has been some confusion in the Internet community as to the nature of the GSS-API. One problem that has been identified by some is that the GSS-API is quite large, that simpler subsets of it may be desirable. This document proposes some subsets and &ldquo;profiles&rdquo; of the GSS-API. We hope this will make the API more approachable, acceptable, and easier to understand.</div>
 
 <div class="standard"><a id='magicparlabel-57' />
-The GSS-API is also a set of constraints on its security mechanisms.</div>
+The GSS-API is first and foremost an <em>abstract</em> API whose purpose is to describe with high precision how Internet application protocols handle user/service authentication and transport security.</div>
 
 <div class="standard"><a id='magicparlabel-58' />
-The GSS-API is also a pattern for programming language bindings of the abstract GSS-API. In the IETF we have standardized C and Java bindings for the abstract API.</div>
+The GSS-API is also a set of constraints on its security mechanisms.</div>
 
 <div class="standard"><a id='magicparlabel-59' />
-Note that there is <em>absolutely no requirement</em> that implementators use the C or Java, or any other bindings of the GSS-API to implement applications whose specifications use the <em>abstract</em> GSS-API. For example, one major implementor uses a different API (though in broad strokes quite similar to the GSS-API) to access generic security mechanisms, and applications using that API interoperate perfectly with applications that use bonafide GSS-API implementations.</div>
+The GSS-API is also a pattern for programming language bindings of the abstract GSS-API. In the IETF we have standardized C and Java bindings for the abstract API.</div>
 
 <div class="standard"><a id='magicparlabel-60' />
+Note that there is <em>absolutely no requirement</em> that implementators use the C or Java, or any other bindings of the GSS-API to implement applications whose specifications use the <em>abstract</em> GSS-API. For example, one major implementor uses a different API (though in broad strokes quite similar to the GSS-API) to access generic security mechanisms, and applications using that API interoperate perfectly with applications that use bonafide GSS-API implementations.</div>
+
+<div class="standard"><a id='magicparlabel-61' />
 By providing minimized profiles/subsets of the GSS-API we hope to make the GSS-API easier to use.</div>
-<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-61' />
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-62' />
 A Brief Primer on the GSS-API</h3>
-<div class="standard"><a id='magicparlabel-62' />
+<div class="standard"><a id='magicparlabel-63' />
 In GSS terminology we have:</div>
 
 <dl class='description'><dt class="description_label">Principals</dt>
-<dd class="description_item"><a id='magicparlabel-63' />
+<dd class="description_item"><a id='magicparlabel-64' />
  Entities to be authenticated;</dd>
 <dt class="description_label">Credentials</dt>
-<dd class="description_item"><a id='magicparlabel-64' />
+<dd class="description_item"><a id='magicparlabel-65' />
  Credentials are used to authenticate principals;</dd>
 <dt class="description_label">Security&nbsp;context&nbsp;tokens</dt>
-<dd class="description_item"><a id='magicparlabel-65' />
+<dd class="description_item"><a id='magicparlabel-66' />
  Messages exchanged by two principals to authenticate one to the other (and possibly the other to the one);</dd>
 <dt class="description_label">Security&nbsp;contexts</dt>
-<dd class="description_item"><a id='magicparlabel-66' />
+<dd class="description_item"><a id='magicparlabel-67' />
  The shared state (e.g., session keys) that results from a successful exchange of security context tokens;</dd>
 <dt class="description_label">Initiator</dt>
-<dd class="description_item"><a id='magicparlabel-67' />
+<dd class="description_item"><a id='magicparlabel-68' />
  The party (typically the client) that initiates a security context token exchange;</dd>
 <dt class="description_label">Acceptor</dt>
-<dd class="description_item"><a id='magicparlabel-68' />
+<dd class="description_item"><a id='magicparlabel-69' />
  The party (typically the server) that receives an initial security context token.</dd>
 </dl>
-<div class="standard"><a id='magicparlabel-69' />
+<div class="standard"><a id='magicparlabel-70' />
 The abstract API has a few data types:</div>
 
 <dl class='description'><dt class="description_label">Buffers</dt>
-<dd class="description_item"><a id='magicparlabel-70' />
+<dd class="description_item"><a id='magicparlabel-71' />
  Octet strings;</dd>
 <dt class="description_label">OIDs</dt>
-<dd class="description_item"><a id='magicparlabel-71' />
+<dd class="description_item"><a id='magicparlabel-72' />
  Constants identifying GSS mechanisms and name types;</dd>
 <dt class="description_label">OID&nbsp;sets</dt>
-<dd class="description_item"><a id='magicparlabel-72' />
+<dd class="description_item"><a id='magicparlabel-73' />
  Sets of OIDs;</dd>
 <dt class="description_label">NAME</dt>
-<dd class="description_item"><a id='magicparlabel-73' />
+<dd class="description_item"><a id='magicparlabel-74' />
  Opaque object representing the name of a principal;</dd>
 <dt class="description_label">CREDENTIAL&nbsp;HANDLE</dt>
-<dd class="description_item"><a id='magicparlabel-74' />
+<dd class="description_item"><a id='magicparlabel-75' />
  Opaque object representing a credential for authenticating the entity that has access to it;</dd>
 <dt class="description_label">SECURITY&nbsp;CONTEXT&nbsp;HANDLE</dt>
-<dd class="description_item"><a id='magicparlabel-75' />
+<dd class="description_item"><a id='magicparlabel-76' />
  Opaque object representing a security context.</dd>
 </dl>
-<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-76' />
+<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-77' />
 Conventions used in this document</h3>
-<div class="standard"><a id='magicparlabel-77' />
+<div class="standard"><a id='magicparlabel-78' />
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [<a href='#key-1'>key-1</a>].</div>
-<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-78' />
+<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-79' />
 Simple Profiles of the GSS-API</h2>
-<div class="standard"><a id='magicparlabel-79' />
-We define profiles of the GSS-API for a variety of applications:</div>
+<div class="standard"><a id='magicparlabel-80' />
+We define profiles of the GSS-API for a variety of applications. These can be used both, for application security protocol specifications, and for implementation (but the latter is never required).</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-80' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-81' />
 Trivial client (&ldquo;initiator&rdquo;) applications;</li>
-<li class="itemize_item"><a id='magicparlabel-81' />
-Simple initiator applications;</li>
 <li class="itemize_item"><a id='magicparlabel-82' />
-Simple initiator applications with per-message tokens;</li>
+Simple initiator applications;</li>
 <li class="itemize_item"><a id='magicparlabel-83' />
-Trivial server (&ldquo;acceptor&rdquo;) applications;</li>
+Various security layer options;</li>
 <li class="itemize_item"><a id='magicparlabel-84' />
-Simple acceptor applications;</li>
+Trivial server (&ldquo;acceptor&rdquo;) applications;</li>
 <li class="itemize_item"><a id='magicparlabel-85' />
-Simple acceptor applications with per-message tokens;</li>
+Simple acceptor applications.</li>
 </ul>
 <div class="standard"><a id='magicparlabel-86' />
 We also define C bindings for these profiles, as well as for specific additional subsets of GSS-API functionality. These will take the form of C pre-processor macros indicating what profiles and functionality subsets are available.</div>
@@ -497,7 +497,7 @@ If a trivial acceptor application has multiple acceptor credentials to choose fr
 <a id="sub_Simple_Acceptor" />
 Simple Acceptor Application</h3>
 <div class="standard"><a id='magicparlabel-122' />
-This profile adds three functions to the trivial initiator application profile, one of which is a destructor:</div>
+This profile adds three functions to the trivial initiator application profile:</div>
 
 <dl class='description'><dt class="description_label">GSS_Inquire_context()</dt>
 <dd class="description_item"><a id='magicparlabel-123' />
@@ -510,7 +510,8 @@ This profile adds three functions to the trivial initiator application profile, 
  This is the destructor for the delegated CREDENTIAL HANDLE.</dd>
 </dl>
 <h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-126' />
-Transport Security Options</h2>
+<a id="sec_Transport_Security_Layer" />
+Transport Security Layer Profiles</h2>
 <div class="standard"><a id='magicparlabel-127' />
 Internet applications often require transport security &ndash; integrity protection or integrity and confidentiality protection. In simpler terms: some applications require encryption.</div>
 
@@ -520,6 +521,7 @@ The GSS-API was originally designed to provide facilities that the application c
 <div class="standard"><a id='magicparlabel-129' />
 It is now possible to retrofit the GSS-API for authentication (and, where required, key exchange) into the widest possible range of applications.</div>
 <h3 class="subsection"><span class="subsection_label">3.1</span> <a id='magicparlabel-130' />
+<a id="sub_Null_Transport_Security" />
 Null Transport Security</h3>
 <div class="standard"><a id='magicparlabel-131' />
 In some environments strong authentication of users and services is sufficient, with no need to protect in-flight data from passive nor active attacks. The trivial and simple profiles of the GSS-API suffice for these applications.</div>
@@ -579,7 +581,7 @@ An application of this type typically has its own transport security layer (i.e.
 Complex Profiles</h2>
 <h3 class="subsection"><span class="subsection_label">4.1</span> <a id='magicparlabel-151' />
 <a id="sub_Complex_Initiator_Application" />
-Complex Initiator Application</h3>
+Advanced Initiator Application</h3>
 <div class="standard"><a id='magicparlabel-152' />
 A complex initiator application requires most of the functions defined in [<a href='#key-9'>key-9</a>] in addition to those of the simple initiator application profile:</div>
 
@@ -594,7 +596,7 @@ A complex initiator application requires most of the functions defined in [<a hr
 These functions are useful for mechanism negotiation.</div>
 <h3 class="subsection"><span class="subsection_label">4.2</span> <a id='magicparlabel-156' />
 <a id="sub_Complex_Acceptor_Application" />
-Complex Acceptor Application</h3>
+Advanced Acceptor Application</h3>
 <div class="standard"><a id='magicparlabel-157' />
 A complex acceptor application typically requires fine-grained access to the initiator names so as to implement more advanced authorization schemes. This means all of the naming extensions APIs:</div>
 
@@ -649,10 +651,10 @@ The identifiers are:</div>
 <dt class="description_label">GSS_PR_SIMPLE_ACCEPTOR</dt>
 <dd class="description_item"><a id='magicparlabel-174' />
  See <a href="#sub_Simple_Acceptor">2.4</a>.</dd>
-<dt class="description_label">GSS_PR_COMPLEX_INITIATOR</dt>
+<dt class="description_label">GSS_PR_ADVANCED_INITIATOR</dt>
 <dd class="description_item"><a id='magicparlabel-175' />
  See <a href="#sub_Complex_Initiator_Application">4.1</a>.</dd>
-<dt class="description_label">GSS_PR_COMPLEX_ACCEPTOR</dt>
+<dt class="description_label">GSS_PR_ADVANCED_ACCEPTOR</dt>
 <dd class="description_item"><a id='magicparlabel-176' />
  See <a href="#sub_Complex_Acceptor_Application">4.2</a>.</dd>
 <dt class="description_label">GSS_PR_CB</dt>
@@ -711,84 +713,87 @@ We ask the IANA to create a registry of GSS-API profiles and subsets, with the i
 Security Considerations</h2>
 <div class="standard"><a id='magicparlabel-199' />
 The security considerations of the GSS-API version 2, update 1, and its various extensions apply. Using too trivial a profile for an application can have security impact. For example, applications using the trivial initiator application profile (GSS_PR_TRIVIAL_INITIATOR) cannot select an initiator identity and depend entirely on the framework and/or selected mechanism for this.</div>
-<h2 class="section"><span class="section_label">10</span> <a id='magicparlabel-200' />
+
+<div class="standard"><a id='magicparlabel-200' />
+Internet applications that use GSS mechanisms should specify one of th transport security layers from <a href="#sec_Transport_Security_Layer">3</a> other than the null layer as required to implement. The simplest transport security layer is, of course, none at all (see <a href="#sub_Null_Transport_Security">3.1</a>), but this is not secure in the Internet threat model; all the other options listed in <a href="#sec_Transport_Security_Layer">3</a> offer good security in the Internet threat model. The next simplest may well be to use TLS with server name binding (see <a href="#sub_TLS_Name_Binding">3.2</a>).</div>
+<h2 class="section"><span class="section_label">10</span> <a id='magicparlabel-201' />
 References</h2>
-<div class="bibliography"><a id='magicparlabel-201' />
+<div class="bibliography"><a id='magicparlabel-202' />
 <a id='' />
-<span class='bibitemlabel'>1</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-205' />
+<span class='bibitemlabel'>1</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-206' />
 rfc2119</div>
 </div><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-206' />
+<div class="bibliography"><a id='magicparlabel-207' />
 <a id='' />
-<span class='bibitemlabel'>2</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-210' />
+<span class='bibitemlabel'>2</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-211' />
 rfc5246</div>
 </div><a href="http://www.ietf.org/rfc/rfc5246.txt">RFC5246</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-211' />
+<div class="bibliography"><a id='magicparlabel-212' />
 <a id='' />
-<span class='bibitemlabel'>3</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-215' />
+<span class='bibitemlabel'>3</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-216' />
 rfc5056</div>
 </div><a href="http://www.ietf.org/rfc/rfc5056.txt">RFC5056</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-216' />
+<div class="bibliography"><a id='magicparlabel-217' />
 <a id='' />
-<span class='bibitemlabel'>4</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-220' />
+<span class='bibitemlabel'>4</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-221' />
 I-D.williams-rest-gss</div>
 </div><a href="https://datatracker.ietf.org/doc/draft-williams-rest-gss/">I-D.williams-rest-gss</a><a href="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-221' />
+<div class="bibliography"><a id='magicparlabel-222' />
 <a id='' />
-<span class='bibitemlabel'>5</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-225' />
+<span class='bibitemlabel'>5</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-226' />
 rfc4422</div>
 </div><a href="http://www.ietf.org/rfc/rfc4422.txt">RFC4422</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-226' />
+<div class="bibliography"><a id='magicparlabel-227' />
 <a id='' />
-<span class='bibitemlabel'>6</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-230' />
+<span class='bibitemlabel'>6</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-231' />
 rfc2743</div>
 </div><a href="http://www.ietf.org/rfc/rfc2743.txt">RFC2743</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-231' />
+<div class="bibliography"><a id='magicparlabel-232' />
 <a id='' />
-<span class='bibitemlabel'>7</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-235' />
+<span class='bibitemlabel'>7</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-236' />
 rfc4559</div>
 </div><a href="http://www.ietf.org/rfc/rfc4559.txt">RFC4559</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-236' />
+<div class="bibliography"><a id='magicparlabel-237' />
 <a id='' />
-<span class='bibitemlabel'>8</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-240' />
+<span class='bibitemlabel'>8</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-241' />
 rfc5801</div>
 </div><a href="http://www.ietf.org/rfc/rfc5801.txt">RFC5801</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-241' />
+<div class="bibliography"><a id='magicparlabel-242' />
 <a id='' />
-<span class='bibitemlabel'>9</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-245' />
+<span class='bibitemlabel'>9</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-246' />
 rfc5587</div>
 </div><a href="http://www.ietf.org/rfc/rfc5587.txt">RFC5587</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-246' />
+<div class="bibliography"><a id='magicparlabel-247' />
 <a id='' />
-<span class='bibitemlabel'>10</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-250' />
+<span class='bibitemlabel'>10</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-251' />
 I-D.ietf-kitten-gssapi-naming-exts</div>
 </div><a href="https://datatracker.ietf.org/doc/draft-ietf-kitten-gssapi-naming-exts/">I-D.ietf-kitten-gssapi-naming-exts</a><a href="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-kitten-gssapi-naming-exts.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-251' />
+<div class="bibliography"><a id='magicparlabel-252' />
 <a id='' />
-<span class='bibitemlabel'>11</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-255' />
+<span class='bibitemlabel'>11</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-256' />
 rfc5588</div>
 </div><a href="http://www.ietf.org/rfc/rfc5588.txt">RFC5588</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5588.xml">(bibxml)</a></div>
 
-<div class="bibliography"><a id='magicparlabel-256' />
+<div class="bibliography"><a id='magicparlabel-257' />
 <a id='' />
-<span class='bibitemlabel'>12</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-260' />
+<span class='bibitemlabel'>12</span><div class="flex_referenceentity"><div class="plain_layout"><a id='magicparlabel-261' />
 rfc4401</div>
 </div><a href="http://www.ietf.org/rfc/rfc4401.txt">RFC4401</a><a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4401.xml">(bibxml)</a></div>
 
-<div class="standard"><a id='magicparlabel-261' />
+<div class="standard"><a id='magicparlabel-262' />
 ...</div>
 
-<div class="standard"><a id='magicparlabel-262' />
+<div class="standard"><a id='magicparlabel-263' />
 ...</div>
 </body>
 </html>
