@@ -74,17 +74,17 @@ Table of Contents
    1.1.  Conventions used in this document  . . . . . . . . . . . . .  4
    2.    Protocol . . . . . . . . . . . . . . . . . . . . . . . . . .  5
    2.1.  WWW-Authenticate Header Value Prefix Syntax  . . . . . . . .  5
-   2.2.  The New WWW-Session-URI Header . . . . . . . . . . . . . . .  6
-   3.    HTTP Routing and RESTauth  . . . . . . . . . . . . . . . . .  7
-   4.    IANA Considerations  . . . . . . . . . . . . . . . . . . . .  8
-   5.    Security Considerations  . . . . . . . . . . . . . . . . . .  9
-   6.    References . . . . . . . . . . . . . . . . . . . . . . . . . 10
-         Author's Address . . . . . . . . . . . . . . . . . . . . . . 11
-
-
-
-
-
+   2.2.  WWW-ChannelBinding-Type Header . . . . . . . . . . . . . . .  6
+   2.3.  WWW-SessionType Header . . . . . . . . . . . . . . . . . . .  6
+   2.4.  WWW-ReplayProtection Header  . . . . . . . . . . . . . . . .  7
+   2.5.  Negotiable Parameters  . . . . . . . . . . . . . . . . . . .  7
+   2.6.  Protocol Flow  . . . . . . . . . . . . . . . . . . . . . . .  7
+   2.7.  The New WWW-Session-URI Header . . . . . . . . . . . . . . .  8
+   3.    HTTP Routing and RESTauth  . . . . . . . . . . . . . . . . .  9
+   4.    IANA Considerations  . . . . . . . . . . . . . . . . . . . . 10
+   5.    Security Considerations  . . . . . . . . . . . . . . . . . . 11
+   6.    References . . . . . . . . . . . . . . . . . . . . . . . . . 12
+         Author's Address . . . . . . . . . . . . . . . . . . . . . . 13
 
 
 
@@ -176,13 +176,13 @@ Internet-Draft           RESTful Authentication              August 2012
    authentication message, then the client consumes that message and
    POSTs subsequent ones to the agreed URI.
 
+   This document replaces [I-D.williams-rest-gss].
+
 1.1.  Conventions used in this document
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
    document are to be interpreted as described in [RFC2119].
-
-
 
 
 
@@ -230,8 +230,11 @@ Internet-Draft           RESTful Authentication              August 2012
    The are very few normative protocol elements here besides the outline
    given in Section 1.  The normative protocol elements are:
 
-   o  part of the form of the WWW-Authenticate headers for RESTauth
+   o  the form of the WWW-Authenticate header values for RESTauth
       mechanisms;
+
+   o  several new headers for advertising negotiable paramters that are
+      orthogonal to WWW-Authenticate;
 
    o  the POSTing of authentication messages from the client, with the
       initial client authentication message going to either a pre-agreed
@@ -273,9 +276,6 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-
-
-
 Williams                Expires February 11, 2013               [Page 5]
 
 Internet-Draft           RESTful Authentication              August 2012
@@ -289,7 +289,8 @@ Internet-Draft           RESTful Authentication              August 2012
          login-uri           = absoluteURI
          ; CB types are as registered in the
          ; CB type registry; see RFC5929)
-         cb-types            = "c=" cb-type / (cb-type ":" cb-types)
+         cb-types            = "c=" ( cb-type / "none" ) /
+                                    (cb-type ":" cb-types)
          session-types       = "s=" session-type /
                                (session-type ":" session-types)
          session-type        = "cookie" / "session-ID" / "MIC"
@@ -311,7 +312,98 @@ Internet-Draft           RESTful Authentication              August 2012
    Note that mechanisms that may be used include: GSS mechanisms, SASL
    mechanisms, ad-hoc mechanisms, and so on.
 
-2.2.  The New WWW-Session-URI Header
+2.2.  WWW-ChannelBinding-Type Header
+
+   A new header is added by which clients MUST indicate what channel
+   binding type they used when POSTing RESTauth authentication messages.
+   The header is named WWW-ChannelBinding-Type.  Its value is a channel
+   binding type from the channel binding type registry __[RFC5929] .
+
+2.3.  WWW-SessionType Header
+
+   A new header is added by which clients MUST indicate what session
+   binding type they choose when POSTing RESTauth authentication
+   messages.  The header is named WWW-SessionBinding-Type.  Its value is
+   a session binding type as shown in Figure 1.
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 6]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+2.4.  WWW-ReplayProtection Header
+
+   A new header is added by which clients MUST indicate whether they
+   desire replay protection when POSTing RESTauth authentication
+   messages.  The header is named WWW-SessionBinding-Type.  Its value is
+   "yes" or "no" (defaults to "no") as shown in Figure 1.
+
+2.5.  Negotiable Parameters
+
+   As can be seen in the ABNF in the preceding section, the server can
+   offer some negotiable parameters.  These are:
+
+   o  Mechanism names;
+
+   o  Channel binding types;
+
+   o  Session binding types;
+
+   o  Replay protection;
+
+   Each WWW-Authenticate header value offers a single mechanism and
+   negotiable parameters for it.
+
+   [[anchor1: NOTE: Perhaps we should have separate headers for each of
+   the channel binding, session binding, and replay protection
+   negotiables, as they are really independent of mechanism negotiation,
+   thus if a server has many RESTauth mechanisms to offer then
+   separating these negotiables into separate headers might serve as a
+   compression function (depending on the length of the potential new
+   header names!).  Even if it doesn't work as a compression function,
+   it seems desirable to separate these.  However, at least session
+   types are likely to in some cases be per-mechanism...]]
+
+2.6.  Protocol Flow
+
+   RESTauth can be initiated by a client that knows a priori that it
+   needs to or wants to use RESTauth.  Servers can also tell clients
+   that access to certain resources require authentication, possibly
+   including RESTauth mechanisms.  When the server tells the client that
+   it must authenticate the server may also give the client an initial
+   authentication message for one or more mechanisms.
+
+   When the client knows a priori that it must authenticate then the
+   client MUST know the RESTauth login URI a priori as well, as well as
+   negotiable parameters, all of which the client might know from either
+   an application protocol specification, or from caching this
+   information from earlier RESTauth exchanges.
+
+
+
+
+Williams                Expires February 11, 2013               [Page 7]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
+   The server MUST use a 401 HTTP status code and WWW-Authenticate
+   headers to inform the client of the need to authenticate in order to
+   access a given resource.  For RESTauth mechanisms the WWW-
+   Authenticate header values MUST conform to the ABNF given in
+   Section 2.1.
+
+   To proceed the client chooses a suitable authentication mechanism
+   (for which, presumably, it has credentials for a desired client
+   identity), possibly a channel binding type,
+
+2.7.  The New WWW-Session-URI Header
 
    A new HTTP header is added called WWW-Session-URI whose value
    consists of whitespace-separated session URIs.  At least one session
@@ -332,7 +424,27 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 11, 2013               [Page 6]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 11, 2013               [Page 8]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -388,7 +500,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 11, 2013               [Page 7]
+Williams                Expires February 11, 2013               [Page 9]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -444,7 +556,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 11, 2013               [Page 8]
+Williams                Expires February 11, 2013              [Page 10]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -500,7 +612,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 11, 2013               [Page 9]
+Williams                Expires February 11, 2013              [Page 11]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -516,6 +628,14 @@ Internet-Draft           RESTful Authentication              August 2012
    [RFC5056]  Williams, N., "On the Use of Channel Bindings to Secure
               Channels", RFC 5056, November 2007.
 
+   [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
+              for TLS", RFC 5929, July 2010.
+
+   [I-D.williams-rest-gss]
+              Williams, N., "RESTful Hypertext Transfer Protocol
+              Application-Layer Authentication Using Generic Security
+              Services", draft-williams-rest-gss-02 (work in progress),
+              July 2012.
 
 
 
@@ -548,15 +668,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-
-
-
-
-
-
-
-
-Williams                Expires February 11, 2013              [Page 10]
+Williams                Expires February 11, 2013              [Page 12]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -612,5 +724,5 @@ Author's Address
 
 
 
-Williams                Expires February 11, 2013              [Page 11]
+Williams                Expires February 11, 2013              [Page 13]
 
