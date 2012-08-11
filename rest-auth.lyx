@@ -242,7 +242,7 @@ RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)
 status collapsed
 
 \begin_layout Plain Layout
-draft-williams-http-rest-auth
+draft-williams-http-rest-auth-00
 \end_layout
 
 \end_inset
@@ -377,7 +377,8 @@ RESTful
  The existing 401 status code and WWW-Authenticate header are used to indicate
  that authentication is required and for negotiation purposes.
  The client POSTs an initial authentication message to an indicated login
- URI, then 
+ URI, and reply messages are returned as new representations of a session
+ resource named by a session URI.
 \end_layout
 
 \begin_layout Abstract
@@ -395,6 +396,14 @@ routers
 
  and proxies, and it naturally (i.e., without changing HTTP) handles multi-legged
  authentication mechanisms.
+\end_layout
+
+\begin_layout Abstract
+Among other features supported are: channel binding, an optional round trip
+ optimization for challenge/response mechanisms, somecryptographic protection
+ options for clients that don't use Transport Layer Security (TLS), stronger
+ authentication of servers/services to users (where authentication mechanisms
+ provide that) and more.
 \end_layout
 
 \begin_layout Standard
@@ -545,7 +554,7 @@ I-D.williams-rest-gss
 .
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Section
 Conventions used in this document
 \end_layout
 
@@ -633,6 +642,45 @@ the use of session keys as an option for integrity protection when TLS is
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
+name "sub:Negotiable-Parameters"
+
+\end_inset
+
+Negotiable Parameters
+\end_layout
+
+\begin_layout Standard
+As can be seen in the ABNF in the preceding section, the server can offer
+ some negotiable parameters.
+ These are:
+\end_layout
+
+\begin_layout Itemize
+Mechanism names;
+\end_layout
+
+\begin_layout Itemize
+Channel binding types;
+\end_layout
+
+\begin_layout Itemize
+Session binding types;
+\end_layout
+
+\begin_layout Itemize
+Replay protection;
+\end_layout
+
+\begin_layout Standard
+Each WWW-Authenticate header value offers a single mechanism and negotiable
+ parameters for it.
+ The WWW-ChannelBinding-Types header allows the server to offer channel
+ binding types.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
 name "sub:WWW-Authenticate-Header-Value"
 
 \end_inset
@@ -667,42 +715,17 @@ status open
 
 \begin_layout Plain Layout
 
-      restauth-challenge  = ( login-uri SP cb-types SP
+      restauth-challenge  = ( login-uri SP session-types SP
 \end_layout
 
 \begin_layout Plain Layout
 
-                              session-types SP replay-prot SP
-\end_layout
-
-\begin_layout Plain Layout
-
-                              *1(mech-challenge) )
+                              replay-prot SP *1(mech-challenge) )
 \end_layout
 
 \begin_layout Plain Layout
 
       login-uri           = absoluteURI
-\end_layout
-
-\begin_layout Plain Layout
-
-      ; CB types are as registered in the
-\end_layout
-
-\begin_layout Plain Layout
-
-      ; CB type registry; see RFC5929)
-\end_layout
-
-\begin_layout Plain Layout
-
-      cb-types            = "c=" ( cb-type / "none" ) /
-\end_layout
-
-\begin_layout Plain Layout
-
-                                 (cb-type ":" cb-types)
 \end_layout
 
 \begin_layout Plain Layout
@@ -717,7 +740,7 @@ status open
 
 \begin_layout Plain Layout
 
-      session-type        = "cookie" / "session-ID" / "MIC"
+      session-type        = "cookie" / "session-ID" / "MAC"
 \end_layout
 
 \begin_layout Plain Layout
@@ -732,7 +755,12 @@ status open
 
 \begin_layout Plain Layout
 
-      ; mech-challenge as a base64 string
+      ;       mech-challenge as a base64 string
+\end_layout
+
+\begin_layout Plain Layout
+
+      ; TODO: add MAC algorithm offers for alg agility
 \end_layout
 
 \end_inset
@@ -800,18 +828,33 @@ Note that mechanisms that may be used include: GSS mechanisms, SASL mechanisms,
  ad-hoc mechanisms, and so on.
 \end_layout
 
-\begin_layout Subsection
-WWW-ChannelBinding-Type Header
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:WWW-ChannelBinding-Types-Header"
+
+\end_inset
+
+WWW-ChannelBinding-Types Header
 \end_layout
 
 \begin_layout Standard
-A new header is added by which clients MUST indicate what channel binding
- type they used when POSTing RESTauth authentication messages.
- The header is named WWW-ChannelBinding-Type.
- Its value is a channel binding type from the channel binding type registry
+A new header is added by which servers MUST indicate which channel binding
  
-\emph on
+\begin_inset Flex EntityXRef
+status collapsed
 
+\begin_layout Plain Layout
+RFC5056
+\end_layout
+
+\end_inset
+
+ types -if any- they support for RESTauth authentication; if the server
+ does not support channel binding then this header MUST be absent.
+ The header is named WWW-ChannelBinding-Types.
+ Its values are channel binding types from the channel binding type registry
+ 
 \begin_inset Flex EntityXRef
 status collapsed
 
@@ -821,12 +864,45 @@ RFC5929
 
 \end_inset
 
-
-\emph default
 .
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:WWW-ChannelBinding-Type-Header"
+
+\end_inset
+
+WWW-ChannelBinding-Type Header
+\end_layout
+
+\begin_layout Standard
+A new header is added by which clients MUST indicate what channel binding
+ type they used when POSTing RESTauth authentication messages, if any; if
+ the client did not use channel binding then this header MUST be absent.
+ The header is named WWW-ChannelBinding-Type.
+ Its value is a channel binding type from the channel binding type registry
+ 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5929
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:WWW-SessionType-Header"
+
+\end_inset
+
 WWW-SessionType Header
 \end_layout
 
@@ -842,9 +918,16 @@ reference "fig:WWW-Authenticate-ABNF"
 \end_inset
 
 .
+ This header MUST be present in RESTauth authentication HTTP requests.
 \end_layout
 
-\begin_layout Subsection
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:WWW-ReplayProtection-Header"
+
+\end_inset
+
 WWW-ReplayProtection Header
 \end_layout
 
@@ -876,7 +959,7 @@ no
 \begin_inset Quotes erd
 \end_inset
 
-) as shown in 
+ if absent) as shown in 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "fig:WWW-Authenticate-ABNF"
@@ -886,47 +969,26 @@ reference "fig:WWW-Authenticate-ABNF"
 .
 \end_layout
 
-\begin_layout Subsection
-Negotiable Parameters
-\end_layout
-
 \begin_layout Standard
-As can be seen in the ABNF in the preceding section, the server can offer
- some negotiable parameters.
- These are:
+Replay protection is to be used only when TLS 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5246
 \end_layout
 
-\begin_layout Itemize
-Mechanism names;
-\end_layout
+\end_inset
 
-\begin_layout Itemize
-Channel binding types;
-\end_layout
+ is not, and only if a session binding type of 
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Itemize
-Session binding types;
-\end_layout
+MAC
+\begin_inset Quotes erd
+\end_inset
 
-\begin_layout Itemize
-Replay protection;
-\end_layout
-
-\begin_layout Standard
-Each WWW-Authenticate header value offers a single mechanism and negotiable
- parameters for it.
-\end_layout
-
-\begin_layout RevisionRemark
-NOTE: Perhaps we should have separate headers for each of the channel binding,
- session binding, and replay protection negotiables, as they are really
- independent of mechanism negotiation, thus if a server has many RESTauth
- mechanisms to offer then separating these negotiables into separate headers
- might serve as a compression function (depending on the length of the potential
- new header names!).
- Even if it doesn't work as a compression function, it seems desirable to
- separate these.
- However, at least session types are likely to in some cases be per-mechanism...
+ is also requested.
 \end_layout
 
 \begin_layout Subsection
@@ -975,17 +1037,93 @@ reference "sub:WWW-Authenticate-Header-Value"
 \begin_layout Standard
 To proceed the client chooses a suitable authentication mechanism (for which,
  presumably, it has credentials for a desired client identity), possibly
- a channel binding type, 
+ a channel binding type, possibly a session type, and whether to use replay
+ protection.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:One-Round-Trip"
+
+\end_inset
+
+One Round Trip Optimization: Challenges Born in WWW-Authenticate Headers
+\end_layout
+
+\begin_layout Standard
+Some mechanisms may optimize the protocol flow by allowing the server to
+ include challenges in the 401 response's WWW-Authenticate header values.
+ RESTauth allows this, but this feature is OPTIONAL: it must always be possible
+ for a client to initiate RESTauth without first obtaining a challenge in
+ a WWW-Authenticate header value, in which case the client must incur an
+ extra protocol leg by obtaining the challenge (if it is at all necessary)
+ in the server's reply to the client's first authentication message.
+ The reason that this optimization is optional is to allow the implementation
+ of RESTauth mechanisms with frameworks that only support client-initiated
+ authentication.
+\end_layout
+
+\begin_layout Standard
+A challenge may consist of a nonce, some encrypted or MACed nonce, a timestamp,
+ and even seemingly unrelated contents such as certificates and digital
+ signatures.
+ The server MAY include a login URI in challenge-laden WWW-Authenticate
+ headers where the login URI encodes secure state regarding the challenge.
+ 
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Session-Binding-Types:"
+
+\end_inset
+
+Session Binding Types: Cookie, URI, and MAC
+\end_layout
+
+\begin_layout Standard
+A notion of session binding type is added for binding HTTP requests to specific
+ RESTauth login sessions.
+ Three types are provided:
+\end_layout
+
+\begin_layout Description
+Cookies The traditional web cookie approach to session binding;
+\end_layout
+
+\begin_layout Description
+Session
+\begin_inset space ~
+\end_inset
+
+URI HTTP requests carry a WWW-Session-URI header identifying the session(s)
+ (similar to cookies, but without all the associated baggage);
+\end_layout
+
+\begin_layout Description
+MAC HTTP requests carry a WWW-Session-URI header identifying the session(s)
+ and a WWW-Session-MAC header that carries a MAC or MACs binding the session
+ URI(s) to the request.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:The-New-WWW-Session-URI"
+
+\end_inset
+
 The New WWW-Session-URI Header
 \end_layout
 
 \begin_layout Standard
-A new HTTP header is added called WWW-Session-URI whose value consists of
- whitespace-separated session URIs.
+A new HTTP header is added called WWW-Session-URI whose values consist of
+ session URIs.
  At least one session URI MUST be included.
+ Each session URI is an absoluteURI.
+ Session URIs MUST NOT have unescaped commas (',') embedded in them.
  Servers MAY fail to implement support for multiple session URIs being reference
 d by a single request, in which case they MUST answer with error code <TBD>.
  Servers MUST validate the session URI before processing the request; if
@@ -993,19 +1131,195 @@ d by a single request, in which case they MUST answer with error code <TBD>.
  status code.
 \end_layout
 
-\begin_layout Section
-HTTP Routing and RESTauth
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:The-New-WWW-Session-MAC"
+
+\end_inset
+
+The New WWW-Session-MAC Header
+\end_layout
+
+\begin_layout RevisionRemark
+Describe the header, its values, algorithm agility, and what the MAC is
+ to be taken over.
+ Note too that this cannot apply to request contents as we have to consider
+ chunking, and besides, a MAC of contents really has to go as a trailer,
+ not a header.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:A-MAC-Trailer??"
+
+\end_inset
+
+A MAC Trailer??
+\end_layout
+
+\begin_layout RevisionRemark
+...
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:HTTP-Routing-and"
+
+\end_inset
+
+HTTP 
+\begin_inset Quotes eld
+\end_inset
+
+Routing
+\begin_inset Quotes erd
+\end_inset
+
+ and RESTauth
+\end_layout
+
+\begin_layout Standard
+It is common to deploy HTTP services with load-balanced servers behind a
+ load balancer and TLS concentrator.
+ Other techniques may also result in a multiplicity of servers acting on
+ behalf of a single service.
+ The load balancers may even behave like routers and route HTTP requests
+ to the same server for all requests in a single connection, or even route
+ HTTP requests according to the verb and resource.
+ It helps to be able to have a notion of authenticated sessions that can
+ be referenced by all servers responding to a given service name.
+\end_layout
+
+\begin_layout Standard
+The server end of a RESTauth authentication message exchange may be terminated
+ by one server, by many servers sharing session state (via the resources
+ named by session URIs), or by a server-side HTTP router.
+ Once a RESTauth session is established we assume that all servers responding
+ to the same service name will be able to access the session resource, validate
+ session URIs, and obtain keys for computing and validating session binding
+ MACs.
+ Alternatively, the router may take responsibility for session binding and
+ signal authorization information from the established session to the HTTP
+ servers behind the router (however, we do not here specify any methods
+ for such signalling).
+\end_layout
+
+\begin_layout Standard
+By using REST for the authentication message exchange we allow this disconnectio
+n between 
+\begin_inset Quotes eld
+\end_inset
+
+session
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+connection
+\begin_inset Quotes erd
+\end_inset
+
+, which therefore facilitates 
+\begin_inset Quotes eld
+\end_inset
+
+routing
+\begin_inset Quotes erd
+\end_inset
+
+ of HTTP requests and even off-loading of authentication and/or session
+ binding to HTTP 
+\begin_inset Quotes eld
+\end_inset
+
+routers
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+This approach should be flexible enough for all existing architectures for
+ deploying HTTP services.
+\end_layout
+
+\begin_layout Section
+Sample/Potential RESTauth Authentication Mechanisms
+\end_layout
+
+\begin_layout RevisionRemark
+TODO: Describe how to use or adapt a variety of authentication mechanisms,
+ from SSHv2, IKEv2, SASL, GSS-API, and other frameworks, to gain a set of
+ usable mechanisms quickly, both, specification- and implementation-wise.
+ Although I've not done this yet, it seems likely to be quite simple to
+ adapt all these authentication mechanism types to RESTauth.
+\end_layout
+
+\begin_layout Subsection
+Adapting SSHv2 Authentication Mechanisms to RESTauth
+\end_layout
+
+\begin_layout Subsubsection
+Adaptinve SSHv2 'publickey userauth' to RESTauth
+\end_layout
+
+\begin_layout Subsubsection
+Adaptinve SSHv2 'hostbased userauth' to RESTauth
+\end_layout
+
+\begin_layout Subsection
+Adapting IKEv2 Authentication Mechanisms to RESTauth
+\end_layout
+
+\begin_layout Subsubsection
+Adaptinve IKEv2 Password Authenticated Connection Establishment (PACE) to
+ RESTauth
+\end_layout
+
+\begin_layout Subsection
+Using SASL Authentication Mechanisms with RESTauth
+\end_layout
+
+\begin_layout Subsubsection
+Using SCRAM in RESTauth
+\end_layout
+
+\begin_layout Subsubsection
+Using SCRAM with Round Trip Optimization in RESTauth
+\end_layout
+
+\begin_layout Subsection
+Using GSS-API Authentication Mechanisms with RESTauth
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:IANA-Considerations"
+
+\end_inset
+
 IANA Considerations
 \end_layout
 
 \begin_layout Standard
-TBD.
+TBD (header registrations, ...)
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Security-Considerations"
+
+\end_inset
+
 Security Considerations
 \end_layout
 
@@ -1013,6 +1327,29 @@ Security Considerations
 This entire document deals with security considerations.
  [Add more, like about channel binding, same-origin-like constraints on
  the login and session absolute URIs', ...]
+\end_layout
+
+\begin_layout Section
+TODO
+\end_layout
+
+\begin_layout RevisionRemark
+Add references (to HTTP, CGI/fCGI, SSHv2, IKEv2, SASL, GSS, PACE, ...).
+\end_layout
+
+\begin_layout RevisionRemark
+Describe MAC session binding option and replay protection in detail.
+\end_layout
+
+\begin_layout RevisionRemark
+Add text to and complete sections describing how to use various existing
+ security mechanisms with RESTauth, such as SASL, GSS-API, and other mechanisms.
+\end_layout
+
+\begin_layout RevisionRemark
+Add text to and complete sections describing mechanisms for adapting to
+ RESTauth SSHv2 publickey, SSHv2 host-based authentication, IKEv2 methods,
+ and other such authentication mechanisms as a way of showcasing RESTauth.
 \end_layout
 
 \begin_layout Section
@@ -1134,7 +1471,7 @@ target "http://www.ietf.org/rfc/rfc5929.txt"
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
-key "key-4-1"
+key "key-5"
 
 \end_inset
 
