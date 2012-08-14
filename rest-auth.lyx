@@ -219,7 +219,7 @@ End
 \begin_body
 
 \begin_layout Title
-RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)
+RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)
 \end_layout
 
 \begin_layout Standard
@@ -385,7 +385,7 @@ routers
 
 \begin_layout Abstract
 Among other features supported are: channel binding, an optional round trip
- optimization for challenge/response mechanisms, somecryptographic protection
+ optimization for challenge/response mechanisms, some cryptographic protection
  options for clients that don't use Transport Layer Security (TLS), stronger
  authentication of servers/services to users (where authentication mechanisms
  provide that) and more.
@@ -598,7 +598,7 @@ the form of the WWW-Authenticate header values for RESTauth mechanisms;
 \end_layout
 
 \begin_layout Itemize
-several new headers for advertising negotiable paramters that are orthogonal
+several new headers for advertising negotiable parameters that are orthogonal
  to WWW-Authenticate;
 \end_layout
 
@@ -619,7 +619,7 @@ the new session URI resource representation resulting from POSTs being the
 \end_layout
 
 \begin_layout Itemize
-the DELETEion of session URIs as signalling logout;
+the DELETEion of session URIs as signaling logout;
 \end_layout
 
 \begin_layout Itemize
@@ -1103,7 +1103,7 @@ Some mechanisms may optimize the protocol flow by allowing the server to
 \end_layout
 
 \begin_layout Standard
-A challenge may consist of a nonce, some encrypted or MACed nonce, a timestamp,
+A challenge may consist of a nonce, some encrypted or MACed nonce, a time-stamp,
  and even seemingly unrelated contents such as certificates and digital
  signatures.
  The server MAY include a login URI in challenge-laden WWW-Authenticate
@@ -1249,7 +1249,7 @@ The server end of a RESTauth authentication message exchange may be terminated
  Alternatively, the router may take responsibility for session binding and
  signal authorization information from the established session to the HTTP
  servers behind the router (however, we do not here specify any methods
- for such signalling).
+ for such signaling).
 \end_layout
 
 \begin_layout Standard
@@ -1432,12 +1432,13 @@ name "sec:Sample/Potential-RESTauth-Authen"
 Sample/Potential RESTauth Authentication Mechanisms
 \end_layout
 
-\begin_layout RevisionRemark
-TODO: Describe how to use or adapt a variety of authentication mechanisms,
- from SSHv2, IKEv2, SASL, GSS-API, and other frameworks, to gain a set of
- usable mechanisms quickly, both, specification- and implementation-wise.
- Although I've not done this yet, it seems likely to be quite simple to
- adapt all these authentication mechanism types to RESTauth.
+\begin_layout Standard
+Here we describe (informatively, for now) how to use or adapt a variety
+ of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API, and other
+ frameworks, so as to quickly gain a set of usable mechanisms, both, specificati
+on- and implementation-wise.
+ This section is also intended to show that adding RESTauth mechanisms is
+ easy.
 \end_layout
 
 \begin_layout Subsection
@@ -1545,7 +1546,7 @@ The ssh-publickey-SHA-256 and ssh-hostbased-SHA-256 mechanisms use the following
  instead of a traditional SSHv2 session ID:
 \end_layout
 
-\begin_layout Literal
+\begin_layout Itemize
 SHA-256((client_nonce XOR server_nonce) || channel_binding)
 \end_layout
 
@@ -1753,7 +1754,7 @@ SASL/GS2
 \begin_inset Quotes erd
 \end_inset
 
- brigde 
+ bridge 
 \begin_inset Flex EntityXRef
 status collapsed
 

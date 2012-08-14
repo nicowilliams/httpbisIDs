@@ -7,7 +7,7 @@ Intended status: Informational                           August 13, 2012
 Expires: February 14, 2013
 
 
-  RESTful Authentication Pattern for the HyperText Transport Protocol
+  RESTful Authentication Pattern for the Hypertext Transport Protocol
                                  (HTTP)
                     draft-williams-http-rest-auth-01
 
@@ -30,11 +30,10 @@ Abstract
    HTTP) handles multi-legged authentication mechanisms.
 
    Among other features supported are: channel binding, an optional
-   round trip optimization for challenge/response mechanisms,
-   somecryptographic protection options for clients that don't use
-   Transport Layer Security (TLS), stronger authentication of servers/
-   services to users (where authentication mechanisms provide that) and
-   more.
+   round trip optimization for challenge/response mechanisms, some
+   cryptographic protection options for clients that don't use Transport
+   Layer Security (TLS), stronger authentication of servers/services to
+   users (where authentication mechanisms provide that) and more.
 
 Status of this Memo
 
@@ -185,7 +184,7 @@ Table of Contents
    o  the form of the WWW-Authenticate header values for RESTauth
       mechanisms;
 
-   o  several new headers for advertising negotiable paramters that are
+   o  several new headers for advertising negotiable parameters that are
       orthogonal to WWW-Authenticate;
 
    o  the POSTing of authentication messages from the client, with the
@@ -199,7 +198,7 @@ Table of Contents
    o  the new session URI resource representation resulting from POSTs
       being the server's response authentication message, if any;
 
-   o  the DELETEion of session URIs as signalling logout;
+   o  the DELETEion of session URIs as signaling logout;
 
    o  a new header for referencing session URIs in normal HTTP requests;
 
@@ -343,10 +342,10 @@ Table of Contents
    authentication.
 
    A challenge may consist of a nonce, some encrypted or MACed nonce, a
-   timestamp, and even seemingly unrelated contents such as certificates
-   and digital signatures.  The server MAY include a login URI in
-   challenge-laden WWW-Authenticate headers where the login URI encodes
-   secure state regarding the challenge.
+   time-stamp, and even seemingly unrelated contents such as
+   certificates and digital signatures.  The server MAY include a login
+   URI in challenge-laden WWW-Authenticate headers where the login URI
+   encodes secure state regarding the challenge.
 
 3.3.  Session Binding Types: Cookie, URI, and MAC
 
@@ -412,7 +411,7 @@ Table of Contents
    router may take responsibility for session binding and signal
    authorization information from the established session to the HTTP
    servers behind the router (however, we do not here specify any
-   methods for such signalling).
+   methods for such signaling).
 
    By using REST for the authentication message exchange we allow this
    disconnection between "session" and "connection", which therefore
@@ -466,12 +465,12 @@ Table of Contents
 
 6.  Sample/Potential RESTauth Authentication Mechanisms
 
-   [[anchor3: TODO: Describe how to use or adapt a variety of
-   authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API, and
-   other frameworks, to gain a set of usable mechanisms quickly, both,
-   specification- and implementation-wise.  Although I've not done this
-   yet, it seems likely to be quite simple to adapt all these
-   authentication mechanism types to RESTauth.]]
+   Here we describe (informatively, for now) how to use or adapt a
+   variety of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-
+   API, and other frameworks, so as to quickly gain a set of usable
+   mechanisms, both, specification- and implementation-wise.  This
+   section is also intended to show that adding RESTauth mechanisms is
+   easy.
 
 6.1.  Adapting SSHv2 Authentication Mechanisms to RESTauth
 
@@ -514,6 +513,8 @@ Table of Contents
    The ssh-publickey-SHA-256 and ssh-hostbased-SHA-256 mechanisms use
    the following instead of a traditional SSHv2 session ID:
 
+   o  SHA-256((client_nonce XOR server_nonce) || channel_binding)
+
    Here the <channel_binding> is as per-[RFC5056]: the channel binding
    type name, followed by the channel binding data (e.g., 'tls-server-
    end-point' followed by the server EE certificate as sent in the
@@ -525,12 +526,12 @@ Table of Contents
 
 6.2.  Adapting IKEv2 Authentication Mechanisms to RESTauth
 
-   [[anchor4: TBD.]]
+   [[anchor3: TBD.]]
 
 6.2.1.  Adapting IKEv2 Password Authenticated Connection Establishment
         (PACE) to RESTauth
 
-   [[anchor5: TBD.]]
+   [[anchor4: TBD.]]
 
 6.3.  Using SASL Authentication Mechanisms with RESTauth
 
@@ -568,7 +569,7 @@ Table of Contents
    The Generic Security Services Application Programming Interface (GSS-
    API) [RFC2743] is another pluggable mechanism framework.  Any GSS-API
    mechanism that supports channel binding [RFC5056] can be used as SASL
-   mechanisms via the "SASL/GS2" brigde [RFC5801].  This includes the
+   mechanisms via the "SASL/GS2" bridge [RFC5801].  This includes the
    Kerberos V5 GSS-API mechanism [RFC4121].
 
 
@@ -586,13 +587,13 @@ Table of Contents
 
 9.  TODO
 
-   [[anchor6: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
+   [[anchor5: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
 
-   [[anchor7: Describe MAC session binding option and replay protection
+   [[anchor6: Describe MAC session binding option and replay protection
    in detail.  Describe how to extract keys for MAC keying from SASL/
    GSS/PACE.]]
 
-   [[anchor8: Figure out how to adapt IKEv2 password-based methods to
+   [[anchor7: Figure out how to adapt IKEv2 password-based methods to
    RESTauth.  This may not be worthwhile (since each method tends to
    depend heavily on the entire IKEv2 framework in ways that add
    messaging that we'd not need in RESTauth).]]

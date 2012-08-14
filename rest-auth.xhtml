@@ -4,7 +4,7 @@
 <head>
 <meta name="GENERATOR" content="LyX 2.0.0" />
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
-<title>RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)</title>
+<title>RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)</title>
 
 <!-- Text Class Preamble -->
 <style type="text/css">
@@ -138,10 +138,6 @@ div.revisionremark {
 text-align: left;
 
 }
-div.literal {
-text-align: left;
-
-}
 div.flex_docname {
 font-family: serif;
 font-weight: normal;
@@ -243,7 +239,7 @@ font-size: medium;
 </head>
 <body>
 <h1 class="title"><a id='magicparlabel-1' />
-RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)</h1>
+RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)</h1>
 <div class="standard"><a id='magicparlabel-2' />
 <div class="flex_docname"><div class="plain_layout"><a id='magicparlabel-6' />
 draft-williams-http-rest-auth-01</div>
@@ -281,7 +277,7 @@ This document proposes a &ldquo;RESTful&rdquo; pattern of authentication for HTT
 <div class="abstract_item"><a id='magicparlabel-53' />
 This approach has a number of benefits: it can be implemented with or without help from the HTTP stack, it can be universally implemented on the server side using the Common Information Gateway (CGI) and FastCGI, it results in a session Uniform Resource Identifier (URI) that can be DELETEd to logout, it is completely orthogonal to any HTTP &ldquo;routers&rdquo; and proxies, and it naturally (i.e., without changing HTTP) handles multi-legged authentication mechanisms.</div>
 <div class="abstract_item"><a id='magicparlabel-54' />
-Among other features supported are: channel binding, an optional round trip optimization for challenge/response mechanisms, somecryptographic protection options for clients that don't use Transport Layer Security (TLS), stronger authentication of servers/services to users (where authentication mechanisms provide that) and more.</div>
+Among other features supported are: channel binding, an optional round trip optimization for challenge/response mechanisms, some cryptographic protection options for clients that don't use Transport Layer Security (TLS), stronger authentication of servers/services to users (where authentication mechanisms provide that) and more.</div>
 </div>
 <div class="standard"><a id='magicparlabel-55' />
 </div>
@@ -419,7 +415,7 @@ The are very few normative protocol elements here besides the outline given in <
 <ul class="itemize"><li class="itemize_item"><a id='magicparlabel-87' />
 the form of the WWW-Authenticate header values for RESTauth mechanisms;</li>
 <li class="itemize_item"><a id='magicparlabel-88' />
-several new headers for advertising negotiable paramters that are orthogonal to WWW-Authenticate;</li>
+several new headers for advertising negotiable parameters that are orthogonal to WWW-Authenticate;</li>
 <li class="itemize_item"><a id='magicparlabel-89' />
 the POSTing of authentication messages from the client, with the initial client authentication message going to either a pre-agreed URI or to a URI named in the WWW-Authenticate headers;</li>
 <li class="itemize_item"><a id='magicparlabel-90' />
@@ -427,7 +423,7 @@ the creation of a session URI as a result of the initial POST, and the subsequen
 <li class="itemize_item"><a id='magicparlabel-91' />
 the new session URI resource representation resulting from POSTs being the server's response authentication message, if any;</li>
 <li class="itemize_item"><a id='magicparlabel-92' />
-the DELETEion of session URIs as signalling logout;</li>
+the DELETEion of session URIs as signaling logout;</li>
 <li class="itemize_item"><a id='magicparlabel-93' />
 a new header for referencing session URIs in normal HTTP requests;</li>
 <li class="itemize_item"><a id='magicparlabel-94' />
@@ -551,7 +547,7 @@ One Round Trip Optimization: Challenges Born in WWW-Authenticate Headers</h4>
 Some mechanisms may optimize the protocol flow by allowing the server to include challenges in the 401 response's WWW-Authenticate header values. RESTauth allows this, but this feature is OPTIONAL: it must always be possible for a client to initiate RESTauth without first obtaining a challenge in a WWW-Authenticate header value, in which case the client must incur an extra protocol leg by obtaining the challenge (if it is at all necessary) in the server's reply to the client's first authentication message. The reason that this optimization is optional is to allow the implementation of RESTauth mechanisms with frameworks that only support client-initiated authentication.</div>
 
 <div class="standard"><a id='magicparlabel-178' />
-A challenge may consist of a nonce, some encrypted or MACed nonce, a timestamp, and even seemingly unrelated contents such as certificates and digital signatures. The server MAY include a login URI in challenge-laden WWW-Authenticate headers where the login URI encodes secure state regarding the challenge. </div>
+A challenge may consist of a nonce, some encrypted or MACed nonce, a time-stamp, and even seemingly unrelated contents such as certificates and digital signatures. The server MAY include a login URI in challenge-laden WWW-Authenticate headers where the login URI encodes secure state regarding the challenge. </div>
 <h3 class="subsection"><span class="subsection_label">3.3</span> <a id='magicparlabel-179' />
 <a id="sub_Session_Binding_Types_" />
 Session Binding Types: Cookie, URI, and MAC</h3>
@@ -590,7 +586,7 @@ HTTP &ldquo;Routing&rdquo; and RESTauth</h2>
 It is common to deploy HTTP services with load-balanced servers behind a load balancer and TLS concentrator. Other techniques may also result in a multiplicity of servers acting on behalf of a single service. The load balancers may even behave like routers and route HTTP requests to the same server for all requests in a single connection, or even route HTTP requests according to the verb and resource. It helps to be able to have a notion of authenticated sessions that can be referenced by all servers responding to a given service name.</div>
 
 <div class="standard"><a id='magicparlabel-192' />
-The server end of a RESTauth authentication message exchange may be terminated by one server, by many servers sharing session state (via the resources named by session URIs), or by a server-side HTTP router. Once a RESTauth session is established we assume that all servers responding to the same service name will be able to access the session resource, validate session URIs, and obtain keys for computing and validating session binding MACs. Alternatively, the router may take responsibility for session binding and signal authorization information from the established session to the HTTP servers behind the router (however, we do not here specify any methods for such signalling).</div>
+The server end of a RESTauth authentication message exchange may be terminated by one server, by many servers sharing session state (via the resources named by session URIs), or by a server-side HTTP router. Once a RESTauth session is established we assume that all servers responding to the same service name will be able to access the session resource, validate session URIs, and obtain keys for computing and validating session binding MACs. Alternatively, the router may take responsibility for session binding and signal authorization information from the established session to the HTTP servers behind the router (however, we do not here specify any methods for such signaling).</div>
 
 <div class="standard"><a id='magicparlabel-193' />
 By using REST for the authentication message exchange we allow this disconnection between &ldquo;session&rdquo; and &ldquo;connection&rdquo;, which therefore facilitates &ldquo;routing&rdquo; of HTTP requests and even off-loading of authentication and/or session binding to HTTP &ldquo;routers&rdquo;.</div>
@@ -623,8 +619,8 @@ Even if the only difference between in-band and out-of-band is a trivial one, us
 <h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-210' />
 <a id="sec_Sample_Potential_RESTauth_Authen" />
 Sample/Potential RESTauth Authentication Mechanisms</h2>
-<div class="revisionremark"><a id='magicparlabel-211' />
-TODO: Describe how to use or adapt a variety of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API, and other frameworks, to gain a set of usable mechanisms quickly, both, specification- and implementation-wise. Although I've not done this yet, it seems likely to be quite simple to adapt all these authentication mechanism types to RESTauth.</div>
+<div class="standard"><a id='magicparlabel-211' />
+Here we describe (informatively, for now) how to use or adapt a variety of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API, and other frameworks, so as to quickly gain a set of usable mechanisms, both, specification- and implementation-wise. This section is also intended to show that adding RESTauth mechanisms is easy.</div>
 <h3 class="subsection"><span class="subsection_label">6.1</span> <a id='magicparlabel-212' />
 <a id="sub_Adapting_SSHv2_Authentication" />
 Adapting SSHv2 Authentication Mechanisms to RESTauth</h3>
@@ -660,9 +656,9 @@ The client and the server must each contribute 128-bit nonces.</div>
 <div class="standard"><a id='magicparlabel-228' />
 The ssh-publickey-SHA-256 and ssh-hostbased-SHA-256 mechanisms use the following instead of a traditional SSHv2 session ID:</div>
 
-<div class="literal"><div class="literal_item"><a id='magicparlabel-229' />
-SHA-256((client_nonce XOR server_nonce) || channel_binding)</div>
-</div>
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-229' />
+SHA-256((client_nonce XOR server_nonce) || channel_binding)</li>
+</ul>
 <div class="standard"><a id='magicparlabel-230' />
 Here the &lt;channel_binding&gt; is as per-<div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-234' />
 RFC5056</div>
@@ -720,7 +716,7 @@ The Generic Security Services Application Programming Interface (GSS-API) <div c
 RFC2743</div>
 </div> is another pluggable mechanism framework. Any GSS-API mechanism that supports channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-274' />
 RFC5056</div>
-</div> can be used as SASL mechanisms via the &ldquo;SASL/GS2&rdquo; brigde <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-278' />
+</div> can be used as SASL mechanisms via the &ldquo;SASL/GS2&rdquo; bridge <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-278' />
 RFC5801</div>
 </div>. This includes the Kerberos V5 GSS-API mechanism <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-282' />
 RFC4121</div>
