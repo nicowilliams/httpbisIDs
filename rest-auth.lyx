@@ -153,27 +153,12 @@ InsetLayout Flex:AuthorAddrCountry
     HTMLTag div
 End
 
-InsetLayout Flex:ReferenceEntity
-    LyXType Custom
-    HTMLTag div
-End
-
-InsetLayout Flex:AutoReferenceEntity
-    LyXType Custom
-    HTMLTag div
-End
-
-InsetLayout Flex:AutoRFCReferenceEntity
-    LyXType Custom
-    HTMLTag div
-End
-
-InsetLayout Flex:AutoIDReferenceEntity
-    LyXType Custom
-    HTMLTag div
-End
-
 InsetLayout Flex:EntityXRef
+    LyXType Custom
+    HTMLTag div
+End
+
+InsetLayout Flex:BibXML
     LyXType Custom
     HTMLTag div
 End
@@ -242,7 +227,7 @@ RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)
 status collapsed
 
 \begin_layout Plain Layout
-draft-williams-http-rest-auth-00
+draft-williams-http-rest-auth-01
 \end_layout
 
 \end_inset
@@ -1251,6 +1236,12 @@ This approach should be flexible enough for all existing architectures for
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Sample/Potential-RESTauth-Authen"
+
+\end_inset
+
 Sample/Potential RESTauth Authentication Mechanisms
 \end_layout
 
@@ -1263,39 +1254,93 @@ TODO: Describe how to use or adapt a variety of authentication mechanisms,
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Adapting-SSHv2-Authentication"
+
+\end_inset
+
 Adapting SSHv2 Authentication Mechanisms to RESTauth
 \end_layout
 
 \begin_layout Subsubsection
-Adaptinve SSHv2 'publickey userauth' to RESTauth
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Adapting-SSHv2-'publickey"
+
+\end_inset
+
+Adapting SSHv2 'publickey userauth' to RESTauth
 \end_layout
 
 \begin_layout Subsubsection
-Adaptinve SSHv2 'hostbased userauth' to RESTauth
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Adapting-SSHv2-'hostbased"
+
+\end_inset
+
+Adapting SSHv2 'hostbased userauth' to RESTauth
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Adapting-IKEv2-Authentication"
+
+\end_inset
+
 Adapting IKEv2 Authentication Mechanisms to RESTauth
 \end_layout
 
 \begin_layout Subsubsection
-Adaptinve IKEv2 Password Authenticated Connection Establishment (PACE) to
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Adaptinve-IKEv2-Password"
+
+\end_inset
+
+Adapting IKEv2 Password Authenticated Connection Establishment (PACE) to
  RESTauth
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Using-SASL-Authentication"
+
+\end_inset
+
 Using SASL Authentication Mechanisms with RESTauth
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Using-SCRAM-in"
+
+\end_inset
+
 Using SCRAM in RESTauth
 \end_layout
 
 \begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Using-SCRAM-with"
+
+\end_inset
+
 Using SCRAM with Round Trip Optimization in RESTauth
 \end_layout
 
 \begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Using-GSS-API-Authentication"
+
+\end_inset
+
 Using GSS-API Authentication Mechanisms with RESTauth
 \end_layout
 
@@ -1330,6 +1375,12 @@ This entire document deals with security considerations.
 \end_layout
 
 \begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:TODO"
+
+\end_inset
+
 TODO
 \end_layout
 
@@ -1353,134 +1404,28 @@ Add text to and complete sections describing mechanisms for adapting to
 \end_layout
 
 \begin_layout Section
-References
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-1"
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Normative-References"
 
 \end_inset
 
+Normative References
+\end_layout
 
-\begin_inset Flex AutoRFCReferenceEntity
+\begin_layout Standard
+\begin_inset Flex BibXML
 status collapsed
 
 \begin_layout Plain Layout
-rfc2119
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC2119"
-target "http://www.ietf.org/rfc/rfc2119.txt"
+name "rfc2119"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
 
 \end_inset
 
 
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-2"
-
-\end_inset
-
-
-\begin_inset Flex AutoRFCReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc5246
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "RFC5246"
-target "http://www.ietf.org/rfc/rfc5246.txt"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-3"
-
-\end_inset
-
-
-\begin_inset Flex AutoRFCReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc5056
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "RFC5056"
-target "http://www.ietf.org/rfc/rfc5056.txt"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-4"
-
-\end_inset
-
-
-\begin_inset Flex AutoRFCReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc5929
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "RFC5929"
-target "http://www.ietf.org/rfc/rfc5929.txt"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-5"
-
-\end_inset
-
-
-\begin_inset Flex AutoIDReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-I-D.williams-rest-gss
 \end_layout
 
 \end_inset
@@ -1489,7 +1434,93 @@ I-D.williams-rest-gss
 \end_layout
 
 \begin_layout Standard
-...
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5246"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5056"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5929"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Informative-References"
+
+\end_inset
+
+Informative References
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "I-D.williams-rest-gss"
+target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body

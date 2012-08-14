@@ -3,13 +3,13 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                           August 11, 2012
-Expires: February 12, 2013
+Intended status: Informational                           August 13, 2012
+Expires: February 14, 2013
 
 
   RESTful Authentication Pattern for the HyperText Transport Protocol
                                  (HTTP)
-                    draft-williams-http-rest-auth-00
+                    draft-williams-http-rest-auth-01
 
 Abstract
 
@@ -52,14 +52,14 @@ Status of this Memo
 
 
 
-Williams                Expires February 12, 2013               [Page 1]
+Williams                Expires February 14, 2013               [Page 1]
 
 Internet-Draft           RESTful Authentication              August 2012
 
 
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 12, 2013.
+   This Internet-Draft will expire on February 14, 2013.
 
 Copyright Notice
 
@@ -108,7 +108,7 @@ Copyright Notice
 
 
 
-Williams                Expires February 12, 2013               [Page 2]
+Williams                Expires February 14, 2013               [Page 2]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -134,10 +134,10 @@ Table of Contents
    4.      HTTP "Routing" and RESTauth  . . . . . . . . . . . . . . . 12
    5.      Sample/Potential RESTauth Authentication Mechanisms  . . . 13
    5.1.    Adapting SSHv2 Authentication Mechanisms to RESTauth . . . 13
-   5.1.1.  Adaptinve SSHv2 'publickey userauth' to RESTauth . . . . . 13
-   5.1.2.  Adaptinve SSHv2 'hostbased userauth' to RESTauth . . . . . 13
+   5.1.1.  Adapting SSHv2 'publickey userauth' to RESTauth  . . . . . 13
+   5.1.2.  Adapting SSHv2 'hostbased userauth' to RESTauth  . . . . . 13
    5.2.    Adapting IKEv2 Authentication Mechanisms to RESTauth . . . 13
-   5.2.1.  Adaptinve IKEv2 Password Authenticated Connection
+   5.2.1.  Adapting IKEv2 Password Authenticated Connection
            Establishment (PACE) to RESTauth . . . . . . . . . . . . . 13
    5.3.    Using SASL Authentication Mechanisms with RESTauth . . . . 13
    5.3.1.  Using SCRAM in RESTauth  . . . . . . . . . . . . . . . . . 13
@@ -147,6 +147,8 @@ Table of Contents
    7.      Security Considerations  . . . . . . . . . . . . . . . . . 15
    8.      TODO . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
    9.      References . . . . . . . . . . . . . . . . . . . . . . . . 17
+   9.1.    Normative References . . . . . . . . . . . . . . . . . . . 17
+   9.2.    Informative References . . . . . . . . . . . . . . . . . . 17
            Author's Address . . . . . . . . . . . . . . . . . . . . . 18
 
 
@@ -162,9 +164,7 @@ Table of Contents
 
 
 
-
-
-Williams                Expires February 12, 2013               [Page 3]
+Williams                Expires February 14, 2013               [Page 3]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -220,7 +220,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013               [Page 4]
+Williams                Expires February 14, 2013               [Page 4]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -276,7 +276,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013               [Page 5]
+Williams                Expires February 14, 2013               [Page 5]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -332,7 +332,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013               [Page 6]
+Williams                Expires February 14, 2013               [Page 6]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -388,7 +388,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013               [Page 7]
+Williams                Expires February 14, 2013               [Page 7]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -444,7 +444,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013               [Page 8]
+Williams                Expires February 14, 2013               [Page 8]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -500,7 +500,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013               [Page 9]
+Williams                Expires February 14, 2013               [Page 9]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -556,7 +556,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013              [Page 10]
+Williams                Expires February 14, 2013              [Page 10]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -612,7 +612,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013              [Page 11]
+Williams                Expires February 14, 2013              [Page 11]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -668,7 +668,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013              [Page 12]
+Williams                Expires February 14, 2013              [Page 12]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -684,13 +684,13 @@ Internet-Draft           RESTful Authentication              August 2012
 
 5.1.  Adapting SSHv2 Authentication Mechanisms to RESTauth
 
-5.1.1.  Adaptinve SSHv2 'publickey userauth' to RESTauth
+5.1.1.  Adapting SSHv2 'publickey userauth' to RESTauth
 
-5.1.2.  Adaptinve SSHv2 'hostbased userauth' to RESTauth
+5.1.2.  Adapting SSHv2 'hostbased userauth' to RESTauth
 
 5.2.  Adapting IKEv2 Authentication Mechanisms to RESTauth
 
-5.2.1.  Adaptinve IKEv2 Password Authenticated Connection Establishment
+5.2.1.  Adapting IKEv2 Password Authenticated Connection Establishment
         (PACE) to RESTauth
 
 5.3.  Using SASL Authentication Mechanisms with RESTauth
@@ -724,7 +724,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013              [Page 13]
+Williams                Expires February 14, 2013              [Page 13]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -780,7 +780,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013              [Page 14]
+Williams                Expires February 14, 2013              [Page 14]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -836,7 +836,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013              [Page 15]
+Williams                Expires February 14, 2013              [Page 15]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -892,12 +892,14 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 12, 2013              [Page 16]
+Williams                Expires February 14, 2013              [Page 16]
 
 Internet-Draft           RESTful Authentication              August 2012
 
 
 9.  References
+
+9.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -910,6 +912,8 @@ Internet-Draft           RESTful Authentication              August 2012
 
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, July 2010.
+
+9.2.  Informative References
 
    [I-D.williams-rest-gss]
               Williams, N., "RESTful Hypertext Transfer Protocol
@@ -944,11 +948,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-
-
-
-
-Williams                Expires February 12, 2013              [Page 17]
+Williams                Expires February 14, 2013              [Page 17]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -1004,5 +1004,5 @@ Author's Address
 
 
 
-Williams                Expires February 12, 2013              [Page 18]
+Williams                Expires February 14, 2013              [Page 18]
 

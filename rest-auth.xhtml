@@ -228,14 +228,7 @@ border: 2px solid black;
 padding: 1ex;
 margin: 1ex;
 }
-div.flex_autorfcreferenceentity {
-font-family: serif;
-font-weight: normal;
-font-style: normal;
-font-variant: normal;
-font-size: medium;
-}
-div.flex_autoidreferenceentity {
+div.flex_bibxml {
 font-family: serif;
 font-weight: normal;
 font-style: normal;
@@ -249,7 +242,7 @@ font-size: medium;
 RESTful Authentication Pattern for the HyperText Transport Protocol (HTTP)</h1>
 <div class="standard"><a id='magicparlabel-2' />
 <div class="flex_docname"><div class="plain_layout"><a id='magicparlabel-6' />
-draft-williams-http-rest-auth-00</div>
+draft-williams-http-rest-auth-01</div>
 </div><div class="flex_ipr"><div class="plain_layout"><a id='magicparlabel-10' />
 trust200902</div>
 </div><div class="flex_intendedstatus"><div class="plain_layout"><a id='magicparlabel-14' />
@@ -330,14 +323,14 @@ Among other features supported are: channel binding, an optional round trip opti
 
 <div class='lyxtoc-2'><a href='#magicparlabel-179' class='tocentry'>5.1 Adapting SSHv2 Authentication Mechanisms to RESTauth</a> <a href='#magicparlabel-179' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-180' class='tocentry'>5.1.1 Adaptinve SSHv2 'publickey userauth' to RESTauth</a> <a href='#magicparlabel-180' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-180' class='tocentry'>5.1.1 Adapting SSHv2 'publickey userauth' to RESTauth</a> <a href='#magicparlabel-180' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-181' class='tocentry'>5.1.2 Adaptinve SSHv2 'hostbased userauth' to RESTauth</a> <a href='#magicparlabel-181' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-181' class='tocentry'>5.1.2 Adapting SSHv2 'hostbased userauth' to RESTauth</a> <a href='#magicparlabel-181' class='tocarrow'>&gt;</a></div>
 </div>
 
 <div class='lyxtoc-2'><a href='#magicparlabel-182' class='tocentry'>5.2 Adapting IKEv2 Authentication Mechanisms to RESTauth</a> <a href='#magicparlabel-182' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-183' class='tocentry'>5.2.1 Adaptinve IKEv2 Password Authenticated Connection Establishment (PACE) to RESTauth</a> <a href='#magicparlabel-183' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-183' class='tocentry'>5.2.1 Adapting IKEv2 Password Authenticated Connection Establishment (PACE) to RESTauth</a> <a href='#magicparlabel-183' class='tocarrow'>&gt;</a></div>
 </div>
 
 <div class='lyxtoc-2'><a href='#magicparlabel-184' class='tocentry'>5.3 Using SASL Authentication Mechanisms with RESTauth</a> <a href='#magicparlabel-184' class='tocarrow'>&gt;</a>
@@ -356,7 +349,9 @@ Among other features supported are: channel binding, an optional round trip opti
 
 <div class='lyxtoc-1'><a href='#magicparlabel-192' class='tocentry'>8 TODO</a> <a href='#magicparlabel-192' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-197' class='tocentry'>9 References</a> <a href='#magicparlabel-197' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-197' class='tocentry'>9 Normative References</a> <a href='#magicparlabel-197' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-1'><a href='#magicparlabel-218' class='tocentry'>10 Informative References</a> <a href='#magicparlabel-218' class='tocarrow'>&gt;</a></div>
 </div>
 
 <h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-56' />
@@ -581,26 +576,36 @@ By using REST for the authentication message exchange we allow this disconnectio
 <div class="standard"><a id='magicparlabel-176' />
 This approach should be flexible enough for all existing architectures for deploying HTTP services.</div>
 <h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-177' />
+<a id="sec_Sample_Potential_RESTauth_Authen" />
 Sample/Potential RESTauth Authentication Mechanisms</h2>
 <div class="revisionremark"><a id='magicparlabel-178' />
 TODO: Describe how to use or adapt a variety of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API, and other frameworks, to gain a set of usable mechanisms quickly, both, specification- and implementation-wise. Although I've not done this yet, it seems likely to be quite simple to adapt all these authentication mechanism types to RESTauth.</div>
 <h3 class="subsection"><span class="subsection_label">5.1</span> <a id='magicparlabel-179' />
+<a id="sub_Adapting_SSHv2_Authentication" />
 Adapting SSHv2 Authentication Mechanisms to RESTauth</h3>
 <h4 class="subsubsection"><span class="subsubsection_label">5.1.1</span> <a id='magicparlabel-180' />
-Adaptinve SSHv2 'publickey userauth' to RESTauth</h4>
+<a id="sub_Adapting_SSHv2__publickey" />
+Adapting SSHv2 'publickey userauth' to RESTauth</h4>
 <h4 class="subsubsection"><span class="subsubsection_label">5.1.2</span> <a id='magicparlabel-181' />
-Adaptinve SSHv2 'hostbased userauth' to RESTauth</h4>
+<a id="sub_Adapting_SSHv2__hostbased" />
+Adapting SSHv2 'hostbased userauth' to RESTauth</h4>
 <h3 class="subsection"><span class="subsection_label">5.2</span> <a id='magicparlabel-182' />
+<a id="sub_Adapting_IKEv2_Authentication" />
 Adapting IKEv2 Authentication Mechanisms to RESTauth</h3>
 <h4 class="subsubsection"><span class="subsubsection_label">5.2.1</span> <a id='magicparlabel-183' />
-Adaptinve IKEv2 Password Authenticated Connection Establishment (PACE) to RESTauth</h4>
+<a id="sub_Adaptinve_IKEv2_Password" />
+Adapting IKEv2 Password Authenticated Connection Establishment (PACE) to RESTauth</h4>
 <h3 class="subsection"><span class="subsection_label">5.3</span> <a id='magicparlabel-184' />
+<a id="sub_Using_SASL_Authentication" />
 Using SASL Authentication Mechanisms with RESTauth</h3>
 <h4 class="subsubsection"><span class="subsubsection_label">5.3.1</span> <a id='magicparlabel-185' />
+<a id="sub_Using_SCRAM_in" />
 Using SCRAM in RESTauth</h4>
 <h4 class="subsubsection"><span class="subsubsection_label">5.3.2</span> <a id='magicparlabel-186' />
+<a id="sub_Using_SCRAM_with" />
 Using SCRAM with Round Trip Optimization in RESTauth</h4>
 <h3 class="subsection"><span class="subsection_label">5.4</span> <a id='magicparlabel-187' />
+<a id="sub_Using_GSS_API_Authentication" />
 Using GSS-API Authentication Mechanisms with RESTauth</h3>
 <h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-188' />
 <a id="sec_IANA_Considerations" />
@@ -613,6 +618,7 @@ Security Considerations</h2>
 <div class="standard"><a id='magicparlabel-191' />
 This entire document deals with security considerations. [Add more, like about channel binding, same-origin-like constraints on the login and session absolute URIs', ...]</div>
 <h2 class="section"><span class="section_label">8</span> <a id='magicparlabel-192' />
+<a id="sec_TODO" />
 TODO</h2>
 <div class="revisionremark"><a id='magicparlabel-193' />
 Add references (to HTTP, CGI/fCGI, SSHv2, IKEv2, SASL, GSS, PACE, ...).</div>
@@ -626,38 +632,33 @@ Add text to and complete sections describing how to use various existing securit
 <div class="revisionremark"><a id='magicparlabel-196' />
 Add text to and complete sections describing mechanisms for adapting to RESTauth SSHv2 publickey, SSHv2 host-based authentication, IKEv2 methods, and other such authentication mechanisms as a way of showcasing RESTauth.</div>
 <h2 class="section"><span class="section_label">9</span> <a id='magicparlabel-197' />
-References</h2>
-<div class="bibliography"><a id='magicparlabel-198' />
-<a id='' />
-<span class='bibitemlabel'>1</span><div class="flex_autorfcreferenceentity"><div class="plain_layout"><a id='magicparlabel-202' />
-rfc2119</div>
-</div><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC2119</a></div>
-
-<div class="bibliography"><a id='magicparlabel-203' />
-<a id='' />
-<span class='bibitemlabel'>2</span><div class="flex_autorfcreferenceentity"><div class="plain_layout"><a id='magicparlabel-207' />
-rfc5246</div>
-</div><a href="http://www.ietf.org/rfc/rfc5246.txt">RFC5246</a></div>
-
-<div class="bibliography"><a id='magicparlabel-208' />
-<a id='' />
-<span class='bibitemlabel'>3</span><div class="flex_autorfcreferenceentity"><div class="plain_layout"><a id='magicparlabel-212' />
-rfc5056</div>
-</div><a href="http://www.ietf.org/rfc/rfc5056.txt">RFC5056</a></div>
-
-<div class="bibliography"><a id='magicparlabel-213' />
-<a id='' />
-<span class='bibitemlabel'>4</span><div class="flex_autorfcreferenceentity"><div class="plain_layout"><a id='magicparlabel-217' />
-rfc5929</div>
-</div><a href="http://www.ietf.org/rfc/rfc5929.txt">RFC5929</a></div>
-
-<div class="bibliography"><a id='magicparlabel-218' />
-<a id='' />
-<span class='bibitemlabel'>5</span><div class="flex_autoidreferenceentity"><div class="plain_layout"><a id='magicparlabel-222' />
-I-D.williams-rest-gss</div>
+<a id="sec_Normative_References" />
+Normative References</h2>
+<div class="standard"><a id='magicparlabel-198' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-202' />
+<a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">rfc2119</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-223' />
-...</div>
+<div class="standard"><a id='magicparlabel-203' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-207' />
+<a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">rfc5246</a></div>
+</div></div>
+
+<div class="standard"><a id='magicparlabel-208' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-212' />
+<a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">rfc5056</a></div>
+</div></div>
+
+<div class="standard"><a id='magicparlabel-213' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-217' />
+<a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">rfc5929</a></div>
+</div></div>
+<h2 class="section"><span class="section_label">10</span> <a id='magicparlabel-218' />
+<a id="sec_Informative_References" />
+Informative References</h2>
+<div class="standard"><a id='magicparlabel-219' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-223' />
+<a href="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml">I-D.williams-rest-gss</a></div>
+</div></div>
 </body>
 </html>

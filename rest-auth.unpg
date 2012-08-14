@@ -3,13 +3,13 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                           August 11, 2012
-Expires: February 12, 2013
+Intended status: Informational                           August 13, 2012
+Expires: February 14, 2013
 
 
   RESTful Authentication Pattern for the HyperText Transport Protocol
                                  (HTTP)
-                    draft-williams-http-rest-auth-00
+                    draft-williams-http-rest-auth-01
 
 Abstract
 
@@ -51,7 +51,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 12, 2013.
+   This Internet-Draft will expire on February 14, 2013.
 
 Copyright Notice
 
@@ -90,10 +90,10 @@ Table of Contents
    4.      HTTP "Routing" and RESTauth
    5.      Sample/Potential RESTauth Authentication Mechanisms
    5.1.    Adapting SSHv2 Authentication Mechanisms to RESTauth
-   5.1.1.  Adaptinve SSHv2 'publickey userauth' to RESTauth
-   5.1.2.  Adaptinve SSHv2 'hostbased userauth' to RESTauth
+   5.1.1.  Adapting SSHv2 'publickey userauth' to RESTauth
+   5.1.2.  Adapting SSHv2 'hostbased userauth' to RESTauth
    5.2.    Adapting IKEv2 Authentication Mechanisms to RESTauth
-   5.2.1.  Adaptinve IKEv2 Password Authenticated Connection
+   5.2.1.  Adapting IKEv2 Password Authenticated Connection
            Establishment (PACE) to RESTauth
    5.3.    Using SASL Authentication Mechanisms with RESTauth
    5.3.1.  Using SCRAM in RESTauth
@@ -103,6 +103,8 @@ Table of Contents
    7.      Security Considerations
    8.      TODO
    9.      References
+   9.1.    Normative References
+   9.2.    Informative References
            Author's Address
 
 
@@ -416,13 +418,13 @@ Table of Contents
 
 5.1.  Adapting SSHv2 Authentication Mechanisms to RESTauth
 
-5.1.1.  Adaptinve SSHv2 'publickey userauth' to RESTauth
+5.1.1.  Adapting SSHv2 'publickey userauth' to RESTauth
 
-5.1.2.  Adaptinve SSHv2 'hostbased userauth' to RESTauth
+5.1.2.  Adapting SSHv2 'hostbased userauth' to RESTauth
 
 5.2.  Adapting IKEv2 Authentication Mechanisms to RESTauth
 
-5.2.1.  Adaptinve IKEv2 Password Authenticated Connection Establishment
+5.2.1.  Adapting IKEv2 Password Authenticated Connection Establishment
         (PACE) to RESTauth
 
 5.3.  Using SASL Authentication Mechanisms with RESTauth
@@ -466,6 +468,8 @@ Table of Contents
 
 9.  References
 
+9.1.  Normative References
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
 
@@ -477,6 +481,8 @@ Table of Contents
 
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, July 2010.
+
+9.2.  Informative References
 
    [I-D.williams-rest-gss]
               Williams, N., "RESTful Hypertext Transfer Protocol
