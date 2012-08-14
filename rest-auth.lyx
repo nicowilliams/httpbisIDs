@@ -411,7 +411,18 @@ Introduction
 \end_layout
 
 \begin_layout Standard
-We propose a pattern for HTTP authentication mechanisms that, by being 
+We propose a pattern for HTTP 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC2616
+\end_layout
+
+\end_inset
+
+ [XXX add reference to HTTP/2.0 as well] authentication mechanisms that,
+ by being 
 \begin_inset Quotes eld
 \end_inset
 
@@ -616,7 +627,27 @@ a new header for referencing session URIs in normal HTTP requests;
 \end_layout
 
 \begin_layout Itemize
-the use of channel binding to TLS for session protection;
+the use of channel binding 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5056
+\end_layout
+
+\end_inset
+
+ to TLS 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5246
+\end_layout
+
+\end_inset
+
+ for session protection;
 \end_layout
 
 \begin_layout Itemize
@@ -661,6 +692,28 @@ Each WWW-Authenticate header value offers a single mechanism and negotiable
  parameters for it.
  The WWW-ChannelBinding-Types header allows the server to offer channel
  binding types.
+\end_layout
+
+\begin_layout Subsubsection
+Strong Binding to TLS
+\end_layout
+
+\begin_layout Standard
+Strong binding to TLS is provided via channel binding 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5056
+\end_layout
+
+\end_inset
+
+.
+ When a RESTauth mechanism provides strong authentication of the service
+ to the user, the combination of RESTauth and channel binding results in
+ strong authentication of the server to the user even though TLS is used
+ for session transport protection.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1146,6 +1199,13 @@ A MAC Trailer??
 
 \begin_layout RevisionRemark
 ...
+ This is only needed for RESTauth 
+\emph on
+without
+\emph default
+ TLS, which will probably not be the common mode of use for RESTauth...
+ unless we can produce a MAC trailer extension for HTTP/2.0, in which case
+ this may well become a common mode of RESTauth usage.
 \end_layout
 
 \begin_layout Section
@@ -1236,6 +1296,133 @@ This approach should be flexible enough for all existing architectures for
 \end_layout
 
 \begin_layout Section
+In-band HTTP Authentication Alternatives
+\end_layout
+
+\begin_layout Standard
+RESTauth is 
+\begin_inset Quotes eld
+\end_inset
+
+out-of-band
+\begin_inset Quotes erd
+\end_inset
+
+ in the sense that the authentication messages are exchanged independently
+ of the application's requests for normal resources.
+ Of course, RESTauth exchanges may well (and often will) happen in the same
+ TCP/TLS connection as normal application requests, so RESTauth is not really
+ out-of-band.
+ We use 
+\begin_inset Quotes eld
+\end_inset
+
+out-of-band
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+in-band
+\begin_inset Quotes erd
+\end_inset
+
+ very loosely in this section.
+\end_layout
+
+\begin_layout Standard
+There exist several 
+\begin_inset Quotes eld
+\end_inset
+
+in-band
+\begin_inset Quotes erd
+\end_inset
+
+ HTTP authentication alternatives where the authentication message exchanges
+ happen in the context of application resources.
+ Here the HTTP verb and resource are application-specific and have nothing
+ to do with authentication, and the authentication messages are exchanged
+ via HTTP request and response headers with the server responding with a
+ 401 status code until authentication is complete.
+\end_layout
+
+\begin_layout Standard
+The extant 
+\begin_inset Quotes eld
+\end_inset
+
+Basic
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+DIGEST-MD5
+\begin_inset Quotes erd
+\end_inset
+
+ 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC2617
+\end_layout
+
+\end_inset
+
+ HTTP authentication methods, as well as HTTP/Negotiate 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC4559
+\end_layout
+
+\end_inset
+
+ are 
+\begin_inset Quotes eld
+\end_inset
+
+in-band
+\begin_inset Quotes erd
+\end_inset
+
+ HTTP authentication methods.
+\end_layout
+
+\begin_layout Standard
+In so far as an in-band authentication method results in a web cookie or
+ session URI/ID the distinction between in-band and out-of-band is almost
+ trivial, as described above: authentication messages in headers vs.
+ bodies, and HTTP verb and URL.
+ However, if in-line authentication methods are strongly tied to the TCP/TLS
+ connections over which they were utilized then that is a big disadvantage
+ over RESTauth: each connection requires re-authenticating, and support
+ for HTTP routing schemes is not clear.
+\end_layout
+
+\begin_layout Standard
+HTTP/Negotiate is more troublesome because historically it has required
+ re-authentication per-HTTP request(!).
+\end_layout
+
+\begin_layout Standard
+Even if the only difference between in-band and out-of-band is a trivial
+ one, using the REST pattern means that authentication can be implemented
+ using with no help from the HTTP stack (even though it's desirable to have
+ it implemented within/by the HTTP stack), whereas there may not be a way
+ to implement in-band authentication without help from the HTTP stack for
+ some stacks.
+\end_layout
+
+\begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
 name "sec:Sample/Potential-RESTauth-Authen"
@@ -1263,24 +1450,124 @@ name "sub:Adapting-SSHv2-Authentication"
 Adapting SSHv2 Authentication Mechanisms to RESTauth
 \end_layout
 
-\begin_layout Subsubsection
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Adapting-SSHv2-'publickey"
+\begin_layout Standard
+SSHv2 
+\begin_inset Quotes eld
+\end_inset
+
+userauth
+\begin_inset Quotes erd
+\end_inset
+
+ mechanisms 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC4252
+\end_layout
 
 \end_inset
 
-Adapting SSHv2 'publickey userauth' to RESTauth
+ typically involve a digital signature (or similar) of an SSHv2 session
+ ID.
+ There is no such thing as an SSHv2 session ID in HTTP.
+ A session URI cannot serve as a stand-in for an SSHv2 session ID because
+ a) the session URI is an outcome of authentication in RESTauth, b) to prevent
+ cut-n-paste and replay attacks the client and the server both must contribute
+ to the entropy of the session ID that is signed by the client.
+\end_layout
+
+\begin_layout Standard
+In order to adapt SSHv2 userauth methods properly (i.e., securely), we have
+ replace the SSHv2 session ID in the to-be-signed data with a hash of the
+ channel binding and nonces contributed by the client and the server.
+ As an optimization the server nonce can be sent as a challenge (this saves
+ a round trip).
 \end_layout
 
 \begin_layout Subsubsection
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Adapting-SSHv2-'hostbased"
+RESTauth Mechanism Names for SSHv2 Userauth Methods
+\end_layout
+
+\begin_layout Standard
+For hash agility reasons the hash function name is part of the SSHv2 RESTauth
+ mechanism name.
+ To avoid 
+\begin_inset Quotes eld
+\end_inset
+
+multi-level negotiation
+\begin_inset Quotes erd
+\end_inset
+
+ the SSHv2 userauth method name is also part of the RESTauth mechanism name.
+\end_layout
+
+\begin_layout Standard
+The RESTauth mechanism name form for SSHv2 userauth methods, then, is: ssh-<SSHv
+2-userauth-method-name>-<hash-function-name>.
+\end_layout
+
+\begin_layout Standard
+The following RESTauth mechanisms are defined here:
+\end_layout
+
+\begin_layout Itemize
+ssh-publickey-SHA-256
+\end_layout
+
+\begin_layout Itemize
+ssh-hostbased-SHA-256
+\end_layout
+
+\begin_layout Subsubsection
+Nonces
+\end_layout
+
+\begin_layout Standard
+The client and the server must each contribute 128-bit nonces.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset Quotes eld
+\end_inset
+
+Session ID
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The ssh-publickey-SHA-256 and ssh-hostbased-SHA-256 mechanisms use the following
+ instead of a traditional SSHv2 session ID:
+\end_layout
+
+\begin_layout Literal
+SHA-256((client_nonce XOR server_nonce) || channel_binding)
+\end_layout
+
+\begin_layout Standard
+Here the <channel_binding> is as per-
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5056
+\end_layout
 
 \end_inset
 
-Adapting SSHv2 'hostbased userauth' to RESTauth
+: the channel binding type name, followed by the channel binding data (e.g.,
+ 'tls-server-end-point' followed by the server EE certificate as sent in
+ the server's TLS Certificate message).
+\end_layout
+
+\begin_layout Standard
+Note that use of channel binding when using SSHv2 mechanisms is REQUIRED
+ so as to defeat cut-n-paste attacks by weakly-authenticated servers.
 \end_layout
 
 \begin_layout Subsection
@@ -1291,6 +1578,10 @@ name "sub:Adapting-IKEv2-Authentication"
 \end_inset
 
 Adapting IKEv2 Authentication Mechanisms to RESTauth
+\end_layout
+
+\begin_layout RevisionRemark
+TBD.
 \end_layout
 
 \begin_layout Subsubsection
@@ -1304,6 +1595,10 @@ Adapting IKEv2 Password Authenticated Connection Establishment (PACE) to
  RESTauth
 \end_layout
 
+\begin_layout RevisionRemark
+TBD.
+\end_layout
+
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -1312,6 +1607,68 @@ name "sub:Using-SASL-Authentication"
 \end_inset
 
 Using SASL Authentication Mechanisms with RESTauth
+\end_layout
+
+\begin_layout Standard
+Simple Authentication and Security Layers (SASL) 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC4422
+\end_layout
+
+\end_inset
+
+ is a simple, pluggable framework for authentication mechanisms.
+\end_layout
+
+\begin_layout Standard
+To use a SASL mechanism in RESTauth just prefix 
+\begin_inset Quotes eld
+\end_inset
+
+SA-
+\begin_inset Quotes erd
+\end_inset
+
+ to the SASL mechanism name and use that as the RESTauth mechanism name.
+ If the SASL mechanism is server-initiated then the server's challenge is
+ sent in the server's WWW-Authenticate header value as described above.
+ All other SASL authentication messages are exchanged as described above
+ (i.e., via POSTs, first to the login URI, then to the session URI, with response
+ messages as the new representation of the session resource).
+\end_layout
+
+\begin_layout Standard
+The HTTP status code functions as the application's outcome of authentication
+ message.
+\end_layout
+
+\begin_layout Standard
+The server's WWW-Authenticate header values function as the mechanism listing
+ operation.
+ SASL security considerations 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC4422 
+\end_layout
+
+\end_inset
+
+
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5801
+\end_layout
+
+\end_inset
+
+ apply (particularly regarding the negotiation of channel binding).
 \end_layout
 
 \begin_layout Subsubsection
@@ -1324,6 +1681,23 @@ name "sub:Using-SCRAM-in"
 Using SCRAM in RESTauth
 \end_layout
 
+\begin_layout Standard
+SCRAM 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5802
+\end_layout
+
+\end_inset
+
+ is a DIGEST-like mechanism for SASL.
+ Nothing special is needed to use SCRAM versus any other SASL mechanism,
+ except for the round trip optimized form of SCRAM (see below).
+ 
+\end_layout
+
 \begin_layout Subsubsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -1334,6 +1708,10 @@ name "sub:Using-SCRAM-with"
 Using SCRAM with Round Trip Optimization in RESTauth
 \end_layout
 
+\begin_layout Standard
+..
+\end_layout
+
 \begin_layout Subsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -1342,6 +1720,61 @@ name "sub:Using-GSS-API-Authentication"
 \end_inset
 
 Using GSS-API Authentication Mechanisms with RESTauth
+\end_layout
+
+\begin_layout Standard
+The Generic Security Services Application Programming Interface (GSS-API)
+ 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC2743
+\end_layout
+
+\end_inset
+
+ is another pluggable mechanism framework.
+ Any GSS-API mechanism that supports channel binding 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5056
+\end_layout
+
+\end_inset
+
+ can be used as SASL mechanisms via the 
+\begin_inset Quotes eld
+\end_inset
+
+SASL/GS2
+\begin_inset Quotes erd
+\end_inset
+
+ brigde 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5801
+\end_layout
+
+\end_inset
+
+.
+ This includes the Kerberos V5 GSS-API mechanism 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC4121
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -1385,22 +1818,19 @@ TODO
 \end_layout
 
 \begin_layout RevisionRemark
-Add references (to HTTP, CGI/fCGI, SSHv2, IKEv2, SASL, GSS, PACE, ...).
+Add references (to HTTP/2.0, CGI/fCGI, ...).
 \end_layout
 
 \begin_layout RevisionRemark
 Describe MAC session binding option and replay protection in detail.
+ Describe how to extract keys for MAC keying from SASL/GSS/PACE.
 \end_layout
 
 \begin_layout RevisionRemark
-Add text to and complete sections describing how to use various existing
- security mechanisms with RESTauth, such as SASL, GSS-API, and other mechanisms.
-\end_layout
-
-\begin_layout RevisionRemark
-Add text to and complete sections describing mechanisms for adapting to
- RESTauth SSHv2 publickey, SSHv2 host-based authentication, IKEv2 methods,
- and other such authentication mechanisms as a way of showcasing RESTauth.
+Figure out how to adapt IKEv2 password-based methods to RESTauth.
+ This may not be worthwhile (since each method tends to depend heavily on
+ the entire IKEv2 framework in ways that add messaging that we'd not need
+ in RESTauth).
 \end_layout
 
 \begin_layout Section
@@ -1422,6 +1852,46 @@ status collapsed
 LatexCommand href
 name "rfc2119"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc2616"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2616.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc2617"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2617.xml"
 
 \end_inset
 
@@ -1512,6 +1982,166 @@ status collapsed
 LatexCommand href
 name "I-D.williams-rest-gss"
 target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc4422"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5802"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5802.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc4252"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc4559"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc6631"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6631.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc2743"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5801"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc4121"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml"
 
 \end_inset
 
