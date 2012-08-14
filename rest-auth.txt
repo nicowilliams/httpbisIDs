@@ -3,37 +3,27 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                           August 13, 2012
-Expires: February 14, 2013
+Intended status: Informational                           August 14, 2012
+Expires: February 15, 2013
 
 
   RESTful Authentication Pattern for the Hypertext Transport Protocol
                                  (HTTP)
-                    draft-williams-http-rest-auth-01
+                    draft-williams-http-rest-auth-02
 
 Abstract
 
    This document proposes a "RESTful" pattern of authentication for
-   HTTP/1.0, 1.1, and 2.0.  The existing 401 status code and WWW-
-   Authenticate header are used to indicate that authentication is
-   required and for negotiation purposes.  The client POSTs an initial
-   authentication message to an indicated login URI, and reply messages
-   are returned as new representations of a session resource named by a
-   session URI.
+   HTTP/1.0, 1.1, and 2.0.  The goal is to make it easy to add
+   authentication mechanisms to HTTP and to make it easy to implement
+   them even without much help from the HTTP stack (though it is best to
+   integrate authentication into the stack, of course).
 
-   This approach has a number of benefits: it can be implemented with or
-   without help from the HTTP stack, it can be universally implemented
-   on the server side using the Common Information Gateway (CGI) and
-   FastCGI, it results in a session Uniform Resource Identifier (URI)
-   that can be DELETEd to logout, it is completely orthogonal to any
-   HTTP "routers" and proxies, and it naturally (i.e., without changing
-   HTTP) handles multi-legged authentication mechanisms.
-
-   Among other features supported are: channel binding, an optional
-   round trip optimization for challenge/response mechanisms, some
-   cryptographic protection options for clients that don't use Transport
-   Layer Security (TLS), stronger authentication of servers/services to
-   users (where authentication mechanisms provide that) and more.
+   Among other benefits of RESTauth: it is orthogonal to "HTTP routers"
+   and proxies, it results in session Uniform Resource Identifiers
+   (URIs) that can be DELETEd to logout, naturally supports multi-legged
+   authentication schemes, and it can be universally implemented on the
+   server side with the Common Gateway Interface (CGI) and FastCGI.
 
 Status of this Memo
 
@@ -50,14 +40,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-
-
-Williams                Expires February 14, 2013               [Page 1]
-
-Internet-Draft           RESTful Authentication              August 2012
-
-
-   This Internet-Draft will expire on February 14, 2013.
+   This Internet-Draft will expire on February 15, 2013.
 
 Copyright Notice
 
@@ -66,6 +49,14 @@ Copyright Notice
 
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents
+
+
+
+Williams                Expires February 15, 2013               [Page 1]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
    (http://trustee.ietf.org/license-info) in effect on the date of
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
@@ -73,44 +64,6 @@ Copyright Notice
    include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Williams                Expires February 14, 2013               [Page 2]
-
-Internet-Draft           RESTful Authentication              August 2012
 
 
 Table of Contents
@@ -129,7 +82,7 @@ Table of Contents
    3.2.1.  One Round Trip Optimization: Challenges Born in
            WWW-Authenticate Headers . . . . . . . . . . . . . . . . . 10
    3.3.    Session Binding Types: Cookie, URI, and MAC  . . . . . . . 10
-   3.3.1.  The New WWW-Session-URI Header . . . . . . . . . . . . . . 10
+   3.3.1.  The New WWW-Session-URI Header . . . . . . . . . . . . . . 11
    3.3.2.  The New WWW-Session-MAC Header . . . . . . . . . . . . . . 11
    3.3.3.  A MAC Trailer??  . . . . . . . . . . . . . . . . . . . . . 11
    4.      HTTP "Routing" and RESTauth  . . . . . . . . . . . . . . . 12
@@ -152,6 +105,14 @@ Table of Contents
    10.     References . . . . . . . . . . . . . . . . . . . . . . . . 20
    10.1.   Normative References . . . . . . . . . . . . . . . . . . . 20
    10.2.   Informative References . . . . . . . . . . . . . . . . . . 20
+
+
+
+Williams                Expires February 15, 2013               [Page 2]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
            Author's Address . . . . . . . . . . . . . . . . . . . . . 22
 
 
@@ -164,7 +125,46 @@ Table of Contents
 
 
 
-Williams                Expires February 14, 2013               [Page 3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                Expires February 15, 2013               [Page 3]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -184,7 +184,7 @@ Internet-Draft           RESTful Authentication              August 2012
    o  a "session URI" results that can be DELETEd to effect logout;
 
    o  a "session URI" results that has better security semantics than
-      web cookies;
+      HTTP cookies;
 
    o  the ability to refer to multiple sessions in one request wherever
       such a concept might be useful;
@@ -203,44 +203,42 @@ Internet-Draft           RESTful Authentication              August 2012
 
    There are probably other benefits not listed above.
 
-   The rough outline of the protocol is quite simple: initial
-   authentication messages are POSTed to an agreed-upon or indicated
-   resource, which then results in a new resource being created with the
-   authentication reply message as the new resource's representation.
-   Thereafter any additional authentication message exchanges needed
-   (for multi-legged mechanisms) are POSTed to the new resource without
-   a new resource being created.  The resource created by the POSTing of
-   the initial authentication mechanism identifies the resulting
-   session, and its URI is known as the session URI.  Session URIs can
-   be used to multiplex multiple sessions over the same TCP/TLS
-   connections, implement logout, and share sessions across multiple
-   related servers.
+   The rough outline of the protocol is quite simple:
 
-   Server-initiated authentication is also possible, whereby the server
+   1.  initial authentication messages are POSTed to an agreed-upon or
+       indicated resource...
+
+   2.  ....which then results in a new resource being created with the
+       authentication reply message as the new resource's
+       representation.
+
+   3.  Thereafter any additional authentication message exchanges needed
+       (for multi-legged mechanisms) are POSTed to the new resource
+       without a new resource being created.
 
 
 
-Williams                Expires February 14, 2013               [Page 4]
+
+
+Williams                Expires February 15, 2013               [Page 4]
 
 Internet-Draft           RESTful Authentication              August 2012
 
 
-   sends a challenge (not much else can be sent of value in an initial
-   authentication message from the server besides a challenge,
-   negotiation parameters, and, perhaps, a digital signature) in 401
-   errors in headers.  If the server gives the client has a choice of
-   mechanisms and the client picks one where the server sent the initial
-   authentication message, then the client consumes that message and
-   POSTs subsequent ones to the agreed URI.
+   4.  The resource created by the POSTing of the initial authentication
+       mechanism identifies the resulting session, and its URI is known
+       as the session URI.
 
-   This document replaces [I-D.williams-rest-gss].
+   5.  Session URIs can be used to multiplex multiple sessions over the
+       same TCP/TLS connections, implement logout, and share sessions
+       across multiple related servers.
 
-
-
-
-
-
-
+   Server-initiated authentication is also possible, whereby the server
+   sends a challenge in 401 errors in headers.  If the server gives the
+   client a choice of mechanisms (multiple WWW-Authenticate header
+   values) and the client picks one where the server sent a challenge,
+   then the client consumes that message and POSTs subsequent ones to
+   the indicated URI.
 
 
 
@@ -276,7 +274,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013               [Page 5]
+
+
+Williams                Expires February 15, 2013               [Page 5]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -332,7 +332,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013               [Page 6]
+Williams                Expires February 15, 2013               [Page 6]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -367,7 +367,7 @@ Internet-Draft           RESTful Authentication              August 2012
       protection;
 
    o  the use of session keys as an option for integrity protection when
-      TLS is not used.
+      TLS is not used (a light-weight security mode).
 
 3.1.  Negotiable Parameters
 
@@ -388,7 +388,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013               [Page 7]
+Williams                Expires February 15, 2013               [Page 7]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -444,7 +444,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013               [Page 8]
+Williams                Expires February 15, 2013               [Page 8]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -482,7 +482,7 @@ Internet-Draft           RESTful Authentication              August 2012
    needs to or wants to use RESTauth.  Servers can also tell clients
    that access to certain resources require authentication, possibly
    including RESTauth mechanisms.  When the server tells the client that
-   it must authenticate the server may also give the client an initial
+   it must authenticate, the server may also give the client an initial
    authentication message for one or more mechanisms.
 
    When the client knows a priori that it must authenticate then the
@@ -500,7 +500,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013               [Page 9]
+Williams                Expires February 15, 2013               [Page 9]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -515,21 +515,30 @@ Internet-Draft           RESTful Authentication              August 2012
 
    Some mechanisms may optimize the protocol flow by allowing the server
    to include challenges in the 401 response's WWW-Authenticate header
-   values.  RESTauth allows this, but this feature is OPTIONAL: it must
-   always be possible for a client to initiate RESTauth without first
-   obtaining a challenge in a WWW-Authenticate header value, in which
-   case the client must incur an extra protocol leg by obtaining the
-   challenge (if it is at all necessary) in the server's reply to the
-   client's first authentication message.  The reason that this
-   optimization is optional is to allow the implementation of RESTauth
-   mechanisms with frameworks that only support client-initiated
-   authentication.
+   values.  DIGEST-MD5 works this way, for example, sending a challenge
+   nonce to be fed into the digest function (along with other client-
+   side inputs).
+
+   RESTauth allows this, but this feature is OPTIONAL: it must always be
+   possible for a client to initiate RESTauth without first obtaining a
+   challenge in a WWW-Authenticate header value, in which case the
+   client must incur an extra protocol leg by obtaining the challenge
+   (if it is at all necessary) in the server's reply to the client's
+   first authentication message.  There are two reasons for making this
+   optional:
+
+   1.  to allow client applications that know a priori that they must
+       authenticate, requiring no further negotiation;
+
+   2.  to support authentication frameworks that require that the client
+       initiate authentication message exchanges.
 
    A challenge may consist of a nonce, some encrypted or MACed nonce, a
-   time-stamp, and even seemingly unrelated contents such as
-   certificates and digital signatures.  The server MAY include a login
-   URI in challenge-laden WWW-Authenticate headers where the login URI
-   encodes secure state regarding the challenge.
+   time-stamp, certificates and digital signatures, etcetera.  The
+   server may include a login URI in challenge-laden WWW-Authenticate
+   headers where the login URI encodes secure state regarding the
+   challenge (e.g., the challenge encrypted in a symmetric key known
+   only to the server).
 
 3.3.  Session Binding Types: Cookie, URI, and MAC
 
@@ -542,6 +551,16 @@ Internet-Draft           RESTful Authentication              August 2012
       the session(s) (similar to cookies, but without all the associated
       baggage);
 
+
+
+
+
+
+Williams                Expires February 15, 2013              [Page 10]
+
+Internet-Draft           RESTful Authentication              August 2012
+
+
    MAC  HTTP requests carry a WWW-Session-URI header identifying the
       session(s) and a WWW-Session-MAC header that carries a MAC or MACs
       binding the session URI(s) to the request.
@@ -553,29 +572,29 @@ Internet-Draft           RESTful Authentication              August 2012
    Each session URI is an absoluteURI.  Session URIs MUST NOT have
    unescaped commas (',') embedded in them.  Servers MAY fail to
    implement support for multiple session URIs being referenced by a
-
-
-
-Williams                Expires February 14, 2013              [Page 10]
-
-Internet-Draft           RESTful Authentication              August 2012
-
-
    single request, in which case they MUST answer with error code <TBD>.
    Servers MUST validate the session URI before processing the request;
    if the session URI is invalid the server MUST respond with a 401 (or
    TBD?) status code.
 
+   Note that referencing multiple session URIs is permitted, but this
+   may not be meaningful for the application, thus the server MAY reject
+   this (TODO: specify a status code for this?).
+
+   [[anchor1: I can imagine a webmail application where a client can be
+   logged in as multiple users and get a unified view of the users'
+   mailboxes.  This seems unlikely, but why rule out such use cases?]]
+
 3.3.2.  The New WWW-Session-MAC Header
 
-   [[anchor1: Describe the header, its values, algorithm agility, and
+   [[anchor2: Describe the header, its values, algorithm agility, and
    what the MAC is to be taken over.  Note too that this cannot apply to
    request contents as we have to consider chunking, and besides, a MAC
    of contents really has to go as a trailer, not a header.]]
 
 3.3.3.  A MAC Trailer??
 
-   [[anchor2: ...  This is only needed for RESTauthTLS, which will
+   [[anchor3: ...  This is only needed for RESTauthTLS, which will
    probably not be the common mode of use for RESTauth... unless we can
    produce a MAC trailer extension for HTTP/2.0, in which case this may
    well become a common mode of RESTauth usage.]]without
@@ -593,26 +612,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Williams                Expires February 14, 2013              [Page 11]
+Williams                Expires February 15, 2013              [Page 11]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -668,7 +668,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013              [Page 12]
+Williams                Expires February 15, 2013              [Page 12]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -724,19 +724,19 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013              [Page 13]
+Williams                Expires February 15, 2013              [Page 13]
 
 Internet-Draft           RESTful Authentication              August 2012
 
 
 6.  Sample/Potential RESTauth Authentication Mechanisms
 
-   Here we describe (informatively, for now) how to use or adapt a
-   variety of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-
-   API, and other frameworks, so as to quickly gain a set of usable
-   mechanisms, both, specification- and implementation-wise.  This
-   section is also intended to show that adding RESTauth mechanisms is
-   easy.
+   Here we describe (informatively, for the time being) how to use or
+   adapt a variety of authentication mechanisms, from SSHv2, IKEv2,
+   SASL, GSS-API, and other frameworks, so as to quickly gain a set of
+   usable mechanisms, both, specification- and implementation-wise.
+   This section is also intended to show that adding RESTauth mechanisms
+   is easy.
 
 6.1.  Adapting SSHv2 Authentication Mechanisms to RESTauth
 
@@ -780,7 +780,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013              [Page 14]
+Williams                Expires February 15, 2013              [Page 14]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -790,7 +790,7 @@ Internet-Draft           RESTful Authentication              August 2012
    The ssh-publickey-SHA-256 and ssh-hostbased-SHA-256 mechanisms use
    the following instead of a traditional SSHv2 session ID:
 
-   o  SHA-256((client_nonce XOR server_nonce) || channel_binding)
+   o  SHA-256(channel_binding || server_nonce || client_nonce)
 
    Here the <channel_binding> is as per-[RFC5056]: the channel binding
    type name, followed by the channel binding data (e.g., 'tls-server-
@@ -803,12 +803,12 @@ Internet-Draft           RESTful Authentication              August 2012
 
 6.2.  Adapting IKEv2 Authentication Mechanisms to RESTauth
 
-   [[anchor3: TBD.]]
+   [[anchor4: TBD.]]
 
 6.2.1.  Adapting IKEv2 Password Authenticated Connection Establishment
         (PACE) to RESTauth
 
-   [[anchor4: TBD.]]
+   [[anchor5: TBD.]]
 
 6.3.  Using SASL Authentication Mechanisms with RESTauth
 
@@ -829,27 +829,32 @@ Internet-Draft           RESTful Authentication              August 2012
 
    The server's WWW-Authenticate header values function as the mechanism
    listing operation.  SASL security considerations [RFC4422] [RFC5801]
-   apply (particularly regarding the negotiation of channel binding).
+   apply (particularly regarding the negotiation of channel binding
+   support).
 
 
 
 
 
-
-Williams                Expires February 14, 2013              [Page 15]
+Williams                Expires February 15, 2013              [Page 15]
 
 Internet-Draft           RESTful Authentication              August 2012
 
 
 6.3.1.  Using SCRAM in RESTauth
 
-   SCRAM [RFC5802] is a DIGEST-like mechanism for SASL.  Nothing special
-   is needed to use SCRAM versus any other SASL mechanism, except for
-   the round trip optimized form of SCRAM (see below).
+   The Salted Challenge Response Authentication Mechanism (SCRAM)
+   [RFC5802] is a DIGEST-like mechanism for SASL.  Nothing special is
+   needed to use SCRAM versus any other SASL mechanism, except for a
+   round trip optimized form of SCRAM, if we decide to pursue that (see
+   below).
 
 6.3.2.  Using SCRAM with Round Trip Optimization in RESTauth
 
-   ..
+   [[anchor6: This might work by having the authentication ID function
+   as the salt and the server offering a challenge nonce and iteration
+   count in its optimistic challenge.  However, it's not clear that a
+   round trip optimized form of SCRAM is desirable.]]
 
 6.4.  Using GSS-API Authentication Mechanisms with RESTauth
 
@@ -887,12 +892,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-
-
-
-
-
-Williams                Expires February 14, 2013              [Page 16]
+Williams                Expires February 15, 2013              [Page 16]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -948,7 +948,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013              [Page 17]
+Williams                Expires February 15, 2013              [Page 17]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -1004,20 +1004,20 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013              [Page 18]
+Williams                Expires February 15, 2013              [Page 18]
 
 Internet-Draft           RESTful Authentication              August 2012
 
 
 9.  TODO
 
-   [[anchor5: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
+   [[anchor7: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
 
-   [[anchor6: Describe MAC session binding option and replay protection
+   [[anchor8: Describe MAC session binding option and replay protection
    in detail.  Describe how to extract keys for MAC keying from SASL/
    GSS/PACE.]]
 
-   [[anchor7: Figure out how to adapt IKEv2 password-based methods to
+   [[anchor9: Figure out how to adapt IKEv2 password-based methods to
    RESTauth.  This may not be worthwhile (since each method tends to
    depend heavily on the entire IKEv2 framework in ways that add
    messaging that we'd not need in RESTauth).]]
@@ -1060,7 +1060,7 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013              [Page 19]
+Williams                Expires February 15, 2013              [Page 19]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -1092,12 +1092,6 @@ Internet-Draft           RESTful Authentication              August 2012
 
 10.2.  Informative References
 
-   [I-D.williams-rest-gss]
-              Williams, N., "RESTful Hypertext Transfer Protocol
-              Application-Layer Authentication Using Generic Security
-              Services", draft-williams-rest-gss-02 (work in progress),
-              July 2012.
-
    [RFC4422]  Melnikov, A. and K. Zeilenga, "Simple Authentication and
               Security Layer (SASL)", RFC 4422, June 2006.
 
@@ -1113,19 +1107,19 @@ Internet-Draft           RESTful Authentication              August 2012
               Windows", RFC 4559, June 2006.
 
    [RFC6631]  Kuegler, D. and Y. Sheffer, "Password Authenticated
-
-
-
-Williams                Expires February 14, 2013              [Page 20]
-
-Internet-Draft           RESTful Authentication              August 2012
-
-
               Connection Establishment with the Internet Key Exchange
               Protocol version 2 (IKEv2)", RFC 6631, June 2012.
 
    [RFC2743]  Linn, J., "Generic Security Service Application Program
               Interface Version 2, Update 1", RFC 2743, January 2000.
+
+
+
+
+Williams                Expires February 15, 2013              [Page 20]
+
+Internet-Draft           RESTful Authentication              August 2012
+
 
    [RFC5801]  Josefsson, S. and N. Williams, "Using Generic Security
               Service Application Program Interface (GSS-API) Mechanisms
@@ -1172,7 +1166,13 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 14, 2013              [Page 21]
+
+
+
+
+
+
+Williams                Expires February 15, 2013              [Page 21]
 
 Internet-Draft           RESTful Authentication              August 2012
 
@@ -1228,5 +1228,5 @@ Author's Address
 
 
 
-Williams                Expires February 14, 2013              [Page 22]
+Williams                Expires February 15, 2013              [Page 22]
 

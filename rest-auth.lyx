@@ -227,7 +227,7 @@ RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)
 status collapsed
 
 \begin_layout Plain Layout
-draft-williams-http-rest-auth-01
+draft-williams-http-rest-auth-02
 \end_layout
 
 \end_inset
@@ -359,36 +359,25 @@ RESTful
 \end_inset
 
  pattern of authentication for HTTP/1.0, 1.1, and 2.0.
- The existing 401 status code and WWW-Authenticate header are used to indicate
- that authentication is required and for negotiation purposes.
- The client POSTs an initial authentication message to an indicated login
- URI, and reply messages are returned as new representations of a session
- resource named by a session URI.
+ The goal is to make it easy to add authentication mechanisms to HTTP and
+ to make it easy to implement them even without much help from the HTTP
+ stack (though it is best to integrate authentication into the stack, of
+ course).
 \end_layout
 
 \begin_layout Abstract
-This approach has a number of benefits: it can be implemented with or without
- help from the HTTP stack, it can be universally implemented on the server
- side using the Common Information Gateway (CGI) and FastCGI, it results
- in a session Uniform Resource Identifier (URI) that can be DELETEd to logout,
- it is completely orthogonal to any HTTP 
+Among other benefits of RESTauth: it is orthogonal to 
 \begin_inset Quotes eld
 \end_inset
 
-routers
+HTTP routers
 \begin_inset Quotes erd
 \end_inset
 
- and proxies, and it naturally (i.e., without changing HTTP) handles multi-legged
- authentication mechanisms.
-\end_layout
-
-\begin_layout Abstract
-Among other features supported are: channel binding, an optional round trip
- optimization for challenge/response mechanisms, some cryptographic protection
- options for clients that don't use Transport Layer Security (TLS), stronger
- authentication of servers/services to users (where authentication mechanisms
- provide that) and more.
+ and proxies, it results in session Uniform Resource Identifiers (URIs)
+ that can be DELETEd to logout, naturally supports multi-legged authentication
+ schemes, and it can be universally implemented on the server side with
+ the Common Gateway Interface (CGI) and FastCGI.
 \end_layout
 
 \begin_layout Standard
@@ -480,7 +469,7 @@ session URI
 \begin_inset Quotes erd
 \end_inset
 
- results that has better security semantics than web cookies;
+ results that has better security semantics than HTTP cookies;
 \end_layout
 
 \begin_layout Itemize
@@ -511,43 +500,43 @@ There are probably other benefits not listed above.
 \end_layout
 
 \begin_layout Standard
-The rough outline of the protocol is quite simple: initial authentication
- messages are POSTed to an agreed-upon or indicated resource, which then
- results in a new resource being created with the authentication reply message
- as the new resource's representation.
- Thereafter any additional authentication message exchanges needed (for
- multi-legged mechanisms) are POSTed to the new resource without a new resource
- being created.
- The resource created by the POSTing of the initial authentication mechanism
+The rough outline of the protocol is quite simple:
+\end_layout
+
+\begin_layout Enumerate
+initial authentication messages are POSTed to an agreed-upon or indicated
+ resource...
+\end_layout
+
+\begin_layout Enumerate
+....which then results in a new resource being created with the authentication
+ reply message as the new resource's representation.
+\end_layout
+
+\begin_layout Enumerate
+Thereafter any additional authentication message exchanges needed (for multi-leg
+ged mechanisms) are POSTed to the new resource without a new resource being
+ created.
+\end_layout
+
+\begin_layout Enumerate
+The resource created by the POSTing of the initial authentication mechanism
  identifies the resulting session, and its URI is known as the session URI.
- Session URIs can be used to multiplex multiple sessions over the same TCP/TLS
+\end_layout
+
+\begin_layout Enumerate
+Session URIs can be used to multiplex multiple sessions over the same TCP/TLS
  connections, implement logout, and share sessions across multiple related
  servers.
 \end_layout
 
 \begin_layout Standard
 Server-initiated authentication is also possible, whereby the server sends
- a challenge (not much else can be sent of value in an initial authentication
- message from the server besides a challenge, negotiation parameters, and,
- perhaps, a digital signature) in 401 errors in headers.
- If the server gives the client has a choice of mechanisms and the client
- picks one where the server sent the initial authentication message, then
- the client consumes that message and POSTs subsequent ones to the agreed
- URI.
-\end_layout
-
-\begin_layout Standard
-This document replaces 
-\begin_inset Flex EntityXRef
-status collapsed
-
-\begin_layout Bibliography
-I-D.williams-rest-gss
-\end_layout
-
-\end_inset
-
-.
+ a challenge in 401 errors in headers.
+ If the server gives the client a choice of mechanisms (multiple WWW-Authenticat
+e header values) and the client picks one where the server sent a challenge,
+ then the client consumes that message and POSTs subsequent ones to the
+ indicated URI.
 \end_layout
 
 \begin_layout Section
@@ -652,7 +641,7 @@ RFC5246
 
 \begin_layout Itemize
 the use of session keys as an option for integrity protection when TLS is
- not used.
+ not used (a light-weight security mode).
 \end_layout
 
 \begin_layout Subsection
@@ -1044,8 +1033,8 @@ RESTauth can be initiated by a client that knows a priori that it needs
  to or wants to use RESTauth.
  Servers can also tell clients that access to certain resources require
  authentication, possibly including RESTauth mechanisms.
- When the server tells the client that it must authenticate the server may
- also give the client an initial authentication message for one or more
+ When the server tells the client that it must authenticate, the server
+ may also give the client an initial authentication message for one or more
  mechanisms.
 \end_layout
 
@@ -1092,23 +1081,35 @@ One Round Trip Optimization: Challenges Born in WWW-Authenticate Headers
 \begin_layout Standard
 Some mechanisms may optimize the protocol flow by allowing the server to
  include challenges in the 401 response's WWW-Authenticate header values.
- RESTauth allows this, but this feature is OPTIONAL: it must always be possible
+ DIGEST-MD5 works this way, for example, sending a challenge nonce to be
+ fed into the digest function (along with other client-side inputs).
+\end_layout
+
+\begin_layout Standard
+RESTauth allows this, but this feature is OPTIONAL: it must always be possible
  for a client to initiate RESTauth without first obtaining a challenge in
  a WWW-Authenticate header value, in which case the client must incur an
  extra protocol leg by obtaining the challenge (if it is at all necessary)
  in the server's reply to the client's first authentication message.
- The reason that this optimization is optional is to allow the implementation
- of RESTauth mechanisms with frameworks that only support client-initiated
- authentication.
+ There are two reasons for making this optional:
+\end_layout
+
+\begin_layout Enumerate
+to allow client applications that know a priori that they must authenticate,
+ requiring no further negotiation;
+\end_layout
+
+\begin_layout Enumerate
+to support authentication frameworks that require that the client initiate
+ authentication message exchanges.
 \end_layout
 
 \begin_layout Standard
 A challenge may consist of a nonce, some encrypted or MACed nonce, a time-stamp,
- and even seemingly unrelated contents such as certificates and digital
- signatures.
- The server MAY include a login URI in challenge-laden WWW-Authenticate
- headers where the login URI encodes secure state regarding the challenge.
- 
+ certificates and digital signatures, etcetera.
+ The server may include a login URI in challenge-laden WWW-Authenticate
+ headers where the login URI encodes secure state regarding the challenge
+ (e.g., the challenge encrypted in a symmetric key known only to the server).
 \end_layout
 
 \begin_layout Subsection
@@ -1167,6 +1168,18 @@ d by a single request, in which case they MUST answer with error code <TBD>.
  Servers MUST validate the session URI before processing the request; if
  the session URI is invalid the server MUST respond with a 401 (or TBD?)
  status code.
+\end_layout
+
+\begin_layout Standard
+Note that referencing multiple session URIs is permitted, but this may not
+ be meaningful for the application, thus the server MAY reject this (TODO:
+ specify a status code for this?).
+\end_layout
+
+\begin_layout RevisionRemark
+I can imagine a webmail application where a client can be logged in as multiple
+ users and get a unified view of the users' mailboxes.
+ This seems unlikely, but why rule out such use cases?
 \end_layout
 
 \begin_layout Subsubsection
@@ -1433,10 +1446,10 @@ Sample/Potential RESTauth Authentication Mechanisms
 \end_layout
 
 \begin_layout Standard
-Here we describe (informatively, for now) how to use or adapt a variety
- of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API, and other
- frameworks, so as to quickly gain a set of usable mechanisms, both, specificati
-on- and implementation-wise.
+Here we describe (informatively, for the time being) how to use or adapt
+ a variety of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API,
+ and other frameworks, so as to quickly gain a set of usable mechanisms,
+ both, specification- and implementation-wise.
  This section is also intended to show that adding RESTauth mechanisms is
  easy.
 \end_layout
@@ -1547,7 +1560,7 @@ The ssh-publickey-SHA-256 and ssh-hostbased-SHA-256 mechanisms use the following
 \end_layout
 
 \begin_layout Itemize
-SHA-256((client_nonce XOR server_nonce) || channel_binding)
+SHA-256(channel_binding || server_nonce || client_nonce)
 \end_layout
 
 \begin_layout Standard
@@ -1669,7 +1682,7 @@ RFC5801
 
 \end_inset
 
- apply (particularly regarding the negotiation of channel binding).
+ apply (particularly regarding the negotiation of channel binding support).
 \end_layout
 
 \begin_layout Subsubsection
@@ -1683,7 +1696,7 @@ Using SCRAM in RESTauth
 \end_layout
 
 \begin_layout Standard
-SCRAM 
+The Salted Challenge Response Authentication Mechanism (SCRAM) 
 \begin_inset Flex EntityXRef
 status collapsed
 
@@ -1695,7 +1708,8 @@ RFC5802
 
  is a DIGEST-like mechanism for SASL.
  Nothing special is needed to use SCRAM versus any other SASL mechanism,
- except for the round trip optimized form of SCRAM (see below).
+ except for a round trip optimized form of SCRAM, if we decide to pursue
+ that (see below).
  
 \end_layout
 
@@ -1709,8 +1723,11 @@ name "sub:Using-SCRAM-with"
 Using SCRAM with Round Trip Optimization in RESTauth
 \end_layout
 
-\begin_layout Standard
-..
+\begin_layout RevisionRemark
+This might work by having the authentication ID function as the salt and
+ the server offering a challenge nonce and iteration count in its optimistic
+ challenge.
+ However, it's not clear that a round trip optimized form of SCRAM is desirable.
 \end_layout
 
 \begin_layout Subsection
@@ -1972,26 +1989,6 @@ name "sec:Informative-References"
 \end_inset
 
 Informative References
-\end_layout
-
-\begin_layout Standard
-\begin_inset Flex BibXML
-status collapsed
-
-\begin_layout Plain Layout
-\begin_inset CommandInset href
-LatexCommand href
-name "I-D.williams-rest-gss"
-target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml"
-
-\end_inset
-
-
-\end_layout
-
-\end_inset
-
-
 \end_layout
 
 \begin_layout Standard
