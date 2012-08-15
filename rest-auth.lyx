@@ -227,7 +227,7 @@ RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)
 status collapsed
 
 \begin_layout Plain Layout
-draft-williams-http-rest-auth-02
+draft-williams-http-rest-auth-03
 \end_layout
 
 \end_inset
@@ -787,7 +787,7 @@ status open
 
 \begin_layout Plain Layout
 
-      ; TODO: add MAC algorithm offers for alg agility
+      ; TODO: add MAC algorithm offers for alg agility?
 \end_layout
 
 \end_inset
@@ -930,7 +930,7 @@ name "sub:WWW-SessionType-Header"
 
 \end_inset
 
-WWW-SessionType Header
+WWW-SessionBinding-Type Header
 \end_layout
 
 \begin_layout Standard
@@ -1129,7 +1129,7 @@ A notion of session binding type is added for binding HTTP requests to specific
 \end_layout
 
 \begin_layout Description
-Cookies The traditional web cookie approach to session binding;
+Cookies The traditional HTTP cookie approach to session binding;
 \end_layout
 
 \begin_layout Description
@@ -1236,7 +1236,7 @@ Routing
 \begin_inset Quotes erd
 \end_inset
 
- and RESTauth
+ and Authentication
 \end_layout
 
 \begin_layout Standard
@@ -1411,9 +1411,9 @@ in-band
 \end_layout
 
 \begin_layout Standard
-In so far as an in-band authentication method results in a web cookie or
- session URI/ID the distinction between in-band and out-of-band is almost
- trivial, as described above: authentication messages in headers vs.
+In so far as an in-band authentication method results in a cookie or session
+ URI/ID the distinction between in-band and out-of-band is almost trivial,
+ as described above: authentication messages in headers vs.
  bodies, and HTTP verb and URL.
  However, if in-line authentication methods are strongly tied to the TCP/TLS
  connections over which they were utilized then that is a big disadvantage
@@ -1657,6 +1657,9 @@ SA-
 \begin_layout Standard
 The HTTP status code functions as the application's outcome of authentication
  message.
+ If SASL succeeds but authorization fails then the server should respond
+ with a 401 status code to the POST of the final SASL authentication message
+ from the client.
 \end_layout
 
 \begin_layout Standard
@@ -1709,8 +1712,276 @@ RFC5802
  is a DIGEST-like mechanism for SASL.
  Nothing special is needed to use SCRAM versus any other SASL mechanism,
  except for a round trip optimized form of SCRAM, if we decide to pursue
- that (see below).
+ that (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Using-SCRAM-with"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+The following figure shows what SCRAM in RESTauth looks like.
+ Note that the resource representations are taken verbatim from 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5802
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+  C->S: HTTP/1.1 GET /some-resources
+\end_layout
+
+\begin_layout Plain Layout
+
+        Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
  
+\end_layout
+
+\begin_layout Plain Layout
+
+  S->C: HTTP/1.1 401 Unauthorized
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-Authenticate: RA-SA-SCRAM-SHA-1 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                          http://A.example/rest-sa-scram 
+\backslash
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+                          s=session-ID,MIC r=no
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-ChannelBinding-Types: tls-server-end-point
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  C->S: HTTP/1.1 POST /rest-sa-scram
+\end_layout
+
+\begin_layout Plain Layout
+
+        Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-ChannelBinding-Type: tls-server-end-point
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-SessionBinding-Type: session-ID
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Type: application/octet-stream
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  S->C: HTTP/1.1 201
+\end_layout
+
+\begin_layout Plain Layout
+
+        Location http://A.example/restauth-9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Type: application/octet-stream
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+        s=QSXCR+Q6sek8bf92,i=4096
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  C->S: HTTP/1.1 POST /restauth-9d0af5f680d4ff46
+\end_layout
+
+\begin_layout Plain Layout
+
+        Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Type: application/octet-stream
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+        p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  S->C: HTTP/1.1 200
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Type: application/octet-stream
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:RESTauth-w/-SCRAM"
+
+\end_inset
+
+RESTauth w/ SCRAM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsubsection
@@ -1728,6 +1999,202 @@ This might work by having the authentication ID function as the salt and
  the server offering a challenge nonce and iteration count in its optimistic
  challenge.
  However, it's not clear that a round trip optimized form of SCRAM is desirable.
+\end_layout
+
+\begin_layout Standard
+The following figure shows what a round trip optimized RESTauth w/ SCRAM
+ exchange might look like.
+\end_layout
+
+\begin_layout RevisionRemark
+NOTE: SCRAM was not intended to be used this way.
+ In particular this approach forces the use of an algorithmic salt, to be
+ derived only from either the username or the username and the server's
+ name (or else to be remembered by the user, but that's not likely).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+  C->S: HTTP/1.1 GET /some-resources
+\end_layout
+
+\begin_layout Plain Layout
+
+        Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  S->C: HTTP/1.1 401 Unauthorized
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-Authenticate: RA-SA-SCRAM-SHA-1 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                          http://A.example/rest-sa-scram 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                          s=session-ID,MIC r=no 
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+                          r=fyko+d2l...JY1ZVvWVs7j,i=4096
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-ChannelBinding-Types: tls-server-end-point
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  C->S: HTTP/1.1 POST /rest-sa-scram
+\end_layout
+
+\begin_layout Plain Layout
+
+        Host: A.example
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-ChannelBinding-Type: tls-server-end-point
+\end_layout
+
+\begin_layout Plain Layout
+
+        WWW-SessionBinding-Type: session-ID
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Type: application/octet-stream
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL,
+\end_layout
+
+\begin_layout Plain Layout
+
+        c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+\end_layout
+
+\begin_layout Plain Layout
+
+        p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  S->C: HTTP/1.1 200
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Type: application/octet-stream
+\end_layout
+
+\begin_layout Plain Layout
+
+        Content-Length: nnn
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+        v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:RESTauth-w/-round"
+
+\end_inset
+
+RESTauth w/ round trip optimized SCRAM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection

@@ -300,7 +300,7 @@ Among other benefits of RESTauth: it is orthogonal to &ldquo;HTTP routers&rdquo;
 
 <div class='lyxtoc-3'><a href='#magicparlabel-155' class='tocentry'>3.1.4 WWW-ChannelBinding-Type Header</a> <a href='#magicparlabel-155' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-161' class='tocentry'>3.1.5 WWW-SessionType Header</a> <a href='#magicparlabel-161' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-161' class='tocentry'>3.1.5 WWW-SessionBinding-Type Header</a> <a href='#magicparlabel-161' class='tocarrow'>&gt;</a></div>
 
 <div class='lyxtoc-3'><a href='#magicparlabel-163' class='tocentry'>3.1.6 WWW-ReplayProtection Header</a> <a href='#magicparlabel-163' class='tocarrow'>&gt;</a></div>
 </div>
@@ -320,7 +320,7 @@ Among other benefits of RESTauth: it is orthogonal to &ldquo;HTTP routers&rdquo;
 </div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-194' class='tocentry'>4 HTTP Routing and RESTauth</a> <a href='#magicparlabel-194' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-194' class='tocentry'>4 HTTP Routing and Authentication</a> <a href='#magicparlabel-194' class='tocarrow'>&gt;</a></div>
 
 <div class='lyxtoc-1'><a href='#magicparlabel-199' class='tocentry'>5 In-band HTTP Authentication Alternatives</a> <a href='#magicparlabel-199' class='tocarrow'>&gt;</a></div>
 
@@ -344,21 +344,21 @@ Among other benefits of RESTauth: it is orthogonal to &ldquo;HTTP routers&rdquo;
 
 <div class='lyxtoc-3'><a href='#magicparlabel-261' class='tocentry'>6.3.1 Using SCRAM in RESTauth</a> <a href='#magicparlabel-261' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-267' class='tocentry'>6.3.2 Using SCRAM with Round Trip Optimization in RESTauth</a> <a href='#magicparlabel-267' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-326' class='tocentry'>6.3.2 Using SCRAM with Round Trip Optimization in RESTauth</a> <a href='#magicparlabel-326' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-269' class='tocentry'>6.4 Using GSS-API Authentication Mechanisms with RESTauth</a> <a href='#magicparlabel-269' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-371' class='tocentry'>6.4 Using GSS-API Authentication Mechanisms with RESTauth</a> <a href='#magicparlabel-371' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-287' class='tocentry'>7 IANA Considerations</a> <a href='#magicparlabel-287' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-389' class='tocentry'>7 IANA Considerations</a> <a href='#magicparlabel-389' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-289' class='tocentry'>8 Security Considerations</a> <a href='#magicparlabel-289' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-391' class='tocentry'>8 Security Considerations</a> <a href='#magicparlabel-391' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-291' class='tocentry'>9 TODO</a> <a href='#magicparlabel-291' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-393' class='tocentry'>9 TODO</a> <a href='#magicparlabel-393' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-295' class='tocentry'>10 Normative References</a> <a href='#magicparlabel-295' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-397' class='tocentry'>10 Normative References</a> <a href='#magicparlabel-397' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-326' class='tocentry'>11 Informative References</a> <a href='#magicparlabel-326' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-428' class='tocentry'>11 Informative References</a> <a href='#magicparlabel-428' class='tocarrow'>&gt;</a></div>
 </div>
 
 <h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-55' />
@@ -486,7 +486,7 @@ The ABNF for RESTauth WWW-Authenticate header values is as follows:</div>
       replay-prot         = "r=" ("yes" / "no")
       ; TODO: add production for
       ;       mech-challenge as a base64 string
-      ; TODO: add MAC algorithm offers for alg agility</pre></div>
+      ; TODO: add MAC algorithm offers for alg agility?</pre></div>
 
 
 <div class="plain_layout"><a id='magicparlabel-138' />
@@ -520,7 +520,7 @@ RFC5929</div>
 </div>.</div>
 <h4 class="subsubsection"><span class="subsubsection_label">3.1.5</span> <a id='magicparlabel-161' />
 <a id="sub_WWW_SessionType_Header" />
-WWW-SessionType Header</h4>
+WWW-SessionBinding-Type Header</h4>
 <div class="standard"><a id='magicparlabel-162' />
 A new header is added by which clients MUST indicate what session binding type they choose when POSTing RESTauth authentication messages. The header is named WWW-SessionBinding-Type. Its value is a session binding type as shown in <a href="#fig_WWW_Authenticate_ABNF">1</a>. This header MUST be present in RESTauth authentication HTTP requests.</div>
 <h4 class="subsubsection"><span class="subsubsection_label">3.1.6</span> <a id='magicparlabel-163' />
@@ -571,7 +571,7 @@ A notion of session binding type is added for binding HTTP requests to specific 
 
 <dl class='description'><dt class="description_label">Cookies</dt>
 <dd class="description_item"><a id='magicparlabel-183' />
- The traditional web cookie approach to session binding;</dd>
+ The traditional HTTP cookie approach to session binding;</dd>
 <dt class="description_label">Session&nbsp;URI</dt>
 <dd class="description_item"><a id='magicparlabel-184' />
  HTTP requests carry a WWW-Session-URI header identifying the session(s) (similar to cookies, but without all the associated baggage);</dd>
@@ -602,7 +602,7 @@ A MAC Trailer??</h4>
 ... This is only needed for RESTauth <em>without</em> TLS, which will probably not be the common mode of use for RESTauth... unless we can produce a MAC trailer extension for HTTP/2.0, in which case this may well become a common mode of RESTauth usage.</div>
 <h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-194' />
 <a id="sec_HTTP_Routing_and" />
-HTTP &ldquo;Routing&rdquo; and RESTauth</h2>
+HTTP &ldquo;Routing&rdquo; and Authentication</h2>
 <div class="standard"><a id='magicparlabel-195' />
 It is common to deploy HTTP services with load-balanced servers behind a load balancer and TLS concentrator. Other techniques may also result in a multiplicity of servers acting on behalf of a single service. The load balancers may even behave like routers and route HTTP requests to the same server for all requests in a single connection, or even route HTTP requests according to the verb and resource. It helps to be able to have a notion of authenticated sessions that can be referenced by all servers responding to a given service name.</div>
 
@@ -630,7 +630,7 @@ RFC4559</div>
 </div> are &ldquo;in-band&rdquo; HTTP authentication methods.</div>
 
 <div class="standard"><a id='magicparlabel-211' />
-In so far as an in-band authentication method results in a web cookie or session URI/ID the distinction between in-band and out-of-band is almost trivial, as described above: authentication messages in headers vs. bodies, and HTTP verb and URL. However, if in-line authentication methods are strongly tied to the TCP/TLS connections over which they were utilized then that is a big disadvantage over RESTauth: each connection requires re-authenticating, and support for HTTP routing schemes is not clear.</div>
+In so far as an in-band authentication method results in a cookie or session URI/ID the distinction between in-band and out-of-band is almost trivial, as described above: authentication messages in headers vs. bodies, and HTTP verb and URL. However, if in-line authentication methods are strongly tied to the TCP/TLS connections over which they were utilized then that is a big disadvantage over RESTauth: each connection requires re-authenticating, and support for HTTP routing schemes is not clear.</div>
 
 <div class="standard"><a id='magicparlabel-212' />
 HTTP/Negotiate is more troublesome because historically it has required re-authentication per-HTTP request(!).</div>
@@ -709,7 +709,7 @@ RFC4422</div>
 To use a SASL mechanism in RESTauth just prefix &ldquo;SA-&rdquo; to the SASL mechanism name and use that as the RESTauth mechanism name. If the SASL mechanism is server-initiated then the server's challenge is sent in the server's WWW-Authenticate header value as described above. All other SASL authentication messages are exchanged as described above (i.e., via POSTs, first to the login URI, then to the session URI, with response messages as the new representation of the session resource).</div>
 
 <div class="standard"><a id='magicparlabel-251' />
-The HTTP status code functions as the application's outcome of authentication message.</div>
+The HTTP status code functions as the application's outcome of authentication message. If SASL succeeds but authorization fails then the server should respond with a 401 status code to the POST of the final SASL authentication message from the client.</div>
 
 <div class="standard"><a id='magicparlabel-252' />
 The server's WWW-Authenticate header values function as the mechanism listing operation. SASL security considerations <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-256' />
@@ -723,118 +723,230 @@ Using SCRAM in RESTauth</h4>
 <div class="standard"><a id='magicparlabel-262' />
 The Salted Challenge Response Authentication Mechanism (SCRAM) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-266' />
 RFC5802</div>
-</div> is a DIGEST-like mechanism for SASL. Nothing special is needed to use SCRAM versus any other SASL mechanism, except for a round trip optimized form of SCRAM, if we decide to pursue that (see below). </div>
-<h4 class="subsubsection"><span class="subsubsection_label">6.3.2</span> <a id='magicparlabel-267' />
+</div> is a DIGEST-like mechanism for SASL. Nothing special is needed to use SCRAM versus any other SASL mechanism, except for a round trip optimized form of SCRAM, if we decide to pursue that (see <a href="#sub_Using_SCRAM_with">6.3.2</a>).</div>
+
+<div class="standard"><a id='magicparlabel-267' />
+The following figure shows what SCRAM in RESTauth looks like. Note that the resource representations are taken verbatim from <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-271' />
+RFC5802</div>
+</div>.</div>
+
+<div class="standard"><a id='magicparlabel-272' />
+</div>
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-276' />
+</div>
+<div class='float float-listings'><pre>  C-&gt;S: HTTP/1.1 GET /some-resources
+        Host: A.example
+ 
+  S-&gt;C: HTTP/1.1 401 Unauthorized
+        WWW-Authenticate: RA-SA-SCRAM-SHA-1 \
+                          http://A.example/rest-sa-scram \ 
+                          s=session-ID,MIC r=no
+        WWW-ChannelBinding-Types: tls-server-end-point
+ 
+  C-&gt;S: HTTP/1.1 POST /rest-sa-scram
+        Host: A.example
+        WWW-ChannelBinding-Type: tls-server-end-point
+        WWW-SessionBinding-Type: session-ID
+        Content-Type: application/octet-stream
+        Content-Length: nnn
+ 
+        n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL
+ 
+  S-&gt;C: HTTP/1.1 201
+        Location http://A.example/restauth-9d0af5f680d4ff46
+        Content-Type: application/octet-stream
+        Content-Length: nnn
+ 
+        r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+        s=QSXCR+Q6sek8bf92,i=4096
+ 
+  C-&gt;S: HTTP/1.1 POST /restauth-9d0af5f680d4ff46
+        Host: A.example
+        Content-Type: application/octet-stream
+        Content-Length: nnn
+ 
+        c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+        p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+ 
+  S-&gt;C: HTTP/1.1 200
+        Content-Type: application/octet-stream
+        Content-Length: nnn
+ 
+        v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+ </pre></div>
+
+
+<div class="plain_layout"><a id='magicparlabel-320' />
+<div class='float-caption float-caption-figure'>Figure 2:<div class="plain_layout"><a id='magicparlabel-324' />
+<a id="fig_RESTauth_w__SCRAM" />
+RESTauth w/ SCRAM</div>
+</div></div>
+
+<div class="plain_layout"><a id='magicparlabel-325' />
+</div>
+</div>
+
+<h4 class="subsubsection"><span class="subsubsection_label">6.3.2</span> <a id='magicparlabel-326' />
 <a id="sub_Using_SCRAM_with" />
 Using SCRAM with Round Trip Optimization in RESTauth</h4>
-<div class="revisionremark"><a id='magicparlabel-268' />
+<div class="revisionremark"><a id='magicparlabel-327' />
 This might work by having the authentication ID function as the salt and the server offering a challenge nonce and iteration count in its optimistic challenge. However, it's not clear that a round trip optimized form of SCRAM is desirable.</div>
-<h3 class="subsection"><span class="subsection_label">6.4</span> <a id='magicparlabel-269' />
+
+<div class="standard"><a id='magicparlabel-328' />
+The following figure shows what a round trip optimized RESTauth w/ SCRAM exchange might look like.</div>
+
+<div class="revisionremark"><a id='magicparlabel-329' />
+NOTE: SCRAM was not intended to be used this way. In particular this approach forces the use of an algorithmic salt, to be derived only from either the username or the username and the server's name (or else to be remembered by the user, but that's not likely).</div>
+
+<div class="standard"><a id='magicparlabel-330' />
+</div>
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-334' />
+</div>
+<div class='float float-listings'><pre>  C-&gt;S: HTTP/1.1 GET /some-resources
+        Host: A.example
+ 
+  S-&gt;C: HTTP/1.1 401 Unauthorized
+        WWW-Authenticate: RA-SA-SCRAM-SHA-1 \
+                          http://A.example/rest-sa-scram \
+                          s=session-ID,MIC r=no \
+                          r=fyko+d2l...JY1ZVvWVs7j,i=4096
+        WWW-ChannelBinding-Types: tls-server-end-point
+ 
+  C-&gt;S: HTTP/1.1 POST /rest-sa-scram
+        Host: A.example
+        WWW-ChannelBinding-Type: tls-server-end-point
+        WWW-SessionBinding-Type: session-ID
+        Content-Type: application/octet-stream
+        Content-Length: nnn
+ 
+        n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL,
+        c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+        p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+ 
+  S-&gt;C: HTTP/1.1 200
+        Content-Type: application/octet-stream
+        Content-Length: nnn
+ 
+        v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+ </pre></div>
+
+
+<div class="plain_layout"><a id='magicparlabel-365' />
+<div class='float-caption float-caption-figure'>Figure 3:<div class="plain_layout"><a id='magicparlabel-369' />
+<a id="fig_RESTauth_w__round" />
+RESTauth w/ round trip optimized SCRAM</div>
+</div></div>
+
+<div class="plain_layout"><a id='magicparlabel-370' />
+</div>
+</div>
+
+<h3 class="subsection"><span class="subsection_label">6.4</span> <a id='magicparlabel-371' />
 <a id="sub_Using_GSS_API_Authentication" />
 Using GSS-API Authentication Mechanisms with RESTauth</h3>
-<div class="standard"><a id='magicparlabel-270' />
-The Generic Security Services Application Programming Interface (GSS-API) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-274' />
+<div class="standard"><a id='magicparlabel-372' />
+The Generic Security Services Application Programming Interface (GSS-API) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-376' />
 RFC2743</div>
-</div> is another pluggable mechanism framework. Any GSS-API mechanism that supports channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-278' />
+</div> is another pluggable mechanism framework. Any GSS-API mechanism that supports channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-380' />
 RFC5056</div>
-</div> can be used as SASL mechanisms via the &ldquo;SASL/GS2&rdquo; bridge <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-282' />
+</div> can be used as SASL mechanisms via the &ldquo;SASL/GS2&rdquo; bridge <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-384' />
 RFC5801</div>
-</div>. This includes the Kerberos V5 GSS-API mechanism <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-286' />
+</div>. This includes the Kerberos V5 GSS-API mechanism <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-388' />
 RFC4121</div>
 </div>.</div>
-<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-287' />
+<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-389' />
 <a id="sec_IANA_Considerations" />
 IANA Considerations</h2>
-<div class="standard"><a id='magicparlabel-288' />
+<div class="standard"><a id='magicparlabel-390' />
 TBD (header registrations, ...)</div>
-<h2 class="section"><span class="section_label">8</span> <a id='magicparlabel-289' />
+<h2 class="section"><span class="section_label">8</span> <a id='magicparlabel-391' />
 <a id="sec_Security_Considerations" />
 Security Considerations</h2>
-<div class="standard"><a id='magicparlabel-290' />
+<div class="standard"><a id='magicparlabel-392' />
 This entire document deals with security considerations. [Add more, like about channel binding, same-origin-like constraints on the login and session absolute URIs', ...]</div>
-<h2 class="section"><span class="section_label">9</span> <a id='magicparlabel-291' />
+<h2 class="section"><span class="section_label">9</span> <a id='magicparlabel-393' />
 <a id="sec_TODO" />
 TODO</h2>
-<div class="revisionremark"><a id='magicparlabel-292' />
+<div class="revisionremark"><a id='magicparlabel-394' />
 Add references (to HTTP/2.0, CGI/fCGI, ...).</div>
 
-<div class="revisionremark"><a id='magicparlabel-293' />
+<div class="revisionremark"><a id='magicparlabel-395' />
 Describe MAC session binding option and replay protection in detail. Describe how to extract keys for MAC keying from SASL/GSS/PACE.</div>
 
-<div class="revisionremark"><a id='magicparlabel-294' />
+<div class="revisionremark"><a id='magicparlabel-396' />
 Figure out how to adapt IKEv2 password-based methods to RESTauth. This may not be worthwhile (since each method tends to depend heavily on the entire IKEv2 framework in ways that add messaging that we'd not need in RESTauth).</div>
-<h2 class="section"><span class="section_label">10</span> <a id='magicparlabel-295' />
+<h2 class="section"><span class="section_label">10</span> <a id='magicparlabel-397' />
 <a id="sec_Normative_References" />
 Normative References</h2>
-<div class="standard"><a id='magicparlabel-296' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-300' />
+<div class="standard"><a id='magicparlabel-398' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-402' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">rfc2119</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-301' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-305' />
+<div class="standard"><a id='magicparlabel-403' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-407' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2616.xml">rfc2616</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-306' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-310' />
+<div class="standard"><a id='magicparlabel-408' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-412' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2617.xml">rfc2617</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-311' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-315' />
+<div class="standard"><a id='magicparlabel-413' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-417' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">rfc5246</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-316' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-320' />
+<div class="standard"><a id='magicparlabel-418' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-422' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">rfc5056</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-321' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-325' />
+<div class="standard"><a id='magicparlabel-423' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-427' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">rfc5929</a></div>
 </div></div>
-<h2 class="section"><span class="section_label">11</span> <a id='magicparlabel-326' />
+<h2 class="section"><span class="section_label">11</span> <a id='magicparlabel-428' />
 <a id="sec_Informative_References" />
 Informative References</h2>
-<div class="standard"><a id='magicparlabel-327' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-331' />
+<div class="standard"><a id='magicparlabel-429' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-433' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml">rfc4422</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-332' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-336' />
+<div class="standard"><a id='magicparlabel-434' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-438' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5802.xml">rfc5802</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-337' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-341' />
+<div class="standard"><a id='magicparlabel-439' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-443' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml">rfc4252</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-342' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-346' />
+<div class="standard"><a id='magicparlabel-444' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-448' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml">rfc4559</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-347' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-351' />
+<div class="standard"><a id='magicparlabel-449' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-453' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.6631.xml">rfc6631</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-352' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-356' />
+<div class="standard"><a id='magicparlabel-454' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-458' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">rfc2743</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-357' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-361' />
+<div class="standard"><a id='magicparlabel-459' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-463' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml">rfc5801</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-362' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-366' />
+<div class="standard"><a id='magicparlabel-464' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-468' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">rfc4121</a></div>
 </div></div>
 </body>

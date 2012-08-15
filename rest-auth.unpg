@@ -68,7 +68,7 @@ Table of Contents
    3.1.2.  WWW-Authenticate Header Value Prefix Syntax
    3.1.3.  WWW-ChannelBinding-Types Header
    3.1.4.  WWW-ChannelBinding-Type Header
-   3.1.5.  WWW-SessionType Header
+   3.1.5.  WWW-SessionBinding-Type Header
    3.1.6.  WWW-ReplayProtection Header
    3.2.    Protocol Flow
    3.2.1.  One Round Trip Optimization: Challenges Born in
@@ -77,7 +77,7 @@ Table of Contents
    3.3.1.  The New WWW-Session-URI Header
    3.3.2.  The New WWW-Session-MAC Header
    3.3.3.  A MAC Trailer??
-   4.      HTTP "Routing" and RESTauth
+   4.      HTTP "Routing" and Authentication
    5.      In-band HTTP Authentication Alternatives
    6.      Sample/Potential RESTauth Authentication Mechanisms
    6.1.    Adapting SSHv2 Authentication Mechanisms to RESTauth
@@ -242,10 +242,9 @@ Table of Contents
          replay-prot         = "r=" ("yes" / "no")
          ; TODO: add production for
          ;       mech-challenge as a base64 string
-         ; TODO: add MAC algorithm offers for alg agility
-   Figure 1: WWW-Authenticate ABNF
+         ; TODO: add MAC algorithm offers for alg agility?
 
-                                 Figure 1
+                      Figure 1: WWW-Authenticate ABNF
 
    For a DIGEST-like mechanism it might look like "WWW-Authenticate: RA-
    Digest-SHA-256 tls-server-end-point session-ID no HE4SgWGrd/
@@ -276,7 +275,7 @@ Table of Contents
    value is a channel binding type from the channel binding type
    registry [RFC5929].
 
-3.1.5.  WWW-SessionType Header
+3.1.5.  WWW-SessionBinding-Type Header
 
    A new header is added by which clients MUST indicate what session
    binding type they choose when POSTing RESTauth authentication
@@ -355,7 +354,7 @@ Table of Contents
    A notion of session binding type is added for binding HTTP requests
    to specific RESTauth login sessions.  Three types are provided:
 
-   Cookies  The traditional web cookie approach to session binding;
+   Cookies  The traditional HTTP cookie approach to session binding;
 
    Session URI  HTTP requests carry a WWW-Session-URI header identifying
       the session(s) (similar to cookies, but without all the associated
@@ -400,7 +399,7 @@ Table of Contents
    well become a common mode of RESTauth usage.]]without
 
 
-4.  HTTP "Routing" and RESTauth
+4.  HTTP "Routing" and Authentication
 
    It is common to deploy HTTP services with load-balanced servers
    behind a load balancer and TLS concentrator.  Other techniques may
@@ -454,8 +453,8 @@ Table of Contents
    methods, as well as HTTP/Negotiate [RFC4559] are "in-band" HTTP
    authentication methods.
 
-   In so far as an in-band authentication method results in a web cookie
-   or session URI/ID the distinction between in-band and out-of-band is
+   In so far as an in-band authentication method results in a cookie or
+   session URI/ID the distinction between in-band and out-of-band is
    almost trivial, as described above: authentication messages in
    headers vs. bodies, and HTTP verb and URL.  However, if in-line
    authentication methods are strongly tied to the TCP/TLS connections
@@ -559,7 +558,9 @@ Table of Contents
    session resource).
 
    The HTTP status code functions as the application's outcome of
-   authentication message.
+   authentication message.  If SASL succeeds but authorization fails
+   then the server should respond with a 401 status code to the POST of
+   the final SASL authentication message from the client.
 
    The server's WWW-Authenticate header values function as the mechanism
    listing operation.  SASL security considerations [RFC4422] [RFC5801]
@@ -572,7 +573,52 @@ Table of Contents
    [RFC5802] is a DIGEST-like mechanism for SASL.  Nothing special is
    needed to use SCRAM versus any other SASL mechanism, except for a
    round trip optimized form of SCRAM, if we decide to pursue that (see
-   below).
+   Section 6.3.2).
+
+   The following figure shows what SCRAM in RESTauth looks like.  Note
+   that the resource representations are taken verbatim from [RFC5802].
+
+     C->S: HTTP/1.1 GET /some-resources
+           Host: A.example
+
+     S->C: HTTP/1.1 401 Unauthorized
+           WWW-Authenticate: RA-SA-SCRAM-SHA-1 \
+                             http://A.example/rest-sa-scram \
+                             s=session-ID,MIC r=no
+           WWW-ChannelBinding-Types: tls-server-end-point
+
+     C->S: HTTP/1.1 POST /rest-sa-scram
+           Host: A.example
+           WWW-ChannelBinding-Type: tls-server-end-point
+           WWW-SessionBinding-Type: session-ID
+           Content-Type: application/octet-stream
+           Content-Length: nnn
+
+           n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL
+
+     S->C: HTTP/1.1 201
+           Location http://A.example/restauth-9d0af5f680d4ff46
+           Content-Type: application/octet-stream
+           Content-Length: nnn
+
+           r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+           s=QSXCR+Q6sek8bf92,i=4096
+
+     C->S: HTTP/1.1 POST /restauth-9d0af5f680d4ff46
+           Host: A.example
+           Content-Type: application/octet-stream
+           Content-Length: nnn
+
+           c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+           p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+
+     S->C: HTTP/1.1 200
+           Content-Type: application/octet-stream
+           Content-Length: nnn
+
+           v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+
+                        Figure 2: RESTauth w/ SCRAM
 
 6.3.2.  Using SCRAM with Round Trip Optimization in RESTauth
 
@@ -580,6 +626,44 @@ Table of Contents
    as the salt and the server offering a challenge nonce and iteration
    count in its optimistic challenge.  However, it's not clear that a
    round trip optimized form of SCRAM is desirable.]]
+
+   The following figure shows what a round trip optimized RESTauth w/
+   SCRAM exchange might look like.
+
+   [[anchor7: NOTE: SCRAM was not intended to be used this way.  In
+   particular this approach forces the use of an algorithmic salt, to be
+   derived only from either the username or the username and the
+   server's name (or else to be remembered by the user, but that's not
+   likely).]]
+
+     C->S: HTTP/1.1 GET /some-resources
+           Host: A.example
+
+     S->C: HTTP/1.1 401 Unauthorized
+           WWW-Authenticate: RA-SA-SCRAM-SHA-1 \
+                             http://A.example/rest-sa-scram \
+                             s=session-ID,MIC r=no \
+                             r=fyko+d2l...JY1ZVvWVs7j,i=4096
+           WWW-ChannelBinding-Types: tls-server-end-point
+
+     C->S: HTTP/1.1 POST /rest-sa-scram
+           Host: A.example
+           WWW-ChannelBinding-Type: tls-server-end-point
+           WWW-SessionBinding-Type: session-ID
+           Content-Type: application/octet-stream
+           Content-Length: nnn
+
+           n,,n=user,r=fyko+d2lbbFgONRv9qkxdawL,
+           c=biws,r=fyko+d2lbbFgONRv9qkxdawL3rfcNHYJY1ZVvWVs7j,
+           p=v0X8v3Bz2T0CJGbJQyF0X+HI4Ts=
+
+     S->C: HTTP/1.1 200
+           Content-Type: application/octet-stream
+           Content-Length: nnn
+
+           v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
+
+             Figure 3: RESTauth w/ round trip optimized SCRAM
 
 6.4.  Using GSS-API Authentication Mechanisms with RESTauth
 
@@ -604,13 +688,13 @@ Table of Contents
 
 9.  TODO
 
-   [[anchor7: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
+   [[anchor8: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
 
-   [[anchor8: Describe MAC session binding option and replay protection
+   [[anchor9: Describe MAC session binding option and replay protection
    in detail.  Describe how to extract keys for MAC keying from SASL/
    GSS/PACE.]]
 
-   [[anchor9: Figure out how to adapt IKEv2 password-based methods to
+   [[anchor10: Figure out how to adapt IKEv2 password-based methods to
    RESTauth.  This may not be worthwhile (since each method tends to
    depend heavily on the entire IKEv2 framework in ways that add
    messaging that we'd not need in RESTauth).]]
