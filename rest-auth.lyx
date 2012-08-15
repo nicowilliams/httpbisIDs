@@ -423,6 +423,11 @@ RESTful
 \end_layout
 
 \begin_layout Itemize
+authentication that works with all versions of HTTP, even when the authenticatio
+n mechanism requires multiple round trips;
+\end_layout
+
+\begin_layout Itemize
 compatibility with 
 \begin_inset Quotes eld
 \end_inset
@@ -515,8 +520,7 @@ initial authentication messages are POSTed to an agreed-upon or indicated
 
 \begin_layout Enumerate
 Thereafter any additional authentication message exchanges needed (for multi-leg
-ged mechanisms) are POSTed to the new resource without a new resource being
- created.
+ged mechanisms) are POSTed to the new resource creating additional resources.
 \end_layout
 
 \begin_layout Enumerate
@@ -557,6 +561,68 @@ RFC2119
 \end_inset
 
 .
+\end_layout
+
+\begin_layout Section
+API-Imposed Constraints
+\end_layout
+
+\begin_layout Standard
+To the extent that existing Application Programming Interfaces (APIs) assume
+ specific styles of HTTP authentication message flows, if we want those
+ APIs to support RESTauth backwards-compatibly, then those APIs may impose
+ constraints on RESTauth.
+\end_layout
+
+\begin_layout Standard
+For example, the Android Account Manager API assumes a single round trip
+ for authentication.
+ But the Android Account Manager could perform all but the last round trip
+ on behalf of the application, then let the application perform the last
+ round trip.
+ In order for that to work we need the authentication message exchange to
+ be orthogonal to TCP/TLS connections -- that is, we need it to be possible
+ to use multiple TCP/TLS connections for completing a single authentication
+ exchange.
+\end_layout
+
+\begin_layout Standard
+A typical constraining characteristic might be that an API assumes the use
+ of GET with tokens encoded into the URI, or that the API makes no room
+ for the use of headers in authentication message exchanges.
+\end_layout
+
+\begin_layout Standard
+One way to work around such constraints may be to provide various options
+ in this framework.
+ Another might be to use OAuth 1.0 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5849
+\end_layout
+
+\end_inset
+
+ or 2.0 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.ietf-oauth-v2
+\end_layout
+
+\end_inset
+
+ as a bridge: the API would use this framework under the covers then obtain
+ OAuth credentials from the server that the application can then use in
+ any way that the API's form allows for.
+\end_layout
+
+\begin_layout RevisionRemark
+TODO: Add a table/list of various APIs and their characteristics that might
+ constrain this framework.
 \end_layout
 
 \begin_layout Section
@@ -908,6 +974,8 @@ WWW-ChannelBinding-Type Header
 A new header is added by which clients MUST indicate what channel binding
  type they used when POSTing RESTauth authentication messages, if any; if
  the client did not use channel binding then this header MUST be absent.
+ If the mechanism used has its own method for indicating the use of channel
+ binding, then this header MAY be ommitted.
  The header is named WWW-ChannelBinding-Type.
  Its value is a channel binding type from the channel binding type registry
  
@@ -945,7 +1013,10 @@ reference "fig:WWW-Authenticate-ABNF"
 \end_inset
 
 .
- This header MUST be present in RESTauth authentication HTTP requests.
+ This header SHOULD be present in RESTauth authentication HTTP requests,
+ but may be ommitted when the selected mechanism provides its own session
+ binding facility that is distinct from RESTauth's (this helps adapt OAuth
+ to RESTauth with minimal or no changes).
 \end_layout
 
 \begin_layout Subsubsection
@@ -1212,11 +1283,8 @@ A MAC Trailer??
 
 \begin_layout RevisionRemark
 ...
- This is only needed for RESTauth 
-\emph on
-without
-\emph default
- TLS, which will probably not be the common mode of use for RESTauth...
+ This is only needed for RESTauth *without* TLS, which will probably not
+ be the common mode of use for RESTauth...
  unless we can produce a MAC trailer extension for HTTP/2.0, in which case
  this may well become a common mode of RESTauth usage.
 \end_layout
@@ -1452,6 +1520,100 @@ Here we describe (informatively, for the time being) how to use or adapt
  both, specification- and implementation-wise.
  This section is also intended to show that adding RESTauth mechanisms is
  easy.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:OAuth-via-RESTauth"
+
+\end_inset
+
+OAuth via RESTauth
+\end_layout
+
+\begin_layout Standard
+OAuth 1.0 RFC5849 and OAuth 2.0 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.ietf-oauth-v2
+\end_layout
+
+\end_inset
+
+ are commonly deployed.
+ Being able to use OAuth via RESTauth would be useful.
+ We attempt to make RESTauth such that at least for OAuth 1.0 there is a
+ standard way to use OAuth such that it conforms to RESTauth.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:OAuth-1.0"
+
+\end_inset
+
+OAuth 1.0
+\end_layout
+
+\begin_layout Standard
+For OAuth 1.0 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5849
+\end_layout
+
+\end_inset
+
+ the 
+\begin_inset Quotes eld
+\end_inset
+
+form-encoded body
+\begin_inset Quotes erd
+\end_inset
+
+ form (see section 3.5.2 of 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5849
+\end_layout
+
+\end_inset
+
+) of OAuth 1.0 conforms to RESTauth without further changes.
+\end_layout
+
+\begin_layout Subsubsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:OAuth-2.0"
+
+\end_inset
+
+OAuth 2.0
+\end_layout
+
+\begin_layout Standard
+[It looks like OAuth 2.0 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.ietf-oauth-v2
+\end_layout
+
+\end_inset
+
+ also uses POST to send tokens to the server, and it looks like it too effective
+ly conforms to RESTauth.]
 \end_layout
 
 \begin_layout Subsection
@@ -1750,7 +1912,7 @@ status open
 
 \begin_layout Plain Layout
 
-  C->S: HTTP/1.1 GET /some-resources
+  C->S: GET /some-resources HTTP/1.1
 \end_layout
 
 \begin_layout Plain Layout
@@ -1799,7 +1961,7 @@ status open
 
 \begin_layout Plain Layout
 
-  C->S: HTTP/1.1 POST /rest-sa-scram
+  C->S: POST /rest-sa-scram HTTP/1.1
 \end_layout
 
 \begin_layout Plain Layout
@@ -1884,7 +2046,7 @@ status open
 
 \begin_layout Plain Layout
 
-  C->S: HTTP/1.1 POST /restauth-9d0af5f680d4ff46
+  C->S: POST /restauth-9d0af5f680d4ff46 HTTP/1.1
 \end_layout
 
 \begin_layout Plain Layout
@@ -2026,7 +2188,7 @@ status open
 
 \begin_layout Plain Layout
 
-  C->S: HTTP/1.1 GET /some-resources
+  C->S: GET /some-resources HTTP/1.1
 \end_layout
 
 \begin_layout Plain Layout
@@ -2082,7 +2244,7 @@ status open
 
 \begin_layout Plain Layout
 
-  C->S: HTTP/1.1 POST /rest-sa-scram
+  C->S: POST /rest-sa-scram HTTP/1.1
 \end_layout
 
 \begin_layout Plain Layout
@@ -2456,6 +2618,46 @@ name "sec:Informative-References"
 \end_inset
 
 Informative References
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5849"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5849.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "I-D.ietf-oauth-v2"
+target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-oauth-v2.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
