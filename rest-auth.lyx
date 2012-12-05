@@ -11,156 +11,187 @@ Format 31
 InsetLayout Flex:PI_Strict
     LyXType Custom
     HTMLTag div
+    LabelString PI_Strict
 End
 
 InsetLayout Flex:PI
     LyXType Custom
     HTMLTag div
+    LabelString PI
 End
 
 InsetLayout Flex:PI_SymRefs
     LyXType Custom
     HTMLTag div
+    LabelString PI_SymRefs
 End
 
 InsetLayout Flex:PI_SortRefs
     LyXType Custom
     HTMLTag div
+    LabelString PI_SortRefs
 End
 
 InsetLayout Flex:PI_TOC
     LyXType Custom
     HTMLTag div
+    LabelString PI_TOC
 End
 
 InsetLayout Flex:PI_TOCIndent
     LyXType Custom
     HTMLTag div
+    LabelString PI_TOCIndent
 End
 
 InsetLayout Flex:PI_TOCDepth
     LyXType Custom
     HTMLTag div
+    LabelString PI_TOCDepth
 End
 
 InsetLayout Flex:PI_TOCNarrow
     LyXType Custom
     HTMLTag div
+    LabelString PI_TOCNarrow
 End
 
 InsetLayout Flex:PI_TOCCompact
     LyXType Custom
     HTMLTag div
+    LabelString PI_TOCCompact
 End
 
 InsetLayout Flex:PI_TOCAppendix
     LyXType Custom
     HTMLTag div
+    LabelString PI_TOCAppendix
 End
 
 InsetLayout Flex:DocName
     LyXType Custom
     HTMLTag div
+    LabelString DocName
 End
 
 InsetLayout Flex:IntendedStatus
     LyXType Custom
     HTMLTag div
+    LabelString IntendedStatus
 End
 
 InsetLayout Flex:RFCNumber
     LyXType Custom
     HTMLTag div
+    LabelString RFCNumber
 End
 
 InsetLayout Flex:IPR
     LyXType Custom
     HTMLTag div
+    LabelString IPR
 End
 
 InsetLayout Flex:IETFArea
     LyXType Custom
     HTMLTag div
+    LabelString IETFArea
 End
 
 InsetLayout Flex:IETFWorkingGroup
     LyXType Custom
     HTMLTag div
+    LabelString IETFWorkingGroup
 End
 
 InsetLayout Flex:XML2RFCKeyword
     LyXType Custom
     HTMLTag div
+    LabelString XML2RFCKeyword
 End
 
 InsetLayout Flex:TitleAbbrev
     LyXType Custom
     HTMLTag div
+    LabelString TitleAbbrev
 End
 
 InsetLayout Flex:AuthorRole
     LyXType Custom
     HTMLTag div
+    LabelString AuthRole
 End
 
 InsetLayout Flex:AuthorInitials
     LyXType Custom
     HTMLTag div
+    LabelString AuthInitials
 End
 
 InsetLayout Flex:AuthorSurname
     LyXType Custom
     HTMLTag div
+    LabelString AuthSurname
 End
 
 InsetLayout Flex:AuthorOrg
     LyXType Custom
     HTMLTag div
+    LabelString AuthOrg
 End
 
 InsetLayout Flex:AuthorOrgAbbrev
     LyXType Custom
     HTMLTag div
+    LabelString AuthOrgAbbrev
 End
 
 InsetLayout Flex:AuthorEmailAddr
     LyXType Custom
     HTMLTag div
+    LabelString AuthEmailAddr
 End
 
 InsetLayout Flex:AuthorAddrStreet
     LyXType Custom
     HTMLTag div
+    LabelString AuthAddrStreet
 End
 
 InsetLayout Flex:AuthorAddrCity
     LyXType Custom
     HTMLTag div
+    LabelString AuthAddrCity
 End
 
 InsetLayout Flex:AuthorAddrRegion
     LyXType Custom
     HTMLTag div
+    LabelString AuthAddrRegion
 End
 
 InsetLayout Flex:AuthorAddrCode
     LyXType Custom
     HTMLTag div
+    LabelString AuthAddrCode
 End
 
 InsetLayout Flex:AuthorAddrCountry
     LyXType Custom
     HTMLTag div
+    LabelString AuthAddrCountry
 End
 
 InsetLayout Flex:EntityXRef
     LyXType Custom
     HTMLTag div
+    LabelString EntityXRef
 End
 
 InsetLayout Flex:BibXML
     LyXType Custom
     HTMLTag div
+    LabelString BibXML
 End
 \end_local_layout
 \language english
@@ -224,7 +255,7 @@ RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)
 
 \begin_layout Standard
 \begin_inset Flex DocName
-status collapsed
+status open
 
 \begin_layout Plain Layout
 draft-williams-http-rest-auth-04
@@ -234,7 +265,7 @@ draft-williams-http-rest-auth-04
 
 
 \begin_inset Flex IPR
-status collapsed
+status open
 
 \begin_layout Plain Layout
 trust200902
@@ -244,7 +275,7 @@ trust200902
 
 
 \begin_inset Flex IntendedStatus
-status collapsed
+status open
 
 \begin_layout Plain Layout
 info
@@ -254,7 +285,7 @@ info
 
 
 \begin_inset Flex TitleAbbrev
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RESTful Authentication
@@ -264,7 +295,7 @@ RESTful Authentication
 
 
 \begin_inset Flex IETFArea
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Security Area
@@ -274,7 +305,7 @@ Security Area
 
 
 \begin_inset Flex XML2RFCKeyword
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Internet-Draft
@@ -284,7 +315,7 @@ Internet-Draft
 
 
 \begin_inset Flex PI
-status collapsed
+status open
 
 \begin_layout Plain Layout
 tocindent="no"
@@ -294,7 +325,7 @@ tocindent="no"
 
 
 \begin_inset Flex PI
-status collapsed
+status open
 
 \begin_layout Plain Layout
 comments="yes"
@@ -304,7 +335,7 @@ comments="yes"
 
 
 \begin_inset Flex PI
-status collapsed
+status open
 
 \begin_layout Plain Layout
 inline="yes"
@@ -318,7 +349,7 @@ inline="yes"
 \begin_layout Author
 Nicolas Williams
 \begin_inset Flex AuthorOrg
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cryptonector, LLC
@@ -328,7 +359,7 @@ Cryptonector, LLC
 
 
 \begin_inset Flex AuthorOrgAbbrev
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cryptonector
@@ -338,7 +369,7 @@ Cryptonector
 
 
 \begin_inset Flex AuthorEmailAddr
-status collapsed
+status open
 
 \begin_layout Plain Layout
 nico@cryptonector.com
@@ -402,7 +433,7 @@ Introduction
 \begin_layout Standard
 We propose a pattern for HTTP 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC2616
@@ -552,7 +583,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
  "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
  to be interpreted as described in 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC2119
@@ -597,7 +628,7 @@ One way to work around such constraints may be to provide various options
  in this framework.
  Another might be to use OAuth 1.0 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5849
@@ -607,7 +638,7 @@ RFC5849
 
  or 2.0 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 I-D.ietf-oauth-v2
@@ -684,7 +715,7 @@ a new header for referencing session URIs in normal HTTP requests;
 \begin_layout Itemize
 the use of channel binding 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5056
@@ -694,7 +725,7 @@ RFC5056
 
  to TLS 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5246
@@ -756,7 +787,7 @@ Strong Binding to TLS
 \begin_layout Standard
 Strong binding to TLS is provided via channel binding 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5056
@@ -935,7 +966,7 @@ WWW-ChannelBinding-Types Header
 A new header is added by which servers MUST indicate which channel binding
  
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5056
@@ -949,7 +980,7 @@ RFC5056
  Its values are channel binding types from the channel binding type registry
  
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5929
@@ -980,7 +1011,7 @@ A new header is added by which clients MUST indicate what channel binding
  Its value is a channel binding type from the channel binding type registry
  
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5929
@@ -1070,7 +1101,7 @@ reference "fig:WWW-Authenticate-ABNF"
 \begin_layout Standard
 Replay protection is to be used only when TLS 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5246
@@ -1449,7 +1480,7 @@ DIGEST-MD5
 
  
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC2617
@@ -1459,7 +1490,7 @@ RFC2617
 
  HTTP authentication methods, as well as HTTP/Negotiate 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC4559
@@ -1535,7 +1566,7 @@ OAuth via RESTauth
 \begin_layout Standard
 OAuth 1.0 RFC5849 and OAuth 2.0 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 I-D.ietf-oauth-v2
@@ -1562,7 +1593,7 @@ OAuth 1.0
 \begin_layout Standard
 For OAuth 1.0 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5849
@@ -1580,7 +1611,7 @@ form-encoded body
 
  form (see section 3.5.2 of 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5849
@@ -1604,7 +1635,7 @@ OAuth 2.0
 \begin_layout Standard
 [It looks like OAuth 2.0 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 I-D.ietf-oauth-v2
@@ -1637,7 +1668,7 @@ userauth
 
  mechanisms 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC4252
@@ -1728,7 +1759,7 @@ SHA-256(channel_binding || server_nonce || client_nonce)
 \begin_layout Standard
 Here the <channel_binding> is as per-
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5056
@@ -1788,7 +1819,7 @@ Using SASL Authentication Mechanisms with RESTauth
 \begin_layout Standard
 Simple Authentication and Security Layers (SASL) 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC4422
@@ -1829,7 +1860,7 @@ The server's WWW-Authenticate header values function as the mechanism listing
  operation.
  SASL security considerations 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC4422 
@@ -1839,7 +1870,7 @@ RFC4422
 
 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5801
@@ -1863,7 +1894,7 @@ Using SCRAM in RESTauth
 \begin_layout Standard
 The Salted Challenge Response Authentication Mechanism (SCRAM) 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5802
@@ -1888,7 +1919,7 @@ reference "sub:Using-SCRAM-with"
 The following figure shows what SCRAM in RESTauth looks like.
  Note that the resource representations are taken verbatim from 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5802
@@ -2373,7 +2404,7 @@ Using GSS-API Authentication Mechanisms with RESTauth
 The Generic Security Services Application Programming Interface (GSS-API)
  
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC2743
@@ -2384,7 +2415,7 @@ RFC2743
  is another pluggable mechanism framework.
  Any GSS-API mechanism that supports channel binding 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5056
@@ -2402,7 +2433,7 @@ SASL/GS2
 
  bridge 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC5801
@@ -2413,7 +2444,7 @@ RFC5801
 .
  This includes the Kerberos V5 GSS-API mechanism 
 \begin_inset Flex EntityXRef
-status collapsed
+status open
 
 \begin_layout Plain Layout
 RFC4121
@@ -2480,6 +2511,11 @@ Figure out how to adapt IKEv2 password-based methods to RESTauth.
  in RESTauth).
 \end_layout
 
+\begin_layout RevisionRemark
+Do we need to distinguish exchanges for authentication from exchanges for
+ authorization? Probably.
+\end_layout
+
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
@@ -2492,7 +2528,7 @@ Normative References
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2512,7 +2548,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2532,7 +2568,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2616.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2552,7 +2588,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2617.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2572,7 +2608,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2592,7 +2628,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2622,7 +2658,7 @@ Informative References
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2642,7 +2678,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5849.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2662,7 +2698,7 @@ target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-oauth-v2.x
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2682,7 +2718,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2702,7 +2738,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5802.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2722,7 +2758,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2742,7 +2778,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2762,7 +2798,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6631.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2782,7 +2818,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
@@ -2802,7 +2838,7 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml"
 
 \begin_layout Standard
 \begin_inset Flex BibXML
-status collapsed
+status open
 
 \begin_layout Plain Layout
 \begin_inset CommandInset href
