@@ -3,8 +3,8 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                           August 15, 2012
-Expires: February 16, 2013
+Intended status: Informational                          December 5, 2012
+Expires: June 8, 2013
 
 
   RESTful Authentication Pattern for the Hypertext Transport Protocol
@@ -40,7 +40,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 16, 2013.
+   This Internet-Draft will expire on June 8, 2013.
 
 Copyright Notice
 
@@ -52,9 +52,9 @@ Copyright Notice
 
 
 
-Williams                Expires February 16, 2013               [Page 1]
+Williams                  Expires June 8, 2013                  [Page 1]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
    (http://trustee.ietf.org/license-info) in effect on the date of
@@ -108,9 +108,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013               [Page 2]
+Williams                  Expires June 8, 2013                  [Page 2]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 Table of Contents
@@ -164,9 +164,9 @@ Table of Contents
 
 
 
-Williams                Expires February 16, 2013               [Page 3]
+Williams                  Expires June 8, 2013                  [Page 3]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 1.  Introduction
@@ -220,9 +220,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013               [Page 4]
+Williams                  Expires June 8, 2013                  [Page 4]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
        creating additional resources.
@@ -276,9 +276,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013               [Page 5]
+Williams                  Expires June 8, 2013                  [Page 5]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 2.  Conventions used in this document
@@ -332,9 +332,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013               [Page 6]
+Williams                  Expires June 8, 2013                  [Page 6]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 3.  API-Imposed Constraints
@@ -388,9 +388,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013               [Page 7]
+Williams                  Expires June 8, 2013                  [Page 7]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 4.  Protocol
@@ -444,9 +444,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013               [Page 8]
+Williams                  Expires June 8, 2013                  [Page 8]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 4.1.1.  Strong Binding to TLS
@@ -500,9 +500,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013               [Page 9]
+Williams                  Expires June 8, 2013                  [Page 9]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 4.1.4.  WWW-ChannelBinding-Type Header
@@ -556,9 +556,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 10]
+Williams                  Expires June 8, 2013                 [Page 10]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
    headers to inform the client of the need to authenticate in order to
@@ -612,9 +612,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 11]
+Williams                  Expires June 8, 2013                 [Page 11]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
    Cookies  The traditional HTTP cookie approach to session binding;
@@ -668,9 +668,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 12]
+Williams                  Expires June 8, 2013                 [Page 12]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 5.  HTTP "Routing" and Authentication
@@ -724,9 +724,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 13]
+Williams                  Expires June 8, 2013                 [Page 13]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 6.  In-band HTTP Authentication Alternatives
@@ -780,9 +780,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 14]
+Williams                  Expires June 8, 2013                 [Page 14]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 7.  Sample/Potential RESTauth Authentication Mechanisms
@@ -836,9 +836,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 15]
+Williams                  Expires June 8, 2013                 [Page 15]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
    SSHv2 userauth method name is also part of the RESTauth mechanism
@@ -892,9 +892,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 16]
+Williams                  Expires June 8, 2013                 [Page 16]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
    SASL mechanism is server-initiated then the server's challenge is
@@ -948,9 +948,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 17]
+Williams                  Expires June 8, 2013                 [Page 17]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
      C->S: GET /some-resources HTTP/1.1
@@ -1004,9 +1004,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 18]
+Williams                  Expires June 8, 2013                 [Page 18]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
    The following figure shows what a round trip optimized RESTauth w/
@@ -1060,9 +1060,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 19]
+Williams                  Expires June 8, 2013                 [Page 19]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 8.  IANA Considerations
@@ -1116,9 +1116,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 20]
+Williams                  Expires June 8, 2013                 [Page 20]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 9.  Security Considerations
@@ -1172,9 +1172,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 21]
+Williams                  Expires June 8, 2013                 [Page 21]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 10.  TODO
@@ -1190,6 +1190,8 @@ Internet-Draft           RESTful Authentication              August 2012
    depend heavily on the entire IKEv2 framework in ways that add
    messaging that we'd not need in RESTauth).]]
 
+   [[anchor12: Do we need to distinguish exchanges for authentication
+   from exchanges for authorization?  Probably.]]
 
 
 
@@ -1226,11 +1228,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-
-
-Williams                Expires February 16, 2013              [Page 22]
+Williams                  Expires June 8, 2013                 [Page 22]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 11.  References
@@ -1284,9 +1284,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 23]
+Williams                  Expires June 8, 2013                 [Page 23]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
    [RFC6631]  Kuegler, D. and Y. Sheffer, "Password Authenticated
@@ -1340,9 +1340,9 @@ Internet-Draft           RESTful Authentication              August 2012
 
 
 
-Williams                Expires February 16, 2013              [Page 24]
+Williams                  Expires June 8, 2013                 [Page 24]
 
-Internet-Draft           RESTful Authentication              August 2012
+Internet-Draft           RESTful Authentication            December 2012
 
 
 Author's Address
@@ -1396,5 +1396,5 @@ Author's Address
 
 
 
-Williams                Expires February 16, 2013              [Page 25]
+Williams                  Expires June 8, 2013                 [Page 25]
 

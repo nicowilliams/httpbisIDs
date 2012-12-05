@@ -3,8 +3,8 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                           August 15, 2012
-Expires: February 16, 2013
+Intended status: Informational                          December 5, 2012
+Expires: June 8, 2013
 
 
   RESTful Authentication Pattern for the Hypertext Transport Protocol
@@ -40,7 +40,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 16, 2013.
+   This Internet-Draft will expire on June 8, 2013.
 
 Copyright Notice
 
@@ -761,6 +761,9 @@ Table of Contents
    RESTauth.  This may not be worthwhile (since each method tends to
    depend heavily on the entire IKEv2 framework in ways that add
    messaging that we'd not need in RESTauth).]]
+
+   [[anchor12: Do we need to distinguish exchanges for authentication
+   from exchanges for authorization?  Probably.]]
 
 
 11.  References
