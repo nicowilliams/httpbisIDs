@@ -80,6 +80,24 @@ InsetLayout Flex:IntendedStatus
     LabelString IntendedStatus
 End
 
+InsetLayout Flex:Updates
+    LyXType Custom
+    HTMLTag div
+    LabelString Updates
+End
+
+InsetLayout Flex:Obsoletes
+    LyXType Custom
+    HTMLTag div
+    LabelString Obsoletes
+End
+
+InsetLayout Flex:SeriesNo
+    LyXType Custom
+    HTMLTag div
+    LabelString SeriesNo
+End
+
 InsetLayout Flex:RFCNumber
     LyXType Custom
     HTMLTag div
@@ -256,7 +274,7 @@ Simplified and Minimized Profiles of the Generic Security Services Application
 
 \begin_layout Standard
 \begin_inset Flex DocName
-status collapsed
+status open
 
 \begin_layout Plain Layout
 draft-williams-gss-profiles-00
@@ -266,7 +284,7 @@ draft-williams-gss-profiles-00
 
 
 \begin_inset Flex IPR
-status collapsed
+status open
 
 \begin_layout Plain Layout
 trust200902
@@ -276,7 +294,7 @@ trust200902
 
 
 \begin_inset Flex IntendedStatus
-status collapsed
+status open
 
 \begin_layout Plain Layout
 info
@@ -286,7 +304,7 @@ info
 
 
 \begin_inset Flex TitleAbbrev
-status collapsed
+status open
 
 \begin_layout Plain Layout
 GSS-API Profiles
@@ -296,7 +314,7 @@ GSS-API Profiles
 
 
 \begin_inset Flex IETFArea
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Security Area
@@ -306,7 +324,7 @@ Security Area
 
 
 \begin_inset Flex XML2RFCKeyword
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Internet-Draft
@@ -316,7 +334,7 @@ Internet-Draft
 
 
 \begin_inset Flex PI
-status collapsed
+status open
 
 \begin_layout Plain Layout
 tocindent="no"
@@ -326,7 +344,7 @@ tocindent="no"
 
 
 \begin_inset Flex PI
-status collapsed
+status open
 
 \begin_layout Plain Layout
 comments="yes"
@@ -336,7 +354,7 @@ comments="yes"
 
 
 \begin_inset Flex PI
-status collapsed
+status open
 
 \begin_layout Plain Layout
 inline="yes"
@@ -350,7 +368,7 @@ inline="yes"
 \begin_layout Author
 Nicolas Williams
 \begin_inset Flex AuthorOrg
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cryptonector, LLC
@@ -360,7 +378,7 @@ Cryptonector, LLC
 
 
 \begin_inset Flex AuthorOrgAbbrev
-status collapsed
+status open
 
 \begin_layout Plain Layout
 Cryptonector
@@ -370,7 +388,7 @@ Cryptonector
 
 
 \begin_inset Flex AuthorEmailAddr
-status collapsed
+status open
 
 \begin_layout Plain Layout
 nico@cryptonector.com
@@ -572,9 +590,12 @@ Conventions used in this document
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
  "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
  to be interpreted as described in 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-1"
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC2119
+\end_layout
 
 \end_inset
 
@@ -924,18 +945,31 @@ This profile adds not functions to any of the trivial and simple acceptor
 \end_layout
 
 \begin_layout Standard
-Applications using this profile use TLS
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-2"
+Applications using this profile use TLS 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5246
+\end_layout
 
 \end_inset
 
  for transport security and the GSS-API for authentication.
- This profile REQUIRES that applications use a TLS server certificate to
- authenticate the server to the client and that the same server name used
- to authenticate the server in TLS also be used to authenticate the server
- in the GSS-API.
+ This profile REQUIRES that applications use the 'tls-server-end-point'
+ channel binding type 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5929
+\end_layout
+
+\end_inset
+
+ a TLS server certificate to authenticate the server to the client and that
+ the same server name used to authenticate the server in TLS also be used
+ to authenticate the server in the GSS-API.
 \end_layout
 
 \begin_layout Subsection
@@ -951,10 +985,13 @@ TLS with Channel Binding
 \begin_layout Standard
 This profile adds no functions to any of the initiator or acceptor application
  profiles.
- Instead this profile makes support for channel binding
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-3"
+ Instead this profile makes support for channel binding 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5056
+\end_layout
 
 \end_inset
 
@@ -962,10 +999,13 @@ key "key-3"
 \end_layout
 
 \begin_layout Standard
-Applications using this profile use TLS
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-2"
+Applications using this profile use TLS 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5246
+\end_layout
 
 \end_inset
 
@@ -1046,9 +1086,13 @@ GSS_Pseudo_random() Get a pseudo-random output octet string based on session
 An application of this type typically has its own transport security layer
  (i.e., does its own encryption) and only requires a session key, which it
  can get from the GSS-API security context by using the GSS_Pseudo_random()
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-12"
+ 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC4401
+\end_layout
 
 \end_inset
 
@@ -1072,9 +1116,12 @@ Advanced Initiator Application
 \begin_layout Standard
 A complex initiator application requires most of the functions defined in
  
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-9"
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5587
+\end_layout
 
 \end_inset
 
@@ -1137,10 +1184,13 @@ GSS_Export_name_composite() Needed to be able to save a binary version of
 
 \begin_layout Standard
 Complex acceptor applications may also need at least one extended mechanism
- inquiry function
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-9"
+ inquiry function 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5587
+\end_layout
 
 \end_inset
 
@@ -1287,9 +1337,12 @@ reference "sub:PRF"
 \end_inset
 
 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-12"
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC4401
+\end_layout
 
 \end_inset
 
@@ -1305,13 +1358,26 @@ reference "sub:Simple-Acceptor"
 \end_inset
 
  and 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5588
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Description
 GSS_PR_EXTENDED_MECH_INQUIRY Functions from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-9"
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC5587
+\end_layout
 
 \end_inset
 
@@ -1320,9 +1386,12 @@ key "key-9"
 
 \begin_layout Description
 GSS_PR_EXTENDED_NAMING Functions from 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-10"
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC6680
+\end_layout
 
 \end_inset
 
@@ -1371,10 +1440,13 @@ Minimized GSS-API Implementations
 
 \begin_layout Standard
 Typically a GSS-API implementation includes all of the basic version 2,
- update 1 API
-\begin_inset CommandInset citation
-LatexCommand cite
-key "key-6"
+ update 1 API 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC2743
+\end_layout
 
 \end_inset
 
@@ -1485,38 +1557,17 @@ reference "sub:TLS-Name-Binding"
 \end_layout
 
 \begin_layout Section
-References
+Informative References
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-1"
-
-\end_inset
-
-
-\begin_inset Flex ReferenceEntity
-status collapsed
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
 \begin_layout Plain Layout
-rfc2119
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC2119"
-target "http://www.ietf.org/rfc/rfc2119.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
+name "rfc2119"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
 
 \end_inset
@@ -1524,35 +1575,19 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-2"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc5246
 \end_layout
 
-\end_inset
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
-
+\begin_layout Plain Layout
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC5246"
-target "http://www.ietf.org/rfc/rfc5246.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
+name "rfc5246"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"
 
 \end_inset
@@ -1560,35 +1595,19 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml"
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-3"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc5056
 \end_layout
 
-\end_inset
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
-
+\begin_layout Plain Layout
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC5056"
-target "http://www.ietf.org/rfc/rfc5056.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
+name "rfc5056"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
 
 \end_inset
@@ -1596,107 +1615,39 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-4"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
 \begin_layout Plain Layout
-I-D.williams-rest-gss
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset href
 LatexCommand href
-name "I-D.williams-rest-gss"
-target "https://datatracker.ietf.org/doc/draft-williams-rest-gss/"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
-target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.williams-rest-gss.xml"
+name "rfc5929"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-5"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
 \begin_layout Plain Layout
-rfc4422
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC4422"
-target "http://www.ietf.org/rfc/rfc4422.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
-target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-6"
-
-\end_inset
-
-
-\begin_inset Flex ReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc2743
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "RFC2743"
-target "http://www.ietf.org/rfc/rfc2743.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
+name "rfc2743"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml"
 
 \end_inset
@@ -1704,107 +1655,19 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml"
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-7"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
 \begin_layout Plain Layout
-rfc4559
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC4559"
-target "http://www.ietf.org/rfc/rfc4559.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
-target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-8"
-
-\end_inset
-
-
-\begin_inset Flex ReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc5801
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "RFC5801"
-target "http://www.ietf.org/rfc/rfc5801.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
-target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml"
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-9"
-
-\end_inset
-
-
-\begin_inset Flex ReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc5587
-\end_layout
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "RFC5587"
-target "http://www.ietf.org/rfc/rfc5587.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
+name "rfc5587"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml"
 
 \end_inset
@@ -1812,71 +1675,39 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml"
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-10"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
 \begin_layout Plain Layout
-I-D.ietf-kitten-gssapi-naming-exts
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset href
 LatexCommand href
-name "I-D.ietf-kitten-gssapi-naming-exts"
-target "https://datatracker.ietf.org/doc/draft-ietf-kitten-gssapi-naming-exts/"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
-target "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-kitten-gssapi-naming-exts.xml"
+name "rfc6680"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6680.xml"
 
 \end_inset
 
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-11"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
 \begin_layout Plain Layout
-rfc5588
-\end_layout
-
-\end_inset
-
-
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC5588"
-target "http://www.ietf.org/rfc/rfc5588.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
+name "rfc5588"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5588.xml"
 
 \end_inset
@@ -1884,35 +1715,19 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5588.xml"
 
 \end_layout
 
-\begin_layout Bibliography
-\begin_inset CommandInset bibitem
-LatexCommand bibitem
-key "key-12"
-
 \end_inset
 
 
-\begin_inset Flex ReferenceEntity
-status collapsed
-
-\begin_layout Plain Layout
-rfc4401
 \end_layout
 
-\end_inset
+\begin_layout Standard
+\begin_inset Flex BibXML
+status open
 
-
+\begin_layout Plain Layout
 \begin_inset CommandInset href
 LatexCommand href
-name "RFC4401"
-target "http://www.ietf.org/rfc/rfc4401.txt"
-
-\end_inset
-
-
-\begin_inset CommandInset href
-LatexCommand href
-name "(bibxml)"
+name "rfc4401"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4401.xml"
 
 \end_inset
@@ -1920,12 +1735,9 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4401.xml"
 
 \end_layout
 
-\begin_layout Standard
-...
-\end_layout
+\end_inset
 
-\begin_layout Standard
-...
+
 \end_layout
 
 \end_body

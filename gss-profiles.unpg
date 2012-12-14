@@ -3,8 +3,8 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                             July 16, 2012
-Expires: January 17, 2013
+Intended status: Informational                         December 14, 2012
+Expires: June 17, 2013
 
 
    Simplified and Minimized Profiles of the Generic Security Services
@@ -43,7 +43,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 17, 2013.
+   This Internet-Draft will expire on June 17, 2013.
 
 Copyright Notice
 
@@ -88,7 +88,7 @@ Table of Contents
    7.    Minimized GSS-API Implementations
    8.    IANA Considerations
    9.    Security Considerations
-   10.   References
+   10.   Informative References
          Author's Address
 
 
@@ -340,20 +340,20 @@ Table of Contents
    This profile adds not functions to any of the trivial and simple
    acceptor application profiles.
 
-   Applications using this profile use TLS[RFC5246] for transport
+   Applications using this profile use TLS [RFC5246] for transport
    security and the GSS-API for authentication.  This profile REQUIRES
-   that applications use a TLS server certificate to authenticate the
-   server to the client and that the same server name used to
-   authenticate the server in TLS also be used to authenticate the
-   server in the GSS-API.
+   that applications use the 'tls-server-end-point' channel binding type
+   [RFC5929] a TLS server certificate to authenticate the server to the
+   client and that the same server name used to authenticate the server
+   in TLS also be used to authenticate the server in the GSS-API.
 
 3.3.  TLS with Channel Binding
 
    This profile adds no functions to any of the initiator or acceptor
    application profiles.  Instead this profile makes support for channel
-   binding[RFC5056] REQUIRED.
+   binding [RFC5056] REQUIRED.
 
-   Applications using this profile use TLS[RFC5246] for transport
+   Applications using this profile use TLS [RFC5246] for transport
    security, possibly using anonymous Diffie-Hellman (DH) cipher suites.
    Channel binding ensures that the end-points of the TLS connection are
    logically the same as the GSS-API end-points, thus ensuring that
@@ -397,7 +397,7 @@ Table of Contents
    An application of this type typically has its own transport security
    layer (i.e., does its own encryption) and only requires a session
    key, which it can get from the GSS-API security context by using the
-   GSS_Pseudo_random()[RFC4401] function to obtain an octet string of
+   GSS_Pseudo_random() [RFC4401] function to obtain an octet string of
    suitable length.
 
 
@@ -435,7 +435,7 @@ Table of Contents
       version of the initiator name with all its attributes.
 
    Complex acceptor applications may also need at least one extended
-   mechanism inquiry function[RFC5587]:
+   mechanism inquiry function [RFC5587]:
 
    GSS_Inquire_attrs_for_mech()  Get the set of attributes of a given
       mechanism.
@@ -479,12 +479,11 @@ Table of Contents
 
    GSS_PR_PRF  See Section 3.5 [RFC4401].
 
-   GSS_PR_STORE_CRED  See Section 2.4 and
+   GSS_PR_STORE_CRED  See Section 2.4 and [RFC5588]
 
    GSS_PR_EXTENDED_MECH_INQUIRY  Functions from [RFC5587]
 
-   GSS_PR_EXTENDED_NAMING  Functions from
-      [I-D.ietf-kitten-gssapi-naming-exts]
+   GSS_PR_EXTENDED_NAMING  Functions from [RFC6680]
 
 5.1.  C-Bindings
 
@@ -512,7 +511,7 @@ Table of Contents
 7.  Minimized GSS-API Implementations
 
    Typically a GSS-API implementation includes all of the basic version
-   2, update 1 API[RFC2743].  For embedded and mobile applications it
+   2, update 1 API [RFC2743].  For embedded and mobile applications it
    may be desirable to have minimized GSS-API implementations, both for
    the framework itself and the mechanisms.  A minimized implementation
    should provide at least the functionality required by the application
@@ -563,7 +562,7 @@ Table of Contents
    may well be to use TLS with server name binding (see Section 3.2).
 
 
-10.  References
+10.  Informative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119, March 1997.
@@ -574,35 +573,19 @@ Table of Contents
    [RFC5056]  Williams, N., "On the Use of Channel Bindings to Secure
               Channels", RFC 5056, November 2007.
 
-   [I-D.williams-rest-gss]
-              Williams, N., "RESTful Hypertext Transfer Protocol
-              Application-Layer Authentication Using Generic Security
-              Services", draft-williams-rest-gss-02 (work in progress),
-              July 2012.
-
-   [RFC4422]  Melnikov, A. and K. Zeilenga, "Simple Authentication and
-              Security Layer (SASL)", RFC 4422, June 2006.
+   [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
+              for TLS", RFC 5929, July 2010.
 
    [RFC2743]  Linn, J., "Generic Security Service Application Program
               Interface Version 2, Update 1", RFC 2743, January 2000.
 
-   [RFC4559]  Jaganathan, K., Zhu, L., and J. Brezak, "SPNEGO-based
-              Kerberos and NTLM HTTP Authentication in Microsoft
-              Windows", RFC 4559, June 2006.
-
-   [RFC5801]  Josefsson, S. and N. Williams, "Using Generic Security
-              Service Application Program Interface (GSS-API) Mechanisms
-              in Simple Authentication and Security Layer (SASL): The
-              GS2 Mechanism Family", RFC 5801, July 2010.
-
    [RFC5587]  Williams, N., "Extended Generic Security Service Mechanism
               Inquiry APIs", RFC 5587, July 2009.
 
-   [I-D.ietf-kitten-gssapi-naming-exts]
-              Williams, N., Johansson, L., Hartman, S., and S.
-              Josefsson, "GSS-API Naming Extensions",
-              draft-ietf-kitten-gssapi-naming-exts-15 (work in
-              progress), May 2012.
+   [RFC6680]  Williams, N., Johansson, L., Hartman, S., and S.
+              Josefsson, "Generic Security Service Application
+              Programming Interface (GSS-API) Naming Extensions",
+              RFC 6680, August 2012.
 
    [RFC5588]  Williams, N., "Generic Security Service Application
               Program Interface (GSS-API) Extension for Storing
