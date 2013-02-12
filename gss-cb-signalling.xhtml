@@ -310,30 +310,32 @@ This Internet-Draft proposes the addition of a &ldquo;channel bound&rdquo; retur
 
 <div class='lyxtoc-1'><a href='#magicparlabel-67' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-67' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-88' class='tocentry'>1.1 Conventions used in this document</a> <a href='#magicparlabel-88' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-83' class='tocentry'>1.1 Error in RFC2743</a> <a href='#magicparlabel-83' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-89' class='tocentry'>1.2 Conventions used in this document</a> <a href='#magicparlabel-89' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-94' class='tocentry'>2 Channel Binding State Extension</a> <a href='#magicparlabel-94' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-95' class='tocentry'>2 Channel Binding State Extension</a> <a href='#magicparlabel-95' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-105' class='tocentry'>2.1 GSS_Set_cred_option()</a> <a href='#magicparlabel-105' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-106' class='tocentry'>2.1 GSS_Set_cred_option()</a> <a href='#magicparlabel-106' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-118' class='tocentry'>2.1.1 C-Bindings</a> <a href='#magicparlabel-118' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-119' class='tocentry'>2.1.1 C-Bindings</a> <a href='#magicparlabel-119' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-138' class='tocentry'>2.2 GSS_Set_cred_option_critical()</a> <a href='#magicparlabel-138' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-139' class='tocentry'>2.2 GSS_Set_cred_option_critical()</a> <a href='#magicparlabel-139' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-152' class='tocentry'>2.2.1 C-Bindings</a> <a href='#magicparlabel-152' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-153' class='tocentry'>2.2.1 C-Bindings</a> <a href='#magicparlabel-153' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-172' class='tocentry'>2.3 channel_bound_flag</a> <a href='#magicparlabel-172' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-173' class='tocentry'>2.3 channel_bound_flag</a> <a href='#magicparlabel-173' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-175' class='tocentry'>2.3.1 C-Bindings</a> <a href='#magicparlabel-175' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-176' class='tocentry'>2.3.1 C-Bindings</a> <a href='#magicparlabel-176' class='tocarrow'>&gt;</a></div>
 </div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-192' class='tocentry'>3 Normative References</a> <a href='#magicparlabel-192' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-193' class='tocentry'>3 Normative References</a> <a href='#magicparlabel-193' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-218' class='tocentry'>4 Informative References</a> <a href='#magicparlabel-218' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-219' class='tocentry'>4 Informative References</a> <a href='#magicparlabel-219' class='tocarrow'>&gt;</a></div>
 </div>
 
 <h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-67' />
@@ -352,68 +354,69 @@ RFC4121</div>
 
 <div class="standard"><a id='magicparlabel-82' />
 This document proposes a new method for deployment of channel binding that allows the feature to be enabled on the acceptor side before fixing all initiators. If the GSS-API had always had a return flag by which to indicate channel binding state then we could have had a simpler method of deploying channel binding: applications check that return flag and act accordingly (e.g., fail when channel binding is required). We cannot safely introduce this behavior now without an indication of support by the application.</div>
-
-<div class="standard"><a id='magicparlabel-83' />
-Note that the GSS-APIv2u1 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-87' />
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-83' />
+Error in RFC2743</h3>
+<div class="standard"><a id='magicparlabel-84' />
+The GSS-APIv2u1 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-88' />
 RFC2743</div>
-</div> seems to indicate that mechanisms must ignore channel bindings when one party provided none. In practice some mechanisms ignore channel bindings when the acceptor provides none, but not when the initiator provides none. In practice it would be useless to allow security context establishment when the initiator does not provide channel bindings but the acceptor does, at least as long as there's no outward indication of whether channel binding was used! But the GSS-APIv2u1 does not provide any such indication. We correct this below.</div>
-<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-88' />
+</div> seems to indicate that mechanisms must ignore channel bindings when one party provided none. In practice some mechanisms ignore channel bindings when the acceptor provides none, but not when the initiator provides none. Note that it would be useless to allow security context establishment to succeed when the initiator does not provide channel bindings but the acceptor does, at least as long as there's no outward indication of whether channel binding was used! And indeed, the GSS-APIv2u1 does not provide any such indication. We correct this flaw in this document.</div>
+<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-89' />
 Conventions used in this document</h3>
-<div class="standard"><a id='magicparlabel-89' />
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-93' />
+<div class="standard"><a id='magicparlabel-90' />
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-94' />
 RFC2119</div>
 </div>.</div>
-<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-94' />
+<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-95' />
 Channel Binding State Extension</h2>
-<div class="standard"><a id='magicparlabel-95' />
+<div class="standard"><a id='magicparlabel-96' />
 We propose a new return flag for GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a pair of functions for setting options on credential handles, along with an option for signalling understanding of the new flag in the acceptor applications.</div>
 
-<div class="standard"><a id='magicparlabel-96' />
-C bindings of these extensions are provided along the lines of <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-100' />
+<div class="standard"><a id='magicparlabel-97' />
+C bindings of these extensions are provided along the lines of <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-101' />
 RFC2744</div>
-</div> and <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-104' />
+</div> and <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-105' />
 RFC5587</div>
 </div>.</div>
-<h3 class="subsection"><span class="subsection_label">2.1</span> <a id='magicparlabel-105' />
+<h3 class="subsection"><span class="subsection_label">2.1</span> <a id='magicparlabel-106' />
 GSS_Set_cred_option()</h3>
-<div class="standard"><a id='magicparlabel-106' />
+<div class="standard"><a id='magicparlabel-107' />
 Inputs:</div>
 
 <dl class='description'><dt class="description_label">cred_handle&nbsp;CREDENTIAL&nbsp;HANDLE</dt>
-<dd class="description_item"><a id='magicparlabel-107' />
+<dd class="description_item"><a id='magicparlabel-108' />
  If no credential handle is given then the option MAY be applied globally to the default credential handle, but the implementation MAY return an error instead.</dd>
 <dt class="description_label">desired_object&nbsp;OBJECT&nbsp;IDENTIFIER</dt>
-<dd class="description_item"><a id='magicparlabel-108' />
+<dd class="description_item"><a id='magicparlabel-109' />
  Desired option; MUST NOT be GSS_C_NO_OID.</dd>
 <dt class="description_label">value&nbsp;OCTET&nbsp;STRING</dt>
-<dd class="description_item"><a id='magicparlabel-109' />
+<dd class="description_item"><a id='magicparlabel-110' />
  Value for the option.</dd>
 </dl>
-<div class="standard"><a id='magicparlabel-110' />
+<div class="standard"><a id='magicparlabel-111' />
 Outputs:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-111' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-112' />
 major_status INTEGER</li>
-<li class="itemize_item"><a id='magicparlabel-112' />
+<li class="itemize_item"><a id='magicparlabel-113' />
 minor_status INTEGER</li>
 </ul>
-<div class="standard"><a id='magicparlabel-113' />
+<div class="standard"><a id='magicparlabel-114' />
 Return major status codes:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-114' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-115' />
 GSS_S_COMPLETE indicates success.</li>
-<li class="itemize_item"><a id='magicparlabel-115' />
-GSS_S_UNAVAILABLE indicates that the the given option is not supported by any mechanism.</li>
 <li class="itemize_item"><a id='magicparlabel-116' />
+GSS_S_UNAVAILABLE indicates that the the given option is not supported by any mechanism.</li>
+<li class="itemize_item"><a id='magicparlabel-117' />
 GSS_S_FAILURE indicates a general failure.</li>
 </ul>
-<div class="standard"><a id='magicparlabel-117' />
+<div class="standard"><a id='magicparlabel-118' />
 This function sets the given value to a credential option named by desired_object on the given cred_handle.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.1.1</span> <a id='magicparlabel-118' />
+<h4 class="subsubsection"><span class="subsubsection_label">2.1.1</span> <a id='magicparlabel-119' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-119' />
+<div class="standard"><a id='magicparlabel-120' />
 </div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-123' />
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-124' />
 </div>
 <div class='float float-listings'><pre>   OM_uint32
    gss_set_cred_option(OM_uint32 *minor_status,
@@ -422,57 +425,57 @@ C-Bindings</h4>
                        const gss_buffer_t value);</pre></div>
 
 
-<div class="plain_layout"><a id='magicparlabel-132' />
-<div class='float-caption float-caption-figure'>Figure 1:<div class="plain_layout"><a id='magicparlabel-136' />
+<div class="plain_layout"><a id='magicparlabel-133' />
+<div class='float-caption float-caption-figure'>Figure 1:<div class="plain_layout"><a id='magicparlabel-137' />
 </div>
 </div></div>
 </div>
 
 
-<div class="standard"><a id='magicparlabel-137' />
+<div class="standard"><a id='magicparlabel-138' />
 NOTE: the cred_handle input argument to gss_set_cred_option() is a pointer to gss_cred_id_t for historical reasons. This is in conflict with the regular GSS-API pattern, but it cannot be changed at this stage. [We could rename this function and not document gss_set_cred_option(), but what would be the point?]</div>
-<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-138' />
+<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-139' />
 GSS_Set_cred_option_critical()</h3>
-<div class="standard"><a id='magicparlabel-139' />
+<div class="standard"><a id='magicparlabel-140' />
 Inputs:</div>
 
 <dl class='description'><dt class="description_label">input_cred_handle&nbsp;CREDENTIAL&nbsp;HANDLE</dt>
-<dd class="description_item"><a id='magicparlabel-140' />
+<dd class="description_item"><a id='magicparlabel-141' />
  If no credential handle is given then the option MAY be applied globally to the default credential handle, but the implementation MAY return an error instead.</dd>
 <dt class="description_label">desired_object&nbsp;OBJECT&nbsp;IDENTIFIER</dt>
-<dd class="description_item"><a id='magicparlabel-141' />
+<dd class="description_item"><a id='magicparlabel-142' />
  Desired option; MUST NOT be GSS_C_NO_OID.</dd>
 <dt class="description_label">value&nbsp;OCTET&nbsp;STRING</dt>
-<dd class="description_item"><a id='magicparlabel-142' />
+<dd class="description_item"><a id='magicparlabel-143' />
  Value for the option.</dd>
 </dl>
-<div class="standard"><a id='magicparlabel-143' />
+<div class="standard"><a id='magicparlabel-144' />
 Outputs:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-144' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-145' />
 output_cred_handle CREDENTIAL_HANDLE</li>
-<li class="itemize_item"><a id='magicparlabel-145' />
-major_status INTEGER</li>
 <li class="itemize_item"><a id='magicparlabel-146' />
+major_status INTEGER</li>
+<li class="itemize_item"><a id='magicparlabel-147' />
 minor_status INTEGER</li>
 </ul>
-<div class="standard"><a id='magicparlabel-147' />
+<div class="standard"><a id='magicparlabel-148' />
 Return major status codes:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-148' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-149' />
 GSS_S_COMPLETE indicates success.</li>
-<li class="itemize_item"><a id='magicparlabel-149' />
-GSS_S_UNAVAILABLE indicates that the the given option is not supported by any mechanism.</li>
 <li class="itemize_item"><a id='magicparlabel-150' />
+GSS_S_UNAVAILABLE indicates that the the given option is not supported by any mechanism.</li>
+<li class="itemize_item"><a id='magicparlabel-151' />
 GSS_S_FAILURE indicates a general failure.</li>
 </ul>
-<div class="standard"><a id='magicparlabel-151' />
+<div class="standard"><a id='magicparlabel-152' />
 This function sets the given value to a credential option named by desired_object on the given input_cred_handle or on a duplicate handle output in the output_cred_handle parameter if desired. If any mechanisms -for which the credential has elements- fails to set the option then that element will be removed from the credential.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.2.1</span> <a id='magicparlabel-152' />
+<h4 class="subsubsection"><span class="subsubsection_label">2.2.1</span> <a id='magicparlabel-153' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-153' />
+<div class="standard"><a id='magicparlabel-154' />
 </div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-157' />
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-158' />
 </div>
 <div class='float float-listings'><pre>   OM_uint32
    gss_set_cred_option_critical(OM_uint32 *minor_status,
@@ -482,69 +485,69 @@ C-Bindings</h4>
                                 const gss_buffer_t value);</pre></div>
 
 
-<div class="plain_layout"><a id='magicparlabel-167' />
-<div class='float-caption float-caption-figure'>Figure 2:<div class="plain_layout"><a id='magicparlabel-171' />
+<div class="plain_layout"><a id='magicparlabel-168' />
+<div class='float-caption float-caption-figure'>Figure 2:<div class="plain_layout"><a id='magicparlabel-172' />
 </div>
 </div></div>
 </div>
 
-<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-172' />
+<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-173' />
 channel_bound_flag</h3>
-<div class="standard"><a id='magicparlabel-173' />
+<div class="standard"><a id='magicparlabel-174' />
 Whenever both the initiator and the acceptor provide matching channel bindings to GSS_Init_sec_context() and GSS_Accept_sec_context(), respectively, then the mechanism SHALL indicate that the context is channel bound via an output flag for the established context.</div>
 
-<div class="standard"><a id='magicparlabel-174' />
-Whenever the caller shall have set the GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) then the mechanism SHOULD allow security context establishment to succeed even if one of the initiator or acceptor failed to provide channel bindings, and then the mechanism MUST NOT output the channel_bound_flag.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.3.1</span> <a id='magicparlabel-175' />
+<div class="standard"><a id='magicparlabel-175' />
+Whenever the caller shall have set the GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) then the mechanism SHOULD allow security context establishment to succeed even if one of the initiator or acceptor failed to provide channel bindings. Whenever the acceptor shall not have set GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) and the acceptor has provided channel bindings, then the mechanism MUST NOT allow context establishment to succeed when the initiator has not itself provided channel bindings.</div>
+<h4 class="subsubsection"><span class="subsubsection_label">2.3.1</span> <a id='magicparlabel-176' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-176' />
+<div class="standard"><a id='magicparlabel-177' />
 </div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-180' />
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-181' />
 </div>
 <div class='float float-listings'><pre>   #define GSS_C_CHANNEL_BOUND 4096 /* 0x1000
    gss_const_OID GSS_C_CHANNEL_BOUND_CRED_OPT_OID; /* OID TBD */</pre></div>
 
 
-<div class="plain_layout"><a id='magicparlabel-186' />
-<div class='float-caption float-caption-figure'>Figure 3:<div class="plain_layout"><a id='magicparlabel-190' />
+<div class="plain_layout"><a id='magicparlabel-187' />
+<div class='float-caption float-caption-figure'>Figure 3:<div class="plain_layout"><a id='magicparlabel-191' />
 </div>
 </div></div>
 
-<div class="plain_layout"><a id='magicparlabel-191' />
+<div class="plain_layout"><a id='magicparlabel-192' />
 </div>
 </div>
 
-<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-192' />
+<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-193' />
 <a id="sec_References" />
 Normative References</h2>
-<div class="standard"><a id='magicparlabel-193' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-197' />
+<div class="standard"><a id='magicparlabel-194' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-198' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">rfc2119</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-198' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-202' />
+<div class="standard"><a id='magicparlabel-199' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-203' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">rfc2743</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-203' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-207' />
+<div class="standard"><a id='magicparlabel-204' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-208' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2744.xml">rfc2744</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-208' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-212' />
+<div class="standard"><a id='magicparlabel-209' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-213' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">rfc5056</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-213' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-217' />
+<div class="standard"><a id='magicparlabel-214' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-218' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml">rfc5587</a></div>
 </div></div>
-<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-218' />
+<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-219' />
 Informative References</h2>
-<div class="standard"><a id='magicparlabel-219' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-223' />
+<div class="standard"><a id='magicparlabel-220' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-224' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">rfc4121</a></div>
 </div></div>
 </body>

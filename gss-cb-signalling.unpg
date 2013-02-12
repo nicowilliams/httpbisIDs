@@ -58,7 +58,8 @@ Copyright Notice
 Table of Contents
 
    1.      Introduction
-   1.1.    Conventions used in this document
+   1.1.    Error in RFC2743
+   1.2.    Conventions used in this document
    2.      Channel Binding State Extension
    2.1.    GSS_Set_cred_option()
    2.1.1.  C-Bindings
@@ -99,17 +100,19 @@ Table of Contents
    required).  We cannot safely introduce this behavior now without an
    indication of support by the application.
 
-   Note that the GSS-APIv2u1 [RFC2743] seems to indicate that mechanisms
-   must ignore channel bindings when one party provided none.  In
-   practice some mechanisms ignore channel bindings when the acceptor
-   provides none, but not when the initiator provides none.  In practice
-   it would be useless to allow security context establishment when the
-   initiator does not provide channel bindings but the acceptor does, at
-   least as long as there's no outward indication of whether channel
-   binding was used!  But the GSS-APIv2u1 does not provide any such
-   indication.  We correct this below.
+1.1.  Error in RFC2743
 
-1.1.  Conventions used in this document
+   The GSS-APIv2u1 [RFC2743] seems to indicate that mechanisms must
+   ignore channel bindings when one party provided none.  In practice
+   some mechanisms ignore channel bindings when the acceptor provides
+   none, but not when the initiator provides none.  Note that it would
+   be useless to allow security context establishment to succeed when
+   the initiator does not provide channel bindings but the acceptor
+   does, at least as long as there's no outward indication of whether
+   channel binding was used!  And indeed, the GSS-APIv2u1 does not
+   provide any such indication.  We correct this flaw in this document.
+
+1.2.  Conventions used in this document
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -230,8 +233,12 @@ Table of Contents
    Whenever the caller shall have set the
    GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) then the mechanism
    SHOULD allow security context establishment to succeed even if one of
-   the initiator or acceptor failed to provide channel bindings, and
-   then the mechanism MUST NOT output the channel_bound_flag.
+   the initiator or acceptor failed to provide channel bindings.
+   Whenever the acceptor shall not have set
+   GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) and the acceptor has
+   provided channel bindings, then the mechanism MUST NOT allow context
+   establishment to succeed when the initiator has not itself provided
+   channel bindings.
 
 2.3.1.  C-Bindings
 

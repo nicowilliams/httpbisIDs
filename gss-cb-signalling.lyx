@@ -536,8 +536,12 @@ This document proposes a new method for deployment of channel binding that
  by the application.
 \end_layout
 
+\begin_layout Subsection
+Error in RFC2743
+\end_layout
+
 \begin_layout Standard
-Note that the GSS-APIv2u1 
+The GSS-APIv2u1 
 \begin_inset Flex EntityXRef
 status open
 
@@ -551,11 +555,12 @@ RFC2743
  party provided none.
  In practice some mechanisms ignore channel bindings when the acceptor provides
  none, but not when the initiator provides none.
- In practice it would be useless to allow security context establishment
- when the initiator does not provide channel bindings but the acceptor does,
- at least as long as there's no outward indication of whether channel binding
- was used! But the GSS-APIv2u1 does not provide any such indication.
- We correct this below.
+ Note that it would be useless to allow security context establishment to
+ succeed when the initiator does not provide channel bindings but the acceptor
+ does, at least as long as there's no outward indication of whether channel
+ binding was used! And indeed, the GSS-APIv2u1 does not provide any such
+ indication.
+ We correct this flaw in this document.
 \end_layout
 
 \begin_layout Subsection
@@ -587,6 +592,30 @@ We propose a new return flag for GSS_Init_sec_context() and GSS_Accept_sec_conte
 xt(), as well as a pair of functions for setting options on credential handles,
  along with an option for signalling understanding of the new flag in the
  acceptor applications.
+\end_layout
+
+\begin_layout Standard
+C bindings of these extensions are provided along the lines of 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC2744
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5587
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -909,7 +938,11 @@ Whenever both the initiator and the acceptor provide matching channel bindings
 Whenever the caller shall have set the GSS_C_CHANNEL_BOUND_CRED_OPT_OID
  (see below) then the mechanism SHOULD allow security context establishment
  to succeed even if one of the initiator or acceptor failed to provide channel
- bindings, and then the mechanism MUST NOT output the channel_bound_flag.
+ bindings.
+ Whenever the acceptor shall not have set GSS_C_CHANNEL_BOUND_CRED_OPT_OID
+ (see below) and the acceptor has provided channel bindings, then the mechanism
+ MUST NOT allow context establishment to succeed when the initiator has
+ not itself provided channel bindings.
 \end_layout
 
 \begin_layout Subsubsection
@@ -978,7 +1011,14 @@ Normative References
 status collapsed
 
 \begin_layout Plain Layout
-rfc2119
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc2119"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -991,7 +1031,14 @@ rfc2119
 status collapsed
 
 \begin_layout Plain Layout
-rfc2743
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc2743"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1004,7 +1051,14 @@ rfc2743
 status collapsed
 
 \begin_layout Plain Layout
-rfc2744
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc2744"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2744.xml"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
@@ -1017,7 +1071,58 @@ rfc2744
 status collapsed
 
 \begin_layout Plain Layout
-rfc5587
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5056"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5587"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Informative References
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc4121"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml"
+
+\end_inset
+
+
 \end_layout
 
 \end_inset
