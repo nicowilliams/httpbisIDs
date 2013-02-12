@@ -283,7 +283,7 @@ Channel Binding Signalling for the Generic Security Services Application
 status open
 
 \begin_layout Plain Layout
-draft-williams-kitten-channel-bound-flag-00
+draft-williams-kitten-channel-bound-flag-01
 \end_layout
 
 \end_inset
@@ -536,6 +536,13 @@ This document proposes a new method for deployment of channel binding that
  by the application.
 \end_layout
 
+\begin_layout Standard
+It is worth noting that at least one implementor of GSS-API mechanisms (but
+ not of the GSS-API itself) has similar semantics in its API to those proposed
+ herein.
+ [XXX add references to the relevant SSPI docs? -Nico]
+\end_layout
+
 \begin_layout Subsection
 Error in RFC2743
 \end_layout
@@ -561,6 +568,30 @@ RFC2743
  binding was used! And indeed, the GSS-APIv2u1 does not provide any such
  indication.
  We correct this flaw in this document.
+\end_layout
+
+\begin_layout Subsection
+Alternative Designs
+\end_layout
+
+\begin_layout Standard
+Other ways to design the selection of channel binding signalling semantics
+ are feasible.
+ One option would be to add a new version of GSS_Accept_sec_context() that
+ takes an input flags paramater.
+ Another option would be to add new versions of GSS_Init_sec_context() and
+ GSS_Accept_sec_context() that take additional input parameters for specifying
+ arbitrary options in an extensible way.
+ However, we have a number of extensions that could be delivered in this
+ fashion -- it would take a long time to negotiate a suitable design to
+ minimize the number of additional variants of GSS_Init_sec_context() and/or
+ GSS_Accept_sec_context().
+ Using CREDENTIAL HANDLEs to communicate these options seems like a very
+ light-weight extension in comparison to introducing new versions of security
+ context establishment functions.
+ Additionally, the notion of credential handle options is already present
+ in several implementations, thus using an existing design has the benefit
+ of resulting is less code/feature bloat.
 \end_layout
 
 \begin_layout Subsection
@@ -715,27 +746,27 @@ status open
 
 \begin_layout Plain Layout
 
-   OM_uint32
+ OM_uint32
 \end_layout
 
 \begin_layout Plain Layout
 
-   gss_set_cred_option(OM_uint32 *minor_status,
+ gss_set_cred_option(OM_uint32 *minor_status,
 \end_layout
 
 \begin_layout Plain Layout
 
-                       gss_cred_id_t *cred_handle,
+                     gss_cred_id_t *cred_handle,
 \end_layout
 
 \begin_layout Plain Layout
 
-                       const gss_OID desired_object,
+                     gss_const_OID desired_object,
 \end_layout
 
 \begin_layout Plain Layout
 
-                       const gss_buffer_t value);
+                     gss_const_buffer_t value);
 \end_layout
 
 \end_inset
@@ -747,7 +778,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
+C-Bindings of GSS_Set_cred_option()
 \end_layout
 
 \end_inset
@@ -765,8 +796,8 @@ NOTE: the cred_handle input argument to gss_set_cred_option() is a pointer
  to gss_cred_id_t for historical reasons.
  This is in conflict with the regular GSS-API pattern, but it cannot be
  changed at this stage.
- [We could rename this function and not document gss_set_cred_option(),
- but what would be the point?]
+ [XXX We could rename this function and not document gss_set_cred_option().
+ Should we? -Nico]
 \end_layout
 
 \begin_layout Subsection
@@ -873,32 +904,32 @@ status open
 
 \begin_layout Plain Layout
 
-   OM_uint32
+ OM_uint32
 \end_layout
 
 \begin_layout Plain Layout
 
-   gss_set_cred_option_critical(OM_uint32 *minor_status,
+ gss_set_cred_option_critical(OM_uint32 *minor_status,
 \end_layout
 
 \begin_layout Plain Layout
 
-                                gss_const_cred_id_t input_cred_handle,
+                              gss_const_cred_id_t input_cred_handle,
 \end_layout
 
 \begin_layout Plain Layout
 
-                                gss_cred_id_t *output_cred_handle,
+                              gss_cred_id_t *output_cred_handle,
 \end_layout
 
 \begin_layout Plain Layout
 
-                                const gss_OID desired_object,
+                              gss_const_OID desired_object,
 \end_layout
 
 \begin_layout Plain Layout
 
-                                const gss_buffer_t value);
+                              gss_const_buffer_t value);
 \end_layout
 
 \end_inset
@@ -910,7 +941,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
+C-Bindings of GSS_Set_cred_option_critical()
 \end_layout
 
 \end_inset
@@ -924,7 +955,7 @@ status open
 \end_layout
 
 \begin_layout Subsection
-channel_bound_flag
+Return Flag for Channel Binding State Signalling 
 \end_layout
 
 \begin_layout Standard
@@ -935,14 +966,15 @@ Whenever both the initiator and the acceptor provide matching channel bindings
 \end_layout
 
 \begin_layout Standard
-Whenever the caller shall have set the GSS_C_CHANNEL_BOUND_CRED_OPT_OID
- (see below) then the mechanism SHOULD allow security context establishment
- to succeed even if one of the initiator or acceptor failed to provide channel
- bindings.
- Whenever the acceptor shall not have set GSS_C_CHANNEL_BOUND_CRED_OPT_OID
- (see below) and the acceptor has provided channel bindings, then the mechanism
- MUST NOT allow context establishment to succeed when the initiator has
- not itself provided channel bindings.
+See 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sub:Credential-Option"
+
+\end_inset
+
+ for details on when security context establishment may succeed in spite
+ of only one of the two peers providing channel bindings.
 \end_layout
 
 \begin_layout Subsubsection
@@ -962,12 +994,7 @@ status open
 
 \begin_layout Plain Layout
 
-   #define GSS_C_CHANNEL_BOUND 4096 /* 0x1000
-\end_layout
-
-\begin_layout Plain Layout
-
-   gss_const_OID GSS_C_CHANNEL_BOUND_CRED_OPT_OID; /* OID TBD */
+ #define GSS_C_CHANNEL_BOUND 2048 /* 0x00000800 */
 \end_layout
 
 \end_inset
@@ -979,7 +1006,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-
+C-Bindings of channel_bound_flag
 \end_layout
 
 \end_inset
@@ -988,6 +1015,89 @@ status open
 \end_layout
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:Credential-Option"
+
+\end_inset
+
+Credential Option For Channel Binding Negotiation Semantics Selection
+\end_layout
+
+\begin_layout Standard
+Whenever the acceptor shall not have set GSS_C_CHANNEL_BOUND_CRED_OPT_OID
+ and the acceptor has provided channel bindings, then the mechanism MUST
+ NOT allow security context establishment to succeed when the initiator
+ has not itself provided channel bindings.
+ Whenever the acceptor shall not have set GSS_C_CHANNEL_BOUND_CRED_OPT_OID
+ the mechanism SHOULD allow security context establishment to succeed when
+ the acceptor has not itself provided channel bindings even if the initiator
+ did.
+\end_layout
+
+\begin_layout Standard
+Whenever the caller shall have set the GSS_C_CHANNEL_BOUND_CRED_OPT_OID
+ (see below) then the mechanism SHOULD allow security context establishment
+ to succeed even if one of the initiator or acceptor failed to provide channel
+ bindings while the other did.
+\end_layout
+
+\begin_layout Standard
+Note that mechanisms that cannot distinguish whether the peer did or did
+ not provide channel bindings are likely to fail security context establishment
+ when one party uses channel binding and the other does not, and that such
+ mechanisms may have no way to implement the GSS_C_CHANNEL_BOUND_CRED_OPT_OID
+ credential option.
+ Such mechanisms SHOULD return GSS_S_UNAVAILABLE when this option is set
+ on their credentials, but MAY pretend that they support it as a local configura
+tion option.
+ However, it is strongly RECOMMENDED that mechanisms have a way to distinguish
+ (in their security context tokens) the use/non-use of channel bindings.
+\end_layout
+
+\begin_layout Subsubsection
+C-Bindings
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+ gss_const_OID GSS_C_CHANNEL_BOUND_CRED_OPT_OID; /* OID TBD */
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+C-Bindings of GSS_C_CHANNEL_BOUND_CRED_OPT_OID
+\end_layout
+
+\end_inset
+
 
 \end_layout
 

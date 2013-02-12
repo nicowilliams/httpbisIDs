@@ -3,15 +3,15 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Updates: RFC2743 RFC2744                               February 11, 2013
+Updates: RFC2743 RFC2744                               February 12, 2013
 (if approved)
 Intended status: Standards Track
-Expires: August 15, 2013
+Expires: August 16, 2013
 
 
 Channel Binding Signalling for the Generic Security Services Application
                          Programming Interface
-              draft-williams-kitten-channel-bound-flag-00
+              draft-williams-kitten-channel-bound-flag-01
 
 Abstract
 
@@ -37,7 +37,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 15, 2013.
+   This Internet-Draft will expire on August 16, 2013.
 
 Copyright Notice
 
@@ -52,7 +52,7 @@ Copyright Notice
 
 
 
-Williams                 Expires August 15, 2013                [Page 1]
+Williams                 Expires August 16, 2013                [Page 1]
 
 Internet-Draft           GSS Channel Bound Flag            February 2013
 
@@ -65,20 +65,24 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
 
 Table of Contents
 
-   1.      Introduction  . . . . . . . . . . . . . . . . . . . . . . . 3
-   1.1.    Error in RFC2743  . . . . . . . . . . . . . . . . . . . . . 3
-   1.2.    Conventions used in this document . . . . . . . . . . . . . 3
-   2.      Channel Binding State Extension . . . . . . . . . . . . . . 4
-   2.1.    GSS_Set_cred_option() . . . . . . . . . . . . . . . . . . . 4
-   2.1.1.  C-Bindings  . . . . . . . . . . . . . . . . . . . . . . . . 4
-   2.2.    GSS_Set_cred_option_critical()  . . . . . . . . . . . . . . 5
-   2.2.1.  C-Bindings  . . . . . . . . . . . . . . . . . . . . . . . . 6
-   2.3.    channel_bound_flag  . . . . . . . . . . . . . . . . . . . . 6
-   2.3.1.  C-Bindings  . . . . . . . . . . . . . . . . . . . . . . . . 6
-   3.      References  . . . . . . . . . . . . . . . . . . . . . . . . 7
-   3.1.    Normative References  . . . . . . . . . . . . . . . . . . . 7
-   3.2.    Informative References  . . . . . . . . . . . . . . . . . . 7
-           Author's Address  . . . . . . . . . . . . . . . . . . . . . 8
+   1.      Introduction . . . . . . . . . . . . . . . . . . . . . . .  3
+   1.1.    Error in RFC2743 . . . . . . . . . . . . . . . . . . . . .  3
+   1.2.    Alternative Designs  . . . . . . . . . . . . . . . . . . .  3
+   1.3.    Conventions used in this document  . . . . . . . . . . . .  4
+   2.      Channel Binding State Extension  . . . . . . . . . . . . .  5
+   2.1.    GSS_Set_cred_option()  . . . . . . . . . . . . . . . . . .  5
+   2.1.1.  C-Bindings . . . . . . . . . . . . . . . . . . . . . . . .  5
+   2.2.    GSS_Set_cred_option_critical() . . . . . . . . . . . . . .  6
+   2.2.1.  C-Bindings . . . . . . . . . . . . . . . . . . . . . . . .  7
+   2.3.    Return Flag for Channel Binding State Signalling . . . . .  7
+   2.3.1.  C-Bindings . . . . . . . . . . . . . . . . . . . . . . . .  7
+   2.4.    Credential Option For Channel Binding Negotiation
+           Semantics Selection  . . . . . . . . . . . . . . . . . . .  7
+   2.4.1.  C-Bindings . . . . . . . . . . . . . . . . . . . . . . . .  8
+   3.      References . . . . . . . . . . . . . . . . . . . . . . . .  9
+   3.1.    Normative References . . . . . . . . . . . . . . . . . . .  9
+   3.2.    Informative References . . . . . . . . . . . . . . . . . .  9
+           Author's Address . . . . . . . . . . . . . . . . . . . . . 10
 
 
 
@@ -104,11 +108,7 @@ Table of Contents
 
 
 
-
-
-
-
-Williams                 Expires August 15, 2013                [Page 2]
+Williams                 Expires August 16, 2013                [Page 2]
 
 Internet-Draft           GSS Channel Bound Flag            February 2013
 
@@ -140,6 +140,11 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
    required).  We cannot safely introduce this behavior now without an
    indication of support by the application.
 
+   It is worth noting that at least one implementor of GSS-API
+   mechanisms (but not of the GSS-API itself) has similar semantics in
+   its API to those proposed herein.  [XXX add references to the
+   relevant SSPI docs? -Nico]
+
 1.1.  Error in RFC2743
 
    The GSS-APIv2u1 [RFC2743] seems to indicate that mechanisms must
@@ -152,7 +157,33 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
    channel binding was used!  And indeed, the GSS-APIv2u1 does not
    provide any such indication.  We correct this flaw in this document.
 
-1.2.  Conventions used in this document
+1.2.  Alternative Designs
+
+   Other ways to design the selection of channel binding signalling
+   semantics are feasible.  One option would be to add a new version of
+
+
+
+Williams                 Expires August 16, 2013                [Page 3]
+
+Internet-Draft           GSS Channel Bound Flag            February 2013
+
+
+   GSS_Accept_sec_context() that takes an input flags paramater.
+   Another option would be to add new versions of GSS_Init_sec_context()
+   and GSS_Accept_sec_context() that take additional input parameters
+   for specifying arbitrary options in an extensible way.  However, we
+   have a number of extensions that could be delivered in this fashion -
+   it would take a long time to negotiate a suitable design to minimize
+   the number of additional variants of GSS_Init_sec_context() and/or
+   GSS_Accept_sec_context().  Using CREDENTIAL HANDLEs to communicate
+   these options seems like a very light-weight extension in comparison
+   to introducing new versions of security context establishment
+   functions.  Additionally, the notion of credential handle options is
+   already present in several implementations, thus using an existing
+   design has the benefit of resulting is less code/feature bloat.
+
+1.3.  Conventions used in this document
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
@@ -164,7 +195,32 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
 
 
 
-Williams                 Expires August 15, 2013                [Page 3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                 Expires August 16, 2013                [Page 4]
 
 Internet-Draft           GSS Channel Bound Flag            February 2013
 
@@ -220,24 +276,24 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
 
 
 
-Williams                 Expires August 15, 2013                [Page 4]
+Williams                 Expires August 16, 2013                [Page 5]
 
 Internet-Draft           GSS Channel Bound Flag            February 2013
 
 
-      OM_uint32
-      gss_set_cred_option(OM_uint32 *minor_status,
-                          gss_cred_id_t *cred_handle,
-                          const gss_OID desired_object,
-                          const gss_buffer_t value);
+    OM_uint32
+    gss_set_cred_option(OM_uint32 *minor_status,
+                        gss_cred_id_t *cred_handle,
+                        gss_const_OID desired_object,
+                        gss_const_buffer_t value);
 
-                                 Figure 1
+               Figure 1: C-Bindings of GSS_Set_cred_option()
 
    NOTE: the cred_handle input argument to gss_set_cred_option() is a
    pointer to gss_cred_id_t for historical reasons.  This is in conflict
    with the regular GSS-API pattern, but it cannot be changed at this
-   stage.  [We could rename this function and not document
-   gss_set_cred_option(), but what would be the point?]
+   stage.  [XXX We could rename this function and not document
+   gss_set_cred_option().  Should we? -Nico]
 
 2.2.  GSS_Set_cred_option_critical()
 
@@ -276,7 +332,7 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
 
 
 
-Williams                 Expires August 15, 2013                [Page 5]
+Williams                 Expires August 16, 2013                [Page 6]
 
 Internet-Draft           GSS Channel Bound Flag            February 2013
 
@@ -285,38 +341,74 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
 
 2.2.1.  C-Bindings
 
-     OM_uint32
-     gss_set_cred_option_critical(OM_uint32 *minor_status,
-                                  gss_const_cred_id_t input_cred_handle,
-                                  gss_cred_id_t *output_cred_handle,
-                                  const gss_OID desired_object,
-                                  const gss_buffer_t value);
+    OM_uint32
+    gss_set_cred_option_critical(OM_uint32 *minor_status,
+                                 gss_const_cred_id_t input_cred_handle,
+                                 gss_cred_id_t *output_cred_handle,
+                                 gss_const_OID desired_object,
+                                 gss_const_buffer_t value);
 
-                                 Figure 2
+          Figure 2: C-Bindings of GSS_Set_cred_option_critical()
 
-2.3.  channel_bound_flag
+2.3.  Return Flag for Channel Binding State Signalling
 
    Whenever both the initiator and the acceptor provide matching channel
    bindings to GSS_Init_sec_context() and GSS_Accept_sec_context(),
    respectively, then the mechanism SHALL indicate that the context is
    channel bound via an output flag for the established context.
 
-   Whenever the caller shall have set the
-   GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) then the mechanism
-   SHOULD allow security context establishment to succeed even if one of
-   the initiator or acceptor failed to provide channel bindings.
-   Whenever the acceptor shall not have set
-   GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) and the acceptor has
-   provided channel bindings, then the mechanism MUST NOT allow context
-   establishment to succeed when the initiator has not itself provided
-   channel bindings.
+   See Section 2.4 for details on when security context establishment
+   may succeed in spite of only one of the two peers providing channel
+   bindings.
 
 2.3.1.  C-Bindings
 
-      #define GSS_C_CHANNEL_BOUND 4096 /* 0x1000
-      gss_const_OID GSS_C_CHANNEL_BOUND_CRED_OPT_OID; /* OID TBD */
+    #define GSS_C_CHANNEL_BOUND 2048 /* 0x00000800 */
 
-                                 Figure 3
+                Figure 3: C-Bindings of channel_bound_flag
+
+2.4.  Credential Option For Channel Binding Negotiation Semantics
+      Selection
+
+   Whenever the acceptor shall not have set
+   GSS_C_CHANNEL_BOUND_CRED_OPT_OID and the acceptor has provided
+   channel bindings, then the mechanism MUST NOT allow security context
+   establishment to succeed when the initiator has not itself provided
+   channel bindings.  Whenever the acceptor shall not have set
+   GSS_C_CHANNEL_BOUND_CRED_OPT_OID the mechanism SHOULD allow security
+   context establishment to succeed when the acceptor has not itself
+   provided channel bindings even if the initiator did.
+
+   Whenever the caller shall have set the
+   GSS_C_CHANNEL_BOUND_CRED_OPT_OID (see below) then the mechanism
+   SHOULD allow security context establishment to succeed even if one of
+   the initiator or acceptor failed to provide channel bindings while
+   the other did.
+
+
+
+
+Williams                 Expires August 16, 2013                [Page 7]
+
+Internet-Draft           GSS Channel Bound Flag            February 2013
+
+
+   Note that mechanisms that cannot distinguish whether the peer did or
+   did not provide channel bindings are likely to fail security context
+   establishment when one party uses channel binding and the other does
+   not, and that such mechanisms may have no way to implement the
+   GSS_C_CHANNEL_BOUND_CRED_OPT_OID credential option.  Such mechanisms
+   SHOULD return GSS_S_UNAVAILABLE when this option is set on their
+   credentials, but MAY pretend that they support it as a local
+   configuration option.  However, it is strongly RECOMMENDED that
+   mechanisms have a way to distinguish (in their security context
+   tokens) the use/non-use of channel bindings.
+
+2.4.1.  C-Bindings
+
+    gss_const_OID GSS_C_CHANNEL_BOUND_CRED_OPT_OID; /* OID TBD */
+
+         Figure 4: C-Bindings of GSS_C_CHANNEL_BOUND_CRED_OPT_OID
 
 
 
@@ -332,7 +424,27 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
 
 
 
-Williams                 Expires August 15, 2013                [Page 6]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Williams                 Expires August 16, 2013                [Page 8]
 
 Internet-Draft           GSS Channel Bound Flag            February 2013
 
@@ -388,7 +500,7 @@ Internet-Draft           GSS Channel Bound Flag            February 2013
 
 
 
-Williams                 Expires August 15, 2013                [Page 7]
+Williams                 Expires August 16, 2013                [Page 9]
 
 Internet-Draft           GSS Channel Bound Flag            February 2013
 
@@ -444,5 +556,5 @@ Author's Address
 
 
 
-Williams                 Expires August 15, 2013                [Page 8]
+Williams                 Expires August 16, 2013               [Page 10]
 
