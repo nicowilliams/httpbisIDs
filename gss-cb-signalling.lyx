@@ -283,7 +283,7 @@ Channel Binding Signalling for the Generic Security Services Application
 status open
 
 \begin_layout Plain Layout
-draft-williams-kitten-channel-bound-flag-01
+draft-williams-kitten-channel-bound-flag-02
 \end_layout
 
 \end_inset
@@ -571,27 +571,67 @@ RFC2743
 \end_layout
 
 \begin_layout Subsection
-Alternative Designs
+Design
 \end_layout
 
 \begin_layout Standard
-Other ways to design the selection of channel binding signalling semantics
- are feasible.
- One option would be to add a new version of GSS_Accept_sec_context() that
- takes an input flags paramater.
- Another option would be to add new versions of GSS_Init_sec_context() and
- GSS_Accept_sec_context() that take additional input parameters for specifying
- arbitrary options in an extensible way.
- However, we have a number of extensions that could be delivered in this
- fashion -- it would take a long time to negotiate a suitable design to
- minimize the number of additional variants of GSS_Init_sec_context() and/or
- GSS_Accept_sec_context().
- Using CREDENTIAL HANDLEs to communicate these options seems like a very
- light-weight extension in comparison to introducing new versions of security
- context establishment functions.
- Additionally, the notion of credential handle options is already present
- in several implementations, thus using an existing design has the benefit
- of resulting is less code/feature bloat.
+After some discussion on the mailing list of various designs for signalling
+ application support for the new flag we've settled on copying an aspect
+ of the Java Bindings of the GSS-API 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC5653
+\end_layout
+
+\end_inset
+
+, specifically the notion of creating an 
+\begin_inset Quotes eld
+\end_inset
+
+empty
+\begin_inset Quotes erd
+\end_inset
+
+ SECURITY CONTEXT handle that can then be passed to GSS_Init_sec_context()
+ and GSS_Accept_sec_context() where they normally expect a NULL handle.
+ This empty security context handle can then be used to set options relating
+ to security context token establishment.
+\end_layout
+
+\begin_layout Subsection
+Alternative Design
+\end_layout
+
+\begin_layout Standard
+The previous design was based on an existing, non-standard extension for
+ carrying security context establishment options in CREDENTIAL HANDLEs.
+ Note that a notion of CREDENTIAL HANDLE options might still be useful for
+ options that are really specific to credentials rather than security context
+ tokens (for example: setting an acceptable cryptographic security profile
+ on a CREDENTIAL HANDLE and receiving a new handle with possibly fewer elements,
+ reflecting that some credentials cannot meet the requirement).
+\end_layout
+
+\begin_layout Subsection
+Future Directions
+\end_layout
+
+\begin_layout Standard
+We're likely to introduce additional mutator functions of empty contexts,
+ with mutators corresponding to many of the existing input arguments of
+ GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a few additiona
+l security context inquiry functions.
+ We're also likely to then introduce new variants of GSS_Init_sec_context()
+ and GSS_Accept_sec_context() with all of those input and output parameters
+ removed that could be set or retrieved with the other new functions.
+ The only inputs that the new GSS_Init/Accept_sec_context() must have are:
+ a security context handle (never NULL), and an input context token, and
+ the only outputs should be the status indicators and an output token --
+ in fact, we may want to have just one new function called, perhaps, GSS_Step_se
+c_context(), with the role of initiator or acceptor set as a context option.
 \end_layout
 
 \begin_layout Subsection
@@ -620,9 +660,17 @@ Channel Binding State Extension
 
 \begin_layout Standard
 We propose a new return flag for GSS_Init_sec_context() and GSS_Accept_sec_conte
-xt(), as well as a pair of functions for setting options on credential handles,
- along with an option for signalling understanding of the new flag in the
- acceptor applications.
+xt(), as well as a pair of functions for setting a) creating 
+\begin_inset Quotes eld
+\end_inset
+
+empty
+\begin_inset Quotes erd
+\end_inset
+
+ security context handles, b) setting req_flags and indicating which ret_flags
+ the application understands.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -649,50 +697,22 @@ RFC5587
 .
 \end_layout
 
+\begin_layout Standard
+In the future we might move more of the many input (and output) arguments
+ to GSS_Init_sec_context() and GSS_Accept_sec_context() into mutators on
+ empty security context handles.
+\end_layout
+
 \begin_layout Subsection
-GSS_Set_cred_option()
+GSS_Create_sec_context()
 \end_layout
 
 \begin_layout Standard
 Inputs:
 \end_layout
 
-\begin_layout Description
-cred_handle
-\begin_inset space ~
-\end_inset
-
-CREDENTIAL
-\begin_inset space ~
-\end_inset
-
-HANDLE If no credential handle is given then the option MAY be applied globally
- to the default credential handle, but the implementation MAY return an
- error instead.
-\end_layout
-
-\begin_layout Description
-desired_object
-\begin_inset space ~
-\end_inset
-
-OBJECT
-\begin_inset space ~
-\end_inset
-
-IDENTIFIER Desired option; MUST NOT be GSS_C_NO_OID.
-\end_layout
-
-\begin_layout Description
-value
-\begin_inset space ~
-\end_inset
-
-OCTET
-\begin_inset space ~
-\end_inset
-
-STRING Value for the option.
+\begin_layout Itemize
+<none>
 \end_layout
 
 \begin_layout Standard
@@ -704,7 +724,11 @@ major_status INTEGER
 \end_layout
 
 \begin_layout Itemize
-minor_status INTEGER
+minor_status INTEGER -- note: mostly useless, but we should keep it
+\end_layout
+
+\begin_layout Itemize
+context SECURITY CONTEXT
 \end_layout
 
 \begin_layout Standard
@@ -716,8 +740,7 @@ GSS_S_COMPLETE indicates success.
 \end_layout
 
 \begin_layout Itemize
-GSS_S_UNAVAILABLE indicates that the the given option is not supported by
- any mechanism.
+GSS_S_UNAVAILABLE indicates that memory is not available, for example.
 \end_layout
 
 \begin_layout Itemize
@@ -725,8 +748,16 @@ GSS_S_FAILURE indicates a general failure.
 \end_layout
 
 \begin_layout Standard
-This function sets the given value to a credential option named by desired_objec
-t on the given cred_handle.
+This function creates an 
+\begin_inset Quotes eld
+\end_inset
+
+empty
+\begin_inset Quotes erd
+\end_inset
+
+ security context handle that can be passed to GSS_Init_sec_context() or
+ GSS_Accept_sec_context() where they expect a NULL context.
 \end_layout
 
 \begin_layout Subsubsection
@@ -751,22 +782,12 @@ status open
 
 \begin_layout Plain Layout
 
- gss_set_cred_option(OM_uint32 *minor_status,
+ gss_create_sec_context(OM_uint32 *minor_status,
 \end_layout
 
 \begin_layout Plain Layout
 
-                     gss_cred_id_t *cred_handle,
-\end_layout
-
-\begin_layout Plain Layout
-
-                     gss_const_OID desired_object,
-\end_layout
-
-\begin_layout Plain Layout
-
-                     gss_const_buffer_t value);
+                        gss_ctx_id_t *context);
 \end_layout
 
 \end_inset
@@ -778,7 +799,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-C-Bindings of GSS_Set_cred_option()
+C-Bindings of GSS_Create_sec_context()
 \end_layout
 
 \end_inset
@@ -789,19 +810,10 @@ C-Bindings of GSS_Set_cred_option()
 \end_inset
 
 
-\end_layout
-
-\begin_layout Standard
-NOTE: the cred_handle input argument to gss_set_cred_option() is a pointer
- to gss_cred_id_t for historical reasons.
- This is in conflict with the regular GSS-API pattern, but it cannot be
- changed at this stage.
- [XXX We could rename this function and not document gss_set_cred_option().
- Should we? -Nico]
 \end_layout
 
 \begin_layout Subsection
-GSS_Set_cred_option_critical()
+GSS_Set_context_flags()
 \end_layout
 
 \begin_layout Standard
@@ -809,49 +821,36 @@ Inputs:
 \end_layout
 
 \begin_layout Description
-input_cred_handle
+context
 \begin_inset space ~
 \end_inset
 
-CREDENTIAL
+CONTEXT
 \begin_inset space ~
 \end_inset
 
-HANDLE If no credential handle is given then the option MAY be applied globally
- to the default credential handle, but the implementation MAY return an
- error instead.
+HANDLE 
 \end_layout
 
 \begin_layout Description
-desired_object
+req_flags
 \begin_inset space ~
 \end_inset
 
-OBJECT
-\begin_inset space ~
-\end_inset
-
-IDENTIFIER Desired option; MUST NOT be GSS_C_NO_OID.
+FLAGS Requested flags.
+ Applicable to acceptors and initiators.
 \end_layout
 
 \begin_layout Description
-value
+ret_flags_understood
 \begin_inset space ~
 \end_inset
 
-OCTET
-\begin_inset space ~
-\end_inset
-
-STRING Value for the option.
+FLAGS Return flags understood by the caller.
 \end_layout
 
 \begin_layout Standard
 Outputs:
-\end_layout
-
-\begin_layout Itemize
-output_cred_handle CREDENTIAL_HANDLE
 \end_layout
 
 \begin_layout Itemize
@@ -871,20 +870,48 @@ GSS_S_COMPLETE indicates success.
 \end_layout
 
 \begin_layout Itemize
-GSS_S_UNAVAILABLE indicates that the the given option is not supported by
- any mechanism.
-\end_layout
-
-\begin_layout Itemize
 GSS_S_FAILURE indicates a general failure.
 \end_layout
 
 \begin_layout Standard
-This function sets the given value to a credential option named by desired_objec
-t on the given input_cred_handle or on a duplicate handle output in the
- output_cred_handle parameter if desired.
- If any mechanisms -for which the credential has elements- fails to set
- the option then that element will be removed from the credential.
+This function tells the mechanism (when one is eventually chosen and invoked)
+ that the application requests the given req_flags and undestands the given
+ ret_flags.
+ Initiators can override the req_flags in their GSS_Init_sec_context() call,
+ but if no flags are requested there then the req_flags set on the empty
+ context will be used.
+\end_layout
+
+\begin_layout Standard
+NOTE: The abstract GSS-API 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC2743
+\end_layout
+
+\end_inset
+
+ uses individual elements -one per-flag- instead of a 
+\begin_inset Quotes eld
+\end_inset
+
+FLAGS
+\begin_inset Quotes erd
+\end_inset
+
+ type.
+ This is unwieldy, therefore we introduce an abstract type named 
+\begin_inset Quotes eld
+\end_inset
+
+FLAGS
+\begin_inset Quotes erd
+\end_inset
+
+ to act as a set of all the request/return flags defined for the abstract
+ GSS-API.
 \end_layout
 
 \begin_layout Subsubsection
@@ -909,27 +936,22 @@ status open
 
 \begin_layout Plain Layout
 
- gss_set_cred_option_critical(OM_uint32 *minor_status,
+ gss_set_context_flags(OM_uint32 *minor_status,
 \end_layout
 
 \begin_layout Plain Layout
 
-                              gss_const_cred_id_t input_cred_handle,
+                       gss_ctx_id_t context,
 \end_layout
 
 \begin_layout Plain Layout
 
-                              gss_cred_id_t *output_cred_handle,
+                       uint64_t req_flags,
 \end_layout
 
 \begin_layout Plain Layout
 
-                              gss_const_OID desired_object,
-\end_layout
-
-\begin_layout Plain Layout
-
-                              gss_const_buffer_t value);
+                       uint64_t ret_flags);
 \end_layout
 
 \end_inset
@@ -941,7 +963,7 @@ status open
 \begin_inset Caption
 
 \begin_layout Plain Layout
-C-Bindings of GSS_Set_cred_option_critical()
+C-Bindings of GSS_Set_context_flags()
 \end_layout
 
 \end_inset
@@ -962,19 +984,7 @@ Return Flag for Channel Binding State Signalling
 Whenever both the initiator and the acceptor provide matching channel bindings
  to GSS_Init_sec_context() and GSS_Accept_sec_context(), respectively, then
  the mechanism SHALL indicate that the context is channel bound via an output
- flag for the established context.
-\end_layout
-
-\begin_layout Standard
-See 
-\begin_inset CommandInset ref
-LatexCommand ref
-reference "sub:Credential-Option"
-
-\end_inset
-
- for details on when security context establishment may succeed in spite
- of only one of the two peers providing channel bindings.
+ flag, ret_channel_bound_flag, for the established context.
 \end_layout
 
 \begin_layout Subsubsection
@@ -994,7 +1004,7 @@ status open
 
 \begin_layout Plain Layout
 
- #define GSS_C_CHANNEL_BOUND 2048 /* 0x00000800 */
+ #define GSS_C_CHANNEL_BOUND_FLAG 2048 /* 0x00000800 */
 \end_layout
 
 \end_inset
@@ -1014,96 +1024,103 @@ C-Bindings of channel_bound_flag
 
 \end_layout
 
-\begin_layout Plain Layout
-
-\end_layout
-
 \end_inset
 
 
 \end_layout
 
-\begin_layout Subsection
-\begin_inset CommandInset label
-LatexCommand label
-name "sub:Credential-Option"
-
-\end_inset
-
-Credential Option For Channel Binding Negotiation Semantics Selection
+\begin_layout Section
+Modified Channel Binding Semantics
 \end_layout
 
 \begin_layout Standard
-Whenever the acceptor shall not have set GSS_C_CHANNEL_BOUND_CRED_OPT_OID
- and the acceptor has provided channel bindings, then the mechanism MUST
- NOT allow security context establishment to succeed when the initiator
- has not itself provided channel bindings.
- Whenever the acceptor shall not have set GSS_C_CHANNEL_BOUND_CRED_OPT_OID
- the mechanism SHOULD allow security context establishment to succeed when
- the acceptor has not itself provided channel bindings even if the initiator
- did.
+The channel binding semantics of the base GSS-API are modified as follows:
+\end_layout
+
+\begin_layout Itemize
+Whenever both, the initiator and acceptor shall have provided input_channel_bind
+ings to GSS_Init/Accept_sec_context() and the channel bindings do not match,
+ then the mechanism MUST fail to establish a security context token.
+ This is a restatement of an existing requirement in the base specification,
+ restated for convenience.
+\end_layout
+
+\begin_layout Itemize
+Whenever the acceptor application shall have a) provided channel bindings
+ to GSS_Accept_sec_context(), and b) not indicated support for the ret_channel_b
+ound_flag flag, then the mechanism MUST fail to establish a security context
+ if the initiator did not provide channel bindings data.
+ This requirement is for security purposes, to make applications predating
+ this document secure, and this requirement reflects actual implementations
+ as deployed.
+\end_layout
+
+\begin_layout Itemize
+Whenever the initiator application shall have a) provided channel bindings
+ to GSS_Init_sec_context(), and b) not indicated support for the ret_channel_bou
+nd_flag flag, then the mechanism SHOULD NOT fail to establish a security
+ context just because the acceptor failed to provide channel bindings data.
+ This recommendation is for interoperability purposes, and reflects actual
+ implementations that have been deployed.
+ It is possible that not all security mechanism protocols can implement
+ this requirement easily.
+\end_layout
+
+\begin_layout Itemize
+Whenever the application shall have a) provided channel bindings to GSS_Init_sec
+_context() or GSS_Accept_sec_context(), and b) indicated support for the
+ ret_channel_bound_flag flag, then the mechanism MUST NOT fail to establish
+ a security context just because the peer did not provide channel bindings
+ data.
+ The mechanism MUST output the ret_channel_bound_flag if both peers provided
+ the same input_channel_bindings to GSS_Init_sec_context() and GSS_Accept_sec_co
+ntext.
+ The mechanism MUST NOT output the ret_channel_bound_flag if either (or
+ both) peer did not provide input_channel_bindings to GSS_Init/Accept_sec_contex
+t().
+ This requirement restores the original base GSS-API specified behavior,
+ with the addition of the ret_channel_bound_flag flag
+\end_layout
+
+\begin_layout Section
+Security Considerations
 \end_layout
 
 \begin_layout Standard
-Whenever the caller shall have set the GSS_C_CHANNEL_BOUND_CRED_OPT_OID
- (see below) then the mechanism SHOULD allow security context establishment
- to succeed even if one of the initiator or acceptor failed to provide channel
- bindings while the other did.
-\end_layout
-
-\begin_layout Standard
-Note that mechanisms that cannot distinguish whether the peer did or did
- not provide channel bindings are likely to fail security context establishment
- when one party uses channel binding and the other does not, and that such
- mechanisms may have no way to implement the GSS_C_CHANNEL_BOUND_CRED_OPT_OID
- credential option.
- Such mechanisms SHOULD return GSS_S_UNAVAILABLE when this option is set
- on their credentials, but MAY pretend that they support it as a local configura
-tion option.
- However, it is strongly RECOMMENDED that mechanisms have a way to distinguish
- (in their security context tokens) the use/non-use of channel bindings.
-\end_layout
-
-\begin_layout Subsubsection
-C-Bindings
-\end_layout
-
-\begin_layout Standard
-\begin_inset Float figure
-wide false
-sideways false
-status open
+This document deals with security.
+ There are no security considerations that should be documented separately
+ in this section.
+ To recap, this document fixes a significant flaw in the base GSS-API 
+\begin_inset Flex EntityXRef
+status collapsed
 
 \begin_layout Plain Layout
-\begin_inset listings
-inline false
-status open
-
-\begin_layout Plain Layout
-
- gss_const_OID GSS_C_CHANNEL_BOUND_CRED_OPT_OID; /* OID TBD */
+RFC2743
 \end_layout
 
 \end_inset
 
-
-\end_layout
+ specification that fortunately has not been implemented, and it adds a
+ feature (that should have been in the base specification) for improved
+ negotiation of use of channel binding 
+\begin_inset Flex EntityXRef
+status collapsed
 
 \begin_layout Plain Layout
-\begin_inset Caption
-
-\begin_layout Plain Layout
-C-Bindings of GSS_C_CHANNEL_BOUND_CRED_OPT_OID
+RFC5056
 \end_layout
 
 \end_inset
 
-
+.
 \end_layout
 
-\end_inset
+\begin_layout Section
+IANA Considerations
+\end_layout
 
-
+\begin_layout Standard
+This document has no IANA considerations.
 \end_layout
 
 \begin_layout Section
@@ -1229,6 +1246,26 @@ status collapsed
 LatexCommand href
 name "rfc4121"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc5653"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5653.xml"
 
 \end_inset
 
