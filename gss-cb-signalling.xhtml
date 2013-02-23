@@ -235,18 +235,8 @@ font-style: normal;
 font-variant: normal;
 font-size: medium;
 }
-div.float {
-border: 2px solid black;
-text-align: center;
-}
 div.listings {
 font-family: monospace;
-}
-div.float-caption {
-text-align: center;
-border: 2px solid black;
-padding: 1ex;
-margin: 1ex;
 }
 div.flex_bibxml {
 font-family: serif;
@@ -262,7 +252,7 @@ font-size: medium;
 Channel Binding Signalling for the Generic Security Services Application Programming Interface</h1>
 <div class="standard"><a id='magicparlabel-2' />
 <div class="flex_docname"><div class="plain_layout"><a id='magicparlabel-6' />
-draft-williams-kitten-channel-bound-flag-02</div>
+draft-williams-kitten-channel-bound-flag-03</div>
 </div><div class="flex_ipr"><div class="plain_layout"><a id='magicparlabel-10' />
 trust200902</div>
 </div><div class="flex_intendedstatus"><div class="plain_layout"><a id='magicparlabel-14' />
@@ -328,26 +318,26 @@ This Internet-Draft proposes the addition of a &ldquo;channel bound&rdquo; retur
 <div class='lyxtoc-3'><a href='#magicparlabel-130' class='tocentry'>2.1.1 C-Bindings</a> <a href='#magicparlabel-130' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-147' class='tocentry'>2.2 GSS_Set_context_flags()</a> <a href='#magicparlabel-147' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-138' class='tocentry'>2.2 GSS_Set_context_flags()</a> <a href='#magicparlabel-138' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-164' class='tocentry'>2.2.1 C-Bindings</a> <a href='#magicparlabel-164' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-155' class='tocentry'>2.2.1 C-Bindings</a> <a href='#magicparlabel-155' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-183' class='tocentry'>2.3 Return Flag for Channel Binding State Signalling </a> <a href='#magicparlabel-183' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-165' class='tocentry'>2.3 Return Flag for Channel Binding State Signalling </a> <a href='#magicparlabel-165' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-185' class='tocentry'>2.3.1 C-Bindings</a> <a href='#magicparlabel-185' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-167' class='tocentry'>2.3.1 C-Bindings</a> <a href='#magicparlabel-167' class='tocarrow'>&gt;</a></div>
 </div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-200' class='tocentry'>3 Modified Channel Binding Semantics</a> <a href='#magicparlabel-200' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-173' class='tocentry'>3 Modified Channel Binding Semantics</a> <a href='#magicparlabel-173' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-206' class='tocentry'>4 Security Considerations</a> <a href='#magicparlabel-206' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-179' class='tocentry'>4 Security Considerations</a> <a href='#magicparlabel-179' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-216' class='tocentry'>5 IANA Considerations</a> <a href='#magicparlabel-216' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-189' class='tocentry'>5 IANA Considerations</a> <a href='#magicparlabel-189' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-218' class='tocentry'>6 Normative References</a> <a href='#magicparlabel-218' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-191' class='tocentry'>6 Normative References</a> <a href='#magicparlabel-191' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-244' class='tocentry'>7 Informative References</a> <a href='#magicparlabel-244' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-217' class='tocentry'>7 Informative References</a> <a href='#magicparlabel-217' class='tocarrow'>&gt;</a></div>
 </div>
 
 <h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-67' />
@@ -398,7 +388,7 @@ RFC2119</div>
 <h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-106' />
 Channel Binding State Extension</h2>
 <div class="standard"><a id='magicparlabel-107' />
-We propose a new return flag for GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a pair of functions for setting a) creating &ldquo;empty&rdquo; security context handles, b) setting req_flags and indicating which ret_flags the application understands. </div>
+We propose a new return flag for GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a pair of functions for a) creating &ldquo;empty&rdquo; security context handles, b) setting req_flags and indicating which ret_flags the application understands. </div>
 
 <div class="standard"><a id='magicparlabel-108' />
 C bindings of these extensions are provided along the lines of <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-112' />
@@ -443,62 +433,51 @@ This function creates an &ldquo;empty&rdquo; security context handle that can be
 C-Bindings</h4>
 <div class="standard"><a id='magicparlabel-131' />
 </div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-135' />
-</div>
 <div class='float float-listings'><pre> OM_uint32
  gss_create_sec_context(OM_uint32 *minor_status,
                         gss_ctx_id_t *context);</pre></div>
 
-
-<div class="plain_layout"><a id='magicparlabel-142' />
-<div class='float-caption float-caption-figure'>Figure 1:<div class="plain_layout"><a id='magicparlabel-146' />
-C-Bindings of GSS_Create_sec_context()</div>
-</div></div>
-</div>
-
-<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-147' />
+<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-138' />
 GSS_Set_context_flags()</h3>
-<div class="standard"><a id='magicparlabel-148' />
+<div class="standard"><a id='magicparlabel-139' />
 Inputs:</div>
 
 <dl class='description'><dt class="description_label">context&nbsp;CONTEXT&nbsp;HANDLE</dt>
-<dd class="description_item"><a id='magicparlabel-149' />
+<dd class="description_item"><a id='magicparlabel-140' />
  </dd>
 <dt class="description_label">req_flags&nbsp;FLAGS</dt>
-<dd class="description_item"><a id='magicparlabel-150' />
+<dd class="description_item"><a id='magicparlabel-141' />
  Requested flags. Applicable to acceptors and initiators.</dd>
 <dt class="description_label">ret_flags_understood&nbsp;FLAGS</dt>
-<dd class="description_item"><a id='magicparlabel-151' />
- Return flags understood by the caller.</dd>
+<dd class="description_item"><a id='magicparlabel-142' />
+ The set of return flags understood by the caller.</dd>
 </dl>
-<div class="standard"><a id='magicparlabel-152' />
+<div class="standard"><a id='magicparlabel-143' />
 Outputs:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-153' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-144' />
 major_status INTEGER</li>
-<li class="itemize_item"><a id='magicparlabel-154' />
+<li class="itemize_item"><a id='magicparlabel-145' />
 minor_status INTEGER</li>
 </ul>
-<div class="standard"><a id='magicparlabel-155' />
+<div class="standard"><a id='magicparlabel-146' />
 Return major status codes:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-156' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-147' />
 GSS_S_COMPLETE indicates success.</li>
-<li class="itemize_item"><a id='magicparlabel-157' />
+<li class="itemize_item"><a id='magicparlabel-148' />
 GSS_S_FAILURE indicates a general failure.</li>
 </ul>
-<div class="standard"><a id='magicparlabel-158' />
+<div class="standard"><a id='magicparlabel-149' />
 This function tells the mechanism (when one is eventually chosen and invoked) that the application requests the given req_flags and undestands the given ret_flags. Initiators can override the req_flags in their GSS_Init_sec_context() call, but if no flags are requested there then the req_flags set on the empty context will be used.</div>
 
-<div class="standard"><a id='magicparlabel-159' />
-NOTE: The abstract GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-163' />
+<div class="standard"><a id='magicparlabel-150' />
+NOTE: The abstract GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-154' />
 RFC2743</div>
 </div> uses individual elements -one per-flag- instead of a &ldquo;FLAGS&rdquo; type. This is unwieldy, therefore we introduce an abstract type named &ldquo;FLAGS&rdquo; to act as a set of all the request/return flags defined for the abstract GSS-API.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.2.1</span> <a id='magicparlabel-164' />
+<h4 class="subsubsection"><span class="subsubsection_label">2.2.1</span> <a id='magicparlabel-155' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-165' />
-</div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-169' />
+<div class="standard"><a id='magicparlabel-156' />
 </div>
 <div class='float float-listings'><pre> OM_uint32
  gss_set_context_flags(OM_uint32 *minor_status,
@@ -506,94 +485,78 @@ C-Bindings</h4>
                        uint64_t req_flags,
                        uint64_t ret_flags);</pre></div>
 
-
-<div class="plain_layout"><a id='magicparlabel-178' />
-<div class='float-caption float-caption-figure'>Figure 2:<div class="plain_layout"><a id='magicparlabel-182' />
-C-Bindings of GSS_Set_context_flags()</div>
-</div></div>
-</div>
-
-<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-183' />
+<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-165' />
 Return Flag for Channel Binding State Signalling </h3>
-<div class="standard"><a id='magicparlabel-184' />
-Whenever both the initiator and the acceptor provide matching channel bindings to GSS_Init_sec_context() and GSS_Accept_sec_context(), respectively, then the mechanism SHALL indicate that the context is channel bound via an output flag, ret_channel_bound_flag, for the established context.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.3.1</span> <a id='magicparlabel-185' />
+<div class="standard"><a id='magicparlabel-166' />
+Whenever both the initiator and the acceptor provide matching channel bindings to GSS_Init_sec_context() and GSS_Accept_sec_context(), respectively, then the mechanism SHALL indicate that the context is channel bound via an output flag, ret_channel_bound_flag, for the established context. Note that some mechanisms have no way for the acceptor to signal CB success to the initiator, in which case GSS_Init_sec_context() MUST NOT output the ret_channel_bound_flag.</div>
+<h4 class="subsubsection"><span class="subsubsection_label">2.3.1</span> <a id='magicparlabel-167' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-186' />
-</div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-190' />
+<div class="standard"><a id='magicparlabel-168' />
 </div>
 <div class='float float-listings'><pre> #define GSS_C_CHANNEL_BOUND_FLAG 2048 /* 0x00000800 */</pre></div>
 
-
-<div class="plain_layout"><a id='magicparlabel-195' />
-<div class='float-caption float-caption-figure'>Figure 3:<div class="plain_layout"><a id='magicparlabel-199' />
-C-Bindings of channel_bound_flag</div>
-</div></div>
-</div>
-
-<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-200' />
+<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-173' />
 Modified Channel Binding Semantics</h2>
-<div class="standard"><a id='magicparlabel-201' />
+<div class="standard"><a id='magicparlabel-174' />
 The channel binding semantics of the base GSS-API are modified as follows:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-202' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-175' />
 Whenever both, the initiator and acceptor shall have provided input_channel_bindings to GSS_Init/Accept_sec_context() and the channel bindings do not match, then the mechanism MUST fail to establish a security context token. This is a restatement of an existing requirement in the base specification, restated for convenience.</li>
-<li class="itemize_item"><a id='magicparlabel-203' />
+<li class="itemize_item"><a id='magicparlabel-176' />
 Whenever the acceptor application shall have a) provided channel bindings to GSS_Accept_sec_context(), and b) not indicated support for the ret_channel_bound_flag flag, then the mechanism MUST fail to establish a security context if the initiator did not provide channel bindings data. This requirement is for security purposes, to make applications predating this document secure, and this requirement reflects actual implementations as deployed.</li>
-<li class="itemize_item"><a id='magicparlabel-204' />
+<li class="itemize_item"><a id='magicparlabel-177' />
 Whenever the initiator application shall have a) provided channel bindings to GSS_Init_sec_context(), and b) not indicated support for the ret_channel_bound_flag flag, then the mechanism SHOULD NOT fail to establish a security context just because the acceptor failed to provide channel bindings data. This recommendation is for interoperability purposes, and reflects actual implementations that have been deployed. It is possible that not all security mechanism protocols can implement this requirement easily.</li>
-<li class="itemize_item"><a id='magicparlabel-205' />
+<li class="itemize_item"><a id='magicparlabel-178' />
 Whenever the application shall have a) provided channel bindings to GSS_Init_sec_context() or GSS_Accept_sec_context(), and b) indicated support for the ret_channel_bound_flag flag, then the mechanism MUST NOT fail to establish a security context just because the peer did not provide channel bindings data. The mechanism MUST output the ret_channel_bound_flag if both peers provided the same input_channel_bindings to GSS_Init_sec_context() and GSS_Accept_sec_context. The mechanism MUST NOT output the ret_channel_bound_flag if either (or both) peer did not provide input_channel_bindings to GSS_Init/Accept_sec_context(). This requirement restores the original base GSS-API specified behavior, with the addition of the ret_channel_bound_flag flag</li>
 </ul>
-<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-206' />
+<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-179' />
 Security Considerations</h2>
-<div class="standard"><a id='magicparlabel-207' />
-This document deals with security. There are no security considerations that should be documented separately in this section. To recap, this document fixes a significant flaw in the base GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-211' />
+<div class="standard"><a id='magicparlabel-180' />
+This document deals with security. There are no security considerations that should be documented separately in this section. To recap, this document fixes a significant flaw in the base GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-184' />
 RFC2743</div>
-</div> specification that fortunately has not been implemented, and it adds a feature (that should have been in the base specification) for improved negotiation of use of channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-215' />
+</div> specification that fortunately has not been implemented, and it adds a feature (that should have been in the base specification) for improved negotiation of use of channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-188' />
 RFC5056</div>
 </div>.</div>
-<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-216' />
+<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-189' />
 IANA Considerations</h2>
-<div class="standard"><a id='magicparlabel-217' />
+<div class="standard"><a id='magicparlabel-190' />
 This document has no IANA considerations.</div>
-<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-218' />
+<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-191' />
 <a id="sec_References" />
 Normative References</h2>
-<div class="standard"><a id='magicparlabel-219' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-223' />
+<div class="standard"><a id='magicparlabel-192' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-196' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">rfc2119</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-224' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-228' />
+<div class="standard"><a id='magicparlabel-197' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-201' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">rfc2743</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-229' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-233' />
+<div class="standard"><a id='magicparlabel-202' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-206' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2744.xml">rfc2744</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-234' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-238' />
+<div class="standard"><a id='magicparlabel-207' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-211' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">rfc5056</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-239' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-243' />
+<div class="standard"><a id='magicparlabel-212' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-216' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml">rfc5587</a></div>
 </div></div>
-<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-244' />
+<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-217' />
 Informative References</h2>
-<div class="standard"><a id='magicparlabel-245' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-249' />
+<div class="standard"><a id='magicparlabel-218' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-222' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">rfc4121</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-250' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-254' />
+<div class="standard"><a id='magicparlabel-223' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-227' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5653.xml">rfc5653</a></div>
 </div></div>
 </body>
