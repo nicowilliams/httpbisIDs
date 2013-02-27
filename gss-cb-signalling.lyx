@@ -439,6 +439,18 @@ nico@cryptonector.com
 \end_layout
 
 \begin_layout Abstract
+Channel binding is a technique that allows applications to use a secure
+ channel at a lower layer without having to use authentication at that lower
+ layer.
+ The concept of channel binding comes from the Generic Security Services
+ Application Programming Interface (GSS-API).
+ It turns out that the semantics implemented are different that those specified
+ in RFC2743, and the specification has a serious bug.
+ This document addresses both, the inconsistency as-implemented and the
+ specification bug.
+\end_layout
+
+\begin_layout Abstract
 This Internet-Draft proposes the addition of a 
 \begin_inset Quotes eld
 \end_inset
@@ -449,10 +461,10 @@ channel bound
 
  return flag for the GSS_Init_sec_context() and GSS_Accept_sec_context()
  functions.
- Two behaviors are specified: a default, safe behavior, and a behavior that
- is only safe when the application specifically tells the Generic Security
- Services Application Programming Interface (GSS-API) that it (the applicaiton)
- supports the new behavior.
+ Two behaviors are specified: a default, safe behavior reflecting existing
+ implementation deployments, and a behavior that is only safe when the applicati
+on specifically tells the GSS-API that it (the application) supports the
+ new behavior.
 \end_layout
 
 \begin_layout Standard
@@ -601,6 +613,21 @@ empty
  to security context token establishment.
 \end_layout
 
+\begin_layout Standard
+In 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.williams-williams-kitten-ctx-simple-async
+\end_layout
+
+\end_inset
+
+ we explore and extend this design to produce a more usable GSS-API (as
+ well as support for asynchronous operation).
+\end_layout
+
 \begin_layout Subsection
 Alternative Design
 \end_layout
@@ -632,6 +659,20 @@ l security context inquiry functions.
  the only outputs should be the status indicators and an output token --
  in fact, we may want to have just one new function called, perhaps, GSS_Step_se
 c_context(), with the role of initiator or acceptor set as a context option.
+\end_layout
+
+\begin_layout Standard
+See 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.williams-williams-kitten-ctx-simple-async
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -670,7 +711,7 @@ empty
 
  security context handles, b) setting req_flags and indicating which ret_flags
  the application understands.
- 
+ We also add new mechanism attributes describing mechanism capabilities.
 \end_layout
 
 \begin_layout Standard
@@ -963,6 +1004,27 @@ status open
 
 \end_layout
 
+\begin_layout Subsection
+New Mechanism Attributes
+\end_layout
+
+\begin_layout Itemize
+We add a new mechanism attribute, GSS_C_MA_CBINDING_CONFIRM, to indicate
+ that the initiator can and always does learn whether the acceptor application
+ supplied channel bindings.
+\end_layout
+
+\begin_layout Itemize
+We add a new mechanism attribute, GSS_C_MA_CBINDING_MAY_CONFIRM, to indicate
+ that the initiator may learn whether the acceptor application supplied
+ channel bindings, but only when the acceptor implementation of the mechanism
+ has been suitably updated.
+\end_layout
+
+\begin_layout Standard
+OID assignments TBD.
+\end_layout
+
 \begin_layout Section
 Modified Channel Binding Semantics
 \end_layout
@@ -1169,6 +1231,30 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml"
 
 \begin_layout Section
 Informative References
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex EmbeddedBibXML
+status collapsed
+
+\begin_layout Plain Layout
+<reference anchor="I-D.williams-williams-kitten-ctx-simple-async"> <front>
+ <title>Simplified and Asynchronous Security Context Interfaces for the
+ Generic Security Services Application Programming Interface</title> <author
+ initials="N." surname="Williams" fullname="Nicolas Williams"> <organization/>
+ </author> <date month="February" day="13" year="2013"/> <abstract> <t>Abstract
+ This Internet-Draft proposes extensions to the Generic Security Services
+ Application Programming Interface (GSS-API) for replacing the exiting GSS_Init_
+sec_context() and GSS_Accept_sec_context() functions with simplified forms
+ that also support asynchrony.</t> </abstract> </front> <seriesInfo name="Interne
+t-Draft" value="draft-williams-williams-kitten-ctx-simple-async-00"/> <format
+ type="TXT" target="http://www.ietf.org/internet-drafts/draft-williams-williams-ki
+tten-ctx-simple-async-00.txt"/> </reference>
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard

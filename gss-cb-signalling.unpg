@@ -3,10 +3,10 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Updates: RFC2743 RFC2744                               February 22, 2013
+Updates: RFC2743 RFC2744                               February 26, 2013
 (if approved)
 Intended status: Standards Track
-Expires: August 26, 2013
+Expires: August 30, 2013
 
 
 Channel Binding Signalling for the Generic Security Services Application
@@ -15,12 +15,21 @@ Channel Binding Signalling for the Generic Security Services Application
 
 Abstract
 
+   Channel binding is a technique that allows applications to use a
+   secure channel at a lower layer without having to use authentication
+   at that lower layer.  The concept of channel binding comes from the
+   Generic Security Services Application Programming Interface (GSS-
+   API).  It turns out that the semantics implemented are different that
+   those specified in RFC2743, and the specification has a serious bug.
+   This document addresses both, the inconsistency as-implemented and
+   the specification bug.
+
    This Internet-Draft proposes the addition of a "channel bound" return
    flag for the GSS_Init_sec_context() and GSS_Accept_sec_context()
-   functions.  Two behaviors are specified: a default, safe behavior,
-   and a behavior that is only safe when the application specifically
-   tells the Generic Security Services Application Programming Interface
-   (GSS-API) that it (the applicaiton) supports the new behavior.
+   functions.  Two behaviors are specified: a default, safe behavior
+   reflecting existing implementation deployments, and a behavior that
+   is only safe when the application specifically tells the GSS-API that
+   it (the application) supports the new behavior.
 
 Status of this Memo
 
@@ -37,7 +46,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 26, 2013.
+   This Internet-Draft will expire on August 30, 2013.
 
 Copyright Notice
 
@@ -70,6 +79,7 @@ Table of Contents
    2.2.1.  C-Bindings
    2.3.    Return Flag for Channel Binding State Signalling
    2.3.1.  C-Bindings
+   2.4.    New Mechanism Attributes
    3.      Modified Channel Binding Semantics
    4.      Security Considerations
    5.      IANA Considerations
@@ -134,6 +144,10 @@ Table of Contents
    This empty security context handle can then be used to set options
    relating to security context token establishment.
 
+   In [I-D.williams-williams-kitten-ctx-simple-async] we explore and
+   extend this design to produce a more usable GSS-API (as well as
+   support for asynchronous operation).
+
 1.3.  Alternative Design
 
    The previous design was based on an existing, non-standard extension
@@ -161,6 +175,8 @@ Table of Contents
    just one new function called, perhaps, GSS_Step_sec_context(), with
    the role of initiator or acceptor set as a context option.
 
+   See [I-D.williams-williams-kitten-ctx-simple-async].
+
 1.5.  Conventions used in this document
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
@@ -173,7 +189,8 @@ Table of Contents
    We propose a new return flag for GSS_Init_sec_context() and
    GSS_Accept_sec_context(), as well as a pair of functions for a)
    creating "empty" security context handles, b) setting req_flags and
-   indicating which ret_flags the application understands.
+   indicating which ret_flags the application understands.  We also add
+   new mechanism attributes describing mechanism capabilities.
 
    C bindings of these extensions are provided along the lines of
    [RFC2744] and [RFC5587].
@@ -274,6 +291,19 @@ Table of Contents
 
     #define GSS_C_CHANNEL_BOUND_FLAG 2048 /* 0x00000800 */
 
+2.4.  New Mechanism Attributes
+
+   o  We add a new mechanism attribute, GSS_C_MA_CBINDING_CONFIRM, to
+      indicate that the initiator can and always does learn whether the
+      acceptor application supplied channel bindings.
+
+   o  We add a new mechanism attribute, GSS_C_MA_CBINDING_MAY_CONFIRM,
+      to indicate that the initiator may learn whether the acceptor
+      application supplied channel bindings, but only when the acceptor
+      implementation of the mechanism has been suitably updated.
+
+   OID assignments TBD.
+
 
 3.  Modified Channel Binding Semantics
 
@@ -362,6 +392,13 @@ Table of Contents
 
    [RFC5653]  Upadhyay, M. and S. Malkani, "Generic Security Service API
               Version 2: Java Bindings Update", RFC 5653, August 2009.
+
+   [I-D.williams-williams-kitten-ctx-simple-async]
+              Williams, N., "Simplified and Asynchronous Security
+              Context Interfaces for the Generic Security Services
+              Application Programming Interface",
+              draft-williams-williams-kitten-ctx-simple-async-00 (work
+              in progress), February 2013.
 
 
 Author's Address
