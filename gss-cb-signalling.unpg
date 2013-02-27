@@ -3,10 +3,10 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Updates: RFC2743 RFC2744                               February 26, 2013
+Updates: RFC2743 RFC2744                               February 27, 2013
 (if approved)
 Intended status: Standards Track
-Expires: August 30, 2013
+Expires: August 31, 2013
 
 
 Channel Binding Signalling for the Generic Security Services Application
@@ -29,7 +29,8 @@ Abstract
    functions.  Two behaviors are specified: a default, safe behavior
    reflecting existing implementation deployments, and a behavior that
    is only safe when the application specifically tells the GSS-API that
-   it (the application) supports the new behavior.
+   it (the application) supports the new behavior.  Additional API
+   elements related to this are also added.
 
 Status of this Memo
 
@@ -46,7 +47,7 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 30, 2013.
+   This Internet-Draft will expire on August 31, 2013.
 
 Copyright Notice
 
@@ -80,6 +81,9 @@ Table of Contents
    2.3.    Return Flag for Channel Binding State Signalling
    2.3.1.  C-Bindings
    2.4.    New Mechanism Attributes
+   2.5.    Request Flag for Acceptor Confirmation of Channel
+           Binding
+   2.5.1.  C-Bindings
    3.      Modified Channel Binding Semantics
    4.      Security Considerations
    5.      IANA Considerations
@@ -120,6 +124,11 @@ Table of Contents
    mechanisms (but not of the GSS-API itself) has similar semantics in
    its API to those proposed herein.  [XXX add references to the
    relevant SSPI docs? -Nico]
+
+   Additionally, there may be applications where it is important for
+   initiators to know that acceptors did use channel binding, and even
+   to know whether a mechanism is capable of indicating as much.  We add
+   a request flag and two mechanism attributes for such applications.
 
 1.1.  Error in RFC2743
 
@@ -304,6 +313,26 @@ Table of Contents
 
    OID assignments TBD.
 
+2.5.  Request Flag for Acceptor Confirmation of Channel Binding
+
+   We add a new request flag for GSS_Init_sec_context(),
+   req_cb_confirmation_flag, to be used by initiators that insist on
+   acceptors providing channel bindings.  This flag is only of use to
+   mechanism-negotiation pseudo-mechanisms (e.g., SPNEGO [RFC4178]): if
+   set the pseudo-mechanism MUST NOT negotiate any mechanisms that lack
+   the GSS_C_MA_CBINDING_CONFIRM or GSS_C_MA_CBINDING_MAY_CONFIRM
+   mechanism attributes, and SHOULD NOT negotiate mechanisms that lack
+   the GSS_C_MA_CBINDING_CONFIRM mechanism attribute (except if allowed
+   by local configuration).
+
+2.5.1.  C-Bindings
+
+   Because GSS_C_CHANNEL_BOUND_FLAG is a return flag only, and this flag
+   is a request flag only, and to save on precious flag bits, we use the
+   same flag bit assignment for both flags:
+
+    #define GSS_C_CB_CONFIRM_FLAG 2048 /* 0x00000800 */
+
 
 3.  Modified Channel Binding Semantics
 
@@ -389,6 +418,11 @@ Table of Contents
               Version 5 Generic Security Service Application Program
               Interface (GSS-API) Mechanism: Version 2", RFC 4121,
               July 2005.
+
+   [RFC4178]  Zhu, L., Leach, P., Jaganathan, K., and W. Ingersoll, "The
+              Simple and Protected Generic Security Service Application
+              Program Interface (GSS-API) Negotiation Mechanism",
+              RFC 4178, October 2005.
 
    [RFC5653]  Upadhyay, M. and S. Malkani, "Generic Security Service API
               Version 2: Java Bindings Update", RFC 5653, August 2009.

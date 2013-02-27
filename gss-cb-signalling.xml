@@ -14,6 +14,7 @@
 <!ENTITY rfc5056 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">
 <!ENTITY rfc5587 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml">
 <!ENTITY rfc4121 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">
+<!ENTITY rfc4178 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4178.xml">
 <!ENTITY rfc5653 PUBLIC "" "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5653.xml">
 ]>
 <rfc docName="draft-williams-kitten-channel-bound-flag-03" ipr="trust200902" category="std" updates="RFC2743 RFC2744">
@@ -34,11 +35,11 @@ Security Area
       <t>
 Channel binding is a technique that allows applications to use a secure channel at a lower layer without having to use authentication at that lower layer. The concept of channel binding comes from the Generic Security Services Application Programming Interface (GSS-API). It turns out that the semantics implemented are different that those specified in RFC2743, and the specification has a serious bug. This document addresses both, the inconsistency as-implemented and the specification bug.</t>
       <t>
-This Internet-Draft proposes the addition of a “channel bound” return flag for the GSS_Init_sec_context() and GSS_Accept_sec_context() functions. Two behaviors are specified: a default, safe behavior reflecting existing implementation deployments, and a behavior that is only safe when the application specifically tells the GSS-API that it (the application) supports the new behavior.</t>
+This Internet-Draft proposes the addition of a “channel bound” return flag for the GSS_Init_sec_context() and GSS_Accept_sec_context() functions. Two behaviors are specified: a default, safe behavior reflecting existing implementation deployments, and a behavior that is only safe when the application specifically tells the GSS-API that it (the application) supports the new behavior. Additional API elements related to this are also added.</t>
     </abstract>
   </front>
   <middle>
-    <section title="Introduction" anchor="d1e263">
+    <section title="Introduction" anchor="d1e279">
       <t>
 The GSS-API <xref target="RFC2743"/> supports “channel binding” <xref target="RFC5056"/>, a technique for detection of man-in-the-middle (MITM) attacks in secure channels at lower network layers. This facility is meant to be all-or-nothing: either both the initiator and acceptor use it and it succeeds, or both must not use it. This has created a negotiation problem when retrofitting the use of channel binding into existing application protocols.</t>
       <t>
@@ -47,39 +48,41 @@ Many implementations of the Kerberos V5 GSS-API mechanism <xref target="RFC4121"
 This document proposes a new method for deployment of channel binding that allows the feature to be enabled on the acceptor side before fixing all initiators. If the GSS-API had always had a return flag by which to indicate channel binding state then we could have had a simpler method of deploying channel binding: applications check that return flag and act accordingly (e.g., fail when channel binding is required). We cannot safely introduce this behavior now without an indication of support by the application.</t>
       <t>
 It is worth noting that at least one implementor of GSS-API mechanisms (but not of the GSS-API itself) has similar semantics in its API to those proposed herein. [XXX add references to the relevant SSPI docs? -Nico]</t>
-      <section title="Error in RFC2743" anchor="d1e300">
+      <t>
+Additionally, there may be applications where it is important for initiators to know that acceptors did use channel binding, and even to know whether a mechanism is capable of indicating as much. We add a request flag and two mechanism attributes for such applications.</t>
+      <section title="Error in RFC2743" anchor="d1e319">
         <t>
 The GSS-APIv2u1 <xref target="RFC2743"/> seems to indicate that mechanisms must ignore channel bindings when one party provided none. In practice some mechanisms ignore channel bindings when the acceptor provides none, but not when the initiator provides none. Note that it would be useless to allow security context establishment to succeed when the initiator does not provide channel bindings but the acceptor does, at least as long as there's no outward indication of whether channel binding was used! And indeed, the GSS-APIv2u1 does not provide any such indication. We correct this flaw in this document.</t>
       </section>
-      <section title="Design" anchor="d1e315">
+      <section title="Design" anchor="d1e334">
         <t>
 After some discussion on the mailing list of various designs for signalling application support for the new flag we've settled on copying an aspect of the Java Bindings of the GSS-API <xref target="RFC5653"/>, specifically the notion of creating an “empty” SECURITY CONTEXT handle that can then be passed to GSS_Init_sec_context() and GSS_Accept_sec_context() where they normally expect a NULL handle. This empty security context handle can then be used to set options relating to security context token establishment.</t>
         <t>
 In <xref target="I-D.williams-williams-kitten-ctx-simple-async"/> we explore and extend this design to produce a more usable GSS-API (as well as support for asynchronous operation).</t>
       </section>
-      <section title="Alternative Design" anchor="d1e339">
+      <section title="Alternative Design" anchor="d1e358">
         <t>
 The previous design was based on an existing, non-standard extension for carrying security context establishment options in CREDENTIAL HANDLEs. Note that a notion of CREDENTIAL HANDLE options might still be useful for options that are really specific to credentials rather than security context tokens (for example: setting an acceptable cryptographic security profile on a CREDENTIAL HANDLE and receiving a new handle with possibly fewer elements, reflecting that some credentials cannot meet the requirement).</t>
       </section>
-      <section title="Future Directions" anchor="d1e348">
+      <section title="Future Directions" anchor="d1e367">
         <t>
 We're likely to introduce additional mutator functions of empty contexts, with mutators corresponding to many of the existing input arguments of GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a few additional security context inquiry functions. We're also likely to then introduce new variants of GSS_Init_sec_context() and GSS_Accept_sec_context() with all of those input and output parameters removed that could be set or retrieved with the other new functions. The only inputs that the new GSS_Init/Accept_sec_context() must have are: a security context handle (never NULL), and an input context token, and the only outputs should be the status indicators and an output token -- in fact, we may want to have just one new function called, perhaps, GSS_Step_sec_context(), with the role of initiator or acceptor set as a context option.</t>
         <t>
 See <xref target="I-D.williams-williams-kitten-ctx-simple-async"/>.</t>
       </section>
-      <section title="Conventions used in this document" anchor="d1e367">
+      <section title="Conventions used in this document" anchor="d1e386">
         <t>
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="RFC2119"/>.</t>
       </section>
     </section>
-    <section title="Channel Binding State Extension" anchor="d1e382">
+    <section title="Channel Binding State Extension" anchor="d1e401">
       <t>
 We propose a new return flag for GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a pair of functions for a) creating “empty” security context handles, b) setting req_flags and indicating which ret_flags the application understands. We also add new mechanism attributes describing mechanism capabilities.</t>
       <t>
 C bindings of these extensions are provided along the lines of <xref target="RFC2744"/> and <xref target="RFC5587"/>.</t>
       <t>
 In the future we might move more of the many input (and output) arguments to GSS_Init_sec_context() and GSS_Accept_sec_context() into mutators on empty security context handles.</t>
-      <section title="GSS_Create_sec_context()" anchor="d1e409">
+      <section title="GSS_Create_sec_context()" anchor="d1e428">
         <t>
 Inputs:</t>
         <t>
@@ -114,7 +117,7 @@ GSS_S_FAILURE indicates a general failure.</t>
         </t>
         <t>
 This function creates an “empty” security context handle that can be passed to GSS_Init_sec_context() or GSS_Accept_sec_context() where they expect a NULL context.</t>
-        <section title="C-Bindings" anchor="d1e452">
+        <section title="C-Bindings" anchor="d1e471">
           <t>
 </t>
           <t>
@@ -126,7 +129,7 @@ This function creates an “empty” security context handle that can be passed 
           </t>
         </section>
       </section>
-      <section title="GSS_Set_context_flags()" anchor="d1e464">
+      <section title="GSS_Set_context_flags()" anchor="d1e483">
         <t>
 Inputs:</t>
         <t>
@@ -163,7 +166,7 @@ GSS_S_FAILURE indicates a general failure.</t>
 This function tells the mechanism (when one is eventually chosen and invoked) that the application requests the given req_flags and undestands the given ret_flags. Initiators can override the req_flags in their GSS_Init_sec_context() call, but if no flags are requested there then the req_flags set on the empty context will be used.</t>
         <t>
 NOTE: The abstract GSS-API <xref target="RFC2743"/> uses individual elements -one per-flag- instead of a “FLAGS” type. This is unwieldy, therefore we introduce an abstract type named “FLAGS” to act as a set of all the request/return flags defined for the abstract GSS-API.</t>
-        <section title="C-Bindings" anchor="d1e522">
+        <section title="C-Bindings" anchor="d1e541">
           <t>
 </t>
           <t>
@@ -177,10 +180,10 @@ NOTE: The abstract GSS-API <xref target="RFC2743"/> uses individual elements -on
           </t>
         </section>
       </section>
-      <section title="Return Flag for Channel Binding State Signalling" anchor="d1e534">
+      <section title="Return Flag for Channel Binding State Signalling" anchor="d1e553">
         <t>
 Whenever both the initiator and the acceptor provide matching channel bindings to GSS_Init_sec_context() and GSS_Accept_sec_context(), respectively, then the mechanism SHALL indicate that the context is channel bound via an output flag, ret_channel_bound_flag, for the established context. Note that some mechanisms have no way for the acceptor to signal CB success to the initiator, in which case GSS_Init_sec_context() MUST NOT output the ret_channel_bound_flag.</t>
-        <section title="C-Bindings" anchor="d1e543">
+        <section title="C-Bindings" anchor="d1e562">
           <t>
 </t>
           <t>
@@ -190,7 +193,7 @@ Whenever both the initiator and the acceptor provide matching channel bindings t
           </t>
         </section>
       </section>
-      <section title="New Mechanism Attributes" anchor="d1e556">
+      <section title="New Mechanism Attributes" anchor="d1e575">
         <t>
           <list style="symbols">
             <t>
@@ -202,8 +205,23 @@ We add a new mechanism attribute, GSS_C_MA_CBINDING_MAY_CONFIRM, to indicate tha
         <t>
 OID assignments TBD.</t>
       </section>
+      <section title="Request Flag for Acceptor Confirmation of Channel Binding" anchor="d1e591">
+        <t>
+We add a new request flag for GSS_Init_sec_context(), req_cb_confirmation_flag, to be used by initiators that insist on acceptors providing channel bindings. This flag is only of use to mechanism-negotiation pseudo-mechanisms (e.g., SPNEGO <xref target="RFC4178"/>): if set the pseudo-mechanism MUST NOT negotiate any mechanisms that lack the GSS_C_MA_CBINDING_CONFIRM or GSS_C_MA_CBINDING_MAY_CONFIRM mechanism attributes, and SHOULD NOT negotiate mechanisms that lack the GSS_C_MA_CBINDING_CONFIRM mechanism attribute (except if allowed by local configuration).</t>
+        <section title="C-Bindings" anchor="d1e606">
+          <t>
+Because GSS_C_CHANNEL_BOUND_FLAG is a return flag only, and this flag is a request flag only, and to save on precious flag bits, we use the same flag bit assignment for both flags:</t>
+          <t>
+</t>
+          <t>
+            <figure suppress-title="" align="">
+              <artwork> #define GSS_C_CB_CONFIRM_FLAG 2048 /* 0x00000800 */</artwork>
+            </figure>
+          </t>
+        </section>
+      </section>
     </section>
-    <section title="Modified Channel Binding Semantics" anchor="d1e572">
+    <section title="Modified Channel Binding Semantics" anchor="d1e622">
       <t>
 The channel binding semantics of the base GSS-API are modified as follows:</t>
       <t>
@@ -219,11 +237,11 @@ Whenever the application shall have a) provided channel bindings to GSS_Init_sec
         </list>
       </t>
     </section>
-    <section title="Security Considerations" anchor="d1e594">
+    <section title="Security Considerations" anchor="d1e644">
       <t>
 This document deals with security. There are no security considerations that should be documented separately in this section. To recap, this document fixes a significant flaw in the base GSS-API <xref target="RFC2743"/> specification that fortunately has not been implemented, and it adds a feature (that should have been in the base specification) for improved negotiation of use of channel binding <xref target="RFC5056"/>.</t>
     </section>
-    <section title="IANA Considerations" anchor="d1e615">
+    <section title="IANA Considerations" anchor="d1e665">
       <t>
 This document has no IANA considerations.</t>
     </section>
@@ -236,6 +254,7 @@ This document has no IANA considerations.</t>
 &rfc5587;
 </references>
     <references title="Informative References">&rfc4121;
+&rfc4178;
 &rfc5653;
 
 <reference anchor="I-D.williams-williams-kitten-ctx-simple-async"><front><title>Simplified and Asynchronous Security Context Interfaces for the Generic Security Services Application Programming Interface</title><author initials="N." surname="Williams" fullname="Nicolas Williams"><organization/></author><date month="February" day="13" year="2013"/><abstract><t>Abstract This Internet-Draft proposes extensions to the Generic Security Services Application Programming Interface (GSS-API) for replacing the exiting GSS_Init_sec_context() and GSS_Accept_sec_context() functions with simplified forms that also support asynchrony.</t></abstract></front><seriesInfo name="Internet-Draft" value="draft-williams-williams-kitten-ctx-simple-async-00"/><format type="TXT" target="http://www.ietf.org/internet-drafts/draft-williams-williams-kitten-ctx-simple-async-00.txt"/></reference>

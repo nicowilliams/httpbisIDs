@@ -301,7 +301,7 @@ nico@cryptonector.com</div>
 <div class="abstract_item"><a id='magicparlabel-65' />
 Channel binding is a technique that allows applications to use a secure channel at a lower layer without having to use authentication at that lower layer. The concept of channel binding comes from the Generic Security Services Application Programming Interface (GSS-API). It turns out that the semantics implemented are different that those specified in RFC2743, and the specification has a serious bug. This document addresses both, the inconsistency as-implemented and the specification bug.</div>
 <div class="abstract_item"><a id='magicparlabel-66' />
-This Internet-Draft proposes the addition of a &ldquo;channel bound&rdquo; return flag for the GSS_Init_sec_context() and GSS_Accept_sec_context() functions. Two behaviors are specified: a default, safe behavior reflecting existing implementation deployments, and a behavior that is only safe when the application specifically tells the GSS-API that it (the application) supports the new behavior.</div>
+This Internet-Draft proposes the addition of a &ldquo;channel bound&rdquo; return flag for the GSS_Init_sec_context() and GSS_Accept_sec_context() functions. Two behaviors are specified: a default, safe behavior reflecting existing implementation deployments, and a behavior that is only safe when the application specifically tells the GSS-API that it (the application) supports the new behavior. Additional API elements related to this are also added.</div>
 </div>
 <div class="standard"><a id='magicparlabel-67' />
 </div>
@@ -309,46 +309,51 @@ This Internet-Draft proposes the addition of a &ldquo;channel bound&rdquo; retur
 
 <div class='lyxtoc-1'><a href='#magicparlabel-68' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-68' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-85' class='tocentry'>1.1 Error in RFC2743</a> <a href='#magicparlabel-85' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-86' class='tocentry'>1.1 Error in RFC2743</a> <a href='#magicparlabel-86' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-91' class='tocentry'>1.2 Design</a> <a href='#magicparlabel-91' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-92' class='tocentry'>1.2 Design</a> <a href='#magicparlabel-92' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-102' class='tocentry'>1.3 Alternative Design</a> <a href='#magicparlabel-102' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-103' class='tocentry'>1.3 Alternative Design</a> <a href='#magicparlabel-103' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-104' class='tocentry'>1.4 Future Directions</a> <a href='#magicparlabel-104' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-105' class='tocentry'>1.4 Future Directions</a> <a href='#magicparlabel-105' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-111' class='tocentry'>1.5 Conventions used in this document</a> <a href='#magicparlabel-111' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-112' class='tocentry'>1.5 Conventions used in this document</a> <a href='#magicparlabel-112' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-117' class='tocentry'>2 Channel Binding State Extension</a> <a href='#magicparlabel-117' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-118' class='tocentry'>2 Channel Binding State Extension</a> <a href='#magicparlabel-118' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-129' class='tocentry'>2.1 GSS_Create_sec_context()</a> <a href='#magicparlabel-129' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-130' class='tocentry'>2.1 GSS_Create_sec_context()</a> <a href='#magicparlabel-130' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-141' class='tocentry'>2.1.1 C-Bindings</a> <a href='#magicparlabel-141' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-142' class='tocentry'>2.1.1 C-Bindings</a> <a href='#magicparlabel-142' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-149' class='tocentry'>2.2 GSS_Set_context_flags()</a> <a href='#magicparlabel-149' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-150' class='tocentry'>2.2 GSS_Set_context_flags()</a> <a href='#magicparlabel-150' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-166' class='tocentry'>2.2.1 C-Bindings</a> <a href='#magicparlabel-166' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-167' class='tocentry'>2.2.1 C-Bindings</a> <a href='#magicparlabel-167' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-176' class='tocentry'>2.3 Return Flag for Channel Binding State Signalling </a> <a href='#magicparlabel-176' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-177' class='tocentry'>2.3 Return Flag for Channel Binding State Signalling </a> <a href='#magicparlabel-177' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-178' class='tocentry'>2.3.1 C-Bindings</a> <a href='#magicparlabel-178' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-179' class='tocentry'>2.3.1 C-Bindings</a> <a href='#magicparlabel-179' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-184' class='tocentry'>2.4 New Mechanism Attributes</a> <a href='#magicparlabel-184' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-185' class='tocentry'>2.4 New Mechanism Attributes</a> <a href='#magicparlabel-185' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-189' class='tocentry'>2.5 Request Flag for Acceptor Confirmation of Channel Binding</a> <a href='#magicparlabel-189' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-195' class='tocentry'>2.5.1 C-Bindings</a> <a href='#magicparlabel-195' class='tocarrow'>&gt;</a></div>
+</div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-188' class='tocentry'>3 Modified Channel Binding Semantics</a> <a href='#magicparlabel-188' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-202' class='tocentry'>3 Modified Channel Binding Semantics</a> <a href='#magicparlabel-202' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-194' class='tocentry'>4 Security Considerations</a> <a href='#magicparlabel-194' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-208' class='tocentry'>4 Security Considerations</a> <a href='#magicparlabel-208' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-204' class='tocentry'>5 IANA Considerations</a> <a href='#magicparlabel-204' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-218' class='tocentry'>5 IANA Considerations</a> <a href='#magicparlabel-218' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-206' class='tocentry'>6 Normative References</a> <a href='#magicparlabel-206' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-220' class='tocentry'>6 Normative References</a> <a href='#magicparlabel-220' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-232' class='tocentry'>7 Informative References</a> <a href='#magicparlabel-232' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-246' class='tocentry'>7 Informative References</a> <a href='#magicparlabel-246' class='tocarrow'>&gt;</a></div>
 </div>
 
 <h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-68' />
@@ -370,135 +375,138 @@ This document proposes a new method for deployment of channel binding that allow
 
 <div class="standard"><a id='magicparlabel-84' />
 It is worth noting that at least one implementor of GSS-API mechanisms (but not of the GSS-API itself) has similar semantics in its API to those proposed herein. [XXX add references to the relevant SSPI docs? -Nico]</div>
-<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-85' />
+
+<div class="standard"><a id='magicparlabel-85' />
+Additionally, there may be applications where it is important for initiators to know that acceptors did use channel binding, and even to know whether a mechanism is capable of indicating as much. We add a request flag and two mechanism attributes for such applications.</div>
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-86' />
 Error in RFC2743</h3>
-<div class="standard"><a id='magicparlabel-86' />
-The GSS-APIv2u1 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-90' />
+<div class="standard"><a id='magicparlabel-87' />
+The GSS-APIv2u1 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-91' />
 RFC2743</div>
 </div> seems to indicate that mechanisms must ignore channel bindings when one party provided none. In practice some mechanisms ignore channel bindings when the acceptor provides none, but not when the initiator provides none. Note that it would be useless to allow security context establishment to succeed when the initiator does not provide channel bindings but the acceptor does, at least as long as there's no outward indication of whether channel binding was used! And indeed, the GSS-APIv2u1 does not provide any such indication. We correct this flaw in this document.</div>
-<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-91' />
+<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-92' />
 Design</h3>
-<div class="standard"><a id='magicparlabel-92' />
-After some discussion on the mailing list of various designs for signalling application support for the new flag we've settled on copying an aspect of the Java Bindings of the GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-96' />
+<div class="standard"><a id='magicparlabel-93' />
+After some discussion on the mailing list of various designs for signalling application support for the new flag we've settled on copying an aspect of the Java Bindings of the GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-97' />
 RFC5653</div>
 </div>, specifically the notion of creating an &ldquo;empty&rdquo; SECURITY CONTEXT handle that can then be passed to GSS_Init_sec_context() and GSS_Accept_sec_context() where they normally expect a NULL handle. This empty security context handle can then be used to set options relating to security context token establishment.</div>
 
-<div class="standard"><a id='magicparlabel-97' />
-In <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-101' />
+<div class="standard"><a id='magicparlabel-98' />
+In <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-102' />
 I-D.williams-williams-kitten-ctx-simple-async</div>
 </div> we explore and extend this design to produce a more usable GSS-API (as well as support for asynchronous operation).</div>
-<h3 class="subsection"><span class="subsection_label">1.3</span> <a id='magicparlabel-102' />
+<h3 class="subsection"><span class="subsection_label">1.3</span> <a id='magicparlabel-103' />
 Alternative Design</h3>
-<div class="standard"><a id='magicparlabel-103' />
+<div class="standard"><a id='magicparlabel-104' />
 The previous design was based on an existing, non-standard extension for carrying security context establishment options in CREDENTIAL HANDLEs. Note that a notion of CREDENTIAL HANDLE options might still be useful for options that are really specific to credentials rather than security context tokens (for example: setting an acceptable cryptographic security profile on a CREDENTIAL HANDLE and receiving a new handle with possibly fewer elements, reflecting that some credentials cannot meet the requirement).</div>
-<h3 class="subsection"><span class="subsection_label">1.4</span> <a id='magicparlabel-104' />
+<h3 class="subsection"><span class="subsection_label">1.4</span> <a id='magicparlabel-105' />
 Future Directions</h3>
-<div class="standard"><a id='magicparlabel-105' />
+<div class="standard"><a id='magicparlabel-106' />
 We're likely to introduce additional mutator functions of empty contexts, with mutators corresponding to many of the existing input arguments of GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a few additional security context inquiry functions. We're also likely to then introduce new variants of GSS_Init_sec_context() and GSS_Accept_sec_context() with all of those input and output parameters removed that could be set or retrieved with the other new functions. The only inputs that the new GSS_Init/Accept_sec_context() must have are: a security context handle (never NULL), and an input context token, and the only outputs should be the status indicators and an output token &ndash; in fact, we may want to have just one new function called, perhaps, GSS_Step_sec_context(), with the role of initiator or acceptor set as a context option.</div>
 
-<div class="standard"><a id='magicparlabel-106' />
-See <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-110' />
+<div class="standard"><a id='magicparlabel-107' />
+See <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-111' />
 I-D.williams-williams-kitten-ctx-simple-async</div>
 </div>.</div>
-<h3 class="subsection"><span class="subsection_label">1.5</span> <a id='magicparlabel-111' />
+<h3 class="subsection"><span class="subsection_label">1.5</span> <a id='magicparlabel-112' />
 Conventions used in this document</h3>
-<div class="standard"><a id='magicparlabel-112' />
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-116' />
+<div class="standard"><a id='magicparlabel-113' />
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-117' />
 RFC2119</div>
 </div>.</div>
-<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-117' />
+<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-118' />
 Channel Binding State Extension</h2>
-<div class="standard"><a id='magicparlabel-118' />
+<div class="standard"><a id='magicparlabel-119' />
 We propose a new return flag for GSS_Init_sec_context() and GSS_Accept_sec_context(), as well as a pair of functions for a) creating &ldquo;empty&rdquo; security context handles, b) setting req_flags and indicating which ret_flags the application understands. We also add new mechanism attributes describing mechanism capabilities.</div>
 
-<div class="standard"><a id='magicparlabel-119' />
-C bindings of these extensions are provided along the lines of <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-123' />
+<div class="standard"><a id='magicparlabel-120' />
+C bindings of these extensions are provided along the lines of <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-124' />
 RFC2744</div>
-</div> and <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-127' />
+</div> and <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-128' />
 RFC5587</div>
 </div>.</div>
 
-<div class="standard"><a id='magicparlabel-128' />
+<div class="standard"><a id='magicparlabel-129' />
 In the future we might move more of the many input (and output) arguments to GSS_Init_sec_context() and GSS_Accept_sec_context() into mutators on empty security context handles.</div>
-<h3 class="subsection"><span class="subsection_label">2.1</span> <a id='magicparlabel-129' />
+<h3 class="subsection"><span class="subsection_label">2.1</span> <a id='magicparlabel-130' />
 GSS_Create_sec_context()</h3>
-<div class="standard"><a id='magicparlabel-130' />
+<div class="standard"><a id='magicparlabel-131' />
 Inputs:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-131' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-132' />
 &lt;none&gt;</li>
 </ul>
-<div class="standard"><a id='magicparlabel-132' />
+<div class="standard"><a id='magicparlabel-133' />
 Outputs:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-133' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-134' />
 major_status INTEGER</li>
-<li class="itemize_item"><a id='magicparlabel-134' />
-minor_status INTEGER &ndash; note: mostly useless, but we should keep it</li>
 <li class="itemize_item"><a id='magicparlabel-135' />
+minor_status INTEGER &ndash; note: mostly useless, but we should keep it</li>
+<li class="itemize_item"><a id='magicparlabel-136' />
 context SECURITY CONTEXT</li>
 </ul>
-<div class="standard"><a id='magicparlabel-136' />
+<div class="standard"><a id='magicparlabel-137' />
 Return major status codes:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-137' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-138' />
 GSS_S_COMPLETE indicates success.</li>
-<li class="itemize_item"><a id='magicparlabel-138' />
-GSS_S_UNAVAILABLE indicates that memory is not available, for example.</li>
 <li class="itemize_item"><a id='magicparlabel-139' />
+GSS_S_UNAVAILABLE indicates that memory is not available, for example.</li>
+<li class="itemize_item"><a id='magicparlabel-140' />
 GSS_S_FAILURE indicates a general failure.</li>
 </ul>
-<div class="standard"><a id='magicparlabel-140' />
+<div class="standard"><a id='magicparlabel-141' />
 This function creates an &ldquo;empty&rdquo; security context handle that can be passed to GSS_Init_sec_context() or GSS_Accept_sec_context() where they expect a NULL context.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.1.1</span> <a id='magicparlabel-141' />
+<h4 class="subsubsection"><span class="subsubsection_label">2.1.1</span> <a id='magicparlabel-142' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-142' />
+<div class="standard"><a id='magicparlabel-143' />
 </div>
 <div class='float float-listings'><pre> OM_uint32
  gss_create_sec_context(OM_uint32 *minor_status,
                         gss_ctx_id_t *context);</pre></div>
 
-<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-149' />
+<h3 class="subsection"><span class="subsection_label">2.2</span> <a id='magicparlabel-150' />
 GSS_Set_context_flags()</h3>
-<div class="standard"><a id='magicparlabel-150' />
+<div class="standard"><a id='magicparlabel-151' />
 Inputs:</div>
 
 <dl class='description'><dt class="description_label">context&nbsp;CONTEXT&nbsp;HANDLE</dt>
-<dd class="description_item"><a id='magicparlabel-151' />
+<dd class="description_item"><a id='magicparlabel-152' />
  </dd>
 <dt class="description_label">req_flags&nbsp;FLAGS</dt>
-<dd class="description_item"><a id='magicparlabel-152' />
+<dd class="description_item"><a id='magicparlabel-153' />
  Requested flags. Applicable to acceptors and initiators.</dd>
 <dt class="description_label">ret_flags_understood&nbsp;FLAGS</dt>
-<dd class="description_item"><a id='magicparlabel-153' />
+<dd class="description_item"><a id='magicparlabel-154' />
  The set of return flags understood by the caller.</dd>
 </dl>
-<div class="standard"><a id='magicparlabel-154' />
+<div class="standard"><a id='magicparlabel-155' />
 Outputs:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-155' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-156' />
 major_status INTEGER</li>
-<li class="itemize_item"><a id='magicparlabel-156' />
+<li class="itemize_item"><a id='magicparlabel-157' />
 minor_status INTEGER</li>
 </ul>
-<div class="standard"><a id='magicparlabel-157' />
+<div class="standard"><a id='magicparlabel-158' />
 Return major status codes:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-158' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-159' />
 GSS_S_COMPLETE indicates success.</li>
-<li class="itemize_item"><a id='magicparlabel-159' />
+<li class="itemize_item"><a id='magicparlabel-160' />
 GSS_S_FAILURE indicates a general failure.</li>
 </ul>
-<div class="standard"><a id='magicparlabel-160' />
+<div class="standard"><a id='magicparlabel-161' />
 This function tells the mechanism (when one is eventually chosen and invoked) that the application requests the given req_flags and undestands the given ret_flags. Initiators can override the req_flags in their GSS_Init_sec_context() call, but if no flags are requested there then the req_flags set on the empty context will be used.</div>
 
-<div class="standard"><a id='magicparlabel-161' />
-NOTE: The abstract GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-165' />
+<div class="standard"><a id='magicparlabel-162' />
+NOTE: The abstract GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-166' />
 RFC2743</div>
 </div> uses individual elements -one per-flag- instead of a &ldquo;FLAGS&rdquo; type. This is unwieldy, therefore we introduce an abstract type named &ldquo;FLAGS&rdquo; to act as a set of all the request/return flags defined for the abstract GSS-API.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.2.1</span> <a id='magicparlabel-166' />
+<h4 class="subsubsection"><span class="subsubsection_label">2.2.1</span> <a id='magicparlabel-167' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-167' />
+<div class="standard"><a id='magicparlabel-168' />
 </div>
 <div class='float float-listings'><pre> OM_uint32
  gss_set_context_flags(OM_uint32 *minor_status,
@@ -506,93 +514,113 @@ C-Bindings</h4>
                        uint64_t req_flags,
                        uint64_t ret_flags);</pre></div>
 
-<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-176' />
+<h3 class="subsection"><span class="subsection_label">2.3</span> <a id='magicparlabel-177' />
 Return Flag for Channel Binding State Signalling </h3>
-<div class="standard"><a id='magicparlabel-177' />
+<div class="standard"><a id='magicparlabel-178' />
 Whenever both the initiator and the acceptor provide matching channel bindings to GSS_Init_sec_context() and GSS_Accept_sec_context(), respectively, then the mechanism SHALL indicate that the context is channel bound via an output flag, ret_channel_bound_flag, for the established context. Note that some mechanisms have no way for the acceptor to signal CB success to the initiator, in which case GSS_Init_sec_context() MUST NOT output the ret_channel_bound_flag.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">2.3.1</span> <a id='magicparlabel-178' />
+<h4 class="subsubsection"><span class="subsubsection_label">2.3.1</span> <a id='magicparlabel-179' />
 C-Bindings</h4>
-<div class="standard"><a id='magicparlabel-179' />
+<div class="standard"><a id='magicparlabel-180' />
 </div>
 <div class='float float-listings'><pre> #define GSS_C_CHANNEL_BOUND_FLAG 2048 /* 0x00000800 */</pre></div>
 
-<h3 class="subsection"><span class="subsection_label">2.4</span> <a id='magicparlabel-184' />
+<h3 class="subsection"><span class="subsection_label">2.4</span> <a id='magicparlabel-185' />
 New Mechanism Attributes</h3>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-185' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-186' />
 We add a new mechanism attribute, GSS_C_MA_CBINDING_CONFIRM, to indicate that the initiator can and always does learn whether the acceptor application supplied channel bindings.</li>
-<li class="itemize_item"><a id='magicparlabel-186' />
+<li class="itemize_item"><a id='magicparlabel-187' />
 We add a new mechanism attribute, GSS_C_MA_CBINDING_MAY_CONFIRM, to indicate that the initiator may learn whether the acceptor application supplied channel bindings, but only when the acceptor implementation of the mechanism has been suitably updated.</li>
 </ul>
-<div class="standard"><a id='magicparlabel-187' />
+<div class="standard"><a id='magicparlabel-188' />
 OID assignments TBD.</div>
-<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-188' />
+<h3 class="subsection"><span class="subsection_label">2.5</span> <a id='magicparlabel-189' />
+Request Flag for Acceptor Confirmation of Channel Binding</h3>
+<div class="standard"><a id='magicparlabel-190' />
+We add a new request flag for GSS_Init_sec_context(), req_cb_confirmation_flag, to be used by initiators that insist on acceptors providing channel bindings. This flag is only of use to mechanism-negotiation pseudo-mechanisms (e.g., SPNEGO <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-194' />
+RFC4178</div>
+</div>): if set the pseudo-mechanism MUST NOT negotiate any mechanisms that lack the GSS_C_MA_CBINDING_CONFIRM or GSS_C_MA_CBINDING_MAY_CONFIRM mechanism attributes, and SHOULD NOT negotiate mechanisms that lack the GSS_C_MA_CBINDING_CONFIRM mechanism attribute (except if allowed by local configuration).</div>
+<h4 class="subsubsection"><span class="subsubsection_label">2.5.1</span> <a id='magicparlabel-195' />
+C-Bindings</h4>
+<div class="standard"><a id='magicparlabel-196' />
+Because GSS_C_CHANNEL_BOUND_FLAG is a return flag only, and this flag is a request flag only, and to save on precious flag bits, we use the same flag bit assignment for both flags:</div>
+
+<div class="standard"><a id='magicparlabel-197' />
+</div>
+<div class='float float-listings'><pre> #define GSS_C_CB_CONFIRM_FLAG 2048 /* 0x00000800 */</pre></div>
+
+<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-202' />
 Modified Channel Binding Semantics</h2>
-<div class="standard"><a id='magicparlabel-189' />
+<div class="standard"><a id='magicparlabel-203' />
 The channel binding semantics of the base GSS-API are modified as follows:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-190' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-204' />
 Whenever both, the initiator and acceptor shall have provided input_channel_bindings to GSS_Init/Accept_sec_context() and the channel bindings do not match, then the mechanism MUST fail to establish a security context token. This is a restatement of an existing requirement in the base specification, restated for convenience.</li>
-<li class="itemize_item"><a id='magicparlabel-191' />
+<li class="itemize_item"><a id='magicparlabel-205' />
 Whenever the acceptor application shall have a) provided channel bindings to GSS_Accept_sec_context(), and b) not indicated support for the ret_channel_bound_flag flag, then the mechanism MUST fail to establish a security context if the initiator did not provide channel bindings data. This requirement is for security purposes, to make applications predating this document secure, and this requirement reflects actual implementations as deployed.</li>
-<li class="itemize_item"><a id='magicparlabel-192' />
+<li class="itemize_item"><a id='magicparlabel-206' />
 Whenever the initiator application shall have a) provided channel bindings to GSS_Init_sec_context(), and b) not indicated support for the ret_channel_bound_flag flag, then the mechanism SHOULD NOT fail to establish a security context just because the acceptor failed to provide channel bindings data. This recommendation is for interoperability purposes, and reflects actual implementations that have been deployed. It is possible that not all security mechanism protocols can implement this requirement easily.</li>
-<li class="itemize_item"><a id='magicparlabel-193' />
+<li class="itemize_item"><a id='magicparlabel-207' />
 Whenever the application shall have a) provided channel bindings to GSS_Init_sec_context() or GSS_Accept_sec_context(), and b) indicated support for the ret_channel_bound_flag flag, then the mechanism MUST NOT fail to establish a security context just because the peer did not provide channel bindings data. The mechanism MUST output the ret_channel_bound_flag if both peers provided the same input_channel_bindings to GSS_Init_sec_context() and GSS_Accept_sec_context. The mechanism MUST NOT output the ret_channel_bound_flag if either (or both) peer did not provide input_channel_bindings to GSS_Init/Accept_sec_context(). This requirement restores the original base GSS-API specified behavior, with the addition of the ret_channel_bound_flag flag</li>
 </ul>
-<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-194' />
+<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-208' />
 Security Considerations</h2>
-<div class="standard"><a id='magicparlabel-195' />
-This document deals with security. There are no security considerations that should be documented separately in this section. To recap, this document fixes a significant flaw in the base GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-199' />
+<div class="standard"><a id='magicparlabel-209' />
+This document deals with security. There are no security considerations that should be documented separately in this section. To recap, this document fixes a significant flaw in the base GSS-API <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-213' />
 RFC2743</div>
-</div> specification that fortunately has not been implemented, and it adds a feature (that should have been in the base specification) for improved negotiation of use of channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-203' />
+</div> specification that fortunately has not been implemented, and it adds a feature (that should have been in the base specification) for improved negotiation of use of channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-217' />
 RFC5056</div>
 </div>.</div>
-<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-204' />
+<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-218' />
 IANA Considerations</h2>
-<div class="standard"><a id='magicparlabel-205' />
+<div class="standard"><a id='magicparlabel-219' />
 This document has no IANA considerations.</div>
-<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-206' />
+<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-220' />
 <a id="sec_References" />
 Normative References</h2>
-<div class="standard"><a id='magicparlabel-207' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-211' />
+<div class="standard"><a id='magicparlabel-221' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-225' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">rfc2119</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-212' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-216' />
+<div class="standard"><a id='magicparlabel-226' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-230' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">rfc2743</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-217' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-221' />
+<div class="standard"><a id='magicparlabel-231' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-235' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2744.xml">rfc2744</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-222' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-226' />
+<div class="standard"><a id='magicparlabel-236' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-240' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">rfc5056</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-227' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-231' />
+<div class="standard"><a id='magicparlabel-241' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-245' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5587.xml">rfc5587</a></div>
 </div></div>
-<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-232' />
+<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-246' />
 Informative References</h2>
-<div class="standard"><a id='magicparlabel-233' />
-<div class="flex_embeddedbibxml"><div class="plain_layout"><a id='magicparlabel-237' />
+<div class="standard"><a id='magicparlabel-247' />
+<div class="flex_embeddedbibxml"><div class="plain_layout"><a id='magicparlabel-251' />
 &lt;reference anchor="I-D.williams-williams-kitten-ctx-simple-async"&gt; &lt;front&gt; &lt;title&gt;Simplified and Asynchronous Security Context Interfaces for the Generic Security Services Application Programming Interface&lt;/title&gt; &lt;author initials="N." surname="Williams" fullname="Nicolas Williams"&gt; &lt;organization/&gt; &lt;/author&gt; &lt;date month="February" day="13" year="2013"/&gt; &lt;abstract&gt; &lt;t&gt;Abstract This Internet-Draft proposes extensions to the Generic Security Services Application Programming Interface (GSS-API) for replacing the exiting GSS_Init_sec_context() and GSS_Accept_sec_context() functions with simplified forms that also support asynchrony.&lt;/t&gt; &lt;/abstract&gt; &lt;/front&gt; &lt;seriesInfo name="Internet-Draft" value="draft-williams-williams-kitten-ctx-simple-async-00"/&gt; &lt;format type="TXT" target="http://www.ietf.org/internet-drafts/draft-williams-williams-kitten-ctx-simple-async-00.txt"/&gt; &lt;/reference&gt;</div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-238' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-242' />
+<div class="standard"><a id='magicparlabel-252' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-256' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">rfc4121</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-243' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-247' />
+<div class="standard"><a id='magicparlabel-257' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-261' />
+<a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4178.xml">rfc4178</a></div>
+</div></div>
+
+<div class="standard"><a id='magicparlabel-262' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-266' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5653.xml">rfc5653</a></div>
 </div></div>
 </body>

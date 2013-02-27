@@ -465,6 +465,7 @@ channel bound
  implementation deployments, and a behavior that is only safe when the applicati
 on specifically tells the GSS-API that it (the application) supports the
  new behavior.
+ Additional API elements related to this are also added.
 \end_layout
 
 \begin_layout Standard
@@ -553,6 +554,13 @@ It is worth noting that at least one implementor of GSS-API mechanisms (but
  not of the GSS-API itself) has similar semantics in its API to those proposed
  herein.
  [XXX add references to the relevant SSPI docs? -Nico]
+\end_layout
+
+\begin_layout Standard
+Additionally, there may be applications where it is important for initiators
+ to know that acceptors did use channel binding, and even to know whether
+ a mechanism is capable of indicating as much.
+ We add a request flag and two mechanism attributes for such applications.
 \end_layout
 
 \begin_layout Subsection
@@ -1025,6 +1033,55 @@ We add a new mechanism attribute, GSS_C_MA_CBINDING_MAY_CONFIRM, to indicate
 OID assignments TBD.
 \end_layout
 
+\begin_layout Subsection
+Request Flag for Acceptor Confirmation of Channel Binding
+\end_layout
+
+\begin_layout Standard
+We add a new request flag for GSS_Init_sec_context(), req_cb_confirmation_flag,
+ to be used by initiators that insist on acceptors providing channel bindings.
+ This flag is only of use to mechanism-negotiation pseudo-mechanisms (e.g.,
+ SPNEGO 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC4178
+\end_layout
+
+\end_inset
+
+): if set the pseudo-mechanism MUST NOT negotiate any mechanisms that lack
+ the GSS_C_MA_CBINDING_CONFIRM or GSS_C_MA_CBINDING_MAY_CONFIRM mechanism
+ attributes, and SHOULD NOT negotiate mechanisms that lack the GSS_C_MA_CBINDING
+_CONFIRM mechanism attribute (except if allowed by local configuration).
+\end_layout
+
+\begin_layout Subsubsection
+C-Bindings
+\end_layout
+
+\begin_layout Standard
+Because GSS_C_CHANNEL_BOUND_FLAG is a return flag only, and this flag is
+ a request flag only, and to save on precious flag bits, we use the same
+ flag bit assignment for both flags:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+ #define GSS_C_CB_CONFIRM_FLAG 2048 /* 0x00000800 */
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Section
 Modified Channel Binding Semantics
 \end_layout
@@ -1266,6 +1323,26 @@ status collapsed
 LatexCommand href
 name "rfc4121"
 target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex BibXML
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset href
+LatexCommand href
+name "rfc4178"
+target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4178.xml"
 
 \end_inset
 
