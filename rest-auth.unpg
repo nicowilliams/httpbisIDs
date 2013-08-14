@@ -3,13 +3,13 @@
 
 Network Working Group                                        N. Williams
 Internet-Draft                                              Cryptonector
-Intended status: Informational                          December 5, 2012
-Expires: June 8, 2013
+Intended status: Informational                           August 14, 2013
+Expires: February 15, 2014
 
 
   RESTful Authentication Pattern for the Hypertext Transport Protocol
                                  (HTTP)
-                    draft-williams-http-rest-auth-04
+                    draft-ietf-httpauth-rest-auth-00
 
 Abstract
 
@@ -40,11 +40,11 @@ Status of this Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 8, 2013.
+   This Internet-Draft will expire on February 15, 2014.
 
 Copyright Notice
 
-   Copyright (c) 2012 IETF Trust and the persons identified as the
+   Copyright (c) 2013 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -61,23 +61,25 @@ Copyright Notice
 Table of Contents
 
    1.      Introduction
+   1.1.    Protocol Outline
+   1.2.    API-Imposed Constraints
    2.      Conventions used in this document
-   3.      API-Imposed Constraints
-   4.      Protocol
-   4.1.    Negotiable Parameters
-   4.1.1.  Strong Binding to TLS
-   4.1.2.  WWW-Authenticate Header Value Prefix Syntax
-   4.1.3.  WWW-ChannelBinding-Types Header
-   4.1.4.  WWW-ChannelBinding-Type Header
-   4.1.5.  WWW-SessionBinding-Type Header
-   4.1.6.  WWW-ReplayProtection Header
-   4.2.    Protocol Flow
-   4.2.1.  One Round Trip Optimization: Challenges Born in
+   3.      Protocol
+   3.1.    Negotiable Parameters
+   3.1.1.  Strong Binding to TLS
+   3.1.2.  WWW-Authenticate Header Value Prefix Syntax
+   3.1.3.  WWW-ChannelBinding-Types Header
+   3.1.4.  WWW-ChannelBinding-Type Header
+   3.1.5.  WWW-SessionBinding-Type Header
+   3.1.6.  WWW-ReplayProtection Header
+   3.2.    Protocol Flow
+   3.2.1.  One Round Trip Optimization: Challenges Borne in
            WWW-Authenticate Headers
-   4.3.    Session Binding Types: Cookie, URI, and MAC
-   4.3.1.  The New WWW-Session-URI Header
-   4.3.2.  The New WWW-Session-MAC Header
-   4.3.3.  A MAC Trailer??
+   3.3.    Session Binding Types: Cookie, Session URI, and MAC
+   3.3.1.  The New WWW-Session-URI Header
+   3.3.2.  The New WWW-Session-MAC Header
+   3.3.3.  A MAC Trailer??
+   4.      Representation of Authenticated Session Resources
    5.      HTTP "Routing" and Authentication
    6.      In-band HTTP Authentication Alternatives
    7.      Sample/Potential RESTauth Authentication Mechanisms
@@ -107,8 +109,8 @@ Table of Contents
 1.  Introduction
 
    We propose a pattern for HTTP [RFC2616] [XXX add reference to
-   HTTP/2.0 as well] authentication mechanisms that, by being "RESTful",
-   obtains a number of benefits:
+   HTTP/2.0 as well?] authentication mechanisms that, by being
+   "RESTful", obtains a number of benefits:
 
    o  authentication that works with all versions of HTTP, even when the
       authentication mechanism requires multiple round trips;
@@ -116,13 +118,19 @@ Table of Contents
    o  compatibility with "HTTP routing" by making no assumptions that
       related requests are sent over the same TCP/TLS connection;
 
-   o  a "session URI" results that can be used to multiplex multiple
-      sessions onto the same TCP/TLS connections;
+   o  channel binding, or an HTTP session protocol such as
+      [I-D.williams-websec-session-continue-proto] (or any other meeting
+      requirements of HTTP session protocols, described in
+      [I-D.williams-websec-session-continue-prob]), can be used instead
+      of web cookies;
 
-   o  a "session URI" results that can be DELETEd to effect logout;
+      *  a "session URI" results that can be used to multiplex multiple
+         sessions onto the same TCP/TLS connections;
 
-   o  a "session URI" results that has better security semantics than
-      HTTP cookies;
+      *  a "session URI" results that can be DELETEd to effect logout;
+
+      *  a "session URI" results that has better security semantics than
+         HTTP cookies;
 
    o  the ability to refer to multiple sessions in one request wherever
       such a concept might be useful;
@@ -130,21 +138,21 @@ Table of Contents
    o  can be implemented by any application without changes being
       required to any HTTP stack;
 
-   o  can be implemented by the HTTP stack;
+      *  but it can also be implemented by the HTTP stack;
 
-   o  on the server side this can be implemented entirely via CGI and
-      FastCGI;
+   o  on the server side this can be implemented entirely via CGI,
+      FastCGI, WSGI, servlets, and so on;
 
-   o  by its RESTful nature, multi-legged authentication message
+   o  by its RESTful nature, multi-round trip authentication message
       exchanges are naturally handled without making any changes to
       HTTP.
 
    There are probably other benefits not listed above.
 
-   The rough outline of the protocol is quite simple:
+1.1.  Protocol Outline
 
    1.  initial authentication messages are POSTed to an agreed-upon or
-       indicated resource...
+       indicated "login" resource...
 
    2.  ....which then results in a new resource being created with the
        authentication reply message as the new resource's
@@ -152,7 +160,7 @@ Table of Contents
 
    3.  Thereafter any additional authentication message exchanges needed
        (for multi-legged mechanisms) are POSTed to the new resource
-       creating additional resources.
+       without creating additional resources.
 
    4.  The resource created by the POSTing of the initial authentication
        mechanism identifies the resulting session, and its URI is known
@@ -162,12 +170,44 @@ Table of Contents
        same TCP/TLS connections, implement logout, and share sessions
        across multiple related servers.
 
-   Server-initiated authentication is also possible, whereby the server
-   sends a challenge in 401 errors in headers.  If the server gives the
-   client a choice of mechanisms (multiple WWW-Authenticate header
-   values) and the client picks one where the server sent a challenge,
-   then the client consumes that message and POSTs subsequent ones to
-   the indicated URI.
+   Authentication using mechanisms that require that the server send the
+   first authentication message is also possible, in either of two ways:
+   the initial authentication message is sent in headers in a 401
+   response, or the client POSTs an empty first message to the login
+   resource.
+
+1.2.  API-Imposed Constraints
+
+   To the extent that existing Application Programming Interfaces (APIs)
+   assume specific styles of HTTP authentication message flows, if we
+   want those APIs to support RESTauth backwards-compatibly, then those
+   APIs may impose constraints on RESTauth.
+
+   For example, the Android Account Manager API assumes a single round
+   trip for authentication [XXX add reference!].  But the Android
+   Account Manager could perform all but the last round trip on behalf
+   of the application, then let the application perform the last round
+   trip.  In order for that to work we need the authentication message
+   exchange to be orthogonal to TCP/TLS connections -- that is, we need
+   it to be possible to use multiple TCP/TLS connections for completing
+   a single authentication exchange.  This is because the application
+   and the account manager will likely be using different TCP/TLS
+   connections.
+
+   A typical constraining characteristic might be that an API assumes
+   the use of GET with tokens encoded into the URI or into a header, or
+   that the API makes no room for the use of headers in authentication
+   message exchanges.
+
+   One way to work around such constraints may be to provide various
+   options in RESTauth.  Another might be to use OAuth 1.0 [RFC5849] or
+   2.0 [I-D.ietf-oauth-v2] as a bridge: the API would use this framework
+   under the covers then obtain OAuth credentials from the server that
+   the application can then use in any way that the API's form allows
+   for.
+
+   [[anchor1: TODO: Add a table/list of various known APIs and their
+   characteristics that might constrain this and/or other frameworks.]]
 
 
 2.  Conventions used in this document
@@ -177,45 +217,13 @@ Table of Contents
    document are to be interpreted as described in [RFC2119].
 
 
-3.  API-Imposed Constraints
+3.  Protocol
 
-   To the extent that existing Application Programming Interfaces (APIs)
-   assume specific styles of HTTP authentication message flows, if we
-   want those APIs to support RESTauth backwards-compatibly, then those
-   APIs may impose constraints on RESTauth.
-
-   For example, the Android Account Manager API assumes a single round
-   trip for authentication.  But the Android Account Manager could
-   perform all but the last round trip on behalf of the application,
-   then let the application perform the last round trip.  In order for
-   that to work we need the authentication message exchange to be
-   orthogonal to TCP/TLS connections - that is, we need it to be
-   possible to use multiple TCP/TLS connections for completing a single
-   authentication exchange.
-
-   A typical constraining characteristic might be that an API assumes
-   the use of GET with tokens encoded into the URI, or that the API
-   makes no room for the use of headers in authentication message
-   exchanges.
-
-   One way to work around such constraints may be to provide various
-   options in this framework.  Another might be to use OAuth 1.0
-   [RFC5849] or 2.0 [I-D.ietf-oauth-v2] as a bridge: the API would use
-   this framework under the covers then obtain OAuth credentials from
-   the server that the application can then use in any way that the
-   API's form allows for.
-
-   [[anchor1: TODO: Add a table/list of various APIs and their
-   characteristics that might constrain this framework.]]
-
-
-4.  Protocol
-
-   The are very few normative protocol elements here besides the outline
+   The are few normative protocol elements here besides the outline
    given in Section 1.  The normative protocol elements are:
 
-   o  the form of the WWW-Authenticate header values for RESTauth
-      mechanisms;
+   o  the form of the WWW-Authenticate header values -in 401 responses-
+      for RESTauth mechanisms;
 
    o  several new headers for advertising negotiable parameters that are
       orthogonal to WWW-Authenticate;
@@ -238,15 +246,18 @@ Table of Contents
    o  the use of channel binding [RFC5056] to TLS [RFC5246] for session
       protection;
 
-   o  the use of session keys as an option for integrity protection when
-      TLS is not used (a light-weight security mode).
+   And for applications that may not use TLS/HTTPS:
 
-4.1.  Negotiable Parameters
+   o  the use of session keys as an option for integrity protection when
+      TLS is not used (a light-weight security mode); see
+      [I-D.williams-websec-session-continue-proto].
+
+3.1.  Negotiable Parameters
 
    As can be seen in the ABNF in the preceding section, the server can
    offer some negotiable parameters.  These are:
 
-   o  Mechanism names;
+   o  Authentication mechanism names;
 
    o  Channel binding types;
 
@@ -254,11 +265,14 @@ Table of Contents
 
    o  Replay protection;
 
-   Each WWW-Authenticate header value offers a single mechanism and
-   negotiable parameters for it.  The WWW-ChannelBinding-Types header
-   allows the server to offer channel binding types.
+   Each WWW-Authenticate [RFC2617] header value offers a single
+   mechanism and negotiable parameters for it; because headers can have
+   multiple values, WWW-Authenticate provides a method for negotiating
+   authentication mechanisms.  The WWW-ChannelBinding-Types header
+   (added here) allows the server to list channel binding types
+   supported by it.
 
-4.1.1.  Strong Binding to TLS
+3.1.1.  Strong Binding to TLS
 
    Strong binding to TLS is provided via channel binding [RFC5056].
    When a RESTauth mechanism provides strong authentication of the
@@ -266,46 +280,47 @@ Table of Contents
    results in strong authentication of the server to the user even
    though TLS is used for session transport protection.
 
-4.1.2.  WWW-Authenticate Header Value Prefix Syntax
+3.1.2.  WWW-Authenticate Header Value Prefix Syntax
 
    The ABNF for RESTauth WWW-Authenticate header values is as follows:
 
          challenge           = ( "RA-" mechname SP restauth-challenge )
-         mechname            = TBD
+         mechname            = 1*( ALPHA / DIGIT / "-" )
          restauth-challenge  = ( login-uri SP session-types SP
                                  replay-prot SP *1(mech-challenge) )
          login-uri           = absoluteURI
          session-types       = "s=" session-type /
                                (session-type ":" session-types)
-         session-type        = "cookie" / "session-ID" / "MAC"
+         session-type        = "cookie" / "session-ID" /
+                               "channel-bound-session-ID" /
+                               "MAC"
+                               ; new session-types may be added
          replay-prot         = "r=" ("yes" / "no")
-         ; TODO: add production for
-         ;       mech-challenge as a base64 string
-         ; TODO: add MAC algorithm offers for alg agility?
+         mech-challenge      = <base64 encoded mech-specific data>
 
-                      Figure 1: WWW-Authenticate ABNF
+                 Figure 1: RESTauth WWW-Authenticate ABNF
 
    For a DIGEST-like mechanism it might look like "WWW-Authenticate: RA-
    Digest-SHA-256 tls-server-end-point session-ID no HE4SgWGrd/
    3+O7t16HqusA==".  For example, the mechname for the Kerberos V5 GSS-
    API mechanism might be "gss-krb5", and a WWW-Authenticate header
    value for it might look like "WWW-Authenticate: RA-gss-krb5
-   http://foo.example/restauth-login tls-server-end-point session-ID
-   no".
+   http://foo.example/restauth-login tls-server-end-point channel-bound-
+   session-ID r=no".
 
    Note that mechanisms that may be used include: GSS mechanisms, SASL
    mechanisms, ad-hoc mechanisms, and so on.
 
-4.1.3.  WWW-ChannelBinding-Types Header
+3.1.3.  WWW-ChannelBinding-Types Header
 
    A new header is added by which servers MUST indicate which channel
    binding [RFC5056] types -if any- they support for RESTauth
    authentication; if the server does not support channel binding then
    this header MUST be absent.  The header is named WWW-ChannelBinding-
    Types.  Its values are channel binding types from the channel binding
-   type registry [RFC5929].
+   type registry, such as the TLS channel binding types [RFC5929].
 
-4.1.4.  WWW-ChannelBinding-Type Header
+3.1.4.  WWW-ChannelBinding-Type Header
 
    A new header is added by which clients MUST indicate what channel
    binding type they used when POSTing RESTauth authentication messages,
@@ -316,7 +331,7 @@ Table of Contents
    a channel binding type from the channel binding type registry
    [RFC5929].
 
-4.1.5.  WWW-SessionBinding-Type Header
+3.1.5.  WWW-SessionBinding-Type Header
 
    A new header is added by which clients MUST indicate what session
    binding type they choose when POSTing RESTauth authentication
@@ -327,24 +342,25 @@ Table of Contents
    that is distinct from RESTauth's (this helps adapt OAuth to RESTauth
    with minimal or no changes).
 
-4.1.6.  WWW-ReplayProtection Header
+3.1.6.  WWW-ReplayProtection Header
 
    A new header is added by which clients MUST indicate whether they
    desire replay protection when POSTing RESTauth authentication
    messages.  The header is named WWW-SessionBinding-Type.  Its value is
    "yes" or "no" (defaults to "no" if absent) as shown in Figure 1.
 
-   Replay protection is to be used only when TLS [RFC5246] is not, and
-   only if a session binding type of "MAC" is also requested.
+   Replay protection is to be used only when TLS [RFC5246] is not used,
+   and only if a session binding type of "MAC" is also requested.
 
-4.2.  Protocol Flow
+3.2.  Protocol Flow
 
    RESTauth can be initiated by a client that knows a priori that it
    needs to or wants to use RESTauth.  Servers can also tell clients
    that access to certain resources require authentication, possibly
    including RESTauth mechanisms.  When the server tells the client that
-   it must authenticate, the server may also give the client an initial
-   authentication message for one or more mechanisms.
+   it must authenticate (using a 401 response, as usual), the server may
+   also give the client an initial authentication message for one or
+   more mechanisms.
 
    When the client knows a priori that it must authenticate then the
    client MUST know the RESTauth login URI a priori as well, as well as
@@ -356,15 +372,15 @@ Table of Contents
    headers to inform the client of the need to authenticate in order to
    access a given resource.  For RESTauth mechanisms the WWW-
    Authenticate header values MUST conform to the ABNF given in
-   Section 4.1.2.
+   Section 3.1.2.
 
    To proceed the client chooses a suitable authentication mechanism
    (for which, presumably, it has credentials for a desired client
    identity), possibly a channel binding type, possibly a session type,
    and whether to use replay protection.
 
-4.2.1.  One Round Trip Optimization: Challenges Born in WWW-Authenticate
-        Headers
+3.2.1.  One Round Trip Optimization: Challenges Borne in WWW-
+        Authenticate Headers
 
    Some mechanisms may optimize the protocol flow by allowing the server
    to include challenges in the 401 response's WWW-Authenticate header
@@ -375,15 +391,15 @@ Table of Contents
    RESTauth allows this, but this feature is OPTIONAL: it must always be
    possible for a client to initiate RESTauth without first obtaining a
    challenge in a WWW-Authenticate header value, in which case the
-   client must incur an extra protocol leg by obtaining the challenge
-   (if it is at all necessary) in the server's reply to the client's
-   first authentication message.  There are two reasons for making this
+   client may incur an extra protocol leg by obtaining the challenge (if
+   it is at all necessary) in the server's reply to the client's first
+   authentication message.  There are two reasons for making this
    optional:
 
    1.  to allow client applications that know a priori that they must
-       authenticate, requiring no further negotiation;
+       authenticate (and how to), requiring no further negotiation;
 
-   2.  to support authentication frameworks that require that the client
+   2.  to support authentication mechanisms that require that the client
        initiate authentication message exchanges.
 
    A challenge may consist of a nonce, some encrypted or MACed nonce, a
@@ -393,7 +409,7 @@ Table of Contents
    challenge (e.g., the challenge encrypted in a symmetric key known
    only to the server).
 
-4.3.  Session Binding Types: Cookie, URI, and MAC
+3.3.  Session Binding Types: Cookie, Session URI, and MAC
 
    A notion of session binding type is added for binding HTTP requests
    to specific RESTauth login sessions.  Three types are provided:
@@ -404,11 +420,15 @@ Table of Contents
       the session(s) (similar to cookies, but without all the associated
       baggage);
 
+   Channel Bound Session URI  Like Session URI, but may only be used in
+      HTTPS connections with the same channel bindings.  (This implies
+      use of the 'tls-server-end-point' channel binding type.)
+
    MAC  HTTP requests carry a WWW-Session-URI header identifying the
       session(s) and a WWW-Session-MAC header that carries a MAC or MACs
       binding the session URI(s) to the request.
 
-4.3.1.  The New WWW-Session-URI Header
+3.3.1.  The New WWW-Session-URI Header
 
    A new HTTP header is added called WWW-Session-URI whose values
    consist of session URIs.  At least one session URI MUST be included.
@@ -428,19 +448,69 @@ Table of Contents
    logged in as multiple users and get a unified view of the users'
    mailboxes.  This seems unlikely, but why rule out such use cases?]]
 
-4.3.2.  The New WWW-Session-MAC Header
+3.3.2.  The New WWW-Session-MAC Header
 
    [[anchor3: Describe the header, its values, algorithm agility, and
    what the MAC is to be taken over.  Note too that this cannot apply to
    request contents as we have to consider chunking, and besides, a MAC
    of contents really has to go as a trailer, not a header.]]
 
-4.3.3.  A MAC Trailer??
+   [[anchor4: We may want to remove this anyways and leave it for a
+   session continuation spec.  Or we may want to require the use of
+   HTTPS.]]
 
-   [[anchor4: ...  This is only needed for RESTauth *without* TLS, which
+3.3.3.  A MAC Trailer??
+
+   [[anchor5: ...  This is only needed for RESTauth *without* TLS, which
    will probably not be the common mode of use for RESTauth... unless we
    can produce a MAC trailer extension for HTTP/2.0, in which case this
    may well become a common mode of RESTauth usage.]]
+
+   [[anchor6: We may want to remove this anyways and leave it for a
+   session continuation spec.  Or we may want to require the use of
+   HTTPS.]]
+
+
+4.  Representation of Authenticated Session Resources
+
+   It will generally be useful to be able to GET a session resource to
+   obtain information about the authenticated user.  A GET on a session
+   resource which is not fully established SHOULD return an empty body.
+
+   [[anchor7: TODO: Add a media type for session resource
+   representation.]]
+
+   [[anchor8: Use JSON instead of ABNF?  A schema language would be
+   nice.]]
+
+     session             = 1*( session-param )
+     session-param       = session-param-name '=' session-param-value
+     session-param-name  = 1*( ALPHA / DIGIT / '-' / '_' )
+     session-param-value = <quoted or base64>
+
+              Figure 2: Session resource representation ABNF
+
+   Session parameters include:
+
+   established  "true" or "false"
+
+   expiration_time  Datetime when the session expires.
+
+   session_key_MAC_req  Session key for MACs in requests.
+
+   session_key_MAC_resp  Session key for MACs in responses.
+
+   authorization_data  Information about the authenticated user.
+
+   user_id  The authenticated user identity.
+
+   The server MAY exclude any part of this when the entity requesting a
+   session resource is the session's user.  The server MUST exclude (or
+   respond with 401) all of the session resource's representation when
+   the entity requesting it is not authenticated or authorized to see
+   it.  The server SHOULD exclude locally-determined authorization_data
+   and/or user_id information when the entity requesting the resource is
+   the session's user.
 
 
 5.  HTTP "Routing" and Authentication
@@ -599,12 +669,12 @@ Table of Contents
 
 7.3.  Adapting IKEv2 Authentication Mechanisms to RESTauth
 
-   [[anchor5: TBD.]]
+   [[anchor9: TBD.]]
 
 7.3.1.  Adapting IKEv2 Password Authenticated Connection Establishment
         (PACE) to RESTauth
 
-   [[anchor6: TBD.]]
+   [[anchor10: TBD.]]
 
 7.4.  Using SASL Authentication Mechanisms with RESTauth
 
@@ -681,11 +751,11 @@ Table of Contents
 
            v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
 
-                        Figure 2: RESTauth w/ SCRAM
+                        Figure 3: RESTauth w/ SCRAM
 
 7.4.2.  Using SCRAM with Round Trip Optimization in RESTauth
 
-   [[anchor7: This might work by having the authentication ID function
+   [[anchor11: This might work by having the authentication ID function
    as the salt and the server offering a challenge nonce and iteration
    count in its optimistic challenge.  However, it's not clear that a
    round trip optimized form of SCRAM is desirable.]]
@@ -693,7 +763,7 @@ Table of Contents
    The following figure shows what a round trip optimized RESTauth w/
    SCRAM exchange might look like.
 
-   [[anchor8: NOTE: SCRAM was not intended to be used this way.  In
+   [[anchor12: NOTE: SCRAM was not intended to be used this way.  In
    particular this approach forces the use of an algorithmic salt, to be
    derived only from either the username or the username and the
    server's name (or else to be remembered by the user, but that's not
@@ -726,7 +796,7 @@ Table of Contents
 
            v=rmF9pqV8S7suAoZWja4dJRkFsKQ=
 
-             Figure 3: RESTauth w/ round trip optimized SCRAM
+             Figure 4: RESTauth w/ round trip optimized SCRAM
 
 7.5.  Using GSS-API Authentication Mechanisms with RESTauth
 
@@ -735,6 +805,13 @@ Table of Contents
    mechanism that supports channel binding [RFC5056] can be used as SASL
    mechanisms via the "SASL/GS2" bridge [RFC5801].  This includes the
    Kerberos V5 GSS-API mechanism [RFC4121].
+
+   GSS-API security mechanisms could also be used without SASL/GS2, but
+   SASL/GS2 barely adds any overhead or complexity (a SASL
+   implementation is not required in order to use SASL/GS2, just a GSS
+   implementation): a simple header is to be prefixed to the initial
+   security context token and to the channel binding data, with both
+   peers always providing channel binding data.
 
 
 8.  IANA Considerations
@@ -751,18 +828,18 @@ Table of Contents
 
 10.  TODO
 
-   [[anchor9: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
+   [[anchor13: Add references (to HTTP/2.0, CGI/fCGI, ...).]]
 
-   [[anchor10: Describe MAC session binding option and replay protection
-   in detail.  Describe how to extract keys for MAC keying from SASL/
-   GSS/PACE.]]
+   [[anchor14: Describe MAC session binding option and replay protection
+   in detail -- or remove it altogether.  Describe how to extract keys
+   for MAC keying from SASL/GSS/PACE.]]
 
-   [[anchor11: Figure out how to adapt IKEv2 password-based methods to
+   [[anchor15: Figure out how to adapt IKEv2 password-based methods to
    RESTauth.  This may not be worthwhile (since each method tends to
    depend heavily on the entire IKEv2 framework in ways that add
    messaging that we'd not need in RESTauth).]]
 
-   [[anchor12: Do we need to distinguish exchanges for authentication
+   [[anchor16: Do we need to distinguish exchanges for authentication
    from exchanges for authorization?  Probably.]]
 
 
@@ -790,6 +867,18 @@ Table of Contents
 
    [RFC5929]  Altman, J., Williams, N., and L. Zhu, "Channel Bindings
               for TLS", RFC 5929, July 2010.
+
+   [I-D.williams-websec-session-continue-prob]
+              Williams, N., "Hypertext Transport Protocol (HTTP) Session
+              Continuation: Problem Statement",
+              draft-williams-websec-session-continue-prob-00 (work in
+              progress), January 2013.
+
+   [I-D.williams-websec-session-continue-proto]
+              Williams, N., "Hypertext Transport Protocol (HTTP) Session
+              Continuation Protocol",
+              draft-williams-websec-session-continue-proto-00 (work in
+              progress), January 2013.
 
 11.2.  Informative References
 

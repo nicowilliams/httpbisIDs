@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "file:///home/nico/I-Ds/httpbis/../test/xhtml-math11-f.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 plus MathML 2.0//EN" "file:///home/nico/I-Ds/httpbis/../test/src/../data/xhtml-math11-f.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta name="GENERATOR" content="LyX 2.0.0" />
+<meta name="GENERATOR" content="LyX 2.0.2" />
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 <title>RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)</title>
 
@@ -113,6 +113,14 @@ margin-left: 3ex;
 text-align: left;
 
 }
+h3.subsection {
+font-weight: bold;
+font-size: large;
+margin-top: 0.9ex;
+margin-bottom: 0.5ex;
+text-align: left;
+
+}
 ol.enumerate {
 margin-top: 0.7ex;
 margin-bottom: 0.7ex;
@@ -121,14 +129,6 @@ text-align: left;
 
 }
 div.revisionremark {
-text-align: left;
-
-}
-h3.subsection {
-font-weight: bold;
-font-size: large;
-margin-top: 0.9ex;
-margin-bottom: 0.5ex;
 text-align: left;
 
 }
@@ -238,6 +238,13 @@ font-style: normal;
 font-variant: normal;
 font-size: medium;
 }
+div.flex_embeddedbibxml {
+font-family: serif;
+font-weight: normal;
+font-style: normal;
+font-variant: normal;
+font-size: medium;
+}
 </style>
 </head>
 <body>
@@ -245,7 +252,7 @@ font-size: medium;
 RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)</h1>
 <div class="standard"><a id='magicparlabel-2' />
 <div class="flex_docname"><div class="plain_layout"><a id='magicparlabel-6' />
-draft-williams-http-rest-auth-04</div>
+draft-ietf-httpauth-rest-auth-00</div>
 </div><div class="flex_ipr"><div class="plain_layout"><a id='magicparlabel-10' />
 trust200902</div>
 </div><div class="flex_intendedstatus"><div class="plain_layout"><a id='magicparlabel-14' />
@@ -284,90 +291,95 @@ Among other benefits of RESTauth: it is orthogonal to &ldquo;HTTP routers&rdquo;
 </div>
 <div class='toc'><div class='tochead part_'>Table of Contents</div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-55' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-55' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-55' class='tocentry'>1 Introduction</a> <a href='#magicparlabel-55' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-79' class='tocentry'>2 Conventions used in this document</a> <a href='#magicparlabel-79' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-81' class='tocentry'>1.1 Protocol Outline</a> <a href='#magicparlabel-81' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-85' class='tocentry'>3 API-Imposed Constraints</a> <a href='#magicparlabel-85' class='tocarrow'>&gt;</a></div>
-
-<div class='lyxtoc-1'><a href='#magicparlabel-99' class='tocentry'>4 Protocol</a> <a href='#magicparlabel-99' class='tocarrow'>&gt;</a>
-
-<div class='lyxtoc-2'><a href='#magicparlabel-118' class='tocentry'>4.1 Negotiable Parameters</a> <a href='#magicparlabel-118' class='tocarrow'>&gt;</a>
-
-<div class='lyxtoc-3'><a href='#magicparlabel-125' class='tocentry'>4.1.1 Strong Binding to TLS</a> <a href='#magicparlabel-125' class='tocarrow'>&gt;</a></div>
-
-<div class='lyxtoc-3'><a href='#magicparlabel-131' class='tocentry'>4.1.2 WWW-Authenticate Header Value Prefix Syntax</a> <a href='#magicparlabel-131' class='tocarrow'>&gt;</a></div>
-
-<div class='lyxtoc-3'><a href='#magicparlabel-160' class='tocentry'>4.1.3 WWW-ChannelBinding-Types Header</a> <a href='#magicparlabel-160' class='tocarrow'>&gt;</a></div>
-
-<div class='lyxtoc-3'><a href='#magicparlabel-170' class='tocentry'>4.1.4 WWW-ChannelBinding-Type Header</a> <a href='#magicparlabel-170' class='tocarrow'>&gt;</a></div>
-
-<div class='lyxtoc-3'><a href='#magicparlabel-176' class='tocentry'>4.1.5 WWW-SessionBinding-Type Header</a> <a href='#magicparlabel-176' class='tocarrow'>&gt;</a></div>
-
-<div class='lyxtoc-3'><a href='#magicparlabel-178' class='tocentry'>4.1.6 WWW-ReplayProtection Header</a> <a href='#magicparlabel-178' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-88' class='tocentry'>1.2 API-Imposed Constraints</a> <a href='#magicparlabel-88' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-185' class='tocentry'>4.2 Protocol Flow</a> <a href='#magicparlabel-185' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-102' class='tocentry'>2 Conventions used in this document</a> <a href='#magicparlabel-102' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-190' class='tocentry'>4.2.1 One Round Trip Optimization: Challenges Born in WWW-Authenticate Headers</a> <a href='#magicparlabel-190' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-108' class='tocentry'>3 Protocol</a> <a href='#magicparlabel-108' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-2'><a href='#magicparlabel-132' class='tocentry'>3.1 Negotiable Parameters</a> <a href='#magicparlabel-132' class='tocarrow'>&gt;</a>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-143' class='tocentry'>3.1.1 Strong Binding to TLS</a> <a href='#magicparlabel-143' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-149' class='tocentry'>3.1.2 WWW-Authenticate Header Value Prefix Syntax</a> <a href='#magicparlabel-149' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-179' class='tocentry'>3.1.3 WWW-ChannelBinding-Types Header</a> <a href='#magicparlabel-179' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-189' class='tocentry'>3.1.4 WWW-ChannelBinding-Type Header</a> <a href='#magicparlabel-189' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-195' class='tocentry'>3.1.5 WWW-SessionBinding-Type Header</a> <a href='#magicparlabel-195' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-197' class='tocentry'>3.1.6 WWW-ReplayProtection Header</a> <a href='#magicparlabel-197' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-196' class='tocentry'>4.3 Session Binding Types: Cookie, URI, and MAC</a> <a href='#magicparlabel-196' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-204' class='tocentry'>3.2 Protocol Flow</a> <a href='#magicparlabel-204' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-201' class='tocentry'>4.3.1 The New WWW-Session-URI Header</a> <a href='#magicparlabel-201' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-209' class='tocentry'>3.2.1 One Round Trip Optimization: Challenges Borne in WWW-Authenticate Headers</a> <a href='#magicparlabel-209' class='tocarrow'>&gt;</a></div>
+</div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-205' class='tocentry'>4.3.2 The New WWW-Session-MAC Header</a> <a href='#magicparlabel-205' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-215' class='tocentry'>3.3 Session Binding Types: Cookie, Session URI, and MAC</a> <a href='#magicparlabel-215' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-207' class='tocentry'>4.3.3 A MAC Trailer??</a> <a href='#magicparlabel-207' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-221' class='tocentry'>3.3.1 The New WWW-Session-URI Header</a> <a href='#magicparlabel-221' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-225' class='tocentry'>3.3.2 The New WWW-Session-MAC Header</a> <a href='#magicparlabel-225' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-228' class='tocentry'>3.3.3 A MAC Trailer??</a> <a href='#magicparlabel-228' class='tocarrow'>&gt;</a></div>
 </div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-209' class='tocentry'>5 HTTP Routing and Authentication</a> <a href='#magicparlabel-209' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-231' class='tocentry'>4 Representation of Authenticated Session Resources</a> <a href='#magicparlabel-231' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-214' class='tocentry'>6 In-band HTTP Authentication Alternatives</a> <a href='#magicparlabel-214' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-260' class='tocentry'>5 HTTP Routing and Authentication</a> <a href='#magicparlabel-260' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-229' class='tocentry'>7 Sample/Potential RESTauth Authentication Mechanisms</a> <a href='#magicparlabel-229' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-265' class='tocentry'>6 In-band HTTP Authentication Alternatives</a> <a href='#magicparlabel-265' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-231' class='tocentry'>7.1 OAuth via RESTauth</a> <a href='#magicparlabel-231' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-1'><a href='#magicparlabel-280' class='tocentry'>7 Sample/Potential RESTauth Authentication Mechanisms</a> <a href='#magicparlabel-280' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-237' class='tocentry'>7.1.1 OAuth 1.0</a> <a href='#magicparlabel-237' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-282' class='tocentry'>7.1 OAuth via RESTauth</a> <a href='#magicparlabel-282' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-247' class='tocentry'>7.1.2 OAuth 2.0</a> <a href='#magicparlabel-247' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-288' class='tocentry'>7.1.1 OAuth 1.0</a> <a href='#magicparlabel-288' class='tocarrow'>&gt;</a></div>
+
+<div class='lyxtoc-3'><a href='#magicparlabel-298' class='tocentry'>7.1.2 OAuth 2.0</a> <a href='#magicparlabel-298' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-253' class='tocentry'>7.2 Adapting SSHv2 Authentication Mechanisms to RESTauth</a> <a href='#magicparlabel-253' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-304' class='tocentry'>7.2 Adapting SSHv2 Authentication Mechanisms to RESTauth</a> <a href='#magicparlabel-304' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-260' class='tocentry'>7.2.1 RESTauth Mechanism Names for SSHv2 Userauth Methods</a> <a href='#magicparlabel-260' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-311' class='tocentry'>7.2.1 RESTauth Mechanism Names for SSHv2 Userauth Methods</a> <a href='#magicparlabel-311' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-266' class='tocentry'>7.2.2 Nonces</a> <a href='#magicparlabel-266' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-317' class='tocentry'>7.2.2 Nonces</a> <a href='#magicparlabel-317' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-268' class='tocentry'>7.2.3 Session ID</a> <a href='#magicparlabel-268' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-319' class='tocentry'>7.2.3 Session ID</a> <a href='#magicparlabel-319' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-277' class='tocentry'>7.3 Adapting IKEv2 Authentication Mechanisms to RESTauth</a> <a href='#magicparlabel-277' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-328' class='tocentry'>7.3 Adapting IKEv2 Authentication Mechanisms to RESTauth</a> <a href='#magicparlabel-328' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-279' class='tocentry'>7.3.1 Adapting IKEv2 Password Authenticated Connection Establishment (PACE) to RESTauth</a> <a href='#magicparlabel-279' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-330' class='tocentry'>7.3.1 Adapting IKEv2 Password Authenticated Connection Establishment (PACE) to RESTauth</a> <a href='#magicparlabel-330' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-281' class='tocentry'>7.4 Using SASL Authentication Mechanisms with RESTauth</a> <a href='#magicparlabel-281' class='tocarrow'>&gt;</a>
+<div class='lyxtoc-2'><a href='#magicparlabel-332' class='tocentry'>7.4 Using SASL Authentication Mechanisms with RESTauth</a> <a href='#magicparlabel-332' class='tocarrow'>&gt;</a>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-298' class='tocentry'>7.4.1 Using SCRAM in RESTauth</a> <a href='#magicparlabel-298' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-349' class='tocentry'>7.4.1 Using SCRAM in RESTauth</a> <a href='#magicparlabel-349' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-3'><a href='#magicparlabel-363' class='tocentry'>7.4.2 Using SCRAM with Round Trip Optimization in RESTauth</a> <a href='#magicparlabel-363' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-3'><a href='#magicparlabel-414' class='tocentry'>7.4.2 Using SCRAM with Round Trip Optimization in RESTauth</a> <a href='#magicparlabel-414' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-2'><a href='#magicparlabel-408' class='tocentry'>7.5 Using GSS-API Authentication Mechanisms with RESTauth</a> <a href='#magicparlabel-408' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-2'><a href='#magicparlabel-459' class='tocentry'>7.5 Using GSS-API Authentication Mechanisms with RESTauth</a> <a href='#magicparlabel-459' class='tocarrow'>&gt;</a></div>
 </div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-426' class='tocentry'>8 IANA Considerations</a> <a href='#magicparlabel-426' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-478' class='tocentry'>8 IANA Considerations</a> <a href='#magicparlabel-478' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-428' class='tocentry'>9 Security Considerations</a> <a href='#magicparlabel-428' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-480' class='tocentry'>9 Security Considerations</a> <a href='#magicparlabel-480' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-430' class='tocentry'>10 TODO</a> <a href='#magicparlabel-430' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-482' class='tocentry'>10 TODO</a> <a href='#magicparlabel-482' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-435' class='tocentry'>11 Normative References</a> <a href='#magicparlabel-435' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-487' class='tocentry'>11 Normative References</a> <a href='#magicparlabel-487' class='tocarrow'>&gt;</a></div>
 
-<div class='lyxtoc-1'><a href='#magicparlabel-466' class='tocentry'>12 Informative References</a> <a href='#magicparlabel-466' class='tocarrow'>&gt;</a></div>
+<div class='lyxtoc-1'><a href='#magicparlabel-528' class='tocentry'>12 Informative References</a> <a href='#magicparlabel-528' class='tocarrow'>&gt;</a></div>
 </div>
 
 <h2 class="section"><span class="section_label">1</span> <a id='magicparlabel-55' />
@@ -376,417 +388,496 @@ Introduction</h2>
 <div class="standard"><a id='magicparlabel-56' />
 We propose a pattern for HTTP <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-60' />
 RFC2616</div>
-</div> [XXX add reference to HTTP/2.0 as well] authentication mechanisms that, by being &ldquo;RESTful&rdquo;, obtains a number of benefits:</div>
+</div> [XXX add reference to HTTP/2.0 as well?] authentication mechanisms that, by being &ldquo;RESTful&rdquo;, obtains a number of benefits:</div>
 
 <ul class="itemize"><li class="itemize_item"><a id='magicparlabel-61' />
 authentication that works with all versions of HTTP, even when the authentication mechanism requires multiple round trips;</li>
 <li class="itemize_item"><a id='magicparlabel-62' />
 compatibility with &ldquo;HTTP routing&rdquo; by making no assumptions that related requests are sent over the same TCP/TLS connection;</li>
 <li class="itemize_item"><a id='magicparlabel-63' />
+channel binding, or an HTTP session protocol such as <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-67' />
+I-D.williams-websec-session-continue-proto</div>
+</div> (or any other meeting requirements of HTTP session protocols, described in <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-71' />
+I-D.williams-websec-session-continue-prob</div>
+</div>), can be used instead of web cookies;
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-72' />
 a &ldquo;session URI&rdquo; results that can be used to multiplex multiple sessions onto the same TCP/TLS connections;</li>
-<li class="itemize_item"><a id='magicparlabel-64' />
+<li class="itemize_item"><a id='magicparlabel-73' />
 a &ldquo;session URI&rdquo; results that can be DELETEd to effect logout;</li>
-<li class="itemize_item"><a id='magicparlabel-65' />
+<li class="itemize_item"><a id='magicparlabel-74' />
 a &ldquo;session URI&rdquo; results that has better security semantics than HTTP cookies;</li>
-<li class="itemize_item"><a id='magicparlabel-66' />
-the ability to refer to multiple sessions in one request wherever such a concept might be useful;</li>
-<li class="itemize_item"><a id='magicparlabel-67' />
-can be implemented by any application without changes being required to any HTTP stack;</li>
-<li class="itemize_item"><a id='magicparlabel-68' />
-can be implemented by the HTTP stack;</li>
-<li class="itemize_item"><a id='magicparlabel-69' />
-on the server side this can be implemented entirely via CGI and FastCGI;</li>
-<li class="itemize_item"><a id='magicparlabel-70' />
-by its RESTful nature, multi-legged authentication message exchanges are naturally handled without making any changes to HTTP.</li>
 </ul>
-<div class="standard"><a id='magicparlabel-71' />
+</li><li class="itemize_item"><a id='magicparlabel-75' />
+the ability to refer to multiple sessions in one request wherever such a concept might be useful;</li>
+<li class="itemize_item"><a id='magicparlabel-76' />
+can be implemented by any application without changes being required to any HTTP stack;
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-77' />
+but it can also be implemented by the HTTP stack;</li>
+</ul>
+</li><li class="itemize_item"><a id='magicparlabel-78' />
+on the server side this can be implemented entirely via CGI, FastCGI, WSGI, servlets, and so on;</li>
+<li class="itemize_item"><a id='magicparlabel-79' />
+by its RESTful nature, multi-round trip authentication message exchanges are naturally handled without making any changes to HTTP.</li>
+</ul>
+<div class="standard"><a id='magicparlabel-80' />
 There are probably other benefits not listed above.</div>
+<h3 class="subsection"><span class="subsection_label">1.1</span> <a id='magicparlabel-81' />
+Protocol Outline</h3>
 
-<div class="standard"><a id='magicparlabel-72' />
-The rough outline of the protocol is quite simple:</div>
-
-<ol class="enumerate"><li class="enumerate_item"><a id='magicparlabel-73' />
-initial authentication messages are POSTed to an agreed-upon or indicated resource...</li>
-<li class="enumerate_item"><a id='magicparlabel-74' />
+<ol class="enumerate"><li class="enumerate_item"><a id='magicparlabel-82' />
+initial authentication messages are POSTed to an agreed-upon or indicated &ldquo;login&rdquo; resource...</li>
+<li class="enumerate_item"><a id='magicparlabel-83' />
 ....which then results in a new resource being created with the authentication reply message as the new resource's representation.</li>
-<li class="enumerate_item"><a id='magicparlabel-75' />
-Thereafter any additional authentication message exchanges needed (for multi-legged mechanisms) are POSTed to the new resource creating additional resources.</li>
-<li class="enumerate_item"><a id='magicparlabel-76' />
+<li class="enumerate_item"><a id='magicparlabel-84' />
+Thereafter any additional authentication message exchanges needed (for multi-legged mechanisms) are POSTed to the new resource without creating additional resources.</li>
+<li class="enumerate_item"><a id='magicparlabel-85' />
 The resource created by the POSTing of the initial authentication mechanism identifies the resulting session, and its URI is known as the session URI.</li>
-<li class="enumerate_item"><a id='magicparlabel-77' />
+<li class="enumerate_item"><a id='magicparlabel-86' />
 Session URIs can be used to multiplex multiple sessions over the same TCP/TLS connections, implement logout, and share sessions across multiple related servers.</li>
 </ol>
-<div class="standard"><a id='magicparlabel-78' />
-Server-initiated authentication is also possible, whereby the server sends a challenge in 401 errors in headers. If the server gives the client a choice of mechanisms (multiple WWW-Authenticate header values) and the client picks one where the server sent a challenge, then the client consumes that message and POSTs subsequent ones to the indicated URI.</div>
-<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-79' />
-Conventions used in this document</h2>
-<div class="standard"><a id='magicparlabel-80' />
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-84' />
-RFC2119</div>
-</div>.</div>
-<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-85' />
-API-Imposed Constraints</h2>
-<div class="standard"><a id='magicparlabel-86' />
+<div class="standard"><a id='magicparlabel-87' />
+Authentication using mechanisms that require that the server send the first authentication message is also possible, in either of two ways: the initial authentication message is sent in headers in a 401 response, or the client POSTs an empty first message to the login resource.</div>
+<h3 class="subsection"><span class="subsection_label">1.2</span> <a id='magicparlabel-88' />
+API-Imposed Constraints</h3>
+<div class="standard"><a id='magicparlabel-89' />
 To the extent that existing Application Programming Interfaces (APIs) assume specific styles of HTTP authentication message flows, if we want those APIs to support RESTauth backwards-compatibly, then those APIs may impose constraints on RESTauth.</div>
 
-<div class="standard"><a id='magicparlabel-87' />
-For example, the Android Account Manager API assumes a single round trip for authentication. But the Android Account Manager could perform all but the last round trip on behalf of the application, then let the application perform the last round trip. In order for that to work we need the authentication message exchange to be orthogonal to TCP/TLS connections &ndash; that is, we need it to be possible to use multiple TCP/TLS connections for completing a single authentication exchange.</div>
+<div class="standard"><a id='magicparlabel-90' />
+For example, the Android Account Manager API assumes a single round trip for authentication [XXX add reference!]. But the Android Account Manager could perform all but the last round trip on behalf of the application, then let the application perform the last round trip. In order for that to work we need the authentication message exchange to be orthogonal to TCP/TLS connections &ndash; that is, we need it to be possible to use multiple TCP/TLS connections for completing a single authentication exchange. This is because the application and the account manager will likely be using different TCP/TLS connections.</div>
 
-<div class="standard"><a id='magicparlabel-88' />
-A typical constraining characteristic might be that an API assumes the use of GET with tokens encoded into the URI, or that the API makes no room for the use of headers in authentication message exchanges.</div>
+<div class="standard"><a id='magicparlabel-91' />
+A typical constraining characteristic might be that an API assumes the use of GET with tokens encoded into the URI or into a header, or that the API makes no room for the use of headers in authentication message exchanges.</div>
 
-<div class="standard"><a id='magicparlabel-89' />
-One way to work around such constraints may be to provide various options in this framework. Another might be to use OAuth 1.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-93' />
+<div class="standard"><a id='magicparlabel-92' />
+One way to work around such constraints may be to provide various options in RESTauth. Another might be to use OAuth 1.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-96' />
 RFC5849</div>
-</div> or 2.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-97' />
+</div> or 2.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-100' />
 I-D.ietf-oauth-v2</div>
 </div> as a bridge: the API would use this framework under the covers then obtain OAuth credentials from the server that the application can then use in any way that the API's form allows for.</div>
 
-<div class="revisionremark"><a id='magicparlabel-98' />
-TODO: Add a table/list of various APIs and their characteristics that might constrain this framework.</div>
-<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-99' />
+<div class="revisionremark"><a id='magicparlabel-101' />
+TODO: Add a table/list of various known APIs and their characteristics that might constrain this and/or other frameworks.</div>
+<h2 class="section"><span class="section_label">2</span> <a id='magicparlabel-102' />
+Conventions used in this document</h2>
+<div class="standard"><a id='magicparlabel-103' />
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-107' />
+RFC2119</div>
+</div>.</div>
+<h2 class="section"><span class="section_label">3</span> <a id='magicparlabel-108' />
 <a id="sec_Protocol" />
 Protocol</h2>
-<div class="standard"><a id='magicparlabel-100' />
-The are very few normative protocol elements here besides the outline given in <a href="#sec_Introduction">1</a>. The normative protocol elements are:</div>
+<div class="standard"><a id='magicparlabel-109' />
+The are few normative protocol elements here besides the outline given in <a href="#sec_Introduction">1</a>. The normative protocol elements are:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-101' />
-the form of the WWW-Authenticate header values for RESTauth mechanisms;</li>
-<li class="itemize_item"><a id='magicparlabel-102' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-110' />
+the form of the WWW-Authenticate header values -in 401 responses- for RESTauth mechanisms;</li>
+<li class="itemize_item"><a id='magicparlabel-111' />
 several new headers for advertising negotiable parameters that are orthogonal to WWW-Authenticate;</li>
-<li class="itemize_item"><a id='magicparlabel-103' />
+<li class="itemize_item"><a id='magicparlabel-112' />
 the POSTing of authentication messages from the client, with the initial client authentication message going to either a pre-agreed URI or to a URI named in the WWW-Authenticate headers;</li>
-<li class="itemize_item"><a id='magicparlabel-104' />
+<li class="itemize_item"><a id='magicparlabel-113' />
 the creation of a session URI as a result of the initial POST, and the subsequent POSTing of any additional authentication messages to the session URI;</li>
-<li class="itemize_item"><a id='magicparlabel-105' />
+<li class="itemize_item"><a id='magicparlabel-114' />
 the new session URI resource representation resulting from POSTs being the server's response authentication message, if any;</li>
-<li class="itemize_item"><a id='magicparlabel-106' />
+<li class="itemize_item"><a id='magicparlabel-115' />
 the DELETEion of session URIs as signaling logout;</li>
-<li class="itemize_item"><a id='magicparlabel-107' />
+<li class="itemize_item"><a id='magicparlabel-116' />
 a new header for referencing session URIs in normal HTTP requests;</li>
-<li class="itemize_item"><a id='magicparlabel-108' />
-the use of channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-112' />
+<li class="itemize_item"><a id='magicparlabel-117' />
+the use of channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-121' />
 RFC5056</div>
-</div> to TLS <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-116' />
+</div> to TLS <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-125' />
 RFC5246</div>
 </div> for session protection;</li>
-<li class="itemize_item"><a id='magicparlabel-117' />
-the use of session keys as an option for integrity protection when TLS is not used (a light-weight security mode).</li>
 </ul>
-<h3 class="subsection"><span class="subsection_label">4.1</span> <a id='magicparlabel-118' />
+<div class="standard"><a id='magicparlabel-126' />
+And for applications that may not use TLS/HTTPS:</div>
+
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-127' />
+the use of session keys as an option for integrity protection when TLS is not used (a light-weight security mode); see <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-131' />
+I-D.williams-websec-session-continue-proto</div>
+</div>.</li>
+</ul>
+<h3 class="subsection"><span class="subsection_label">3.1</span> <a id='magicparlabel-132' />
 <a id="sub_Negotiable_Parameters" />
 Negotiable Parameters</h3>
-<div class="standard"><a id='magicparlabel-119' />
+<div class="standard"><a id='magicparlabel-133' />
 As can be seen in the ABNF in the preceding section, the server can offer some negotiable parameters. These are:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-120' />
-Mechanism names;</li>
-<li class="itemize_item"><a id='magicparlabel-121' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-134' />
+Authentication mechanism names;</li>
+<li class="itemize_item"><a id='magicparlabel-135' />
 Channel binding types;</li>
-<li class="itemize_item"><a id='magicparlabel-122' />
+<li class="itemize_item"><a id='magicparlabel-136' />
 Session binding types;</li>
-<li class="itemize_item"><a id='magicparlabel-123' />
+<li class="itemize_item"><a id='magicparlabel-137' />
 Replay protection;</li>
 </ul>
-<div class="standard"><a id='magicparlabel-124' />
-Each WWW-Authenticate header value offers a single mechanism and negotiable parameters for it. The WWW-ChannelBinding-Types header allows the server to offer channel binding types.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.1.1</span> <a id='magicparlabel-125' />
+<div class="standard"><a id='magicparlabel-138' />
+Each WWW-Authenticate <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-142' />
+RFC2617</div>
+</div> header value offers a single mechanism and negotiable parameters for it; because headers can have multiple values, WWW-Authenticate provides a method for negotiating authentication mechanisms. The WWW-ChannelBinding-Types header (added here) allows the server to list channel binding types supported by it.</div>
+<h4 class="subsubsection"><span class="subsubsection_label">3.1.1</span> <a id='magicparlabel-143' />
 Strong Binding to TLS</h4>
-<div class="standard"><a id='magicparlabel-126' />
-Strong binding to TLS is provided via channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-130' />
+<div class="standard"><a id='magicparlabel-144' />
+Strong binding to TLS is provided via channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-148' />
 RFC5056</div>
 </div>. When a RESTauth mechanism provides strong authentication of the service to the user, the combination of RESTauth and channel binding results in strong authentication of the server to the user even though TLS is used for session transport protection.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.1.2</span> <a id='magicparlabel-131' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.1.2</span> <a id='magicparlabel-149' />
 <a id="sub_WWW_Authenticate_Header_Value" />
 WWW-Authenticate Header Value Prefix Syntax</h4>
-<div class="standard"><a id='magicparlabel-132' />
+<div class="standard"><a id='magicparlabel-150' />
 The ABNF for RESTauth WWW-Authenticate header values is as follows:</div>
 
-<div class="standard"><a id='magicparlabel-133' />
+<div class="standard"><a id='magicparlabel-151' />
 </div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-137' />
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-155' />
 </div>
 <div class='float float-listings'><pre>      challenge           = ( "RA-" mechname SP restauth-challenge )
-      mechname            = TBD
+      mechname            = 1*( ALPHA / DIGIT / "-" )
       restauth-challenge  = ( login-uri SP session-types SP
                               replay-prot SP *1(mech-challenge) )
       login-uri           = absoluteURI
       session-types       = "s=" session-type /
                             (session-type ":" session-types)
-      session-type        = "cookie" / "session-ID" / "MAC"
+      session-type        = "cookie" / "session-ID" /
+                            "channel-bound-session-ID" /
+                            "MAC"
+                            ; new session-types may be added
       replay-prot         = "r=" ("yes" / "no")
-      ; TODO: add production for
-      ;       mech-challenge as a base64 string
-      ; TODO: add MAC algorithm offers for alg agility?</pre></div>
+      mech-challenge      = &lt;base64 encoded mech-specific data&gt;</pre></div>
 
 
-<div class="plain_layout"><a id='magicparlabel-153' />
-<div class='float-caption float-caption-figure'>Figure 1:<div class="plain_layout"><a id='magicparlabel-157' />
+<div class="plain_layout"><a id='magicparlabel-172' />
+<div class='float-caption float-caption-figure'>Figure 1:<div class="plain_layout"><a id='magicparlabel-176' />
 <a id="fig_WWW_Authenticate_ABNF" />
-WWW-Authenticate ABNF</div>
+RESTauth WWW-Authenticate ABNF</div>
 </div></div>
 </div>
 
 
-<div class="standard"><a id='magicparlabel-158' />
-For a DIGEST-like mechanism it might look like &ldquo;WWW-Authenticate: RA-Digest-SHA-256 tls-server-end-point session-ID no HE4SgWGrd/3+O7t16HqusA==&rdquo;. For example, the mechname for the Kerberos V5 GSS-API mechanism might be &ldquo;gss-krb5&rdquo;, and a WWW-Authenticate header value for it might look like &ldquo;WWW-Authenticate: RA-gss-krb5 http://foo.example/restauth-login tls-server-end-point session-ID no&rdquo;.</div>
+<div class="standard"><a id='magicparlabel-177' />
+For a DIGEST-like mechanism it might look like &ldquo;WWW-Authenticate: RA-Digest-SHA-256 tls-server-end-point session-ID no HE4SgWGrd/3+O7t16HqusA==&rdquo;. For example, the mechname for the Kerberos V5 GSS-API mechanism might be &ldquo;gss-krb5&rdquo;, and a WWW-Authenticate header value for it might look like &ldquo;WWW-Authenticate: RA-gss-krb5 http://foo.example/restauth-login tls-server-end-point channel-bound-session-ID r=no&rdquo;.</div>
 
-<div class="standard"><a id='magicparlabel-159' />
+<div class="standard"><a id='magicparlabel-178' />
 Note that mechanisms that may be used include: GSS mechanisms, SASL mechanisms, ad-hoc mechanisms, and so on.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.1.3</span> <a id='magicparlabel-160' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.1.3</span> <a id='magicparlabel-179' />
 <a id="sub_WWW_ChannelBinding_Types_Header" />
 WWW-ChannelBinding-Types Header</h4>
-<div class="standard"><a id='magicparlabel-161' />
-A new header is added by which servers MUST indicate which channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-165' />
+<div class="standard"><a id='magicparlabel-180' />
+A new header is added by which servers MUST indicate which channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-184' />
 RFC5056</div>
-</div> types -if any- they support for RESTauth authentication; if the server does not support channel binding then this header MUST be absent. The header is named WWW-ChannelBinding-Types. Its values are channel binding types from the channel binding type registry <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-169' />
+</div> types -if any- they support for RESTauth authentication; if the server does not support channel binding then this header MUST be absent. The header is named WWW-ChannelBinding-Types. Its values are channel binding types from the channel binding type registry, such as the TLS channel binding types <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-188' />
 RFC5929</div>
 </div>.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.1.4</span> <a id='magicparlabel-170' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.1.4</span> <a id='magicparlabel-189' />
 <a id="sub_WWW_ChannelBinding_Type_Header" />
 WWW-ChannelBinding-Type Header</h4>
-<div class="standard"><a id='magicparlabel-171' />
-A new header is added by which clients MUST indicate what channel binding type they used when POSTing RESTauth authentication messages, if any; if the client did not use channel binding then this header MUST be absent. If the mechanism used has its own method for indicating the use of channel binding, then this header MAY be ommitted. The header is named WWW-ChannelBinding-Type. Its value is a channel binding type from the channel binding type registry <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-175' />
+<div class="standard"><a id='magicparlabel-190' />
+A new header is added by which clients MUST indicate what channel binding type they used when POSTing RESTauth authentication messages, if any; if the client did not use channel binding then this header MUST be absent. If the mechanism used has its own method for indicating the use of channel binding, then this header MAY be ommitted. The header is named WWW-ChannelBinding-Type. Its value is a channel binding type from the channel binding type registry <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-194' />
 RFC5929</div>
 </div>.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.1.5</span> <a id='magicparlabel-176' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.1.5</span> <a id='magicparlabel-195' />
 <a id="sub_WWW_SessionType_Header" />
 WWW-SessionBinding-Type Header</h4>
-<div class="standard"><a id='magicparlabel-177' />
+<div class="standard"><a id='magicparlabel-196' />
 A new header is added by which clients MUST indicate what session binding type they choose when POSTing RESTauth authentication messages. The header is named WWW-SessionBinding-Type. Its value is a session binding type as shown in <a href="#fig_WWW_Authenticate_ABNF">1</a>. This header SHOULD be present in RESTauth authentication HTTP requests, but may be ommitted when the selected mechanism provides its own session binding facility that is distinct from RESTauth's (this helps adapt OAuth to RESTauth with minimal or no changes).</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.1.6</span> <a id='magicparlabel-178' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.1.6</span> <a id='magicparlabel-197' />
 <a id="sub_WWW_ReplayProtection_Header" />
 WWW-ReplayProtection Header</h4>
-<div class="standard"><a id='magicparlabel-179' />
+<div class="standard"><a id='magicparlabel-198' />
 A new header is added by which clients MUST indicate whether they desire replay protection when POSTing RESTauth authentication messages. The header is named WWW-SessionBinding-Type. Its value is &ldquo;yes&rdquo; or &ldquo;no&rdquo; (defaults to &ldquo;no&rdquo; if absent) as shown in <a href="#fig_WWW_Authenticate_ABNF">1</a>.</div>
 
-<div class="standard"><a id='magicparlabel-180' />
-Replay protection is to be used only when TLS <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-184' />
+<div class="standard"><a id='magicparlabel-199' />
+Replay protection is to be used only when TLS <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-203' />
 RFC5246</div>
-</div> is not, and only if a session binding type of &ldquo;MAC&rdquo; is also requested.</div>
-<h3 class="subsection"><span class="subsection_label">4.2</span> <a id='magicparlabel-185' />
+</div> is not used, and only if a session binding type of &ldquo;MAC&rdquo; is also requested.</div>
+<h3 class="subsection"><span class="subsection_label">3.2</span> <a id='magicparlabel-204' />
 <a id="sub_Protocol_Flow" />
 Protocol Flow</h3>
-<div class="standard"><a id='magicparlabel-186' />
-RESTauth can be initiated by a client that knows a priori that it needs to or wants to use RESTauth. Servers can also tell clients that access to certain resources require authentication, possibly including RESTauth mechanisms. When the server tells the client that it must authenticate, the server may also give the client an initial authentication message for one or more mechanisms.</div>
+<div class="standard"><a id='magicparlabel-205' />
+RESTauth can be initiated by a client that knows a priori that it needs to or wants to use RESTauth. Servers can also tell clients that access to certain resources require authentication, possibly including RESTauth mechanisms. When the server tells the client that it must authenticate (using a 401 response, as usual), the server may also give the client an initial authentication message for one or more mechanisms.</div>
 
-<div class="standard"><a id='magicparlabel-187' />
+<div class="standard"><a id='magicparlabel-206' />
 When the client knows a priori that it must authenticate then the client MUST know the RESTauth login URI a priori as well, as well as negotiable parameters, all of which the client might know from either an application protocol specification, or from caching this information from earlier RESTauth exchanges.</div>
 
-<div class="standard"><a id='magicparlabel-188' />
-The server MUST use a 401 HTTP status code and WWW-Authenticate headers to inform the client of the need to authenticate in order to access a given resource. For RESTauth mechanisms the WWW-Authenticate header values MUST conform to the ABNF given in <a href="#sub_WWW_Authenticate_Header_Value">4.1.2</a>.</div>
+<div class="standard"><a id='magicparlabel-207' />
+The server MUST use a 401 HTTP status code and WWW-Authenticate headers to inform the client of the need to authenticate in order to access a given resource. For RESTauth mechanisms the WWW-Authenticate header values MUST conform to the ABNF given in <a href="#sub_WWW_Authenticate_Header_Value">3.1.2</a>.</div>
 
-<div class="standard"><a id='magicparlabel-189' />
+<div class="standard"><a id='magicparlabel-208' />
 To proceed the client chooses a suitable authentication mechanism (for which, presumably, it has credentials for a desired client identity), possibly a channel binding type, possibly a session type, and whether to use replay protection.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.2.1</span> <a id='magicparlabel-190' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.2.1</span> <a id='magicparlabel-209' />
 <a id="sub_One_Round_Trip" />
-One Round Trip Optimization: Challenges Born in WWW-Authenticate Headers</h4>
-<div class="standard"><a id='magicparlabel-191' />
+One Round Trip Optimization: Challenges Borne in WWW-Authenticate Headers</h4>
+<div class="standard"><a id='magicparlabel-210' />
 Some mechanisms may optimize the protocol flow by allowing the server to include challenges in the 401 response's WWW-Authenticate header values. DIGEST-MD5 works this way, for example, sending a challenge nonce to be fed into the digest function (along with other client-side inputs).</div>
 
-<div class="standard"><a id='magicparlabel-192' />
-RESTauth allows this, but this feature is OPTIONAL: it must always be possible for a client to initiate RESTauth without first obtaining a challenge in a WWW-Authenticate header value, in which case the client must incur an extra protocol leg by obtaining the challenge (if it is at all necessary) in the server's reply to the client's first authentication message. There are two reasons for making this optional:</div>
+<div class="standard"><a id='magicparlabel-211' />
+RESTauth allows this, but this feature is OPTIONAL: it must always be possible for a client to initiate RESTauth without first obtaining a challenge in a WWW-Authenticate header value, in which case the client may incur an extra protocol leg by obtaining the challenge (if it is at all necessary) in the server's reply to the client's first authentication message. There are two reasons for making this optional:</div>
 
-<ol class="enumerate"><li class="enumerate_item"><a id='magicparlabel-193' />
-to allow client applications that know a priori that they must authenticate, requiring no further negotiation;</li>
-<li class="enumerate_item"><a id='magicparlabel-194' />
-to support authentication frameworks that require that the client initiate authentication message exchanges.</li>
+<ol class="enumerate"><li class="enumerate_item"><a id='magicparlabel-212' />
+to allow client applications that know a priori that they must authenticate (and how to), requiring no further negotiation;</li>
+<li class="enumerate_item"><a id='magicparlabel-213' />
+to support authentication mechanisms that require that the client initiate authentication message exchanges.</li>
 </ol>
-<div class="standard"><a id='magicparlabel-195' />
+<div class="standard"><a id='magicparlabel-214' />
 A challenge may consist of a nonce, some encrypted or MACed nonce, a time-stamp, certificates and digital signatures, etcetera. The server may include a login URI in challenge-laden WWW-Authenticate headers where the login URI encodes secure state regarding the challenge (e.g., the challenge encrypted in a symmetric key known only to the server).</div>
-<h3 class="subsection"><span class="subsection_label">4.3</span> <a id='magicparlabel-196' />
+<h3 class="subsection"><span class="subsection_label">3.3</span> <a id='magicparlabel-215' />
 <a id="sub_Session_Binding_Types_" />
-Session Binding Types: Cookie, URI, and MAC</h3>
-<div class="standard"><a id='magicparlabel-197' />
+Session Binding Types: Cookie, Session URI, and MAC</h3>
+<div class="standard"><a id='magicparlabel-216' />
 A notion of session binding type is added for binding HTTP requests to specific RESTauth login sessions. Three types are provided:</div>
 
 <dl class='description'><dt class="description_label">Cookies</dt>
-<dd class="description_item"><a id='magicparlabel-198' />
+<dd class="description_item"><a id='magicparlabel-217' />
  The traditional HTTP cookie approach to session binding;</dd>
 <dt class="description_label">Session&nbsp;URI</dt>
-<dd class="description_item"><a id='magicparlabel-199' />
+<dd class="description_item"><a id='magicparlabel-218' />
  HTTP requests carry a WWW-Session-URI header identifying the session(s) (similar to cookies, but without all the associated baggage);</dd>
+<dt class="description_label">Channel&nbsp;Bound&nbsp;Session&nbsp;URI</dt>
+<dd class="description_item"><a id='magicparlabel-219' />
+ Like Session&nbsp;URI, but may only be used in HTTPS connections with the same channel bindings. (This implies use of the 'tls-server-end-point' channel binding type.)</dd>
 <dt class="description_label">MAC</dt>
-<dd class="description_item"><a id='magicparlabel-200' />
+<dd class="description_item"><a id='magicparlabel-220' />
  HTTP requests carry a WWW-Session-URI header identifying the session(s) and a WWW-Session-MAC header that carries a MAC or MACs binding the session URI(s) to the request.</dd>
 </dl>
-<h4 class="subsubsection"><span class="subsubsection_label">4.3.1</span> <a id='magicparlabel-201' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.3.1</span> <a id='magicparlabel-221' />
 <a id="sub_The_New_WWW_Session_URI" />
 The New WWW-Session-URI Header</h4>
-<div class="standard"><a id='magicparlabel-202' />
+<div class="standard"><a id='magicparlabel-222' />
 A new HTTP header is added called WWW-Session-URI whose values consist of session URIs. At least one session URI MUST be included. Each session URI is an absoluteURI. Session URIs MUST NOT have unescaped commas (',') embedded in them. Servers MAY fail to implement support for multiple session URIs being referenced by a single request, in which case they MUST answer with error code &lt;TBD&gt;. Servers MUST validate the session URI before processing the request; if the session URI is invalid the server MUST respond with a 401 (or TBD?) status code.</div>
 
-<div class="standard"><a id='magicparlabel-203' />
+<div class="standard"><a id='magicparlabel-223' />
 Note that referencing multiple session URIs is permitted, but this may not be meaningful for the application, thus the server MAY reject this (TODO: specify a status code for this?).</div>
 
-<div class="revisionremark"><a id='magicparlabel-204' />
+<div class="revisionremark"><a id='magicparlabel-224' />
 I can imagine a webmail application where a client can be logged in as multiple users and get a unified view of the users' mailboxes. This seems unlikely, but why rule out such use cases?</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.3.2</span> <a id='magicparlabel-205' />
+<h4 class="subsubsection"><span class="subsubsection_label">3.3.2</span> <a id='magicparlabel-225' />
 <a id="sub_The_New_WWW_Session_MAC" />
 The New WWW-Session-MAC Header</h4>
-<div class="revisionremark"><a id='magicparlabel-206' />
+<div class="revisionremark"><a id='magicparlabel-226' />
 Describe the header, its values, algorithm agility, and what the MAC is to be taken over. Note too that this cannot apply to request contents as we have to consider chunking, and besides, a MAC of contents really has to go as a trailer, not a header.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">4.3.3</span> <a id='magicparlabel-207' />
+
+<div class="revisionremark"><a id='magicparlabel-227' />
+We may want to remove this anyways and leave it for a session continuation spec. Or we may want to require the use of HTTPS.</div>
+<h4 class="subsubsection"><span class="subsubsection_label">3.3.3</span> <a id='magicparlabel-228' />
 <a id="sub_A_MAC_Trailer__" />
 A MAC Trailer??</h4>
-<div class="revisionremark"><a id='magicparlabel-208' />
+<div class="revisionremark"><a id='magicparlabel-229' />
 ... This is only needed for RESTauth *without* TLS, which will probably not be the common mode of use for RESTauth... unless we can produce a MAC trailer extension for HTTP/2.0, in which case this may well become a common mode of RESTauth usage.</div>
-<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-209' />
+
+<div class="revisionremark"><a id='magicparlabel-230' />
+We may want to remove this anyways and leave it for a session continuation spec. Or we may want to require the use of HTTPS.</div>
+<h2 class="section"><span class="section_label">4</span> <a id='magicparlabel-231' />
+Representation of Authenticated Session Resources</h2>
+<div class="standard"><a id='magicparlabel-232' />
+It will generally be useful to be able to GET a session resource to obtain information about the authenticated user. A GET on a session resource which is not fully established SHOULD return an empty body.</div>
+
+<div class="revisionremark"><a id='magicparlabel-233' />
+TODO: Add a media type for session resource representation.</div>
+
+<div class="revisionremark"><a id='magicparlabel-234' />
+Use JSON instead of ABNF? A schema language would be nice.</div>
+
+<div class="standard"><a id='magicparlabel-235' />
+</div>
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-239' />
+</div>
+<div class='float float-listings'><pre>  session             = 1*( session-param )
+  session-param       = session-param-name '=' session-param-value
+  session-param-name  = 1*( ALPHA / DIGIT / '-' / '_' )
+  session-param-value = &lt;quoted or base64&gt;</pre></div>
+
+
+<div class="plain_layout"><a id='magicparlabel-247' />
+<div class='float-caption float-caption-figure'>Figure 2:<div class="plain_layout"><a id='magicparlabel-251' />
+Session resource representation ABNF</div>
+</div></div>
+</div>
+
+
+<div class="standard"><a id='magicparlabel-252' />
+Session parameters include:</div>
+
+<dl class='description'><dt class="description_label">established</dt>
+<dd class="description_item"><a id='magicparlabel-253' />
+ &ldquo;true&rdquo; or &ldquo;false&rdquo;</dd>
+<dt class="description_label">expiration_time</dt>
+<dd class="description_item"><a id='magicparlabel-254' />
+ Datetime when the session expires.</dd>
+<dt class="description_label">session_key_MAC_req</dt>
+<dd class="description_item"><a id='magicparlabel-255' />
+ Session key for MACs in requests.</dd>
+<dt class="description_label">session_key_MAC_resp</dt>
+<dd class="description_item"><a id='magicparlabel-256' />
+ Session key for MACs in responses.</dd>
+<dt class="description_label">authorization_data</dt>
+<dd class="description_item"><a id='magicparlabel-257' />
+ Information about the authenticated user.</dd>
+<dt class="description_label">user_id</dt>
+<dd class="description_item"><a id='magicparlabel-258' />
+ The authenticated user identity.</dd>
+</dl>
+<div class="standard"><a id='magicparlabel-259' />
+The server MAY exclude any part of this when the entity requesting a session resource is the session's user. The server MUST exclude (or respond with 401) all of the session resource's representation when the entity requesting it is not authenticated or authorized to see it. The server SHOULD exclude locally-determined authorization_data and/or user_id information when the entity requesting the resource is the session's user.</div>
+<h2 class="section"><span class="section_label">5</span> <a id='magicparlabel-260' />
 <a id="sec_HTTP_Routing_and" />
 HTTP &ldquo;Routing&rdquo; and Authentication</h2>
-<div class="standard"><a id='magicparlabel-210' />
+<div class="standard"><a id='magicparlabel-261' />
 It is common to deploy HTTP services with load-balanced servers behind a load balancer and TLS concentrator. Other techniques may also result in a multiplicity of servers acting on behalf of a single service. The load balancers may even behave like routers and route HTTP requests to the same server for all requests in a single connection, or even route HTTP requests according to the verb and resource. It helps to be able to have a notion of authenticated sessions that can be referenced by all servers responding to a given service name.</div>
 
-<div class="standard"><a id='magicparlabel-211' />
+<div class="standard"><a id='magicparlabel-262' />
 The server end of a RESTauth authentication message exchange may be terminated by one server, by many servers sharing session state (via the resources named by session URIs), or by a server-side HTTP router. Once a RESTauth session is established we assume that all servers responding to the same service name will be able to access the session resource, validate session URIs, and obtain keys for computing and validating session binding MACs. Alternatively, the router may take responsibility for session binding and signal authorization information from the established session to the HTTP servers behind the router (however, we do not here specify any methods for such signaling).</div>
 
-<div class="standard"><a id='magicparlabel-212' />
+<div class="standard"><a id='magicparlabel-263' />
 By using REST for the authentication message exchange we allow this disconnection between &ldquo;session&rdquo; and &ldquo;connection&rdquo;, which therefore facilitates &ldquo;routing&rdquo; of HTTP requests and even off-loading of authentication and/or session binding to HTTP &ldquo;routers&rdquo;.</div>
 
-<div class="standard"><a id='magicparlabel-213' />
+<div class="standard"><a id='magicparlabel-264' />
 This approach should be flexible enough for all existing architectures for deploying HTTP services.</div>
-<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-214' />
+<h2 class="section"><span class="section_label">6</span> <a id='magicparlabel-265' />
 In-band HTTP Authentication Alternatives</h2>
-<div class="standard"><a id='magicparlabel-215' />
+<div class="standard"><a id='magicparlabel-266' />
 RESTauth is &ldquo;out-of-band&rdquo; in the sense that the authentication messages are exchanged independently of the application's requests for normal resources. Of course, RESTauth exchanges may well (and often will) happen in the same TCP/TLS connection as normal application requests, so RESTauth is not really out-of-band. We use &ldquo;out-of-band&rdquo; and &ldquo;in-band&rdquo; very loosely in this section.</div>
 
-<div class="standard"><a id='magicparlabel-216' />
+<div class="standard"><a id='magicparlabel-267' />
 There exist several &ldquo;in-band&rdquo; HTTP authentication alternatives where the authentication message exchanges happen in the context of application resources. Here the HTTP verb and resource are application-specific and have nothing to do with authentication, and the authentication messages are exchanged via HTTP request and response headers with the server responding with a 401 status code until authentication is complete.</div>
 
-<div class="standard"><a id='magicparlabel-217' />
-The extant &ldquo;Basic&rdquo; and &ldquo;DIGEST-MD5&rdquo; <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-221' />
+<div class="standard"><a id='magicparlabel-268' />
+The extant &ldquo;Basic&rdquo; and &ldquo;DIGEST-MD5&rdquo; <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-272' />
 RFC2617</div>
-</div> HTTP authentication methods, as well as HTTP/Negotiate <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-225' />
+</div> HTTP authentication methods, as well as HTTP/Negotiate <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-276' />
 RFC4559</div>
 </div> are &ldquo;in-band&rdquo; HTTP authentication methods.</div>
 
-<div class="standard"><a id='magicparlabel-226' />
+<div class="standard"><a id='magicparlabel-277' />
 In so far as an in-band authentication method results in a cookie or session URI/ID the distinction between in-band and out-of-band is almost trivial, as described above: authentication messages in headers vs. bodies, and HTTP verb and URL. However, if in-line authentication methods are strongly tied to the TCP/TLS connections over which they were utilized then that is a big disadvantage over RESTauth: each connection requires re-authenticating, and support for HTTP routing schemes is not clear.</div>
 
-<div class="standard"><a id='magicparlabel-227' />
+<div class="standard"><a id='magicparlabel-278' />
 HTTP/Negotiate is more troublesome because historically it has required re-authentication per-HTTP request(!).</div>
 
-<div class="standard"><a id='magicparlabel-228' />
+<div class="standard"><a id='magicparlabel-279' />
 Even if the only difference between in-band and out-of-band is a trivial one, using the REST pattern means that authentication can be implemented using with no help from the HTTP stack (even though it's desirable to have it implemented within/by the HTTP stack), whereas there may not be a way to implement in-band authentication without help from the HTTP stack for some stacks.</div>
-<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-229' />
+<h2 class="section"><span class="section_label">7</span> <a id='magicparlabel-280' />
 <a id="sec_Sample_Potential_RESTauth_Authen" />
 Sample/Potential RESTauth Authentication Mechanisms</h2>
-<div class="standard"><a id='magicparlabel-230' />
+<div class="standard"><a id='magicparlabel-281' />
 Here we describe (informatively, for the time being) how to use or adapt a variety of authentication mechanisms, from SSHv2, IKEv2, SASL, GSS-API, and other frameworks, so as to quickly gain a set of usable mechanisms, both, specification- and implementation-wise. This section is also intended to show that adding RESTauth mechanisms is easy.</div>
-<h3 class="subsection"><span class="subsection_label">7.1</span> <a id='magicparlabel-231' />
+<h3 class="subsection"><span class="subsection_label">7.1</span> <a id='magicparlabel-282' />
 <a id="sub_OAuth_via_RESTauth" />
 OAuth via RESTauth</h3>
-<div class="standard"><a id='magicparlabel-232' />
-OAuth 1.0 RFC5849 and OAuth 2.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-236' />
+<div class="standard"><a id='magicparlabel-283' />
+OAuth 1.0 RFC5849 and OAuth 2.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-287' />
 I-D.ietf-oauth-v2</div>
 </div> are commonly deployed. Being able to use OAuth via RESTauth would be useful. We attempt to make RESTauth such that at least for OAuth 1.0 there is a standard way to use OAuth such that it conforms to RESTauth.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">7.1.1</span> <a id='magicparlabel-237' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.1.1</span> <a id='magicparlabel-288' />
 <a id="sub_OAuth_1_0" />
 OAuth 1.0</h4>
-<div class="standard"><a id='magicparlabel-238' />
-For OAuth 1.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-242' />
+<div class="standard"><a id='magicparlabel-289' />
+For OAuth 1.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-293' />
 RFC5849</div>
-</div> the &ldquo;form-encoded body&rdquo; form (see section 3.5.2 of <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-246' />
+</div> the &ldquo;form-encoded body&rdquo; form (see section 3.5.2 of <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-297' />
 RFC5849</div>
 </div>) of OAuth 1.0 conforms to RESTauth without further changes.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">7.1.2</span> <a id='magicparlabel-247' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.1.2</span> <a id='magicparlabel-298' />
 <a id="sub_OAuth_2_0" />
 OAuth 2.0</h4>
-<div class="standard"><a id='magicparlabel-248' />
-[It looks like OAuth 2.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-252' />
+<div class="standard"><a id='magicparlabel-299' />
+[It looks like OAuth 2.0 <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-303' />
 I-D.ietf-oauth-v2</div>
 </div> also uses POST to send tokens to the server, and it looks like it too effectively conforms to RESTauth.]</div>
-<h3 class="subsection"><span class="subsection_label">7.2</span> <a id='magicparlabel-253' />
+<h3 class="subsection"><span class="subsection_label">7.2</span> <a id='magicparlabel-304' />
 <a id="sub_Adapting_SSHv2_Authentication" />
 Adapting SSHv2 Authentication Mechanisms to RESTauth</h3>
-<div class="standard"><a id='magicparlabel-254' />
-SSHv2 &ldquo;userauth&rdquo; mechanisms <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-258' />
+<div class="standard"><a id='magicparlabel-305' />
+SSHv2 &ldquo;userauth&rdquo; mechanisms <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-309' />
 RFC4252</div>
 </div> typically involve a digital signature (or similar) of an SSHv2 session ID. There is no such thing as an SSHv2 session ID in HTTP. A session URI cannot serve as a stand-in for an SSHv2 session ID because a) the session URI is an outcome of authentication in RESTauth, b) to prevent cut-n-paste and replay attacks the client and the server both must contribute to the entropy of the session ID that is signed by the client.</div>
 
-<div class="standard"><a id='magicparlabel-259' />
+<div class="standard"><a id='magicparlabel-310' />
 In order to adapt SSHv2 userauth methods properly (i.e., securely), we have replace the SSHv2 session ID in the to-be-signed data with a hash of the channel binding and nonces contributed by the client and the server. As an optimization the server nonce can be sent as a challenge (this saves a round trip).</div>
-<h4 class="subsubsection"><span class="subsubsection_label">7.2.1</span> <a id='magicparlabel-260' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.2.1</span> <a id='magicparlabel-311' />
 RESTauth Mechanism Names for SSHv2 Userauth Methods</h4>
-<div class="standard"><a id='magicparlabel-261' />
+<div class="standard"><a id='magicparlabel-312' />
 For hash agility reasons the hash function name is part of the SSHv2 RESTauth mechanism name. To avoid &ldquo;multi-level negotiation&rdquo; the SSHv2 userauth method name is also part of the RESTauth mechanism name.</div>
 
-<div class="standard"><a id='magicparlabel-262' />
+<div class="standard"><a id='magicparlabel-313' />
 The RESTauth mechanism name form for SSHv2 userauth methods, then, is: ssh-&lt;SSHv2-userauth-method-name&gt;-&lt;hash-function-name&gt;.</div>
 
-<div class="standard"><a id='magicparlabel-263' />
+<div class="standard"><a id='magicparlabel-314' />
 The following RESTauth mechanisms are defined here:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-264' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-315' />
 ssh-publickey-SHA-256</li>
-<li class="itemize_item"><a id='magicparlabel-265' />
+<li class="itemize_item"><a id='magicparlabel-316' />
 ssh-hostbased-SHA-256</li>
 </ul>
-<h4 class="subsubsection"><span class="subsubsection_label">7.2.2</span> <a id='magicparlabel-266' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.2.2</span> <a id='magicparlabel-317' />
 Nonces</h4>
-<div class="standard"><a id='magicparlabel-267' />
+<div class="standard"><a id='magicparlabel-318' />
 The client and the server must each contribute 128-bit nonces.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">7.2.3</span> <a id='magicparlabel-268' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.2.3</span> <a id='magicparlabel-319' />
 &ldquo;Session ID&rdquo;</h4>
-<div class="standard"><a id='magicparlabel-269' />
+<div class="standard"><a id='magicparlabel-320' />
 The ssh-publickey-SHA-256 and ssh-hostbased-SHA-256 mechanisms use the following instead of a traditional SSHv2 session ID:</div>
 
-<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-270' />
+<ul class="itemize"><li class="itemize_item"><a id='magicparlabel-321' />
 SHA-256(channel_binding || server_nonce || client_nonce)</li>
 </ul>
-<div class="standard"><a id='magicparlabel-271' />
-Here the &lt;channel_binding&gt; is as per-<div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-275' />
+<div class="standard"><a id='magicparlabel-322' />
+Here the &lt;channel_binding&gt; is as per-<div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-326' />
 RFC5056</div>
 </div>: the channel binding type name, followed by the channel binding data (e.g., 'tls-server-end-point' followed by the server EE certificate as sent in the server's TLS Certificate message).</div>
 
-<div class="standard"><a id='magicparlabel-276' />
+<div class="standard"><a id='magicparlabel-327' />
 Note that use of channel binding when using SSHv2 mechanisms is REQUIRED so as to defeat cut-n-paste attacks by weakly-authenticated servers.</div>
-<h3 class="subsection"><span class="subsection_label">7.3</span> <a id='magicparlabel-277' />
+<h3 class="subsection"><span class="subsection_label">7.3</span> <a id='magicparlabel-328' />
 <a id="sub_Adapting_IKEv2_Authentication" />
 Adapting IKEv2 Authentication Mechanisms to RESTauth</h3>
-<div class="revisionremark"><a id='magicparlabel-278' />
+<div class="revisionremark"><a id='magicparlabel-329' />
 TBD.</div>
-<h4 class="subsubsection"><span class="subsubsection_label">7.3.1</span> <a id='magicparlabel-279' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.3.1</span> <a id='magicparlabel-330' />
 <a id="sub_Adaptinve_IKEv2_Password" />
 Adapting IKEv2 Password Authenticated Connection Establishment (PACE) to RESTauth</h4>
-<div class="revisionremark"><a id='magicparlabel-280' />
+<div class="revisionremark"><a id='magicparlabel-331' />
 TBD.</div>
-<h3 class="subsection"><span class="subsection_label">7.4</span> <a id='magicparlabel-281' />
+<h3 class="subsection"><span class="subsection_label">7.4</span> <a id='magicparlabel-332' />
 <a id="sub_Using_SASL_Authentication" />
 Using SASL Authentication Mechanisms with RESTauth</h3>
-<div class="standard"><a id='magicparlabel-282' />
-Simple Authentication and Security Layers (SASL) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-286' />
+<div class="standard"><a id='magicparlabel-333' />
+Simple Authentication and Security Layers (SASL) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-337' />
 RFC4422</div>
 </div> is a simple, pluggable framework for authentication mechanisms.</div>
 
-<div class="standard"><a id='magicparlabel-287' />
+<div class="standard"><a id='magicparlabel-338' />
 To use a SASL mechanism in RESTauth just prefix &ldquo;SA-&rdquo; to the SASL mechanism name and use that as the RESTauth mechanism name. If the SASL mechanism is server-initiated then the server's challenge is sent in the server's WWW-Authenticate header value as described above. All other SASL authentication messages are exchanged as described above (i.e., via POSTs, first to the login URI, then to the session URI, with response messages as the new representation of the session resource).</div>
 
-<div class="standard"><a id='magicparlabel-288' />
+<div class="standard"><a id='magicparlabel-339' />
 The HTTP status code functions as the application's outcome of authentication message. If SASL succeeds but authorization fails then the server should respond with a 401 status code to the POST of the final SASL authentication message from the client.</div>
 
-<div class="standard"><a id='magicparlabel-289' />
-The server's WWW-Authenticate header values function as the mechanism listing operation. SASL security considerations <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-293' />
+<div class="standard"><a id='magicparlabel-340' />
+The server's WWW-Authenticate header values function as the mechanism listing operation. SASL security considerations <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-344' />
 RFC4422 </div>
-</div><div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-297' />
+</div><div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-348' />
 RFC5801</div>
 </div> apply (particularly regarding the negotiation of channel binding support).</div>
-<h4 class="subsubsection"><span class="subsubsection_label">7.4.1</span> <a id='magicparlabel-298' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.4.1</span> <a id='magicparlabel-349' />
 <a id="sub_Using_SCRAM_in" />
 Using SCRAM in RESTauth</h4>
-<div class="standard"><a id='magicparlabel-299' />
-The Salted Challenge Response Authentication Mechanism (SCRAM) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-303' />
+<div class="standard"><a id='magicparlabel-350' />
+The Salted Challenge Response Authentication Mechanism (SCRAM) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-354' />
 RFC5802</div>
 </div> is a DIGEST-like mechanism for SASL. Nothing special is needed to use SCRAM versus any other SASL mechanism, except for a round trip optimized form of SCRAM, if we decide to pursue that (see <a href="#sub_Using_SCRAM_with">7.4.2</a>).</div>
 
-<div class="standard"><a id='magicparlabel-304' />
-The following figure shows what SCRAM in RESTauth looks like. Note that the resource representations are taken verbatim from <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-308' />
+<div class="standard"><a id='magicparlabel-355' />
+The following figure shows what SCRAM in RESTauth looks like. Note that the resource representations are taken verbatim from <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-359' />
 RFC5802</div>
 </div>.</div>
 
-<div class="standard"><a id='magicparlabel-309' />
+<div class="standard"><a id='magicparlabel-360' />
 </div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-313' />
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-364' />
 </div>
 <div class='float float-listings'><pre>  C-&gt;S: GET /some-resources HTTP/1.1
         Host: A.example
@@ -830,31 +921,31 @@ RFC5802</div>
  </pre></div>
 
 
-<div class="plain_layout"><a id='magicparlabel-357' />
-<div class='float-caption float-caption-figure'>Figure 2:<div class="plain_layout"><a id='magicparlabel-361' />
+<div class="plain_layout"><a id='magicparlabel-408' />
+<div class='float-caption float-caption-figure'>Figure 3:<div class="plain_layout"><a id='magicparlabel-412' />
 <a id="fig_RESTauth_w__SCRAM" />
 RESTauth w/ SCRAM</div>
 </div></div>
 
-<div class="plain_layout"><a id='magicparlabel-362' />
+<div class="plain_layout"><a id='magicparlabel-413' />
 </div>
 </div>
 
-<h4 class="subsubsection"><span class="subsubsection_label">7.4.2</span> <a id='magicparlabel-363' />
+<h4 class="subsubsection"><span class="subsubsection_label">7.4.2</span> <a id='magicparlabel-414' />
 <a id="sub_Using_SCRAM_with" />
 Using SCRAM with Round Trip Optimization in RESTauth</h4>
-<div class="revisionremark"><a id='magicparlabel-364' />
+<div class="revisionremark"><a id='magicparlabel-415' />
 This might work by having the authentication ID function as the salt and the server offering a challenge nonce and iteration count in its optimistic challenge. However, it's not clear that a round trip optimized form of SCRAM is desirable.</div>
 
-<div class="standard"><a id='magicparlabel-365' />
+<div class="standard"><a id='magicparlabel-416' />
 The following figure shows what a round trip optimized RESTauth w/ SCRAM exchange might look like.</div>
 
-<div class="revisionremark"><a id='magicparlabel-366' />
+<div class="revisionremark"><a id='magicparlabel-417' />
 NOTE: SCRAM was not intended to be used this way. In particular this approach forces the use of an algorithmic salt, to be derived only from either the username or the username and the server's name (or else to be remembered by the user, but that's not likely).</div>
 
-<div class="standard"><a id='magicparlabel-367' />
+<div class="standard"><a id='magicparlabel-418' />
 </div>
-<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-371' />
+<div class='float float-figure'><div class="plain_layout"><a id='magicparlabel-422' />
 </div>
 <div class='float float-listings'><pre>  C-&gt;S: GET /some-resources HTTP/1.1
         Host: A.example
@@ -885,135 +976,148 @@ NOTE: SCRAM was not intended to be used this way. In particular this approach fo
  </pre></div>
 
 
-<div class="plain_layout"><a id='magicparlabel-402' />
-<div class='float-caption float-caption-figure'>Figure 3:<div class="plain_layout"><a id='magicparlabel-406' />
+<div class="plain_layout"><a id='magicparlabel-453' />
+<div class='float-caption float-caption-figure'>Figure 4:<div class="plain_layout"><a id='magicparlabel-457' />
 <a id="fig_RESTauth_w__round" />
 RESTauth w/ round trip optimized SCRAM</div>
 </div></div>
 
-<div class="plain_layout"><a id='magicparlabel-407' />
+<div class="plain_layout"><a id='magicparlabel-458' />
 </div>
 </div>
 
-<h3 class="subsection"><span class="subsection_label">7.5</span> <a id='magicparlabel-408' />
+<h3 class="subsection"><span class="subsection_label">7.5</span> <a id='magicparlabel-459' />
 <a id="sub_Using_GSS_API_Authentication" />
 Using GSS-API Authentication Mechanisms with RESTauth</h3>
-<div class="standard"><a id='magicparlabel-409' />
-The Generic Security Services Application Programming Interface (GSS-API) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-413' />
+<div class="standard"><a id='magicparlabel-460' />
+The Generic Security Services Application Programming Interface (GSS-API) <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-464' />
 RFC2743</div>
-</div> is another pluggable mechanism framework. Any GSS-API mechanism that supports channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-417' />
+</div> is another pluggable mechanism framework. Any GSS-API mechanism that supports channel binding <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-468' />
 RFC5056</div>
-</div> can be used as SASL mechanisms via the &ldquo;SASL/GS2&rdquo; bridge <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-421' />
+</div> can be used as SASL mechanisms via the &ldquo;SASL/GS2&rdquo; bridge <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-472' />
 RFC5801</div>
-</div>. This includes the Kerberos V5 GSS-API mechanism <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-425' />
+</div>. This includes the Kerberos V5 GSS-API mechanism <div class="flex_entityxref"><div class="plain_layout"><a id='magicparlabel-476' />
 RFC4121</div>
 </div>.</div>
-<h2 class="section"><span class="section_label">8</span> <a id='magicparlabel-426' />
+
+<div class="standard"><a id='magicparlabel-477' />
+GSS-API security mechanisms could also be used without SASL/GS2, but SASL/GS2 barely adds any overhead or complexity (a SASL implementation is not required in order to use SASL/GS2, just a GSS implementation): a simple header is to be prefixed to the initial security context token and to the channel binding data, with both peers always providing channel binding data.</div>
+<h2 class="section"><span class="section_label">8</span> <a id='magicparlabel-478' />
 <a id="sec_IANA_Considerations" />
 IANA Considerations</h2>
-<div class="standard"><a id='magicparlabel-427' />
+<div class="standard"><a id='magicparlabel-479' />
 TBD (header registrations, ...)</div>
-<h2 class="section"><span class="section_label">9</span> <a id='magicparlabel-428' />
+<h2 class="section"><span class="section_label">9</span> <a id='magicparlabel-480' />
 <a id="sec_Security_Considerations" />
 Security Considerations</h2>
-<div class="standard"><a id='magicparlabel-429' />
+<div class="standard"><a id='magicparlabel-481' />
 This entire document deals with security considerations. [Add more, like about channel binding, same-origin-like constraints on the login and session absolute URIs', ...]</div>
-<h2 class="section"><span class="section_label">10</span> <a id='magicparlabel-430' />
+<h2 class="section"><span class="section_label">10</span> <a id='magicparlabel-482' />
 <a id="sec_TODO" />
 TODO</h2>
-<div class="revisionremark"><a id='magicparlabel-431' />
+<div class="revisionremark"><a id='magicparlabel-483' />
 Add references (to HTTP/2.0, CGI/fCGI, ...).</div>
 
-<div class="revisionremark"><a id='magicparlabel-432' />
-Describe MAC session binding option and replay protection in detail. Describe how to extract keys for MAC keying from SASL/GSS/PACE.</div>
+<div class="revisionremark"><a id='magicparlabel-484' />
+Describe MAC session binding option and replay protection in detail &ndash; or remove it altogether. Describe how to extract keys for MAC keying from SASL/GSS/PACE.</div>
 
-<div class="revisionremark"><a id='magicparlabel-433' />
+<div class="revisionremark"><a id='magicparlabel-485' />
 Figure out how to adapt IKEv2 password-based methods to RESTauth. This may not be worthwhile (since each method tends to depend heavily on the entire IKEv2 framework in ways that add messaging that we'd not need in RESTauth).</div>
 
-<div class="revisionremark"><a id='magicparlabel-434' />
+<div class="revisionremark"><a id='magicparlabel-486' />
 Do we need to distinguish exchanges for authentication from exchanges for authorization? Probably.</div>
-<h2 class="section"><span class="section_label">11</span> <a id='magicparlabel-435' />
+<h2 class="section"><span class="section_label">11</span> <a id='magicparlabel-487' />
 <a id="sec_Normative_References" />
 Normative References</h2>
-<div class="standard"><a id='magicparlabel-436' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-440' />
+<div class="standard"><a id='magicparlabel-488' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-492' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">rfc2119</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-441' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-445' />
+<div class="standard"><a id='magicparlabel-493' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-497' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2616.xml">rfc2616</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-446' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-450' />
+<div class="standard"><a id='magicparlabel-498' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-502' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2617.xml">rfc2617</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-451' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-455' />
+<div class="standard"><a id='magicparlabel-503' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-507' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5246.xml">rfc5246</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-456' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-460' />
+<div class="standard"><a id='magicparlabel-508' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-512' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5056.xml">rfc5056</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-461' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-465' />
+<div class="standard"><a id='magicparlabel-513' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-517' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml">rfc5929</a></div>
 </div></div>
-<h2 class="section"><span class="section_label">12</span> <a id='magicparlabel-466' />
+
+<div class="standard"><a id='magicparlabel-518' />
+<div class="flex_embeddedbibxml"><div class="plain_layout"><a id='magicparlabel-522' />
+&lt;reference anchor='I-D.williams-websec-session-continue-prob'&gt; &lt;front&gt; &lt;title&gt;Hypertext Transport Protocol (HTTP) Session Continuation: Problem Statement&lt;/title&gt; &lt;author initials='N.' surname='Williams' fullname='Nicolas Williams'&gt; &lt;organization /&gt; &lt;/author&gt; &lt;date month='January' day='1' year='2013' /&gt; &lt;abstract&gt;&lt;t&gt;Abstract One of the most often talked about problems in web security is “cookies”. Web cookies are a method of associating requests with “sessions” that may have been authenticated somehow. Cookies are a form of bearer token that leave much to be desired. This document describes the session “continuation” problem for the HyperText Transport Protocol (HTTP).&lt;/t&gt;&lt;/abstract&gt; &lt;/front&gt; &lt;seriesInfo name='Internet-Draft' value='draft-williams-websec-session-continue-prob-00' /&gt; &lt;format type='TXT' target='http://www.ietf.org/internet-drafts/draft-draft-williams-websec-session-continue-prob-00.txt' /&gt; &lt;/reference&gt; </div>
+</div></div>
+
+<div class="standard"><a id='magicparlabel-523' />
+<div class="flex_embeddedbibxml"><div class="plain_layout"><a id='magicparlabel-527' />
+&lt;reference anchor='I-D.williams-websec-session-continue-proto'&gt; &lt;front&gt; &lt;title&gt;Hypertext Transport Protocol (HTTP) Session Continuation Protocol&lt;/title&gt; &lt;author initials='N.' surname='Williams' fullname='Nicolas Williams'&gt; &lt;organization /&gt; &lt;/author&gt; &lt;date month='January' day='1' year='2013' /&gt; &lt;abstract&gt;&lt;t&gt;Abstract One of the most often talked about problems in web security is “cookies”. Web cookies are a method of associating requests with “sessions” that may have been authenticated somehow. Cookies are a form of bearer token that leave much to be desired. This document proposes a session “continuation” protocol for HyperText Transport Protocol (HTTP).&lt;/t&gt;&lt;/abstract&gt; &lt;/front&gt; &lt;seriesInfo name='Internet-Draft' value='draft-williams-websec-session-continue-proto-00' /&gt; &lt;format type='TXT' target='http://www.ietf.org/internet-drafts/draft-draft-williams-websec-session-continue-proto-00.txt' /&gt; &lt;/reference&gt; </div>
+</div></div>
+<h2 class="section"><span class="section_label">12</span> <a id='magicparlabel-528' />
 <a id="sec_Informative_References" />
 Informative References</h2>
-<div class="standard"><a id='magicparlabel-467' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-471' />
+<div class="standard"><a id='magicparlabel-529' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-533' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5849.xml">rfc5849</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-472' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-476' />
+<div class="standard"><a id='magicparlabel-534' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-538' />
 <a href="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.ietf-oauth-v2.xml">I-D.ietf-oauth-v2</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-477' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-481' />
+<div class="standard"><a id='magicparlabel-539' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-543' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4422.xml">rfc4422</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-482' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-486' />
+<div class="standard"><a id='magicparlabel-544' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-548' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5802.xml">rfc5802</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-487' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-491' />
+<div class="standard"><a id='magicparlabel-549' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-553' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml">rfc4252</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-492' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-496' />
+<div class="standard"><a id='magicparlabel-554' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-558' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4559.xml">rfc4559</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-497' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-501' />
+<div class="standard"><a id='magicparlabel-559' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-563' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.6631.xml">rfc6631</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-502' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-506' />
+<div class="standard"><a id='magicparlabel-564' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-568' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2743.xml">rfc2743</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-507' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-511' />
+<div class="standard"><a id='magicparlabel-569' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-573' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.5801.xml">rfc5801</a></div>
 </div></div>
 
-<div class="standard"><a id='magicparlabel-512' />
-<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-516' />
+<div class="standard"><a id='magicparlabel-574' />
+<div class="flex_bibxml"><div class="plain_layout"><a id='magicparlabel-578' />
 <a href="http://xml.resource.org/public/rfc/bibxml/reference.RFC.4121.xml">rfc4121</a></div>
 </div></div>
 </body>

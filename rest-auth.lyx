@@ -7,7 +7,6 @@
 \maintain_unincluded_children false
 \begin_local_layout
 Format 31
-
 InsetLayout Flex:PI_Strict
     LyXType Custom
     HTMLTag div
@@ -78,6 +77,24 @@ InsetLayout Flex:IntendedStatus
     LyXType Custom
     HTMLTag div
     LabelString IntendedStatus
+End
+
+InsetLayout Flex:Updates
+    LyXType Custom
+    HTMLTag div
+    LabelString Updates
+End
+
+InsetLayout Flex:Obsoletes
+    LyXType Custom
+    HTMLTag div
+    LabelString Obsoletes
+End
+
+InsetLayout Flex:SeriesNo
+    LyXType Custom
+    HTMLTag div
+    LabelString SeriesNo
 End
 
 InsetLayout Flex:RFCNumber
@@ -193,6 +210,12 @@ InsetLayout Flex:BibXML
     HTMLTag div
     LabelString BibXML
 End
+
+InsetLayout Flex:EmbeddedBibXML
+    LyXType Custom
+    HTMLTag div
+    LabelString EmbeddedBibXML
+End
 \end_local_layout
 \language english
 \language_package default
@@ -258,7 +281,7 @@ RESTful Authentication Pattern for the Hypertext Transport Protocol (HTTP)
 status open
 
 \begin_layout Plain Layout
-draft-williams-http-rest-auth-04
+draft-ietf-httpauth-rest-auth-00
 \end_layout
 
 \end_inset
@@ -441,7 +464,7 @@ RFC2616
 
 \end_inset
 
- [XXX add reference to HTTP/2.0 as well] authentication mechanisms that,
+ [XXX add reference to HTTP/2.0 as well?] authentication mechanisms that,
  by being 
 \begin_inset Quotes eld
 \end_inset
@@ -471,6 +494,32 @@ HTTP routing
  connection;
 \end_layout
 
+\begin_layout Itemize
+channel binding, or an HTTP session protocol such as 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.williams-websec-session-continue-proto
+\end_layout
+
+\end_inset
+
+ (or any other meeting requirements of HTTP session protocols, described
+ in 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.williams-websec-session-continue-prob
+\end_layout
+
+\end_inset
+
+), can be used instead of web cookies;
+\end_layout
+
+\begin_deeper
 \begin_layout Itemize
 a 
 \begin_inset Quotes eld
@@ -508,6 +557,7 @@ session URI
  results that has better security semantics than HTTP cookies;
 \end_layout
 
+\end_deeper
 \begin_layout Itemize
 the ability to refer to multiple sessions in one request wherever such a
  concept might be useful;
@@ -518,29 +568,40 @@ can be implemented by any application without changes being required to
  any HTTP stack;
 \end_layout
 
+\begin_deeper
 \begin_layout Itemize
-can be implemented by the HTTP stack;
+but it can also be implemented by the HTTP stack;
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+on the server side this can be implemented entirely via CGI, FastCGI, WSGI,
+ servlets, and so on;
 \end_layout
 
 \begin_layout Itemize
-on the server side this can be implemented entirely via CGI and FastCGI;
-\end_layout
-
-\begin_layout Itemize
-by its RESTful nature, multi-legged authentication message exchanges are
- naturally handled without making any changes to HTTP.
+by its RESTful nature, multi-round trip authentication message exchanges
+ are naturally handled without making any changes to HTTP.
 \end_layout
 
 \begin_layout Standard
 There are probably other benefits not listed above.
 \end_layout
 
-\begin_layout Standard
-The rough outline of the protocol is quite simple:
+\begin_layout Subsection
+Protocol Outline
 \end_layout
 
 \begin_layout Enumerate
 initial authentication messages are POSTed to an agreed-upon or indicated
+ 
+\begin_inset Quotes eld
+\end_inset
+
+login
+\begin_inset Quotes erd
+\end_inset
+
  resource...
 \end_layout
 
@@ -551,7 +612,8 @@ initial authentication messages are POSTed to an agreed-upon or indicated
 
 \begin_layout Enumerate
 Thereafter any additional authentication message exchanges needed (for multi-leg
-ged mechanisms) are POSTed to the new resource creating additional resources.
+ged mechanisms) are POSTed to the new resource without creating additional
+ resources.
 \end_layout
 
 \begin_layout Enumerate
@@ -566,35 +628,13 @@ Session URIs can be used to multiplex multiple sessions over the same TCP/TLS
 \end_layout
 
 \begin_layout Standard
-Server-initiated authentication is also possible, whereby the server sends
- a challenge in 401 errors in headers.
- If the server gives the client a choice of mechanisms (multiple WWW-Authenticat
-e header values) and the client picks one where the server sent a challenge,
- then the client consumes that message and POSTs subsequent ones to the
- indicated URI.
+Authentication using mechanisms that require that the server send the first
+ authentication message is also possible, in either of two ways: the initial
+ authentication message is sent in headers in a 401 response, or the client
+ POSTs an empty first message to the login resource.
 \end_layout
 
-\begin_layout Section
-Conventions used in this document
-\end_layout
-
-\begin_layout Standard
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
- "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
- to be interpreted as described in 
-\begin_inset Flex EntityXRef
-status open
-
-\begin_layout Plain Layout
-RFC2119
-\end_layout
-
-\end_inset
-
-.
-\end_layout
-
-\begin_layout Section
+\begin_layout Subsection
 API-Imposed Constraints
 \end_layout
 
@@ -607,7 +647,7 @@ To the extent that existing Application Programming Interfaces (APIs) assume
 
 \begin_layout Standard
 For example, the Android Account Manager API assumes a single round trip
- for authentication.
+ for authentication [XXX add reference!].
  But the Android Account Manager could perform all but the last round trip
  on behalf of the application, then let the application perform the last
  round trip.
@@ -615,17 +655,19 @@ For example, the Android Account Manager API assumes a single round trip
  be orthogonal to TCP/TLS connections -- that is, we need it to be possible
  to use multiple TCP/TLS connections for completing a single authentication
  exchange.
+ This is because the application and the account manager will likely be
+ using different TCP/TLS connections.
 \end_layout
 
 \begin_layout Standard
 A typical constraining characteristic might be that an API assumes the use
- of GET with tokens encoded into the URI, or that the API makes no room
- for the use of headers in authentication message exchanges.
+ of GET with tokens encoded into the URI or into a header, or that the API
+ makes no room for the use of headers in authentication message exchanges.
 \end_layout
 
 \begin_layout Standard
 One way to work around such constraints may be to provide various options
- in this framework.
+ in RESTauth.
  Another might be to use OAuth 1.0 
 \begin_inset Flex EntityXRef
 status open
@@ -652,8 +694,28 @@ I-D.ietf-oauth-v2
 \end_layout
 
 \begin_layout RevisionRemark
-TODO: Add a table/list of various APIs and their characteristics that might
- constrain this framework.
+TODO: Add a table/list of various known APIs and their characteristics that
+ might constrain this and/or other frameworks.
+\end_layout
+
+\begin_layout Section
+Conventions used in this document
+\end_layout
+
+\begin_layout Standard
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
+ "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are
+ to be interpreted as described in 
+\begin_inset Flex EntityXRef
+status open
+
+\begin_layout Plain Layout
+RFC2119
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Section
@@ -667,8 +729,8 @@ Protocol
 \end_layout
 
 \begin_layout Standard
-The are very few normative protocol elements here besides the outline given
- in 
+The are few normative protocol elements here besides the outline given in
+ 
 \begin_inset CommandInset ref
 LatexCommand ref
 reference "sec:Introduction"
@@ -680,7 +742,8 @@ reference "sec:Introduction"
 \end_layout
 
 \begin_layout Itemize
-the form of the WWW-Authenticate header values for RESTauth mechanisms;
+the form of the WWW-Authenticate header values -in 401 responses- for RESTauth
+ mechanisms;
 \end_layout
 
 \begin_layout Itemize
@@ -736,9 +799,23 @@ RFC5246
  for session protection;
 \end_layout
 
+\begin_layout Standard
+And for applications that may not use TLS/HTTPS:
+\end_layout
+
 \begin_layout Itemize
 the use of session keys as an option for integrity protection when TLS is
- not used (a light-weight security mode).
+ not used (a light-weight security mode); see 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+I-D.williams-websec-session-continue-proto
+\end_layout
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection
@@ -758,7 +835,7 @@ As can be seen in the ABNF in the preceding section, the server can offer
 \end_layout
 
 \begin_layout Itemize
-Mechanism names;
+Authentication mechanism names;
 \end_layout
 
 \begin_layout Itemize
@@ -774,10 +851,21 @@ Replay protection;
 \end_layout
 
 \begin_layout Standard
-Each WWW-Authenticate header value offers a single mechanism and negotiable
- parameters for it.
- The WWW-ChannelBinding-Types header allows the server to offer channel
- binding types.
+Each WWW-Authenticate 
+\begin_inset Flex EntityXRef
+status collapsed
+
+\begin_layout Plain Layout
+RFC2617
+\end_layout
+
+\end_inset
+
+ header value offers a single mechanism and negotiable parameters for it;
+ because headers can have multiple values, WWW-Authenticate provides a method
+ for negotiating authentication mechanisms.
+ The WWW-ChannelBinding-Types header (added here) allows the server to list
+ channel binding types supported by it.
 \end_layout
 
 \begin_layout Subsubsection
@@ -834,7 +922,7 @@ status open
 
 \begin_layout Plain Layout
 
-      mechname            = TBD
+      mechname            = 1*( ALPHA / DIGIT / "-" )
 \end_layout
 
 \begin_layout Plain Layout
@@ -864,7 +952,22 @@ status open
 
 \begin_layout Plain Layout
 
-      session-type        = "cookie" / "session-ID" / "MAC"
+      session-type        = "cookie" / "session-ID" /
+\end_layout
+
+\begin_layout Plain Layout
+
+                            "channel-bound-session-ID" /
+\end_layout
+
+\begin_layout Plain Layout
+
+                            "MAC"
+\end_layout
+
+\begin_layout Plain Layout
+
+                            ; new session-types may be added
 \end_layout
 
 \begin_layout Plain Layout
@@ -874,17 +977,7 @@ status open
 
 \begin_layout Plain Layout
 
-      ; TODO: add production for
-\end_layout
-
-\begin_layout Plain Layout
-
-      ;       mech-challenge as a base64 string
-\end_layout
-
-\begin_layout Plain Layout
-
-      ; TODO: add MAC algorithm offers for alg agility?
+      mech-challenge      = <base64 encoded mech-specific data>
 \end_layout
 
 \end_inset
@@ -902,7 +995,7 @@ name "fig:WWW-Authenticate-ABNF"
 
 \end_inset
 
-WWW-Authenticate ABNF
+RESTauth WWW-Authenticate ABNF
 \end_layout
 
 \end_inset
@@ -940,7 +1033,7 @@ gss-krb5
 \end_inset
 
 WWW-Authenticate: RA-gss-krb5 http://foo.example/restauth-login tls-server-end-po
-int session-ID no
+int channel-bound-session-ID r=no
 \begin_inset Quotes erd
 \end_inset
 
@@ -977,8 +1070,8 @@ RFC5056
  types -if any- they support for RESTauth authentication; if the server
  does not support channel binding then this header MUST be absent.
  The header is named WWW-ChannelBinding-Types.
- Its values are channel binding types from the channel binding type registry
- 
+ Its values are channel binding types from the channel binding type registry,
+ such as the TLS channel binding types 
 \begin_inset Flex EntityXRef
 status open
 
@@ -1109,7 +1202,7 @@ RFC5246
 
 \end_inset
 
- is not, and only if a session binding type of 
+ is not used, and only if a session binding type of 
 \begin_inset Quotes eld
 \end_inset
 
@@ -1135,9 +1228,9 @@ RESTauth can be initiated by a client that knows a priori that it needs
  to or wants to use RESTauth.
  Servers can also tell clients that access to certain resources require
  authentication, possibly including RESTauth mechanisms.
- When the server tells the client that it must authenticate, the server
- may also give the client an initial authentication message for one or more
- mechanisms.
+ When the server tells the client that it must authenticate (using a 401
+ response, as usual), the server may also give the client an initial authenticat
+ion message for one or more mechanisms.
 \end_layout
 
 \begin_layout Standard
@@ -1177,7 +1270,7 @@ name "sub:One-Round-Trip"
 
 \end_inset
 
-One Round Trip Optimization: Challenges Born in WWW-Authenticate Headers
+One Round Trip Optimization: Challenges Borne in WWW-Authenticate Headers
 \end_layout
 
 \begin_layout Standard
@@ -1190,19 +1283,19 @@ Some mechanisms may optimize the protocol flow by allowing the server to
 \begin_layout Standard
 RESTauth allows this, but this feature is OPTIONAL: it must always be possible
  for a client to initiate RESTauth without first obtaining a challenge in
- a WWW-Authenticate header value, in which case the client must incur an
+ a WWW-Authenticate header value, in which case the client may incur an
  extra protocol leg by obtaining the challenge (if it is at all necessary)
  in the server's reply to the client's first authentication message.
  There are two reasons for making this optional:
 \end_layout
 
 \begin_layout Enumerate
-to allow client applications that know a priori that they must authenticate,
- requiring no further negotiation;
+to allow client applications that know a priori that they must authenticate
+ (and how to), requiring no further negotiation;
 \end_layout
 
 \begin_layout Enumerate
-to support authentication frameworks that require that the client initiate
+to support authentication mechanisms that require that the client initiate
  authentication message exchanges.
 \end_layout
 
@@ -1221,7 +1314,7 @@ name "sub:Session-Binding-Types:"
 
 \end_inset
 
-Session Binding Types: Cookie, URI, and MAC
+Session Binding Types: Cookie, Session URI, and MAC
 \end_layout
 
 \begin_layout Standard
@@ -1241,6 +1334,27 @@ Session
 
 URI HTTP requests carry a WWW-Session-URI header identifying the session(s)
  (similar to cookies, but without all the associated baggage);
+\end_layout
+
+\begin_layout Description
+Channel
+\begin_inset space ~
+\end_inset
+
+Bound
+\begin_inset space ~
+\end_inset
+
+Session
+\begin_inset space ~
+\end_inset
+
+URI Like Session
+\begin_inset space ~
+\end_inset
+
+URI, but may only be used in HTTPS connections with the same channel bindings.
+ (This implies use of the 'tls-server-end-point' channel binding type.)
 \end_layout
 
 \begin_layout Description
@@ -1302,6 +1416,12 @@ Describe the header, its values, algorithm agility, and what the MAC is
  not a header.
 \end_layout
 
+\begin_layout RevisionRemark
+We may want to remove this anyways and leave it for a session continuation
+ spec.
+ Or we may want to require the use of HTTPS.
+\end_layout
+
 \begin_layout Subsubsection
 \begin_inset CommandInset label
 LatexCommand label
@@ -1318,6 +1438,139 @@ A MAC Trailer??
  be the common mode of use for RESTauth...
  unless we can produce a MAC trailer extension for HTTP/2.0, in which case
  this may well become a common mode of RESTauth usage.
+\end_layout
+
+\begin_layout RevisionRemark
+We may want to remove this anyways and leave it for a session continuation
+ spec.
+ Or we may want to require the use of HTTPS.
+\end_layout
+
+\begin_layout Section
+Representation of Authenticated Session Resources
+\end_layout
+
+\begin_layout Standard
+It will generally be useful to be able to GET a session resource to obtain
+ information about the authenticated user.
+ A GET on a session resource which is not fully established SHOULD return
+ an empty body.
+\end_layout
+
+\begin_layout RevisionRemark
+TODO: Add a media type for session resource representation.
+\end_layout
+
+\begin_layout RevisionRemark
+Use JSON instead of ABNF? A schema language would be nice.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+  session             = 1*( session-param )
+\end_layout
+
+\begin_layout Plain Layout
+
+  session-param       = session-param-name '=' session-param-value
+\end_layout
+
+\begin_layout Plain Layout
+
+  session-param-name  = 1*( ALPHA / DIGIT / '-' / '_' )
+\end_layout
+
+\begin_layout Plain Layout
+
+  session-param-value = <quoted or base64>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Session resource representation ABNF
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Session parameters include:
+\end_layout
+
+\begin_layout Description
+established 
+\begin_inset Quotes eld
+\end_inset
+
+true
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+false
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+expiration_time Datetime when the session expires.
+\end_layout
+
+\begin_layout Description
+session_key_MAC_req Session key for MACs in requests.
+\end_layout
+
+\begin_layout Description
+session_key_MAC_resp Session key for MACs in responses.
+\end_layout
+
+\begin_layout Description
+authorization_data Information about the authenticated user.
+\end_layout
+
+\begin_layout Description
+user_id The authenticated user identity.
+\end_layout
+
+\begin_layout Standard
+The server MAY exclude any part of this when the entity requesting a session
+ resource is the session's user.
+ The server MUST exclude (or respond with 401) all of the session resource's
+ representation when the entity requesting it is not authenticated or authorized
+ to see it.
+ The server SHOULD exclude locally-determined authorization_data and/or
+ user_id information when the entity requesting the resource is the session's
+ user.
 \end_layout
 
 \begin_layout Section
@@ -2455,6 +2708,14 @@ RFC4121
 .
 \end_layout
 
+\begin_layout Standard
+GSS-API security mechanisms could also be used without SASL/GS2, but SASL/GS2
+ barely adds any overhead or complexity (a SASL implementation is not required
+ in order to use SASL/GS2, just a GSS implementation): a simple header is
+ to be prefixed to the initial security context token and to the channel
+ binding data, with both peers always providing channel binding data.
+\end_layout
+
 \begin_layout Section
 \begin_inset CommandInset label
 LatexCommand label
@@ -2500,7 +2761,8 @@ Add references (to HTTP/2.0, CGI/fCGI, ...).
 \end_layout
 
 \begin_layout RevisionRemark
-Describe MAC session binding option and replay protection in detail.
+Describe MAC session binding option and replay protection in detail -- or
+ remove it altogether.
  Describe how to extract keys for MAC keying from SASL/GSS/PACE.
 \end_layout
 
@@ -2639,6 +2901,56 @@ target "http://xml.resource.org/public/rfc/bibxml/reference.RFC.5929.xml"
 \end_inset
 
 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex EmbeddedBibXML
+status collapsed
+
+\begin_layout Plain Layout
+<reference anchor='I-D.williams-websec-session-continue-prob'> <front> <title>Hyp
+ertext Transport Protocol (HTTP) Session Continuation: Problem Statement</title>
+ <author initials='N.' surname='Williams' fullname='Nicolas Williams'> <organizat
+ion /> </author> <date month='January' day='1' year='2013' /> <abstract><t>Abstr
+act One of the most often talked about problems in web security is “cookies”.
+ Web cookies are a method of associating requests with “sessions” that may
+ have been authenticated somehow.
+ Cookies are a form of bearer token that leave much to be desired.
+ This document describes the session “continuation” problem for the HyperText
+ Transport Protocol (HTTP).</t></abstract> </front> <seriesInfo name='Internet-Dr
+aft' value='draft-williams-websec-session-continue-prob-00' /> <format type='TXT
+' target='http://www.ietf.org/internet-drafts/draft-draft-williams-websec-session-
+continue-prob-00.txt' /> </reference> 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Flex EmbeddedBibXML
+status collapsed
+
+\begin_layout Plain Layout
+<reference anchor='I-D.williams-websec-session-continue-proto'> <front> <title>Hy
+pertext Transport Protocol (HTTP) Session Continuation Protocol</title>
+ <author initials='N.' surname='Williams' fullname='Nicolas Williams'> <organizat
+ion /> </author> <date month='January' day='1' year='2013' /> <abstract><t>Abstr
+act One of the most often talked about problems in web security is “cookies”.
+ Web cookies are a method of associating requests with “sessions” that may
+ have been authenticated somehow.
+ Cookies are a form of bearer token that leave much to be desired.
+ This document proposes a session “continuation” protocol for HyperText
+ Transport Protocol (HTTP).</t></abstract> </front> <seriesInfo name='Internet-Dr
+aft' value='draft-williams-websec-session-continue-proto-00' /> <format
+ type='TXT' target='http://www.ietf.org/internet-drafts/draft-draft-williams-webse
+c-session-continue-proto-00.txt' /> </reference> 
 \end_layout
 
 \end_inset
